@@ -47,5 +47,11 @@
 	    <artifactId>jfoenix</artifactId>
 	    <version>9.0.8</version>
 	</dependency>
+	<!-- https://mvnrepository.com/artifact/eu.hansolo/Medusa -->
+	<dependency>
+	    <groupId>eu.hansolo</groupId>
+	    <artifactId>Medusa</artifactId>
+	    <version>8.3</version>
+	</dependency>
   </dependencies>
 </project>
