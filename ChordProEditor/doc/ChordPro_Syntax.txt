@@ -1,0 +1,84 @@
+*https://linkesoft.com/songbook/chordproformat.html
+*https://chord.party/news/chordlive-is-the-new-next-chordpro-format, neues Format geplant!!!
+*https://tenbyten.com/software/songsgen/help/HtmlHelp/files_reference.htm
+*http://guitarbook.igosantos.com/2011/02/02/how-to-make-a-chordpro-file/
+
+Syntax					Beschreibung
+---------------------------------------------------------------------------------------
+{title: ...} or {t: ...}		Song title
+
+{subtitle: ...} or {st: ...}		Song subtitle, typically the artist or composer
+
+{comment: ...} or {c: ...}		A comment, e.g. "Repeat 2x" or "Chorus". Comments are rendered inverse by default.
+
+{soc} or {start_of_chorus}
+... 					Start and end of chorus. Depending on settings, the chorus is marked with line to the left or indented or shaded.
+{eoc} or {end_of_chorus}
+
+{sot} or {start_of tab}
+...					Start and end of a tab. A tab (tablature) section is rendered in a fixed width font. Often used for intros, bridges, solos...
+{eot} or {end_of_tab}
+
+{soh}
+...					Start and end of a highlight marker. Can span multiple lines.
+{eoh}					For colored highlighting (web colors), use {soh #rrggbb}
+
+{define ...}				Used to define a special chord diagram for this song only. The chord format is <chord name>: <base fret> <string 6> ...<string 1>
+					Base fret is usually 0.
+
+{guitar_comment: string} or {gc:string}	This comment will only be printed if chords are also printed.
+
+{new_song} or {ns}			Marks the beginning of a new song. Not recommended.
+
+{new_physical_page} or {npp}		This directive will always force a physical page break. It has no effect in the Text and HTML File output destinations.
+
+{column_break} or {colb}		This directive will force a column break in the Flowing Columns printing modes.
+
+#					Lines starting with # will be ignored and are not displayed.
+
+[chord]					Displays chord over the word right to the brackets. 
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+Songsheet-Generator
+-----------------------------------------------------------------------------------------------------
+{data_abc: xyz} or {d_abc:xyz}		Data key and value; abc is the key, xyz is its value.
+
+{footer: xyz} or {f:xyz}		Footer override for the current song.
+
+{key: xyz} or {k:xyz}			Key the chart is written in; xyz is a valid key; transposition will apply.
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+Songbook
+-----------------------------------------------------------------------------------------------------
+{time: mm:ss}				Total playing time of song (including last page), used for auto-scrolling independent of zoom-factor.
+
+{pause: ...}				If this line reaches the top of the screen, auto-scrolling will pause for the specified number of seconds (also works on beginning of song)
+
+{metronome: ...}			(iOS/Android only) Defines the metronome tempo for this song (beats per minute).
+
+{key: ...}				Key of the current song, used e.g. for transposition or NNS conversion. If not set, SongBook uses the first [chord] in the song as key.
+
+{capo: ...}				Indicates usage of a capo. All song chords are transposed down by the given capo value.
+
+{zoom: ...}				Zoom size for current song. Device-specific as zoom-iphone, zoom-ipad, zoom-android. 1 is original size (depending on font preferences).
+					Use Save Zoom to save the currently used zoom factor in the song.
+
+{tag: ...}				An arbitrary tag for a song (e.g. *** for favorites, or In Progress). A song can be marked with several tags. Songs can be filtered by tags.
+
+{instrument: ...}			(iOS/Android/Mac only) Use the specified instrument only for this song. For chord look up and chord bar display. SongBook will switch back to the default instrument when you change to another song.
+
+{tuning: ...}				(iOS/Android only) Song-specific tuning (use together with {instrument: ...})
+
+{musicpath: ...}			Path to a music (MP3) file which can be played with the song. SongBook will search for the given file name in the main song folder.
+
+{new_page}				(Mac only) Insert a page break when printing the song.
+
+{c-<user>:...}				(iOS/Android/Mac only) User specific comment. This comment will only be displayed if the given user matches the user set in settings or the currently set instrument.
+
+{define-<instrument>...}		(iOS/Android/Mac only) Instrument-specific chord definition.
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+Guitarbook
+-------------------------------------------------------------------------------------------------------
+{tags:X}				This directive defines the song tags, separated by comma.
+
