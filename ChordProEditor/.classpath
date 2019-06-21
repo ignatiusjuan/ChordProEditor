@@ -23,7 +23,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Eclipse-Workspace/ChordProEditor/src/main/resources/Prototyping/dropbox-core-sdk-3.0.11.jar"/>
-	<classpathentry kind="lib" path="D:/Eclipse-Workspace/ChordProEditor/src/main/resources/Prototyping/jackson-core-2.7.4.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/Prototyping/dropbox-core-sdk-3.0.11.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/Prototyping/jackson-core-2.7.4.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
