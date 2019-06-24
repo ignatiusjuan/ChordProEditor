@@ -1,0 +1,28 @@
+#anchorPane {
+	-fx-background-color : linear-gradient(to right bottom,#FFFFFF,#0101DF,#FFFFFF);
+}
+#btnTitle:hover {
+	-fx-background-color: #2E64FE;
+}
+
+#btnArtist:hover {
+	-fx-background-color: #2E64FE;
+}
+
+#btnTags:hover {
+	-fx-background-color: #2E64FE;
+}
+
+#Speichern:hover {
+	-fx-background-color: #2E64FE;
+}
+#MenuBar{
+	-fx-background-color: #FFFFFF;
+} 
+
+#TextFieldCapo{
+	-fx-background-color: #000;
+}
+#label{
+	-fx-background-color: #000;
+}
