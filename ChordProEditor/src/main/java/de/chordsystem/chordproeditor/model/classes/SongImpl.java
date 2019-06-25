@@ -1,8 +1,12 @@
 package de.chordsystem.chordproeditor.model.classes;
 
-import de.chordsystem.chordproeditor.model.interfaces.Song;
+import de.chordsystem.chordproeditor.model.interfaces.*;
+import de.chordsystem.chordproeditor.model.abstracts.*;
 
-public class SongImpl implements Song {
+import java.util.List;
+import java.util.ArrayList;
+
+public class SongImpl implements Song{
 	
 	private String title;
 	private String subtitle;
@@ -18,6 +22,9 @@ public class SongImpl implements Song {
 	private int duration;
 	private int capo;
 	private String meta;
+	
+	private List<EnvironmentAbstract> environmentList;
+	private int currentEnvironment;
 	
 	public SongImpl() {
 		super();
@@ -35,180 +42,280 @@ public class SongImpl implements Song {
 		this.duration = 0;
 		this.capo = 0;
 		this.meta = "";
+		this.environmentList = new ArrayList<EnvironmentAbstract>();
+		this.currentEnvironment = -1;
 	}
 	/**
 	 * @return the title
 	 */
+	@Override
 	public String getTitle() {
 		return title;
 	}
 	/**
 	 * @param title the title to set
 	 */
+	@Override
 	public void setTitle(String title) {
 		this.title = title;
 	}
 	/**
 	 * @return the subtitle
 	 */
+	@Override
 	public String getSubtitle() {
 		return subtitle;
 	}
 	/**
 	 * @param subtitle the subtitle to set
 	 */
+	@Override
 	public void setSubtitle(String subtitle) {
 		this.subtitle = subtitle;
 	}
 	/**
 	 * @return the artist
 	 */
+	@Override
 	public String getArtist() {
 		return artist;
 	}
 	/**
 	 * @param artist the artist to set
 	 */
+	@Override
 	public void setArtist(String artist) {
 		this.artist = artist;
 	}
 	/**
 	 * @return the composer
 	 */
+	@Override
 	public String getComposer() {
 		return composer;
 	}
 	/**
 	 * @param composer the composer to set
 	 */
+	@Override
 	public void setComposer(String composer) {
 		this.composer = composer;
 	}
 	/**
 	 * @return the lyricist
 	 */
+	@Override
 	public String getLyricist() {
 		return lyricist;
 	}
 	/**
 	 * @param lyricist the lyricist to set
 	 */
+	@Override
 	public void setLyricist(String lyricist) {
 		this.lyricist = lyricist;
 	}
 	/**
 	 * @return the copyright
 	 */
+	@Override
 	public String getCopyright() {
 		return copyright;
 	}
 	/**
 	 * @param copyright the copyright to set
 	 */
+	@Override
 	public void setCopyright(String copyright) {
 		this.copyright = copyright;
 	}
 	/**
 	 * @return the album
 	 */
+	@Override
 	public String getAlbum() {
 		return album;
 	}
 	/**
 	 * @param album the album to set
 	 */
+	@Override
 	public void setAlbum(String album) {
 		this.album = album;
 	}
 	/**
 	 * @return the year
 	 */
+	@Override
 	public int getYear() {
 		return year;
 	}
 	/**
 	 * @param year the year to set
 	 */
+	@Override
 	public void setYear(int year) {
 		this.year = year;
 	}
 	/**
 	 * @return the key
 	 */
+	@Override
 	public String getKey() {
 		return key;
 	}
 	/**
 	 * @param key the key to set
 	 */
+	@Override
 	public void setKey(String key) {
 		this.key = key;
 	}
 	/**
 	 * @return the time
 	 */
+	@Override
 	public String getTime() {
 		return time;
 	}
 	/**
 	 * @param time the time to set
 	 */
+	@Override
 	public void setTime(String time) {
 		this.time = time;
 	}
 	/**
 	 * @return the tempo
 	 */
+	@Override
 	public int getTempo() {
 		return tempo;
 	}
 	/**
 	 * @param tempo the tempo to set
 	 */
+	@Override
 	public void setTempo(int tempo) {
 		this.tempo = tempo;
 	}
 	/**
 	 * @return the duration
 	 */
+	@Override
 	public int getDuration() {
 		return duration;
 	}
 	/**
 	 * @param duration the duration to set
 	 */
+	@Override
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
 	/**
 	 * @return the capo
 	 */
+	@Override
 	public int getCapo() {
 		return capo;
 	}
 	/**
 	 * @param capo the capo to set
 	 */
+	@Override
 	public void setCapo(int capo) {
 		this.capo = capo;
 	}
 	/**
 	 * @return the meta
 	 */
+	@Override
 	public String getMeta() {
 		return meta;
 	}
 	/**
 	 * @param meta the meta to set
 	 */
+	@Override
 	public void setMeta(String meta) {
 		this.meta = meta;
 	}
+	/**
+	 * @return the xth environment
+	 */
+	@Override
+	public EnvironmentAbstract getEnvironment(int x) {
+		return environmentList.get(x);
+	}
+	/**
+	 * @return the environment size
+	 */
+	@Override
+	public int getEnvironmentSize() {
+		return environmentList.size();
+	}
+	/**
+	 * @param environment the environment to add
+	 */
+	@Override
+	public void addEnvironment(EnvironmentAbstract environment) {
+		environmentList.add(environment);
+	}
+	/**
+	 * @return the currentEnvironment
+	 */
+	@Override
+	public int getCurrentEnvironment() {
+		return currentEnvironment;
+	}
+	/**
+	 * @param currentEnvironment the currentEnvironment to set
+	 */
+	@Override
+	public void setCurrentEnvironment(int currentEnvironment) {
+		this.currentEnvironment = currentEnvironment;
+	}
+	
 	@Override
 	public String toString() {
-		return String.format(
-				"SongImpl [title=%s, subtitle=%s, artist=%s, composer=%s, lyricist=%s, copyright=%s, album=%s, year=%s, key=%s, time=%s, tempo=%s, duration=%s, capo=%s, meta=%s]",
-				title, subtitle, artist, composer, lyricist, copyright, album, year, key, time, tempo, duration, capo, meta);
+		StringBuffer sb = new StringBuffer();
+		
+		if (title.length() > 0) 
+			sb.append("Title: " + title + "\n");
+		if (subtitle.length() > 0)
+			sb.append("Subtitle: " + subtitle + "\n");
+		if (artist.length() > 0)
+			sb.append("Artist: " + artist + "\n");
+		if (composer.length() > 0)
+			sb.append("Composer: " + composer + "\n");
+		if (lyricist.length() > 0)
+			sb.append("Lyricist: " + lyricist + "\n");
+		if (copyright.length() > 0)
+			sb.append("Copyright: " + copyright + "\n");
+		if (album.length() > 0)
+			sb.append("Album: " + album + "\n");
+		if (year > 0)
+			sb.append("Year: " + year + "\n");
+		if (key.length() > 0)
+			sb.append("Key: " + key + "\n");
+		if (time.length() > 0)
+			sb.append("Time: " + time + "\n");
+		if (tempo > 0)
+			sb.append("Tempo: " + tempo + "\n");
+		if (duration > 0)
+			sb.append("Duration: " + duration + "seconds\n");
+		if (capo > 0)
+			sb.append("Capo: " + capo + "\n");
+		if (meta.length() > 0)
+			sb.append("Meta: " + meta + "\n");
+		
+		for (EnvironmentAbstract ea : environmentList) {
+			sb.append("\n");
+			sb.append(ea.toString());
+		}
+		
+		return sb.toString();
 	}
 
 }
