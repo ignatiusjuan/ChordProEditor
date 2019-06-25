@@ -86,6 +86,29 @@ public class RegEx {
 	
 	public ChordLyric tryParseChordLyric(String toParse) {
 		ChordLyric cl = new ChordLyricImpl();
+		
+		StringBuffer chord = new StringBuffer();
+		StringBuffer lyric = new StringBuffer();
+		
+		boolean isChord = false;
+		
+		for (int i = 0; i < toParse.length(); i++) {
+			char c = toParse.charAt(i);
+			if (c == '[' || c == ']') {
+				isChord = !isChord;
+			} else {
+				if (isChord) {
+					chord.append(c);
+				} else {
+					chord.append(' ');
+					lyric.append(c);
+				}
+			}
+		}
+		
+		cl.setChord(chord.toString());
+		cl.setLyric(lyric.toString());
+		
 		return cl;
 	}
 	
@@ -182,18 +205,23 @@ public class RegEx {
 		} else if (Pattern.compile(regexEndofGrid).matcher(toMatch).find()) {
 			song.setCurrentEnvironment(-1);
 		
-		} else if (Pattern.compile(regexChordLyric).matcher(toMatch).find() && song.getEnvironment(song.getCurrentEnvironment()).getType() < 2){
-			if (song.getEnvironment(song.getCurrentEnvironment()).getType() == 0) {
+		} else if (Pattern.compile(regexChordLyric).matcher(toMatch).find() && (false || song.getEnvironment(song.getCurrentEnvironment()).getType() <= EnvironmentAbstract.VERSE && song.getEnvironment(song.getCurrentEnvironment()).getType() >= 0)) {
+			if (song.getCurrentEnvironment() == -1) {
+				song.setCurrentEnvironment(song.getEnvironmentSize());
+			}
+			
+			if (song.getEnvironment(song.getCurrentEnvironment()).getType() == EnvironmentAbstract.CHORUS) {
 				Chorus temp = (Chorus)song.getEnvironment(song.getCurrentEnvironment());
 				temp.addChordLyric(tryParseChordLyric(toMatch));
-			} else if (song.getEnvironment(song.getCurrentEnvironment()).getType() == 1) {
+			} else if (song.getEnvironment(song.getCurrentEnvironment()).getType() == EnvironmentAbstract.VERSE) {
 				Verse temp = (Verse)song.getEnvironment(song.getCurrentEnvironment());
-				temp.addChordLyric(tryParseChordLyric(toMatch));
+				temp.addChordLyric(tryParseChordLyric(toMatch.trim()));
 			}
 		} else {
-			//System.out.println(toMatch);
+			System.out.println("Parse error: " + toMatch);
 			//later --> else = error
 		}
+		//System.out.println(toMatch);
 		/*else if (Pattern.compile(regexTitle).matcher(toMatch).find()) {
 			Matcher m = Pattern.compile(regexTitle).matcher(toMatch);
 			m.find();
@@ -201,18 +229,11 @@ public class RegEx {
 		}*/
 	}
 	
-	/*public void start() {
-		String[] results = check("{tempo: 150}");
-		for (String i : results)
-			if (i != null)
-				System.out.println(i);
-			else
-				break;
-	}*/
-	
-	public void start2() {
+	public void start() {
 		//System.out.println("Working Directory = " + System.getProperty("user.dir"));
+		//File file = new File(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "Heaven.chordpro");
 		File file = new File(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "10000 Reasons.chordpro");
+		
 		try
 		{
 			BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -222,9 +243,8 @@ public class RegEx {
 			while ((line = reader.readLine()) != null)
 			{
 				if (line.trim().length() > 0 && !line.trim().isEmpty())
-					tryParseLine(line,song);
+					tryParseLine(line.trim(),song);
 			}
-			System.out.println("_____________________________________________");
 			System.out.println(song.toString());
 			reader.close();
 		}
@@ -238,7 +258,6 @@ public class RegEx {
 
 	public static void main(String[] args) {
 		RegEx regex = new RegEx();
-		//regex.start();
-		regex.start2();
+		regex.start();
 	}
 }
