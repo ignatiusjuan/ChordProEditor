@@ -1,4 +1,4 @@
-package de.chordsystem.Controller;
+package de.chordsystem.chordproeditor.view.javafx.controllers;
 
 import java.net.URL;
 import java.time.LocalDateTime;

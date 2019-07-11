@@ -253,7 +253,6 @@ public class RegEx {
 			System.err.format("Exception occurred trying to read '%s'.", file);
 			e.printStackTrace();
 		}
-		
 	}
 
 	public static void main(String[] args) {

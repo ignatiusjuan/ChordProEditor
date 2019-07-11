@@ -1,4 +1,4 @@
-package de.chordsystem.Controller;
+package de.chordsystem.chordproeditor.view.javafx.controllers;
 
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;

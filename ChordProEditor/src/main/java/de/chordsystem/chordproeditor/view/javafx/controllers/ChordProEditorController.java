@@ -1,4 +1,4 @@
-package de.chordsystem.Controller;
+package de.chordsystem.chordproeditor.view.javafx.controllers;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuButton;
