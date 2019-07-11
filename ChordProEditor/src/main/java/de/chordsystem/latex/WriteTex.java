@@ -1,4 +1,5 @@
-package buildingLaTeX;
+package de.chordsystem.latex;
+
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -11,7 +12,7 @@ import de.chordsystem.chordproeditor.model.interfaces.Song;
 
 public class WriteTex {
 	
-	public static boolean writeTex(Song song) throws IOException
+	public static void writeTex(Song song) throws IOException
 	{
 		FileWriter tex = createTexDokument(song.getTitle());
 		BufferedWriter bw = new BufferedWriter(tex);
@@ -28,16 +29,15 @@ public class WriteTex {
 		bw.write("\\maketitle");
 		bw.newLine();
 		//TODO
-		writeLyrics(bw);
+		writeLyrics(song, bw);
 		//TODO
 		bw.write("\\end{document}");
 		bw.newLine();
 		bw.close();
-		return true;
 	}
 	
-	private static boolean writeLyrics(BufferedWriter bw) {
-		
+	private static boolean writeLyrics(Song song, BufferedWriter bw) {
+		//TODO
 		return false;
 	}
 	
