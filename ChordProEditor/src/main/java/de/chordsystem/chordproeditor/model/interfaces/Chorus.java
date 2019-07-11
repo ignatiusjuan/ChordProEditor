@@ -5,5 +5,7 @@ public interface Chorus {
 	void addChordLyric(ChordLyric cl);
 
 	ChordLyric getChordLyric(int line);
+	
+	int getChordLyricSize();
 
 }

@@ -5,7 +5,8 @@ package de.chordsystem.latex;
 
 import java.io.IOException;
 
-import de.chordsystem.chordproeditor.model.interfaces.Song;
+import de.chordsystem.chordproeditor.model.interfaces.*;
+import de.chordsystem.chordproeditor.model.abstracts.EnvironmentAbstract;
 
 /**
  * @author shineglurak
@@ -16,7 +17,14 @@ public class GeneratePDF {
 	public static boolean generatePDF(Song song) {
 		try {
 			WriteTex.writeTex(song);
-			song.getEnvironment(song.getCurrentEnvironment());
+			if (song.getEnvironment(song.getCurrentEnvironment()).getType() == EnvironmentAbstract.CHORUS) {
+				Chorus chorus = (Chorus)song.getEnvironment(song.getCurrentEnvironment());
+				for (int i = 0; i < chorus.getChordLyricSize(); i++) {
+					ChordLyric cl = chorus.getChordLyric(i);
+					System.out.println(cl.getChord());
+					System.out.println(cl.getLyric());
+				}
+			}
 		}catch(IOException e) {
 			
 		}
