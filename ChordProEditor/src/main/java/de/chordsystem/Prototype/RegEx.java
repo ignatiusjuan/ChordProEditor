@@ -27,7 +27,7 @@ public class RegEx {
 	private static final String regexDuration 		= "^\\s*\\{\\s*duration\\s*:\\s*(?<minute>\\d*?)\\s*:\\s*(?<second>\\d*?)\\s*\\}\\s*$";
 	private static final String regexCapo 			= "^\\s*\\{\\s*capo\\s*:\\s*(?<capo>\\d*?)\\s*\\}\\s*$";
 	private static final String regexMeta 			= "^\\s*\\{\\s*meta\\s*:\\s*(.*?)\\s*\\}\\s*$";
-	
+
 	private static final String regexStartofChorus	= "^\\s*\\{\\s*start_of_chorus\\s*:\\s*(.*?)\\s*\\}\\s*$";
 	private static final String regexEndofChorus	= "^\\s*\\{\\s*end_of_chorus\\s*\\}\\s*$";
 	private static final String regexStartofVerse	= "^\\s*\\{\\s*start_of_verse\\s*:\\s*(.*?)\\s*\\}\\s*$";

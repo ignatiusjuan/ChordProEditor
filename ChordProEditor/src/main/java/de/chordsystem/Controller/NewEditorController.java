@@ -25,6 +25,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 
+
+/**
+ * 
+ * @author engin
+ *
+ */
 public class NewEditorController implements Initializable {
 	ObservableList list = FXCollections.observableArrayList();
 	
@@ -77,6 +83,9 @@ public class NewEditorController implements Initializable {
     @FXML
     private Label lblDateTime;
     
+    @FXML
+    private JFXButton btnWriteTex;
+    
     
     
     
@@ -125,11 +134,16 @@ public class NewEditorController implements Initializable {
     public Label getlblDateTime() {
     	return lblDateTime;
     }
+    public JFXButton getbtnWriteTex() {
+    	return btnWriteTex;
+    }
+    
     
 
 	public void initialize(URL location, ResourceBundle resources) {
 		loadData();
-		
+		showTime();
+		//TextArea.setOnAction(this::onEnterSong);
 	}
 		
 	private void loadData() {
@@ -142,7 +156,10 @@ public class NewEditorController implements Initializable {
 		SongList.getItems().addAll(list);
 	}
 	
-
+	/**
+	 * Methode um die Aktuelle Uhrzeit mit Sekundentakt in dem 
+	 * Fenster auszugeben
+	 */
     private void showTime() {
     	Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -152,6 +169,11 @@ public class NewEditorController implements Initializable {
         clock.play();
     }
     
+    
+    /**
+     * Methode um einen Song aus der SongListe auszuwählen 
+     * @param event
+     */
     @FXML
     void displaySelected(MouseEvent event) {
     	String song = SongList.getSelectionModel().getSelectedItem();

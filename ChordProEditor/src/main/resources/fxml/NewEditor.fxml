@@ -134,5 +134,10 @@
             <Font name="Gabriola" size="18.0" />
          </font>
       </Label>
+      <JFXButton fx:id="btnWriteTex" layoutX="903.0" layoutY="630.0" prefHeight="37.0" prefWidth="104.0" text="WriteTex">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>
