@@ -17,12 +17,14 @@ public class GeneratePDF {
 	public static boolean generatePDF(Song song) {
 		try {
 			WriteTex.writeTex(song);
-			if (song.getEnvironment(song.getCurrentEnvironment()).getType() == EnvironmentAbstract.CHORUS) {
-				Chorus chorus = (Chorus)song.getEnvironment(song.getCurrentEnvironment());
-				for (int i = 0; i < chorus.getChordLyricSize(); i++) {
-					ChordLyric cl = chorus.getChordLyric(i);
-					System.out.println(cl.getChord());
-					System.out.println(cl.getLyric());
+			for (int j = 0; j < song.getEnvironmentSize(); j++) {
+				if (song.getEnvironment(j).getType() == EnvironmentAbstract.CHORUS) {
+					Chorus chorus = (Chorus)song.getEnvironment(j);
+					for (int i = 0; i < chorus.getChordLyricSize(); i++) {
+						ChordLyric cl = chorus.getChordLyric(i);
+						System.out.println(cl.getChord());
+						System.out.println(cl.getLyric());
+					}
 				}
 			}
 		}catch(IOException e) {

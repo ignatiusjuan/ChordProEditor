@@ -245,7 +245,17 @@ public class RegEx {
 				if (line.trim().length() > 0 && !line.trim().isEmpty())
 					tryParseLine(line.trim(),song);
 			}
-			System.out.println(song.toString());
+			//System.out.println(song.toString());
+			for (int j = 0; j < song.getEnvironmentSize(); j++) {
+				if (song.getEnvironment(j).getType() == EnvironmentAbstract.CHORUS) {
+					Chorus chorus = (Chorus)song.getEnvironment(j);
+					for (int i = 0; i < chorus.getChordLyricSize(); i++) {
+						ChordLyric cl = chorus.getChordLyric(i);
+						System.out.println(cl.getChord());
+						System.out.println(cl.getLyric());
+					}
+				}
+			}
 			reader.close();
 		}
 		catch (Exception e)
