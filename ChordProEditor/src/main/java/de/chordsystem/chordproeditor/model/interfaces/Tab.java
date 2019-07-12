@@ -5,5 +5,7 @@ public interface Tab {
 	void addTab(String tab);
 
 	String getTab(int line);
+	
+	public int getTabListSize();
 
 }

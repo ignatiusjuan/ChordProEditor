@@ -6,4 +6,6 @@ public interface Verse {
 
 	ChordLyric getChordLyric(int line);
 
+	int getChordLyricSize();
+
 }

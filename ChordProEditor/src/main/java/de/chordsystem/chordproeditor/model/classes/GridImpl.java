@@ -30,6 +30,10 @@ public class GridImpl extends EnvironmentAbstract implements Grid{
 		return gridList.get(line);
 	}
 	
+	public int getGridListSize() {
+		return gridList.size();
+	}
+	
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();

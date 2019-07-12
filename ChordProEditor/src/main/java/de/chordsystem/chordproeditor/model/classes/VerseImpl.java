@@ -31,6 +31,10 @@ public class VerseImpl extends EnvironmentAbstract implements Verse{
 		return chordlyricList.get(line);
 	}
 	
+	public int getChordLyricSize() {
+		return chordlyricList.size();
+	}
+	
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();

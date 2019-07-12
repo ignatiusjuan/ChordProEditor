@@ -30,6 +30,10 @@ public class TabImpl extends EnvironmentAbstract implements Tab{
 		return tabList.get(line);
 	}
 	
+	public int getTabListSize() {
+		return tabList.size();
+	}
+	
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();

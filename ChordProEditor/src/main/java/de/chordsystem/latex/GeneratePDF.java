@@ -6,7 +6,6 @@ package de.chordsystem.latex;
 import java.io.IOException;
 
 import de.chordsystem.chordproeditor.model.interfaces.*;
-import de.chordsystem.chordproeditor.model.abstracts.EnvironmentAbstract;
 
 /**
  * @author shineglurak
@@ -14,39 +13,41 @@ import de.chordsystem.chordproeditor.model.abstracts.EnvironmentAbstract;
  */
 public class GeneratePDF {
 	
+	/***
+	 * Start the routine for the .tex file an handels the IOExceptions which could appear.
+	 * Calls at the makeClean().
+	 * @param song
+	 * @return true if was succesfull else false
+	 */
 	public static boolean generatePDF(Song song) {
 		try {
 			WriteTex.writeTex(song);
-			for (int j = 0; j < song.getEnvironmentSize(); j++) {
-				if (song.getEnvironment(j).getType() == EnvironmentAbstract.CHORUS) {
-					Chorus chorus = (Chorus)song.getEnvironment(j);
-					for (int i = 0; i < chorus.getChordLyricSize(); i++) {
-						ChordLyric cl = chorus.getChordLyric(i);
-						System.out.println(cl.getChord());
-						System.out.println(cl.getLyric());
-					}
-				}
-			}
 		}catch(IOException e) {
-			
+			return false;
 		}
+		callLatex(song);
 		makeClean(song);
-		return false;
+		return true;
 	}
 	
-	public void callLatex(Song song) {
+	/***
+	 * Calls the LaTeX compiler to generate the pdf
+	 * @param song
+	 */
+	public static void callLatex(Song song) {
 		String title = song.getTitle();
-		/*
 		try{
 			Runtime rt = Runtime.getRuntime();
-			rt.exec("mkdir Test");
+			rt.exec("pdflatex "+title+".tex");
 		}catch(Exception e){
 			System.out.println("Exception");
 		}
-		 */
-		
 	}
 	
+	/***
+	 * Delete the files, that are not needed at the end.
+	 * @param song
+	 */
 	private static void makeClean(Song song) {
 		//TODO move pdf elsewhere, delete the rest
 	}

@@ -5,5 +5,7 @@ public interface Grid {
 	void addGrid(String grid);
 
 	String getGrid(int line);
+	
+	public int getGridListSize();
 
 }
