@@ -34,7 +34,7 @@ public class GeneratePDF {
 	 * Calls the LaTeX compiler to generate the pdf
 	 * @param song
 	 */
-	public static void callLatex(Song song) {
+	private static void callLatex(Song song) {
 		String title = song.getTitle();
 		try{
 			Runtime rt = Runtime.getRuntime();

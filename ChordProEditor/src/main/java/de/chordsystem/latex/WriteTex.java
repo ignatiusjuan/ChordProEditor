@@ -175,23 +175,70 @@ public class WriteTex {
 		bw.newLine();
 	}
 	
-	private static void writeNull(Song song, int j, BufferedWriter bw, boolean newEnv) {
+	private static void writeNull(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException
+	{
 		// TODO Auto-generated method stub
+		if(newEnv == true) {
+			bw.write("\noindent");
+			bw.write("\textbf{Null:"+song.getEnvironment(env).getTitle()+"}");
+			bw.newLine();
+			bw.newLine();
+		}
+		bw.write("\noindent");
+		bw.write(song.getEnvironment(env).getLyric());
+		bw.newLine();
+		bw.newLine();
 		
 	}
 
-	private static void writeOther(Song song, int j, BufferedWriter bw, boolean newEnv) {
+	private static void writeOther(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException
+	{
 		// TODO Auto-generated method stub
-		
+		if(newEnv == true) {
+			bw.write("\noindent");
+			bw.write("\textbf{Other:"+song.getEnvironment(env).getTitle()+"}");
+			bw.newLine();
+			bw.newLine();
+		}
+		bw.write("\noindent");
+		bw.write(song.getEnvironment(env).getLyric());
+		bw.newLine();
+		bw.newLine();
 	}
 
-	private static void writeComment(Song song, int j, BufferedWriter bw, boolean newEnv) {
-		// TODO Auto-generated method stub
-		
+	private static void writeComment(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException
+	{
+		//TODO Box
+		if(newEnv == true) {
+			if(song.getEnvironment(env).getCommentIsItalic()==true) {
+				bw.write("\textit{");
+			}
+			bw.write("\noindent");
+			bw.write("\textbf{Comment:"+song.getEnvironment(env).getTitle()+"}");
+			bw.newLine();
+			bw.newLine();
+		}
+		bw.write("\noindent");
+		bw.write(song.getEnvironment(env).getLyric());
+		bw.newLine();
+		bw.newLine();
+		if(newEnv == true) {
+			bw.write("}");
+		}
 	}
 
-	private static void writeInstruction(Song song, int j, BufferedWriter bw, boolean newEnv) {
+	private static void writeInstruction(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException 
+	{
 		// TODO Auto-generated method stub
-		
+		if(newEnv == true) {
+			bw.write("\noindent");
+			bw.write("\textbf{Instruction:"+song.getEnvironment(env).getTitle()+"}");
+			bw.newLine();
+			bw.newLine();
+		}
+		bw.write("\noindent");
+		bw.write(song.getEnvironment(env).getLyric());
+		bw.newLine();
+		bw.newLine();
 	}
 }
