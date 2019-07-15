@@ -1,6 +1,7 @@
 package de.chordsystem.chordproeditor.model.classes;
 
 import de.chordsystem.chordproeditor.model.interfaces.*;
+import de.chordsystem.chordproeditor.model.classes.*;
 import de.chordsystem.chordproeditor.model.abstracts.*;
 
 import java.util.List;
@@ -23,8 +24,7 @@ public class SongImpl implements Song{
 	private int capo;
 	private String meta;
 	
-	private List<EnvironmentAbstract> environmentList;
-	private int currentEnvironment;
+	private List<Environment> environmentList;
 	
 	public SongImpl() {
 		super();
@@ -42,8 +42,7 @@ public class SongImpl implements Song{
 		this.duration = 0;
 		this.capo = 0;
 		this.meta = "";
-		this.environmentList = new ArrayList<EnvironmentAbstract>();
-		this.currentEnvironment = -1;
+		this.environmentList = new ArrayList<Environment>();
 	}
 	/**
 	 * @return the title
@@ -245,7 +244,7 @@ public class SongImpl implements Song{
 	 * @return the xth environment
 	 */
 	@Override
-	public EnvironmentAbstract getEnvironment(int x) {
+	public Environment getEnvironment(int x) {
 		return environmentList.get(x);
 	}
 	/**
@@ -259,22 +258,8 @@ public class SongImpl implements Song{
 	 * @param environment the environment to add
 	 */
 	@Override
-	public void addEnvironment(EnvironmentAbstract environment) {
+	public void addEnvironment(Environment environment) {
 		environmentList.add(environment);
-	}
-	/**
-	 * @return the currentEnvironment
-	 */
-	@Override
-	public int getCurrentEnvironment() {
-		return currentEnvironment;
-	}
-	/**
-	 * @param currentEnvironment the currentEnvironment to set
-	 */
-	@Override
-	public void setCurrentEnvironment(int currentEnvironment) {
-		this.currentEnvironment = currentEnvironment;
 	}
 	
 	@Override
@@ -310,9 +295,25 @@ public class SongImpl implements Song{
 		if (meta.length() > 0)
 			sb.append("Meta: " + meta + "\n");
 		
-		for (EnvironmentAbstract ea : environmentList) {
-			sb.append("\n");
-			sb.append(ea.toString());
+		String lastTitle = "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@";
+		int lastType = EnvironmentImpl.TYPE_NULL;
+		
+		for (Environment env : environmentList) {
+			if (!(lastType == env.getType() && lastTitle.equals(env.getTitle()))){
+				sb.append("\n");
+				if (env.getType() == EnvironmentImpl.TYPE_CHORUS)
+					sb.append("Chorus: " + env.getTitle());
+				else if (env.getType() == EnvironmentImpl.TYPE_VERSE)
+					sb.append("Verse: " + env.getTitle());
+				else if (env.getType() == EnvironmentImpl.TYPE_TAB)
+					sb.append("Tab: " + env.getTitle());
+				else if (env.getType() == EnvironmentImpl.TYPE_GRID)
+					sb.append("Grid: " + env.getTitle());
+				sb.append("\n");
+				lastTitle = env.getTitle();
+				lastType = env.getType();
+			}
+			sb.append(env.toString());
 		}
 		
 		return sb.toString();

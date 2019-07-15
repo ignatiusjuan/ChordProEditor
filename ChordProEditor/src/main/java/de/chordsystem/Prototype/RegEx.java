@@ -1,6 +1,5 @@
 package de.chordsystem.Prototype;
 
-import de.chordsystem.chordproeditor.model.abstracts.EnvironmentAbstract;
 import de.chordsystem.chordproeditor.model.classes.*;
 import de.chordsystem.chordproeditor.model.interfaces.*;
 
@@ -13,8 +12,10 @@ import java.io.BufferedReader;
 
 public class RegEx {
 	
-	private static final String regexTitle 			= "^\\s*\\{\\s*title\\s*:\\s*(?<title>.*?)\\s*\\}\\s*$";
-	private static final String regexSubtitle 		= "^\\s*\\{\\s*subtitle\\s*:\\s*(?<subtitle>.*?)\\s*\\}\\s*$";
+	private static final String regexTitlev1		= "^\\s*\\{\\s*title\\s*:\\s*(?<title>.*?)\\s*\\}\\s*$";
+	private static final String regexTitlev2		= "^\\s*\\{\\s*t\\s*:\\s*(?<title>.*?)\\s*\\}\\s*$";
+	private static final String regexSubtitlev1		= "^\\s*\\{\\s*subtitle\\s*:\\s*(?<subtitle>.*?)\\s*\\}\\s*$";
+	private static final String regexSubtitlev2		= "^\\s*\\{\\s*st\\s*:\\s*(?<subtitle>.*?)\\s*\\}\\s*$";
 	private static final String regexArtist 		= "^\\s*\\{\\s*artist\\s*:\\s*(?<artist>.*?)\\s*\\}\\s*$";
 	private static final String regexComposer 		= "^\\s*\\{\\s*composer\\s*:\\s*(?<composer>.*?)\\s*\\}\\s*$";
 	private static final String regexLyricist 		= "^\\s*\\{\\s*lyricist\\s*:\\s*(?<lyricist>.*?)\\s*\\}\\s*$";
@@ -28,64 +29,49 @@ public class RegEx {
 	private static final String regexCapo 			= "^\\s*\\{\\s*capo\\s*:\\s*(?<capo>\\d*?)\\s*\\}\\s*$";
 	private static final String regexMeta 			= "^\\s*\\{\\s*meta\\s*:\\s*(.*?)\\s*\\}\\s*$";
 
-	private static final String regexStartofChorus	= "^\\s*\\{\\s*start_of_chorus\\s*:\\s*(.*?)\\s*\\}\\s*$";
-	private static final String regexEndofChorus	= "^\\s*\\{\\s*end_of_chorus\\s*\\}\\s*$";
-	private static final String regexStartofVerse	= "^\\s*\\{\\s*start_of_verse\\s*:\\s*(.*?)\\s*\\}\\s*$";
-	private static final String regexEndofVerse		= "^\\s*\\{\\s*end_of_verse\\s*\\}\\s*$";
-	private static final String regexStartofTab		= "^\\s*\\{\\s*start_of_tab\\s*:\\s*(.*?)\\s*\\}\\s*$";
-	private static final String regexEndofTab		= "^\\s*\\{\\s*end_of_tab\\s*\\}\\s*$";
-	private static final String regexStartofGrid	= "^\\s*\\{\\s*start_of_grid\\s*:\\s*(.*?)\\s*\\}\\s*$";
-	private static final String regexEndofGrid		= "^\\s*\\{\\s*end_of_grid\\s*\\}\\s*$";
+	private static final String regexStartofChorusv1= "^\\s*\\{\\s*start_of_chorus\\s*:\\s*(.*?)\\s*\\}\\s*$";
+	private static final String regexStartofChorusv2= "^\\s*\\{\\s*soc\\s*:\\s*(.*?)\\s*\\}\\s*$";
+	private static final String regexStartofChorusv3= "^\\s*\\{\\s*start_of_chorus\\s*\\}\\s*$";
+	private static final String regexStartofChorusv4= "^\\s*\\{\\s*soc\\s*\\}\\s*$";
+	private static final String regexEndofChorusv1	= "^\\s*\\{\\s*end_of_chorus\\s*\\}\\s*$";
+	private static final String regexEndofChorusv2	= "^\\s*\\{\\s*eoc\\s*\\}\\s*$";
+	
+	private static final String regexStartofVersev1	= "^\\s*\\{\\s*start_of_verse\\s*:\\s*(.*?)\\s*\\}\\s*$";
+	private static final String regexStartofVersev2	= "^\\s*\\{\\s*sov\\s*:\\s*(.*?)\\s*\\}\\s*$";
+	private static final String regexStartofVersev3	= "^\\s*\\{\\s*start_of_verse\\s*\\}\\s*$";
+	private static final String regexStartofVersev4	= "^\\s*\\{\\s*sov\\s*\\}\\s*$";
+	private static final String regexEndofVersev1	= "^\\s*\\{\\s*end_of_verse\\s*\\}\\s*$";
+	private static final String regexEndofVersev2	= "^\\s*\\{\\s*eov\\s*\\}\\s*$";
+	
+	private static final String regexStartofTabv1	= "^\\s*\\{\\s*start_of_tab\\s*:\\s*(.*?)\\s*\\}\\s*$";
+	private static final String regexStartofTabv2	= "^\\s*\\{\\s*sot\\s*:\\s*(.*?)\\s*\\}\\s*$";
+	private static final String regexStartofTabv3	= "^\\s*\\{\\s*start_of_tab\\s*\\}\\s*$";
+	private static final String regexStartofTabv4	= "^\\s*\\{\\s*sot\\s*\\}\\s*$";
+	private static final String regexEndofTabv1		= "^\\s*\\{\\s*end_of_tab\\s*\\}\\s*$";
+	private static final String regexEndofTabv2		= "^\\s*\\{\\s*eot\\s*\\}\\s*$";
+	
+	private static final String regexStartofGridv1	= "^\\s*\\{\\s*start_of_grid\\s*:\\s*(.*?)\\s*\\}\\s*$";
+	private static final String regexStartofGridv2	= "^\\s*\\{\\s*sog\\s*:\\s*(.*?)\\s*\\}\\s*$";
+	private static final String regexStartofGridv3	= "^\\s*\\{\\s*start_of_grid\\s*\\}\\s*$";
+	private static final String regexStartofGridv4	= "^\\s*\\{\\s*sog\\s*\\}\\s*$";
+	private static final String regexEndofGridv1	= "^\\s*\\{\\s*end_of_grid\\s*\\}\\s*$";
+	private static final String regexEndofGridv2	= "^\\s*\\{\\s*eog\\s*\\}\\s*$";
+	
+	private static final String regexGoToChorusv1	= "^\\s*\\{\\s*chorus\\s*:\\s*(.*?)\\s*\\}\\s*$";
+	private static final String regexGoToChorusv2	= "^\\s*\\{\\s*c\\s*:\\s*(.*?)\\s*\\}\\s*$";
+	private static final String regexGoToChorusv3	= "^\\s*\\{\\s*chorus\\s*\\}\\s*$";
+	private static final String regexGoToVersev1	= "^\\s*\\{\\s*verse\\s*:\\s*(.*?)\\s*\\}\\s*$";
+	private static final String regexGoToVersev2	= "^\\s*\\{\\s*v\\s*:\\s*(.*?)\\s*\\}\\s*$";
+	private static final String regexGoToVersev3	= "^\\s*\\{\\s*verse\\s*\\}\\s*$";
+	
 	
 	private static final String regexChordLyric		= "^\\s*[^\\{\\}]*\\s*$";
 	
-	/*
-	private String[] regexLists = new String[100];
+	private String tempTitle = "";
+	private int tempType = EnvironmentImpl.TYPE_NULL;
 	
-	public RegEx() {
-		addAllPattern();
-	}
-	
-	private void addAllPattern() {
-		regexLists[0] = regexTitle;
-		regexLists[1] = regexSubtitle;
-		regexLists[2] = regexArtist;
-		regexLists[3] = regexComposer;
-		regexLists[4] = regexLyricist;
-		regexLists[5] = regexCopyright;
-		regexLists[6] = regexAlbum;
-		regexLists[7] = regexYear;
-		regexLists[8] = regexKey;
-		regexLists[9] = regexTime;
-		regexLists[10] = regexTempo;
-		regexLists[11] = regexDuration;
-		regexLists[12] = regexCapo;
-		regexLists[13] = regexMeta;
-	}
-	
-	public String[] check(String toMatch) {
-		String[] result = new String[10];
-		for (int i = 0; i < regexLists.length && regexLists[i] != null; i++) {
-			//Pattern p = Pattern.compile(regexLists[i]);
-			//Matcher m = p.matcher(toMatch);
-			//if (m.find()) {
-			if (Pattern.compile(regexLists[i]).matcher(toMatch).find()) {
-				Matcher m = Pattern.compile(regexLists[i]).matcher(toMatch);
-				m.find();
-				for (int j = 1; j <= m.groupCount(); j++) {
-					result[j-1] = m.group(j);
-				}
-				break;
-			}
-		}
-		
-		return result;
-		
-	}
-	*/
-	
-	public ChordLyric tryParseChordLyric(String toParse) {
-		ChordLyric cl = new ChordLyricImpl();
+	public Environment tryParseChordLyric(String toParse) {
+		Environment env = new EnvironmentImpl();
 		
 		StringBuffer chord = new StringBuffer();
 		StringBuffer lyric = new StringBuffer();
@@ -106,19 +92,27 @@ public class RegEx {
 			}
 		}
 		
-		cl.setChord(chord.toString());
-		cl.setLyric(lyric.toString());
+		env.setChord(chord.toString());
+		env.setLyric(lyric.toString());
 		
-		return cl;
+		return env;
 	}
 	
 	public void tryParseLine(String toMatch, Song song) {
-		if (Pattern.compile(regexTitle).matcher(toMatch).find()) {
-			Matcher m = Pattern.compile(regexTitle).matcher(toMatch);
+		if (Pattern.compile(regexTitlev1).matcher(toMatch).find()) {
+			Matcher m = Pattern.compile(regexTitlev1).matcher(toMatch);
 			m.find();
 			song.setTitle(m.group(1));
-		} else if (Pattern.compile(regexSubtitle).matcher(toMatch).find()) {
-			Matcher m = Pattern.compile(regexSubtitle).matcher(toMatch);
+		} else if (Pattern.compile(regexTitlev2).matcher(toMatch).find()) {
+			Matcher m = Pattern.compile(regexTitlev2).matcher(toMatch);
+			m.find();
+			song.setTitle(m.group(1));
+		} else if (Pattern.compile(regexSubtitlev1).matcher(toMatch).find()) {
+			Matcher m = Pattern.compile(regexSubtitlev1).matcher(toMatch);
+			m.find();
+			song.setSubtitle(m.group(1));
+		} else if (Pattern.compile(regexSubtitlev2).matcher(toMatch).find()) {
+			Matcher m = Pattern.compile(regexSubtitlev2).matcher(toMatch);
 			m.find();
 			song.setSubtitle(m.group(1));
 		} else if (Pattern.compile(regexArtist).matcher(toMatch).find()) {
@@ -169,54 +163,125 @@ public class RegEx {
 			Matcher m = Pattern.compile(regexMeta).matcher(toMatch);
 			m.find();
 			song.setMeta(m.group(1));
-		} else if (Pattern.compile(regexStartofChorus).matcher(toMatch).find()) {
-			Matcher m = Pattern.compile(regexStartofChorus).matcher(toMatch);
+		} else if (Pattern.compile(regexStartofChorusv1).matcher(toMatch).find()) {
+			Matcher m = Pattern.compile(regexStartofChorusv1).matcher(toMatch);
 			m.find();
-			EnvironmentAbstract chorus = new ChorusImpl(m.group(1));
-			song.setCurrentEnvironment(song.getEnvironmentSize());
-			song.addEnvironment(chorus);
-		} else if (Pattern.compile(regexEndofChorus).matcher(toMatch).find()) {
-			song.setCurrentEnvironment(-1);
-			
-		} else if (Pattern.compile(regexStartofVerse).matcher(toMatch).find()) {
-			Matcher m = Pattern.compile(regexStartofVerse).matcher(toMatch);
+			tempTitle = m.group(1);
+			tempType = EnvironmentImpl.TYPE_CHORUS;
+		} else if (Pattern.compile(regexStartofChorusv2).matcher(toMatch).find()) {
+			Matcher m = Pattern.compile(regexStartofChorusv2).matcher(toMatch);
 			m.find();
-			EnvironmentAbstract verse = new VerseImpl(m.group(1));
-			song.setCurrentEnvironment(song.getEnvironmentSize());
-			song.addEnvironment(verse);
-		} else if (Pattern.compile(regexEndofVerse).matcher(toMatch).find()) {
-			song.setCurrentEnvironment(-1);
-			
-		} else if (Pattern.compile(regexStartofTab).matcher(toMatch).find()) {
-			Matcher m = Pattern.compile(regexStartofTab).matcher(toMatch);
+			tempTitle = m.group(1);
+			tempType = EnvironmentImpl.TYPE_CHORUS;
+		} else if (Pattern.compile(regexStartofChorusv3).matcher(toMatch).find() || Pattern.compile(regexStartofChorusv4).matcher(toMatch).find()) {
+			tempTitle = "";
+			tempType = EnvironmentImpl.TYPE_CHORUS;
+		} else if (Pattern.compile(regexEndofChorusv1).matcher(toMatch).find() || Pattern.compile(regexEndofChorusv2).matcher(toMatch).find()) {
+			tempTitle = "";
+			tempType = EnvironmentImpl.TYPE_NULL;
+		} else if (Pattern.compile(regexStartofVersev1).matcher(toMatch).find()) {
+			Matcher m = Pattern.compile(regexStartofVersev1).matcher(toMatch);
 			m.find();
-			EnvironmentAbstract tab = new TabImpl(m.group(1));
-			song.setCurrentEnvironment(song.getEnvironmentSize());
-			song.addEnvironment(tab);
-		} else if (Pattern.compile(regexEndofTab).matcher(toMatch).find()) {
-			song.setCurrentEnvironment(-1);
-			
-		} else if (Pattern.compile(regexStartofGrid).matcher(toMatch).find()) {
-			Matcher m = Pattern.compile(regexStartofGrid).matcher(toMatch);
+			tempTitle = m.group(1);
+			tempType = EnvironmentImpl.TYPE_VERSE;
+		} else if (Pattern.compile(regexStartofVersev2).matcher(toMatch).find()) {
+			Matcher m = Pattern.compile(regexStartofVersev2).matcher(toMatch);
 			m.find();
-			EnvironmentAbstract grid = new GridImpl(m.group(1));
-			song.setCurrentEnvironment(song.getEnvironmentSize());
-			song.addEnvironment(grid);
-		} else if (Pattern.compile(regexEndofGrid).matcher(toMatch).find()) {
-			song.setCurrentEnvironment(-1);
-		
-		} else if (Pattern.compile(regexChordLyric).matcher(toMatch).find() && (false || song.getEnvironment(song.getCurrentEnvironment()).getType() <= EnvironmentAbstract.VERSE && song.getEnvironment(song.getCurrentEnvironment()).getType() >= 0)) {
-			if (song.getCurrentEnvironment() == -1) {
-				song.setCurrentEnvironment(song.getEnvironmentSize());
-			}
-			
-			if (song.getEnvironment(song.getCurrentEnvironment()).getType() == EnvironmentAbstract.CHORUS) {
-				Chorus temp = (Chorus)song.getEnvironment(song.getCurrentEnvironment());
-				temp.addChordLyric(tryParseChordLyric(toMatch));
-			} else if (song.getEnvironment(song.getCurrentEnvironment()).getType() == EnvironmentAbstract.VERSE) {
-				Verse temp = (Verse)song.getEnvironment(song.getCurrentEnvironment());
-				temp.addChordLyric(tryParseChordLyric(toMatch.trim()));
-			}
+			tempTitle = m.group(1);
+			tempType = EnvironmentImpl.TYPE_VERSE;
+		} else if (Pattern.compile(regexStartofVersev3).matcher(toMatch).find() || Pattern.compile(regexStartofVersev4).matcher(toMatch).find()) {
+			tempTitle = "";
+			tempType = EnvironmentImpl.TYPE_VERSE;
+		} else if (Pattern.compile(regexEndofVersev1).matcher(toMatch).find() || Pattern.compile(regexEndofVersev2).matcher(toMatch).find()) {
+			tempTitle = "";
+			tempType = EnvironmentImpl.TYPE_NULL;
+		} else if (Pattern.compile(regexStartofTabv1).matcher(toMatch).find()) {
+			Matcher m = Pattern.compile(regexStartofTabv1).matcher(toMatch);
+			m.find();
+			tempTitle = m.group(1);
+			tempType = EnvironmentImpl.TYPE_TAB;
+		} else if (Pattern.compile(regexStartofTabv2).matcher(toMatch).find()) {
+			Matcher m = Pattern.compile(regexStartofTabv2).matcher(toMatch);
+			m.find();
+			tempTitle = m.group(1);
+			tempType = EnvironmentImpl.TYPE_TAB;
+		} else if (Pattern.compile(regexStartofTabv3).matcher(toMatch).find() || Pattern.compile(regexStartofTabv4).matcher(toMatch).find()) {
+			tempTitle = "";
+			tempType = EnvironmentImpl.TYPE_TAB;
+		} else if (Pattern.compile(regexEndofTabv1).matcher(toMatch).find() || Pattern.compile(regexEndofTabv2).matcher(toMatch).find()) {
+			tempTitle = "";
+			tempType = EnvironmentImpl.TYPE_NULL;
+		} else if (Pattern.compile(regexStartofGridv1).matcher(toMatch).find()) {
+			Matcher m = Pattern.compile(regexStartofGridv1).matcher(toMatch);
+			m.find();
+			tempTitle = m.group(1);
+			tempType = EnvironmentImpl.TYPE_GRID;
+		} else if (Pattern.compile(regexStartofGridv2).matcher(toMatch).find()) {
+			Matcher m = Pattern.compile(regexStartofGridv2).matcher(toMatch);
+			m.find();
+			tempTitle = m.group(1);
+			tempType = EnvironmentImpl.TYPE_GRID;
+		} else if (Pattern.compile(regexStartofGridv3).matcher(toMatch).find() || Pattern.compile(regexStartofGridv4).matcher(toMatch).find()) {
+			tempTitle = "";
+			tempType = EnvironmentImpl.TYPE_GRID;
+		} else if (Pattern.compile(regexEndofGridv1).matcher(toMatch).find() || Pattern.compile(regexEndofGridv2).matcher(toMatch).find()) {
+			tempTitle = "";
+			tempType = EnvironmentImpl.TYPE_NULL;
+		} else if (Pattern.compile(regexGoToChorusv1).matcher(toMatch).find()) {
+			Matcher m = Pattern.compile(regexGoToChorusv1).matcher(toMatch);
+			m.find();
+			tempTitle = "";
+			tempType = EnvironmentImpl.TYPE_NULL;
+			Environment env = new EnvironmentImpl();
+			env.setType(EnvironmentImpl.TYPE_INSTRUCTION);
+			env.setLyric("CHORUS: " + m.group(1));
+			song.addEnvironment(env);
+		} else if (Pattern.compile(regexGoToChorusv2).matcher(toMatch).find()) {
+			Matcher m = Pattern.compile(regexGoToChorusv2).matcher(toMatch);
+			m.find();
+			tempTitle = "";
+			tempType = EnvironmentImpl.TYPE_NULL;
+			Environment env = new EnvironmentImpl();
+			env.setType(EnvironmentImpl.TYPE_INSTRUCTION);
+			env.setLyric("CHORUS: " + m.group(1));
+			song.addEnvironment(env);
+		} else if (Pattern.compile(regexGoToChorusv3).matcher(toMatch).find()) {
+			tempTitle = "";
+			tempType = EnvironmentImpl.TYPE_NULL;
+			Environment env = new EnvironmentImpl();
+			env.setType(EnvironmentImpl.TYPE_INSTRUCTION);
+			env.setLyric("CHORUS");
+			song.addEnvironment(env);
+		} else if (Pattern.compile(regexGoToVersev1).matcher(toMatch).find()) {
+			Matcher m = Pattern.compile(regexGoToVersev1).matcher(toMatch);
+			m.find();
+			tempTitle = "";
+			tempType = EnvironmentImpl.TYPE_NULL;
+			Environment env = new EnvironmentImpl();
+			env.setType(EnvironmentImpl.TYPE_INSTRUCTION);
+			env.setLyric("VERSE: " + m.group(1));
+			song.addEnvironment(env);
+		} else if (Pattern.compile(regexGoToVersev2).matcher(toMatch).find()) {
+			Matcher m = Pattern.compile(regexGoToVersev2).matcher(toMatch);
+			m.find();
+			tempTitle = "";
+			tempType = EnvironmentImpl.TYPE_NULL;
+			Environment env = new EnvironmentImpl();
+			env.setType(EnvironmentImpl.TYPE_INSTRUCTION);
+			env.setLyric("VERSE: " + m.group(1));
+			song.addEnvironment(env);
+		} else if (Pattern.compile(regexGoToVersev3).matcher(toMatch).find()) {
+			tempTitle = "";
+			tempType = EnvironmentImpl.TYPE_NULL;
+			Environment env = new EnvironmentImpl();
+			env.setType(EnvironmentImpl.TYPE_INSTRUCTION);
+			env.setLyric("VERSE");
+			song.addEnvironment(env);
+		} else if (Pattern.compile(regexChordLyric).matcher(toMatch).find()) {
+			Environment env = tryParseChordLyric(toMatch);
+			env.setTitle(tempTitle);
+			env.setType(tempType);
+			song.addEnvironment(env);
 		} else {
 			System.out.println("Parse error: " + toMatch);
 			//later --> else = error
@@ -231,8 +296,8 @@ public class RegEx {
 	
 	public void start() {
 		//System.out.println("Working Directory = " + System.getProperty("user.dir"));
-		//File file = new File(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "Heaven.chordpro");
-		File file = new File(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "10000 Reasons.chordpro");
+		File file = new File(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "Heaven.chordpro");
+		//File file = new File(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "10000 Reasons.chordpro");
 		
 		try
 		{
@@ -244,6 +309,12 @@ public class RegEx {
 			{
 				if (line.trim().length() > 0 && !line.trim().isEmpty())
 					tryParseLine(line.trim(),song);
+				else if (!(tempTitle.equals("")) && (tempType != EnvironmentImpl.TYPE_NULL)){
+					Environment env = new EnvironmentImpl();
+					env.setTitle(tempTitle);
+					env.setType(tempType);
+					song.addEnvironment(env);
+				}
 			}
 			System.out.println(song.toString());
 			reader.close();

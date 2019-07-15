@@ -2,7 +2,6 @@ package de.chordsystem.chordproeditor.view.javafx.stages;
 
 import java.net.URL;
 
-import de.chordsystem.chordproeditor.view.javafx.controllers.NewEditorController;
 import javafx.application.Application;
 //import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -18,9 +17,9 @@ public class MainWindow extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		window = primaryStage;
-		final URL fxmlUrl = getClass().getResource("/fxml/NewEditor.fxml");
+		final URL fxmlUrl = getClass().getResource("/fxml/test.fxml");
 		final FXMLLoader fxmlLoader = new FXMLLoader(fxmlUrl);
-		fxmlLoader.setController(new NewEditorController());
+		//fxmlLoader.setController(new testController());
 		final Parent root = fxmlLoader.load();
 		root.setCache(true);
 		root.setCacheHint(CacheHint.SPEED);

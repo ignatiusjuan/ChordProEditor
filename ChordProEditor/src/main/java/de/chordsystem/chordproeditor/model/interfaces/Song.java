@@ -1,6 +1,6 @@
 package de.chordsystem.chordproeditor.model.interfaces;
 
-import de.chordsystem.chordproeditor.model.abstracts.EnvironmentAbstract;
+import de.chordsystem.chordproeditor.model.interfaces.Environment;
 
 public interface Song {
 
@@ -147,7 +147,7 @@ public interface Song {
 	/**
 	 * @return the xth environment
 	 */
-	EnvironmentAbstract getEnvironment(int x);
+	Environment getEnvironment(int x);
 	
 	/**
 	 * @return the environment size
@@ -157,17 +157,7 @@ public interface Song {
 	/**
 	 * @param environment the environment to add
 	 */
-	void addEnvironment(EnvironmentAbstract environment);
-
-	/**
-	 * @return the currentEnvironment
-	 */
-	int getCurrentEnvironment();
-
-	/**
-	 * @param currentEnvironment the currentEnvironment to set
-	 */
-	void setCurrentEnvironment(int currentEnvironment);
+	void addEnvironment(Environment environment);
 
 	String toString();
 
