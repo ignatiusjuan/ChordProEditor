@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
@@ -9,16 +10,16 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="676.0" prefWidth="1077.0" stylesheets="@../Css/Main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="693.0" prefWidth="1084.0" stylesheets="@../Css/Main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <MenuBar fx:id="MenuBar" layoutY="-1.0" prefHeight="31.0" prefWidth="1077.0">
+      <MenuBar fx:id="MenuBar" layoutY="-1.0" prefHeight="31.0" prefWidth="1084.0">
         <menus>
           <Menu mnemonicParsing="false" text="Datei">
             <items>
@@ -68,24 +69,10 @@
             </Menu>
         </menus>
       </MenuBar>
-      <JFXButton fx:id="btnTitle" layoutX="47.0" layoutY="34.0" prefHeight="35.0" prefWidth="61.0" text="Title">
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font></JFXButton>
-      <JFXButton fx:id="btnArtist" layoutX="108.0" layoutY="34.0" prefHeight="37.0" prefWidth="73.0" text="Artist">
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font></JFXButton>
-      <JFXTextArea fx:id="TextArea" layoutX="266.0" layoutY="34.0" prefHeight="591.0" prefWidth="797.0" style="-fx-background-color: #000;" text="Enter your song here, e.g.&#10;&#10;Verse &#10; Am&#9;&#9;C&#10;Alas my love,&#10;&#9;G&#9; Em&#10;you do me wrong&#10;&#10;Chorus:&#10;&#10;C&#9;&#9;&#9;    G       Em&#10;greensleeves was all my joy,&#10;Am&#9;&#9;&#9;     E&#10;greensleeves was my delight,&#10;&#10;...">
+      <JFXTextArea fx:id="txtSongInsert" layoutX="266.0" layoutY="34.0" prefHeight="591.0" prefWidth="797.0" style="-fx-background-color: #000;" text="Enter your song here, e.g.&#10;&#10;Verse &#10; Am&#9;&#9;C&#10;Alas my love,&#10;&#9;G&#9; Em&#10;you do me wrong&#10;&#10;Chorus:&#10;&#10;C&#9;&#9;&#9;    G       Em&#10;greensleeves was all my joy,&#10;Am&#9;&#9;&#9;     E&#10;greensleeves was my delight,&#10;&#10;...">
          <font>
             <Font size="24.0" />
          </font></JFXTextArea>
-      <VBox layoutX="13.0" layoutY="71.0" prefHeight="591.0" prefWidth="240.0">
-         <children>
-            <JFXListView fx:id="SongList" onMouseClicked="#displaySelected" prefHeight="459.0" prefWidth="215.0" />
-            <JFXTextField fx:id="screen" focusColor="BLACK" labelFloat="true" onMouseClicked="#displaySelected" prefHeight="70.0" prefWidth="220.0" promptText="Keine der oben aufgeführten Songs gewählt !" unFocusColor="BLACK" />
-         </children>
-      </VBox>
       <MenuButton fx:id="btnUncapoed" layoutX="357.0" layoutY="631.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="104.0" text="MenuButton">
         <items>
           <MenuItem mnemonicParsing="false" text="B" />
@@ -113,31 +100,46 @@
             <Font name="System Bold" size="25.0" />
          </font>
       </JFXButton>
-      <ImageView fx:id="Feld" fitHeight="37.0" fitWidth="37.0" layoutX="4.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="SaveAsPdf" fitHeight="37.0" fitWidth="37.0" layoutX="1017.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Icons/Menu.png" />
+            <Image url="@../Icons/SaveAsPdf.png" />
          </image>
       </ImageView>
-      <JFXButton fx:id="btnTags" layoutX="181.0" layoutY="34.0" prefHeight="37.0" prefWidth="73.0" text="Tags">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </JFXButton>
-      <ImageView fx:id="Speichern" fitHeight="37.0" fitWidth="37.0" layoutX="1026.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../Icons/Speichern.png" />
-         </image>
-      </ImageView>
-      <JFXTextField fx:id="TextFieldCapo" focusColor="BLACK" layoutX="471.0" layoutY="631.0" prefHeight="31.0" prefWidth="84.0" promptText="Capo" unFocusColor="BLACK" />
+      <JFXTextField fx:id="TextFieldCapo" focusColor="BLACK" layoutX="471.0" layoutY="631.0" prefHeight="31.0" prefWidth="84.0" promptText="Capo" style="-fx-background-color: #fff;" unFocusColor="BLACK" />
       <Label fx:id="lblDateTime" layoutX="9.0" layoutY="640.0" prefHeight="31.0" prefWidth="104.0" text="Time">
          <font>
             <Font name="Gabriola" size="18.0" />
          </font>
       </Label>
-      <JFXButton fx:id="btnWriteTex" layoutX="903.0" layoutY="630.0" prefHeight="37.0" prefWidth="104.0" text="WriteTex">
+      <JFXButton fx:id="btnWriteTex" layoutX="729.0" layoutY="644.0" prefHeight="37.0" prefWidth="104.0" text="WriteTex">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </JFXButton>
+      <AnchorPane layoutX="21.0" layoutY="105.0" prefHeight="488.0" prefWidth="227.0">
+         <children>
+            <JFXTextField fx:id="txtSongTitle" layoutY="23.0" prefHeight="73.0" prefWidth="227.0" promptText="Song Title" style="-fx-background-color: #fff;" />
+            <JFXTextField fx:id="txtAlternativeTitle" layoutX="-1.0" layoutY="150.0" prefHeight="73.0" prefWidth="227.0" promptText="Alternative Song Title" style="-fx-background-color: #fff;" />
+            <JFXTextField fx:id="txtArtist" layoutX="-1.0" layoutY="277.0" prefHeight="73.0" prefWidth="227.0" promptText="Artist" style="-fx-background-color: #fff;" />
+            <JFXTextField fx:id="txtSongId" layoutY="401.0" prefHeight="73.0" prefWidth="227.0" promptText="Optional Song ID" style="-fx-background-color: #fff;" />
+            <Separator layoutX="-1.0" layoutY="119.0" prefHeight="15.0" prefWidth="227.0" />
+            <Separator layoutY="244.0" prefHeight="15.0" prefWidth="227.0" />
+            <Separator layoutX="-1.0" layoutY="371.0" prefHeight="15.0" prefWidth="227.0" />
+            <JFXDrawer fx:id="drawer" layoutX="-17.0" layoutY="-66.0" prefHeight="647.0" prefWidth="243.0" />
+         </children></AnchorPane>
+      <Label layoutX="61.0" layoutY="53.0" prefHeight="31.0" prefWidth="67.0" text="Menu">
+         <font>
+            <Font name="EmojiOne Color SVGinOT" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="995.0" layoutY="668.0" text="Save as Pdf File" />
+      <ImageView fx:id="SaveAsChordPro" fitHeight="37.0" fitWidth="37.0" layoutX="900.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Icons/SaveAsChordpro.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="861.0" layoutY="668.0" text="Save as ChordPro File" />
+      <Separator layoutX="981.0" layoutY="637.0" orientation="VERTICAL" prefHeight="47.0" prefWidth="8.0" />
+      <JFXHamburger fx:id="hamburger" layoutX="14.0" layoutY="53.0" prefHeight="31.0" prefWidth="37.0" />
    </children>
 </AnchorPane>

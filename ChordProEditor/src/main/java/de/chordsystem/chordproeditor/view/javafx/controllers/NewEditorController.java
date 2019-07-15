@@ -6,16 +6,21 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
@@ -24,6 +29,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
 
 /**
@@ -42,14 +49,21 @@ public class NewEditorController implements Initializable {
     @FXML
     private JFXListView<String> SongList;
     
-  
+    @FXML
+    private AnchorPane anchorPane;
 
     @FXML
-    private JFXButton btnTitle;
+    private JFXTextField txtSongTitle;
 
     @FXML
-    private JFXButton btnArtist;
-
+    private JFXTextField txtAlternativeTitle;
+    
+    @FXML
+    private JFXTextField txtArtist;
+    
+    @FXML
+    private JFXTextField txtSongId;  
+        
     @FXML
     private MenuButton btnUncapoed;
     
@@ -63,16 +77,16 @@ public class NewEditorController implements Initializable {
     private JFXButton btnPlus;
     
     @FXML
-    private JFXButton btnTags;
+    private ImageView SaveAsPdf;
     
     @FXML
-    private ImageView Speichern;
+    private ImageView SaveAsChordPro;
     
     @FXML
-    private ImageView Feld;
+    private JFXHamburger hamburger;
 
     @FXML
-    private JFXTextArea TextArea;
+    private JFXTextArea txtSongInsert;
     
     @FXML
     private JFXTextField screen;
@@ -85,27 +99,34 @@ public class NewEditorController implements Initializable {
     
     @FXML
     private JFXButton btnWriteTex;
+   
+    @FXML
+    private JFXDrawer drawer;
+ 
     
-    
-    
-    
-    
+    /**
+     * Getter
+     * @return
+     */
     public JFXListView getSongList() {
     	return SongList;
       }
-    public JFXButton getbtnTitle() {
-    	return btnTitle;
+    public JFXTextField gettxtSongTitle() {
+    	return txtSongTitle;
     }
-    public JFXButton getbtnArtist() {
-    	return btnArtist;
-    }
-    
-    public JFXButton getbtnTags() {
-    	return btnTags;
+    public JFXTextField gettxtAlternativeTitle() {
+    	return txtAlternativeTitle;
     }
     
-    public JFXTextArea getTextArea() {
-    	return TextArea;
+    public JFXTextField gettxtArtist() {
+    	return txtArtist;
+    }
+    public JFXTextField gettxtSongId() {
+    	return txtSongId;
+    }
+    
+    public JFXTextArea gettxtSongInsert() {
+    	return txtSongInsert;
     }
     public JFXTextField getScreen() {
     	return screen;
@@ -122,11 +143,14 @@ public class NewEditorController implements Initializable {
     public JFXButton getbtnPlus() {
     	return btnPlus;
     }
-    public ImageView getSpeichern() {
-    	return Speichern;
+    public ImageView getSaveAsPdf() {
+    	return SaveAsPdf;
     }
-    public ImageView getFeld() {
-    	return Feld; 
+    public ImageView getSaveAsChordPro() {
+    	return SaveAsChordPro;
+    }
+    public JFXHamburger gethamburger() {
+    	return hamburger; 
     }
     public Label getLabel() {
     	return label;
@@ -137,15 +161,56 @@ public class NewEditorController implements Initializable {
     public JFXButton getbtnWriteTex() {
     	return btnWriteTex;
     }
+    public JFXDrawer getdrawer() {
+    	return drawer;
+    }
+    
+    @FXML
+    // TODO: ist der methode funktion übergeben
+    private void onEnterSongTitle(ActionEvent event) {
+    	
+    }
+    
+    @FXML
+    private void onEnterAlternativeTitle(ActionEvent even) {
+    	
+    }
     
     
 
 	public void initialize(URL location, ResourceBundle resources) {
 		loadData();
 		showTime();
-		//TextArea.setOnAction(this::onEnterSong);
-	}
+		//btnUncapoed.setOnAction(this::onEnter);
+		txtSongTitle.setOnAction(this::onEnterSongTitle);
+		txtAlternativeTitle.setOnAction(this::onEnterAlternativeTitle);
+		//methode noch eigene animation bauen 
 		
+		//-----------------------Erledigen----------------
+		SaveAsChordPro.setOnMouseClicked();
+		SaveAsPdf.setOnMouseClicked();
+		//-----------------------Erledigen----------------
+		
+		/**
+		 * Methode um auf den Slide des Menu Hamburgers zuzugreifen und auszugeben
+		 */
+		VBox box = FXMLLoader.load(getClass().getResource("DrawerContent.fxml"));
+		drawer.setSidePane(box);
+		HamburgerBackArrowBasicTransition burgerTask2 = new HamburgerBackArrowBasicTransition(hamburger);
+			burgerTask2.setRate(-1);
+			hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
+				burgerTask2.setRate(burgerTask2.getRate() * -1);
+				burgerTask2.play();
+				
+				if(drawer.isShown())
+				drawer.hide();
+				else
+				drawer.draw();
+			});
+		
+	}
+	
+	// falls Datenbank extieren würde
 	private void loadData() {
 		list.removeAll(list);
 		String a="Perfect Day";
