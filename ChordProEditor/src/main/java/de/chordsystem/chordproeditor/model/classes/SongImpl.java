@@ -1,8 +1,8 @@
 package de.chordsystem.chordproeditor.model.classes;
 
 import de.chordsystem.chordproeditor.model.interfaces.*;
-import de.chordsystem.chordproeditor.model.classes.*;
-import de.chordsystem.chordproeditor.model.abstracts.*;
+//import de.chordsystem.chordproeditor.model.classes.*;
+//import de.chordsystem.chordproeditor.model.abstracts.*;
 
 import java.util.List;
 import java.util.ArrayList;

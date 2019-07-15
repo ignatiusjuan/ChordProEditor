@@ -5,7 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import de.chordsystem.chordproeditor.model.abstracts.EnvironmentAbstract;
+import de.chordsystem.chordproeditor.model.classes.EnvironmentImpl;
 import de.chordsystem.chordproeditor.model.interfaces.*;
 
 
@@ -20,7 +20,8 @@ public class WriteTex {
 	 */
 	public static void writeTex(Song song) throws IOException
 	{
-		FileWriter tex = createTexDokument(song.getTitle());
+
+		FileWriter tex = new FileWriter(song.getTitle()+".tex");
 		BufferedWriter bw = new BufferedWriter(tex);
 		bw.write("\\documentclass{scrartcl}");
 		bw.newLine();
@@ -34,9 +35,7 @@ public class WriteTex {
 		bw.newLine();
 		bw.write("\\maketitle");
 		bw.newLine();
-		
 		writeLyrics(song, bw);
-		
 		bw.write("\\end{document}");
 		bw.newLine();
 		bw.close();
@@ -44,58 +43,73 @@ public class WriteTex {
 	
 	/***
 	 * Decides which method has to be called to write the current environment 
-	 * @param song
-	 * @param bw
 	 * @return
 	 * @throws IOException
 	 */
 	private static boolean writeLyrics(Song song, BufferedWriter bw) throws IOException
 	{
-		//TODO
-		for (int j = 0; j < song.getEnvironmentSize(); j++) {
-			switch(song.getEnvironment(j).getType()) {
-				case EnvironmentAbstract.CHORUS:
-					writeChorus(song, j, bw);
+		boolean newEnv = true;
+		for (int currentEnv = 0; currentEnv < song.getEnvironmentSize(); currentEnv++) {
+			if(song.getEnvironment(currentEnv).getTitle()==song.getEnvironment(currentEnv-1).getTitle()&&
+				song.getEnvironment(currentEnv).getType()==song.getEnvironment(currentEnv-1).getType()) {
+				newEnv = false;
+			}else {
+				newEnv = true;
+			}
+			switch(song.getEnvironment(currentEnv).getType()) {
+				case EnvironmentImpl.TYPE_CHORUS:
+					writeChorus(song, currentEnv, bw, newEnv);
 					break;
-				case EnvironmentAbstract.VERSE:
-					writeVerse(song, j, bw);
+				case EnvironmentImpl.TYPE_VERSE:
+					writeVerse(song, currentEnv, bw, newEnv);
 					break;
-				case EnvironmentAbstract.TAB:
-					writeTab(song, j, bw);
+				case EnvironmentImpl.TYPE_TAB:
+					writeTab(song, currentEnv, bw, newEnv);
 					break;
-				case EnvironmentAbstract.GRID:
-					writeGrid(song, j, bw);
+				case EnvironmentImpl.TYPE_GRID:
+					writeGrid(song, currentEnv, bw, newEnv);
+					break;
+				case EnvironmentImpl.TYPE_INSTRUCTION:
+					writeInstruction(song, currentEnv, bw, newEnv);
+					break;
+				case EnvironmentImpl.TYPE_COMMENT:
+					writeComment(song, currentEnv, bw, newEnv);
+					break;
+				case EnvironmentImpl.TYPE_OTHER:
+					writeOther(song, currentEnv, bw, newEnv);
+					break;
+				case EnvironmentImpl.TYPE_NULL:
+					writeNull(song, currentEnv, bw, newEnv);
 					break;
 			}
 		}
 		return false;
 	}
-	
+
 	/***
 	 * Writes the chorus of the current environment in the song
 	 * @param song
 	 * @param env
 	 * @param bw
+	 * @param newEnv 
 	 * @throws IOException
 	 */
-	private static void writeChorus(Song song, int env, BufferedWriter bw) throws IOException
+	private static void writeChorus(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException
 	{
-		Chorus chorus = (Chorus)song.getEnvironment(env);
-		bw.write("\noindent");
-		bw.write("\textbf{Chorus:}");
-		bw.newLine();
-		bw.newLine();
-		for (int i = 0; i < chorus.getChordLyricSize(); i++) {
-			ChordLyric cl = chorus.getChordLyric(i);
+		if(newEnv == true) {
 			bw.write("\noindent");
-			bw.write(cl.getChord());
-			bw.newLine();
-			bw.newLine();
-			bw.write("\noindent");
-			bw.write(cl.getLyric());
+			bw.write("\textbf{Chorus:"+song.getEnvironment(env).getTitle()+"}");
 			bw.newLine();
 			bw.newLine();
 		}
+		bw.write("\noindent");
+		bw.write(song.getEnvironment(env).getChord());
+		bw.newLine();
+		bw.newLine();
+		bw.write("\noindent");
+		bw.write(song.getEnvironment(env).getLyric());
+		bw.newLine();
+		bw.newLine();
 	}
 	
 	/***
@@ -103,25 +117,20 @@ public class WriteTex {
 	 * @param song
 	 * @param env
 	 * @param bw
+	 * @param newEnv 
 	 * @throws IOException
 	 */
-	private static void writeVerse(Song song, int env, BufferedWriter bw) throws IOException{
-		Verse verse = (Verse)song.getEnvironment(env);
-		bw.write("\noindent");
-		bw.write("\textbf{Verse:}");
-		bw.newLine();
-		bw.newLine();
-		for (int i = 0; i < verse.getChordLyricSize(); i++) {
-			ChordLyric cl = verse.getChordLyric(i);
+	private static void writeVerse(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException{
+		if(newEnv == true) {
 			bw.write("\noindent");
-			bw.write(cl.getChord());
-			bw.newLine();
-			bw.newLine();
-			bw.write("\noindent");
-			bw.write(cl.getLyric());
+			bw.write("\textbf{Verse:"+song.getEnvironment(env).getTitle()+"}");
 			bw.newLine();
 			bw.newLine();
 		}
+		bw.write("\noindent");
+		bw.write(song.getEnvironment(env).getLyric());
+		bw.newLine();
+		bw.newLine();
 	}
 	
 	/***
@@ -129,25 +138,20 @@ public class WriteTex {
 	 * @param song
 	 * @param env
 	 * @param bw
+	 * @param newEnv 
 	 * @throws IOException
 	 */
-	private static void writeTab(Song song, int env, BufferedWriter bw) throws IOException{
-		Tab tab = (Tab)song.getEnvironment(env);
-		bw.write("\noindent");
-		bw.write("\textbf{Tab:}");
-		bw.newLine();
-		bw.newLine();
-		for (int i = 0; i < tab.getTabListSize(); i++) {
-			String cl = tab.getTab(i);
+	private static void writeTab(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException{
+		if(newEnv == true) {
 			bw.write("\noindent");
-			bw.write(cl);
-			bw.newLine();
-			bw.newLine();
-			bw.write("\noindent");
-			bw.write(cl);
+			bw.write("\textbf{Tab:"+song.getEnvironment(env).getTitle()+"}");
 			bw.newLine();
 			bw.newLine();
 		}
+		bw.write("\noindent");
+		bw.write(song.getEnvironment(env).getLyric());
+		bw.newLine();
+		bw.newLine();
 	}
 	
 	/***
@@ -155,36 +159,39 @@ public class WriteTex {
 	 * @param song
 	 * @param env
 	 * @param bw
+	 * @param newEnv 
 	 * @throws IOException
 	 */
-	private static void writeGrid(Song song, int env, BufferedWriter bw) throws IOException{
-		Grid grid = (Grid)song.getEnvironment(env);
-		bw.write("\noindent");
-		bw.write("\textbf{Verse:}");
-		bw.newLine();
-		bw.newLine();
-		for (int i = 0; i < grid.getGridListSize(); i++) {
-			String cl = grid.getGrid(i);
+	private static void writeGrid(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException{
+		if(newEnv == true) {
 			bw.write("\noindent");
-			bw.write(cl);
-			bw.newLine();
-			bw.newLine();
-			bw.write("\noindent");
-			bw.write(cl);
+			bw.write("\textbf{Grid:"+song.getEnvironment(env).getTitle()+"}");
 			bw.newLine();
 			bw.newLine();
 		}
+		bw.write("\noindent");
+		bw.write(song.getEnvironment(env).getLyric());
+		bw.newLine();
+		bw.newLine();
 	}
 	
-	/***
-	 * Creates a new .tex file with the title of the document as name
-	 * @param titel
-	 * @return
-	 * @throws IOException
-	 */
-	private static FileWriter createTexDokument(String titel) throws IOException
-	{
-		FileWriter tex = new FileWriter(titel+".tex");
-		return tex;
+	private static void writeNull(Song song, int j, BufferedWriter bw, boolean newEnv) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void writeOther(Song song, int j, BufferedWriter bw, boolean newEnv) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void writeComment(Song song, int j, BufferedWriter bw, boolean newEnv) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void writeInstruction(Song song, int j, BufferedWriter bw, boolean newEnv) {
+		// TODO Auto-generated method stub
+		
 	}
 }
