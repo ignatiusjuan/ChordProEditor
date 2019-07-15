@@ -143,7 +143,17 @@ public interface Song {
 	 * @param meta the meta to set
 	 */
 	void setMeta(String meta);
-
+	
+	/**
+	 * @return the isFinished
+	 */
+	boolean isFinished();
+	
+	/**
+	 * @param isFinished the isFinished to set
+	 */
+	void setFinished(boolean isFinished);
+	
 	/**
 	 * @return the xth environment
 	 */

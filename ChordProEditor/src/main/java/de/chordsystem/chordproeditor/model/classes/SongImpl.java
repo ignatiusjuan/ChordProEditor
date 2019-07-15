@@ -23,6 +23,7 @@ public class SongImpl implements Song{
 	private int duration;
 	private int capo;
 	private String meta;
+	private boolean isFinished;
 	
 	private List<Environment> environmentList;
 	
@@ -42,6 +43,7 @@ public class SongImpl implements Song{
 		this.duration = 0;
 		this.capo = 0;
 		this.meta = "";
+		this.isFinished = true;
 		this.environmentList = new ArrayList<Environment>();
 	}
 	/**
@@ -239,6 +241,18 @@ public class SongImpl implements Song{
 	@Override
 	public void setMeta(String meta) {
 		this.meta = meta;
+	}
+	/**
+	 * @return the isFinished
+	 */
+	public boolean isFinished() {
+		return isFinished;
+	}
+	/**
+	 * @param isFinished the isFinished to set
+	 */
+	public void setFinished(boolean isFinished) {
+		this.isFinished = isFinished;
 	}
 	/**
 	 * @return the xth environment

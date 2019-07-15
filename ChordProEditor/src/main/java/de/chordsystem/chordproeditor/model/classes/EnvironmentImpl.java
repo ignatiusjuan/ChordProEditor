@@ -10,27 +10,25 @@ public class EnvironmentImpl implements Environment {
 	public static final int TYPE_TAB = 3;
 	public static final int TYPE_GRID = 4;
 	public static final int TYPE_INSTRUCTION = 5;
-	public static final int TYPE_OTHER = 6;
+	public static final int TYPE_COMMENT = 6;
+	public static final int TYPE_OTHER = 7;
 	
 	private int 		type;
 	private String		title;
 	private String 		chord;
 	private String 		lyric;
+	private boolean		CommentIsItalic;
+	private boolean		CommentInBox;
 	
 	public EnvironmentImpl() {
 		this.type = TYPE_OTHER;
 		this.title = "";
 		this.chord = "";
 		this.lyric = "";
+		CommentIsItalic = false;
+		CommentInBox = false;
 	}
 	
-	public EnvironmentImpl(boolean isSyntax, int type, String title, String chord, String lyric) {
-		this.type = type;
-		this.title = title;
-		this.chord = chord;
-		this.lyric = lyric;
-	}
-
 	@Override
 	public int getType() {
 		return type;
@@ -72,6 +70,26 @@ public class EnvironmentImpl implements Environment {
 	}
 	
 	@Override
+	public boolean getCommentIsItalic() {
+		return CommentIsItalic;
+	}
+	
+	@Override
+	public void setCommentIsItalic(boolean value) {
+		CommentIsItalic = value;
+	}
+	
+	@Override
+	public boolean getCommentInBox() {
+		return CommentInBox;
+	}
+	
+	@Override
+	public void setCommentInBox(boolean value) {
+		CommentInBox = value;
+	}
+	
+	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		if (this.type == TYPE_CHORUS || this.type == TYPE_VERSE) {
@@ -80,10 +98,11 @@ public class EnvironmentImpl implements Environment {
 			sb.append(this.lyric + "\n");
 		} else if (this.type == TYPE_INSTRUCTION) {
 			sb.append("--GO TO " + this.lyric + "--\n");
+		} else if (this.type == TYPE_COMMENT) {
+			sb.append("//" + this.lyric + "\n");
 		} else 
 			sb.append(this.lyric + "\n");
 		return sb.toString();
 	}
-
 	
 }

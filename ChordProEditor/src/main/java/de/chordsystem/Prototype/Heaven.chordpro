@@ -31,7 +31,7 @@
  But just [Dm]hold me now, 'cause our [G]love will light the way
  {end_of_verse}
  
- {c: chorus}
+ {chorus: chorus}
  
  {start_of_verse: Verse 3}
  [Dm]I've been waiting for so [F]long
@@ -43,4 +43,11 @@
  [G]Yeah, I'll be standing there by you
  {end_of_verse}
  
- {c: chorus}
+ {chorus: chorus}
+ 
+ {c: testcomment 1}
+ {comment: testcomment 2}
+ {cb: testcomment 1}
+ {comment_box: testcomment 2}
+ {ci: testcomment 1}
+ {comment_italic: testcomment 2}

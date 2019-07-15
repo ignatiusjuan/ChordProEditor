@@ -19,5 +19,13 @@ public interface Environment {
 	void setLyric(String lyric);
 	
 	String toString();
+	
+	boolean getCommentIsItalic();
+	
+	void setCommentIsItalic(boolean value);
+
+	boolean getCommentInBox();
+	
+	void setCommentInBox(boolean value);
 
 }
