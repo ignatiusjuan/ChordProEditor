@@ -102,14 +102,18 @@ public class WriteTex {
 			bw.newLine();
 			bw.newLine();
 		}
-		bw.write("\noindent");
-		bw.write(song.getEnvironment(env).getChord());
-		bw.newLine();
-		bw.newLine();
-		bw.write("\noindent");
-		bw.write(song.getEnvironment(env).getLyric());
-		bw.newLine();
-		bw.newLine();
+		if(song.getEnvironment(env).getChord() != null) {
+			bw.write("\noindent");
+			bw.write(song.getEnvironment(env).getChord());
+			bw.newLine();
+			bw.newLine();
+		}
+		if(song.getEnvironment(env).getLyric() != null) {
+			bw.write("\noindent");
+			bw.write(song.getEnvironment(env).getLyric());
+			bw.newLine();
+			bw.newLine();
+		}
 	}
 	
 	/***
@@ -127,10 +131,18 @@ public class WriteTex {
 			bw.newLine();
 			bw.newLine();
 		}
-		bw.write("\noindent");
-		bw.write(song.getEnvironment(env).getLyric());
-		bw.newLine();
-		bw.newLine();
+		if(song.getEnvironment(env).getChord() != null) {
+			bw.write("\noindent");
+			bw.write(song.getEnvironment(env).getChord());
+			bw.newLine();
+			bw.newLine();
+		}
+		if(song.getEnvironment(env).getLyric() != null) {
+			bw.write("\noindent");
+			bw.write(song.getEnvironment(env).getLyric());
+			bw.newLine();
+			bw.newLine();
+		}
 	}
 	
 	/***
@@ -148,10 +160,18 @@ public class WriteTex {
 			bw.newLine();
 			bw.newLine();
 		}
-		bw.write("\noindent");
-		bw.write(song.getEnvironment(env).getLyric());
-		bw.newLine();
-		bw.newLine();
+		if(song.getEnvironment(env).getChord() != null) {
+			bw.write("\noindent");
+			bw.write(song.getEnvironment(env).getChord());
+			bw.newLine();
+			bw.newLine();
+		}
+		if(song.getEnvironment(env).getLyric() != null) {
+			bw.write("\noindent");
+			bw.write(song.getEnvironment(env).getLyric());
+			bw.newLine();
+			bw.newLine();
+		}
 	}
 	
 	/***
@@ -169,10 +189,18 @@ public class WriteTex {
 			bw.newLine();
 			bw.newLine();
 		}
-		bw.write("\noindent");
-		bw.write(song.getEnvironment(env).getLyric());
-		bw.newLine();
-		bw.newLine();
+		if(song.getEnvironment(env).getChord() != null) {
+			bw.write("\noindent");
+			bw.write(song.getEnvironment(env).getChord());
+			bw.newLine();
+			bw.newLine();
+		}
+		if(song.getEnvironment(env).getLyric() != null) {
+			bw.write("\noindent");
+			bw.write(song.getEnvironment(env).getLyric());
+			bw.newLine();
+			bw.newLine();
+		}
 	}
 	
 	private static void writeNull(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException
@@ -184,11 +212,18 @@ public class WriteTex {
 			bw.newLine();
 			bw.newLine();
 		}
-		bw.write("\noindent");
-		bw.write(song.getEnvironment(env).getLyric());
-		bw.newLine();
-		bw.newLine();
-		
+		if(song.getEnvironment(env).getChord() != null) {
+			bw.write("\noindent");
+			bw.write(song.getEnvironment(env).getChord());
+			bw.newLine();
+			bw.newLine();
+		}
+		if(song.getEnvironment(env).getLyric() != null) {
+			bw.write("\noindent");
+			bw.write(song.getEnvironment(env).getLyric());
+			bw.newLine();
+			bw.newLine();
+		}
 	}
 
 	private static void writeOther(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException
@@ -200,10 +235,18 @@ public class WriteTex {
 			bw.newLine();
 			bw.newLine();
 		}
-		bw.write("\noindent");
-		bw.write(song.getEnvironment(env).getLyric());
-		bw.newLine();
-		bw.newLine();
+		if(song.getEnvironment(env).getChord() != null) {
+			bw.write("\noindent");
+			bw.write(song.getEnvironment(env).getChord());
+			bw.newLine();
+			bw.newLine();
+		}
+		if(song.getEnvironment(env).getLyric() != null) {
+			bw.write("\noindent");
+			bw.write(song.getEnvironment(env).getLyric());
+			bw.newLine();
+			bw.newLine();
+		}
 	}
 
 	private static void writeComment(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException
@@ -218,10 +261,18 @@ public class WriteTex {
 			bw.newLine();
 			bw.newLine();
 		}
-		bw.write("\noindent");
-		bw.write(song.getEnvironment(env).getLyric());
-		bw.newLine();
-		bw.newLine();
+		if(song.getEnvironment(env).getChord() != null) {
+			bw.write("\noindent");
+			bw.write(song.getEnvironment(env).getChord());
+			bw.newLine();
+			bw.newLine();
+		}
+		if(song.getEnvironment(env).getLyric() != null) {
+			bw.write("\noindent");
+			bw.write(song.getEnvironment(env).getLyric());
+			bw.newLine();
+			bw.newLine();
+		}
 		if(newEnv == true) {
 			bw.write("}");
 		}
@@ -236,9 +287,17 @@ public class WriteTex {
 			bw.newLine();
 			bw.newLine();
 		}
-		bw.write("\noindent");
-		bw.write(song.getEnvironment(env).getLyric());
-		bw.newLine();
-		bw.newLine();
+		if(song.getEnvironment(env).getChord() != null) {
+			bw.write("\noindent");
+			bw.write(song.getEnvironment(env).getChord());
+			bw.newLine();
+			bw.newLine();
+		}
+		if(song.getEnvironment(env).getLyric() != null) {
+			bw.write("\noindent");
+			bw.write(song.getEnvironment(env).getLyric());
+			bw.newLine();
+			bw.newLine();
+		}
 	}
 }
