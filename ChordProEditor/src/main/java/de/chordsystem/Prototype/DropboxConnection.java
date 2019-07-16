@@ -1,5 +1,5 @@
 package de.chordsystem.Prototype;
-
+/*
 import java.io.*;
 import java.util.Locale;
 import java.net.URL;
@@ -17,9 +17,9 @@ import com.dropbox.core.v2.files.FolderMetadata;
 import com.dropbox.core.v2.files.ListFolderResult;
 import com.dropbox.core.v2.files.Metadata;
 import com.dropbox.core.v2.users.FullAccount;
-
+*/
 public class DropboxConnection {
-        
+  /*      
     private static final String ACCESS_TOKEN = "s83D4qQRYqAAAAAAAAAZeWLOcHm01CT_-yY_0sbNdxLgtXDqVPQ3-fHG9L8yPx07";
     private DbxRequestConfig config = null;
     DbxClientV2 client = null;
@@ -186,5 +186,5 @@ public class DropboxConnection {
         //m.uploadFile("C:/b2b/Overview of Archival and Purge Process.pdf", folderName + "/Overview of Archival and Purge Process.pdf");  
         // m.readFile(folderName + "/Overview of Archival and Purge Process.pdf", "Overview of Archival and Purge Process.pdf");
         //m.deleteFile(folderName+"/Overview of Archival and Purge Process.pdf");
-    }
+    }*/
 }

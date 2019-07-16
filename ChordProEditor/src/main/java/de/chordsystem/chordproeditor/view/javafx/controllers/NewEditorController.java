@@ -39,8 +39,8 @@ import javafx.scene.layout.VBox;
  *
  */
 public class NewEditorController implements Initializable {
-	ObservableList list = FXCollections.observableArrayList();
 	
+	ObservableList list = FXCollections.observableArrayList();
 	
 	
     @FXML
@@ -110,21 +110,19 @@ public class NewEditorController implements Initializable {
      */
     public JFXListView getSongList() {
     	return SongList;
-      }
+    }
     public JFXTextField gettxtSongTitle() {
     	return txtSongTitle;
     }
     public JFXTextField gettxtAlternativeTitle() {
     	return txtAlternativeTitle;
     }
-    
     public JFXTextField gettxtArtist() {
     	return txtArtist;
     }
     public JFXTextField gettxtSongId() {
     	return txtSongId;
     }
-    
     public JFXTextArea gettxtSongInsert() {
     	return txtSongInsert;
     }
@@ -187,26 +185,26 @@ public class NewEditorController implements Initializable {
 		//methode noch eigene animation bauen 
 		
 		//-----------------------Erledigen----------------
-		SaveAsChordPro.setOnMouseClicked();
-		SaveAsPdf.setOnMouseClicked();
+		//SaveAsChordPro.setOnMouseClicked();
+		//SaveAsPdf.setOnMouseClicked();
 		//-----------------------Erledigen----------------
 		
 		/**
 		 * Methode um auf den Slide des Menu Hamburgers zuzugreifen und auszugeben
 		 */
-		VBox box = FXMLLoader.load(getClass().getResource("DrawerContent.fxml"));
-		drawer.setSidePane(box);
-		HamburgerBackArrowBasicTransition burgerTask2 = new HamburgerBackArrowBasicTransition(hamburger);
-			burgerTask2.setRate(-1);
-			hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
-				burgerTask2.setRate(burgerTask2.getRate() * -1);
-				burgerTask2.play();
-				
-				if(drawer.isShown())
-				drawer.hide();
-				else
-				drawer.draw();
-			});
+//		VBox box = FXMLLoader.load(getClass().getResource("DrawerContent.fxml"));
+//		drawer.setSidePane(box);
+//		HamburgerBackArrowBasicTransition burgerTask2 = new HamburgerBackArrowBasicTransition(hamburger);
+//			burgerTask2.setRate(-1);
+//			hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
+//				burgerTask2.setRate(burgerTask2.getRate() * -1);
+//				burgerTask2.play();
+//				
+//				if(drawer.isShown())
+//				drawer.hide();
+//				else
+//				drawer.draw();
+//			});
 		
 	}
 	
