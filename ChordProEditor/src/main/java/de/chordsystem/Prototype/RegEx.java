@@ -284,7 +284,11 @@ public class RegEx {
 					song.addEnvironment(env);
 				}
 			}
-			System.out.println(song.toString());
+			//System.out.println(song.toString());
+			int[] temp = {-1,1,1,2,3,3};
+			int[] temp2 = {-1,2,2,1,3,3};
+			Fingering f = new FingeringImpl("F",6,2,temp, temp2);
+			System.out.println(f);
 			reader.close();
 		}
 		catch (Exception e)
