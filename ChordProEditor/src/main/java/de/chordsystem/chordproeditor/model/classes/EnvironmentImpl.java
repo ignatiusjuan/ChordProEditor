@@ -92,9 +92,8 @@ public class EnvironmentImpl implements Environment {
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
-		if (this.type == TYPE_CHORUS || this.type == TYPE_VERSE) {
-			if (this.chord.trim().length() > 0 && !this.chord.trim().isEmpty())
-				sb.append(this.chord + "\n");
+		if (this.chord.trim().length() > 0 && !this.chord.trim().isEmpty()) {
+			sb.append(this.chord + "\n");
 			sb.append(this.lyric + "\n");
 		} else if (this.type == TYPE_INSTRUCTION) {
 			sb.append("--GO TO " + this.lyric + "--\n");

@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 public class SongImpl implements Song{
 	
+	private static final int DEFAULT_STRINGS = 6;
+	
 	private String title;
 	private String subtitle;
 	private String artist;
@@ -23,8 +25,13 @@ public class SongImpl implements Song{
 	private int duration;
 	private int capo;
 	private String meta;
+	private int textfont;
+	private int textsize;
+	private int textcolour;
+	private int chordcolour;
 	private boolean isFinished;
 	
+	private List<Fingering> fingeringList;
 	private List<Environment> environmentList;
 	
 	public SongImpl() {
@@ -44,6 +51,7 @@ public class SongImpl implements Song{
 		this.capo = 0;
 		this.meta = "";
 		this.isFinished = true;
+		this.fingeringList = new ArrayList<Fingering>();
 		this.environmentList = new ArrayList<Environment>();
 	}
 	/**
