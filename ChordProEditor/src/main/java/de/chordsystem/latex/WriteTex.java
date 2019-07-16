@@ -1,6 +1,5 @@
 package de.chordsystem.latex;
 
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,9 +7,14 @@ import java.io.IOException;
 import de.chordsystem.chordproeditor.model.classes.EnvironmentImpl;
 import de.chordsystem.chordproeditor.model.interfaces.*;
 
-
 //https://www.tutorials.de/threads/java-tex-pdf.375887/
 
+/***
+ * 
+ * @author Anne-Kathrin Haag
+ * Creates the .tex document, with the information in the song given
+ *
+ */
 public class WriteTex {
 	
 	/***
@@ -31,11 +35,13 @@ public class WriteTex {
 		bw.newLine();
 		bw.write("\\date{"+song.getYear()+"}");
 		bw.newLine();
-		bw.write("\\begin{document}");
+		bw.write("\begin{document}");
 		bw.newLine();
 		bw.write("\\maketitle");
 		bw.newLine();
 		writeLyrics(song, bw);
+		bw.write(song.getCopyright());
+		bw.newLine();
 		bw.write("\\end{document}");
 		bw.newLine();
 		bw.close();
@@ -46,7 +52,7 @@ public class WriteTex {
 	 * @return
 	 * @throws IOException
 	 */
-	private static boolean writeLyrics(Song song, BufferedWriter bw) throws IOException
+	private static void writeLyrics(Song song, BufferedWriter bw) throws IOException
 	{
 		boolean newEnv = true;
 		for (int currentEnv = 0; currentEnv < song.getEnvironmentSize(); currentEnv++) {
@@ -83,15 +89,14 @@ public class WriteTex {
 					break;
 			}
 		}
-		return false;
 	}
 
 	/***
 	 * Writes the chorus of the current environment in the song
-	 * @param song
-	 * @param env
-	 * @param bw
-	 * @param newEnv 
+	 * @param song current Song
+	 * @param env curent Environment
+	 * @param bw Writer
+	 * @param newEnv if an new Environment startet
 	 * @throws IOException
 	 */
 	private static void writeChorus(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException
@@ -118,10 +123,10 @@ public class WriteTex {
 	
 	/***
 	 * Writes the verse of the current environment in the song
-	 * @param song
-	 * @param env
-	 * @param bw
-	 * @param newEnv 
+	 * @param song current Song
+	 * @param env curent Environment
+	 * @param bw Writer
+	 * @param newEnv if an new Environment startet
 	 * @throws IOException
 	 */
 	private static void writeVerse(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException{
@@ -147,10 +152,10 @@ public class WriteTex {
 	
 	/***
 	 * Writes the tab of the current environment in the song
-	 * @param song
-	 * @param env
-	 * @param bw
-	 * @param newEnv 
+	 * @param song current Song
+	 * @param env curent Environment
+	 * @param bw Writer
+	 * @param newEnv if an new Environment startet
 	 * @throws IOException
 	 */
 	private static void writeTab(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException{
@@ -176,10 +181,10 @@ public class WriteTex {
 	
 	/***
 	 * Writes the grid of the current environment in the song
-	 * @param song
-	 * @param env
-	 * @param bw
-	 * @param newEnv 
+	 * @param song current Song
+	 * @param env curent Environment
+	 * @param bw Writer
+	 * @param newEnv if an new Environment startet
 	 * @throws IOException
 	 */
 	private static void writeGrid(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException{
@@ -203,6 +208,14 @@ public class WriteTex {
 		}
 	}
 	
+	/***
+	 * Writes an Null environment in the song
+	 * @param song current Song
+	 * @param env curent Environment
+	 * @param bw Writer
+	 * @param newEnv if an new Environment startet
+	 * @throws IOException
+	 */
 	private static void writeNull(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException
 	{
 		// TODO Auto-generated method stub
@@ -226,6 +239,14 @@ public class WriteTex {
 		}
 	}
 
+	/***
+	 * Writes other environments in the song
+	 * @param song current Song
+	 * @param env curent Environment
+	 * @param bw Writer
+	 * @param newEnv if an new Environment startet
+	 * @throws IOException
+	 */
 	private static void writeOther(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException
 	{
 		// TODO Auto-generated method stub
@@ -249,6 +270,14 @@ public class WriteTex {
 		}
 	}
 
+	/***
+	 * Writes the comment of the current environment in the song
+	 * @param song current Song
+	 * @param env curent Environment
+	 * @param bw Writer
+	 * @param newEnv if an new Environment startet
+	 * @throws IOException
+	 */
 	private static void writeComment(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException
 	{
 		//TODO Box
@@ -278,6 +307,14 @@ public class WriteTex {
 		}
 	}
 
+	/***
+	 * Writes the instruction of the current environment in the song
+	 * @param song current Song
+	 * @param env curent Environment
+	 * @param bw Writer
+	 * @param newEnv if an new Environment startet
+	 * @throws IOException
+	 */
 	private static void writeInstruction(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException 
 	{
 		// TODO Auto-generated method stub
