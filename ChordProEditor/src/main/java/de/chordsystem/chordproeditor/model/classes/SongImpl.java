@@ -263,6 +263,27 @@ public class SongImpl implements Song{
 		this.isFinished = isFinished;
 	}
 	/**
+	 * @return the xth fingering
+	 */
+	@Override
+	public Fingering getFingering(int x) {
+		return fingeringList.get(x);
+	}
+	/**
+	 * @return the fingeringList size
+	 */
+	@Override
+	public int getFingeringSize() {
+		return fingeringList.size();
+	}
+	/**
+	 * @param fingering the fingering to add
+	 */
+	@Override
+	public void addFingering(Fingering fingering) {
+		fingeringList.add(fingering);
+	}
+	/**
 	 * @return the xth environment
 	 */
 	@Override

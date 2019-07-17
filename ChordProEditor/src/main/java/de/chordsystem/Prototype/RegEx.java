@@ -12,49 +12,52 @@ import java.io.BufferedReader;
 
 public class RegEx {
 	
-	private static final String regexChordLyric		= "^\\s*[^\\{\\}]*\\s*$";
+	private static final String regexChordLyric			= "^\\s*[^\\{\\}]*\\s*$";
 	
-	private static final String regexNewSong		= "^\\s*\\{\\s*\\b(new_song|ns)\\b\\s*\\}\\s*$";
+	private static final String regexNewSong			= "^\\s*\\{\\s*\\b(new_song|ns)\\b\\s*\\}\\s*$";
 	
-	private static final String regexTitle			= "^\\s*\\{\\s*\\b(title|t)\\b\\s*:\\s*(?<title>.*?)\\s*\\}\\s*$";
-	private static final String regexSubtitle		= "^\\s*\\{\\s*\\b(subtitle|st)\\b\\s*:\\s*(?<subtitle>.*?)\\s*\\}\\s*$";
-	private static final String regexArtist 		= "^\\s*\\{\\s*artist\\s*:\\s*(?<artist>.*?)\\s*\\}\\s*$";
-	private static final String regexComposer 		= "^\\s*\\{\\s*composer\\s*:\\s*(?<composer>.*?)\\s*\\}\\s*$";
-	private static final String regexLyricist 		= "^\\s*\\{\\s*lyricist\\s*:\\s*(?<lyricist>.*?)\\s*\\}\\s*$";
-	private static final String regexCopyright 		= "^\\s*\\{\\s*copyright\\s*:\\s*(?<copyright>.*?)\\s*\\}\\s*$";
-	private static final String regexAlbum 			= "^\\s*\\{\\s*album\\s*:\\s*(?<album>.*?)\\s*\\}\\s*$";
-	private static final String regexYear 			= "^\\s*\\{\\s*year\\s*:\\s*(?<year>\\d*?)\\s*\\}\\s*$";
-	private static final String regexKey 			= "^\\s*\\{\\s*key\\s*:\\s*(?<key>.*?)\\s*\\}\\s*$";
-	private static final String regexTime 			= "^\\s*\\{\\s*time\\s*:\\s*(?<a>\\d?)\\s*/\\s*(?<b>\\d?)\\s*\\}\\s*$";
-	private static final String regexTempo 			= "^\\s*\\{\\s*tempo\\s*:\\s*(?<tempo>\\d*?)\\s*\\}\\s*$";
-	private static final String regexDuration 		= "^\\s*\\{\\s*duration\\s*:\\s*(?<minute>\\d*?)\\s*:\\s*(?<second>\\d*?)\\s*\\}\\s*$";
-	private static final String regexCapo 			= "^\\s*\\{\\s*capo\\s*:\\s*(?<capo>\\d*?)\\s*\\}\\s*$";
-	private static final String regexMeta 			= "^\\s*\\{\\s*meta\\s*:\\s*(.*?)\\s*\\}\\s*$";
+	private static final String regexTitle				= "^\\s*\\{\\s*\\b(title|t)\\b\\s*:\\s*(?<title>.*?)\\s*\\}\\s*$";
+	private static final String regexSubtitle			= "^\\s*\\{\\s*\\b(subtitle|st)\\b\\s*:\\s*(?<subtitle>.*?)\\s*\\}\\s*$";
+	private static final String regexArtist 			= "^\\s*\\{\\s*artist\\s*:\\s*(?<artist>.*?)\\s*\\}\\s*$";
+	private static final String regexComposer 			= "^\\s*\\{\\s*composer\\s*:\\s*(?<composer>.*?)\\s*\\}\\s*$";
+	private static final String regexLyricist 			= "^\\s*\\{\\s*lyricist\\s*:\\s*(?<lyricist>.*?)\\s*\\}\\s*$";
+	private static final String regexCopyright 			= "^\\s*\\{\\s*copyright\\s*:\\s*(?<copyright>.*?)\\s*\\}\\s*$";
+	private static final String regexAlbum 				= "^\\s*\\{\\s*album\\s*:\\s*(?<album>.*?)\\s*\\}\\s*$";
+	private static final String regexYear 				= "^\\s*\\{\\s*year\\s*:\\s*(?<year>\\d*?)\\s*\\}\\s*$";
+	private static final String regexKey 				= "^\\s*\\{\\s*key\\s*:\\s*(?<key>.*?)\\s*\\}\\s*$";
+	private static final String regexTime 				= "^\\s*\\{\\s*time\\s*:\\s*(?<a>\\d?)\\s*/\\s*(?<b>\\d?)\\s*\\}\\s*$";
+	private static final String regexTempo 				= "^\\s*\\{\\s*tempo\\s*:\\s*(?<tempo>\\d*?)\\s*\\}\\s*$";
+	private static final String regexDuration 			= "^\\s*\\{\\s*duration\\s*:\\s*(?<minute>\\d*?)\\s*:\\s*(?<second>\\d*?)\\s*\\}\\s*$";
+	private static final String regexCapo 				= "^\\s*\\{\\s*capo\\s*:\\s*(?<capo>\\d*?)\\s*\\}\\s*$";
+	private static final String regexMeta 				= "^\\s*\\{\\s*meta\\s*:\\s*(.*?)\\s*\\}\\s*$";
 
-	private static final String regexStartofChorusv1= "^\\s*\\{\\s*\\b(start_of_chorus|soc)\\b\\s*:\\s*(.*?)\\s*\\}\\s*$";
-	private static final String regexStartofChorusv2= "^\\s*\\{\\s*\\b(start_of_chorus|soc)\\b\\s*\\}\\s*$";
-	private static final String regexEndofChorus	= "^\\s*\\{\\s*\\b(end_of_chorus|eoc)\\b\\s*\\}\\s*$";
+	private static final String regexStartofChorusv1	= "^\\s*\\{\\s*\\b(start_of_chorus|soc)\\b\\s*:\\s*(.*?)\\s*\\}\\s*$";
+	private static final String regexStartofChorusv2	= "^\\s*\\{\\s*\\b(start_of_chorus|soc)\\b\\s*\\}\\s*$";
+	private static final String regexEndofChorus		= "^\\s*\\{\\s*\\b(end_of_chorus|eoc)\\b\\s*\\}\\s*$";
 	
-	private static final String regexStartofVersev1	= "^\\s*\\{\\s*\\b(start_of_verse|sov)\\b\\s*:\\s*(.*?)\\s*\\}\\s*$";
-	private static final String regexStartofVersev2	= "^\\s*\\{\\s*\\b(start_of_verse|sov)\\b\\s*\\}\\s*$";
-	private static final String regexEndofVerse		= "^\\s*\\{\\s*\\b(end_of_verse|eov)\\b\\s*\\}\\s*$";
+	private static final String regexStartofVersev1		= "^\\s*\\{\\s*\\b(start_of_verse|sov)\\b\\s*:\\s*(.*?)\\s*\\}\\s*$";
+	private static final String regexStartofVersev2		= "^\\s*\\{\\s*\\b(start_of_verse|sov)\\b\\s*\\}\\s*$";
+	private static final String regexEndofVerse			= "^\\s*\\{\\s*\\b(end_of_verse|eov)\\b\\s*\\}\\s*$";
 	
-	private static final String regexStartofTabv1	= "^\\s*\\{\\s*\\b(start_of_tab|sot)\\b\\s*:\\s*(.*?)\\s*\\}\\s*$";
-	private static final String regexStartofTabv2	= "^\\s*\\{\\s*\\b(start_of_tab|sot)\\b\\s*\\}\\s*$";
-	private static final String regexEndofTab		= "^\\s*\\{\\s*\\b(end_of_tab|eot)\\b\\s*\\}\\s*$";
+	private static final String regexStartofTabv1		= "^\\s*\\{\\s*\\b(start_of_tab|sot)\\b\\s*:\\s*(.*?)\\s*\\}\\s*$";
+	private static final String regexStartofTabv2		= "^\\s*\\{\\s*\\b(start_of_tab|sot)\\b\\s*\\}\\s*$";
+	private static final String regexEndofTab			= "^\\s*\\{\\s*\\b(end_of_tab|eot)\\b\\s*\\}\\s*$";
 	
-	private static final String regexStartofGridv1	= "^\\s*\\{\\s*\\b(start_of_grid|sog)\\b\\s*:\\s*(.*?)\\s*\\}\\s*$";
-	private static final String regexStartofGridv2	= "^\\s*\\{\\s*\\b(start_of_grid|sog)\\b\\s*\\}\\s*$";
-	private static final String regexEndofGrid		= "^\\s*\\{\\s*\\b(end_of_grid|eog)\\b\\s*\\}\\s*$";
+	private static final String regexStartofGridv1		= "^\\s*\\{\\s*\\b(start_of_grid|sog)\\b\\s*:\\s*(.*?)\\s*\\}\\s*$";
+	private static final String regexStartofGridv2		= "^\\s*\\{\\s*\\b(start_of_grid|sog)\\b\\s*\\}\\s*$";
+	private static final String regexEndofGrid			= "^\\s*\\{\\s*\\b(end_of_grid|eog)\\b\\s*\\}\\s*$";
 	
-	private static final String regexGoToChorusv1	= "^\\s*\\{\\s*chorus\\s*:\\s*(.*?)\\s*\\}\\s*$";
-	private static final String regexGoToChorusv2	= "^\\s*\\{\\s*chorus\\s*\\}\\s*$";
-	private static final String regexGoToVersev1	= "^\\s*\\{\\s*verse\\s*:\\s*(.*?)\\s*\\}\\s*$";
-	private static final String regexGoToVersev2	= "^\\s*\\{\\s*verse\\s*\\}\\s*$";
+	private static final String regexGoToChorusv1		= "^\\s*\\{\\s*chorus\\s*:\\s*(.*?)\\s*\\}\\s*$";
+	private static final String regexGoToChorusv2		= "^\\s*\\{\\s*chorus\\s*\\}\\s*$";
+	private static final String regexGoToVersev1		= "^\\s*\\{\\s*verse\\s*:\\s*(.*?)\\s*\\}\\s*$";
+	private static final String regexGoToVersev2		= "^\\s*\\{\\s*verse\\s*\\}\\s*$";
 	
-	private static final String regexCommentNormal	= "^\\s*\\{\\s*\\b(comment|c)\\b\\s*:\\s*(.*?)\\s*\\}\\s*$";
-	private static final String regexCommentBox		= "^\\s*\\{\\s*\\b(comment_box|cb)\\b\\s*:\\s*(.*?)\\s*\\}\\s*$";
-	private static final String regexCommentItalic	= "^\\s*\\{\\s*\\b(comment_italic|ci)\\b\\s*:\\s*(.*?)\\s*\\}\\s*$";
+	private static final String regexCommentNormal		= "^\\s*\\{\\s*\\b(comment|c)\\b\\s*:\\s*(.*?)\\s*\\}\\s*$";
+	private static final String regexCommentBox			= "^\\s*\\{\\s*\\b(comment_box|cb)\\b\\s*:\\s*(.*?)\\s*\\}\\s*$";
+	private static final String regexCommentItalic		= "^\\s*\\{\\s*\\b(comment_italic|ci)\\b\\s*:\\s*(.*?)\\s*\\}\\s*$";
+	
+	private static final String regexDefineChord		= "^\\s*\\{\\s*\\b(define|chord)\\b\\s*:?\\s+(.*?)\\s+base-fret\\s+(.*?)frets\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s*\\}\\s*$";
+	private static final String regexDefineChordFingers	= "^\\s*\\{\\s*\\b(define|chord)\\b\\s*:?\\s+(.*?)\\s+base-fret\\s+(.*?)frets\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+fingers\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s*\\}\\s*$";
 	
 	private String tempTitle = "";
 	private int tempType = EnvironmentImpl.TYPE_NULL;
@@ -250,6 +253,38 @@ public class RegEx {
 			song.setMeta(m.group(1));
 		} else if (Pattern.compile(regexNewSong).matcher(toMatch).find()) {
 			song.setFinished(false);
+		} else if (Pattern.compile(regexDefineChordFingers).matcher(toMatch).find()){
+			Matcher m = Pattern.compile(regexDefineChordFingers).matcher(toMatch);
+			m.find();
+			String name = m.group(2);
+			int basefret = m.group(3).charAt(0) - '0';
+			int[] frets = {-1,-1,-1,-1,-1,-1};
+			for (int i = 0; i < 6; i++) {
+				if ((m.group(4+i).charAt(0) - '0' >= 0) && (m.group(4+i).charAt(0) - '0' <= 9)) {
+					frets[i] = m.group(4+i).charAt(0) - '0';
+				}
+			}
+			int[] fingers = {-1,-1,-1,-1,-1,-1};
+			for (int i = 0; i < 6; i++) {
+				if ((m.group(10+i).charAt(0) - '0' >= 0) && (m.group(10+i).charAt(0) - '0' <= 9)) {
+					fingers[i] = m.group(10+i).charAt(0) - '0';
+				}
+			}
+			Fingering f = new FingeringImpl(name, 6, basefret, frets, fingers);
+			System.out.println(f);
+		} else if (Pattern.compile(regexDefineChord).matcher(toMatch).find()){
+			Matcher m = Pattern.compile(regexDefineChord).matcher(toMatch);
+			m.find();
+			String name = m.group(2);
+			int basefret = m.group(3).charAt(0) - '0';
+			int[] frets = {-1,-1,-1,-1,-1,-1};
+			for (int i = 0; i < 6; i++) {
+				if ((m.group(4+i).charAt(0) - '0' >= 0) && (m.group(4+i).charAt(0) - '0' <= 9)) {
+					frets[i] = m.group(4+i).charAt(0) - '0';
+				}
+			}
+			Fingering f = new FingeringImpl(name, 6, basefret, frets);
+			System.out.println(f);
 		} else {
 			System.out.println("Parse error: " + toMatch);
 			//later --> else = error
@@ -285,10 +320,6 @@ public class RegEx {
 				}
 			}
 			//System.out.println(song.toString());
-			int[] temp = {-1,1,1,2,3,3};
-			int[] temp2 = {-1,2,2,1,3,3};
-			Fingering f = new FingeringImpl("F",6,2,temp, temp2);
-			System.out.println(f);
 			reader.close();
 		}
 		catch (Exception e)

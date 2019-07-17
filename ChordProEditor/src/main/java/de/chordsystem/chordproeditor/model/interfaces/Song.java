@@ -171,4 +171,10 @@ public interface Song {
 
 	String toString();
 
+	Fingering getFingering(int x);
+
+	int getFingeringSize();
+
+	void addFingering(Fingering fingering);
+
 }

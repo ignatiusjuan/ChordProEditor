@@ -123,7 +123,7 @@ public class FingeringImpl implements Fingering {
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
-		
+		sb.append("Chord: " + chordName + "\n");
 		if (baseFret == 0) {
 			for (int i = 0; i < 13; i++) {
 				if (i % 2 == 0)
