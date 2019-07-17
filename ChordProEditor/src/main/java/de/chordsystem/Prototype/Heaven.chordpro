@@ -1,18 +1,28 @@
-# From: johnmac@reg.triumf.ca (JOHNMAC*DOUGALL TRIUMF OPERATIONS)
-{t:What a Wonderful World}
-{st: Louis Armstrong}
+# From: stevenj1@aol.com (StevenJ1)
+{t:What A Wonderful World}
+#By George David Weiss and Bob Thiele
+{st:Louis Armstrong}
+{define D+ base-fret 1 frets x x 1 3 3 2 fingers x x 1 2 3 4}
+{define F#dim7 base-fret 1 frets x x 1 2 1 2 fingers x x 1 2 1 2}
+{define F#m7b5 base-fret 1 frets x x 2 2 1 2}
+{define A7b9 base-fret 1 frets x 0 2 3 2 0}
+{define G6 base-fret 1 frets 3 2 0 0 0 0}
 
-I see t[F]ree[Am]s of [Bb]green, red[Am] roses too
-[Gm7]I see them[F] bloom fo[A7]r me [Dm]and you
-And I th[Db]ink to my[Gm7(C)]self wha[C7]t a wonder[F]ful w[F+5]orld  [Bmaj7]     
-[C7]I see [F]skie[Am]s of blue[Bb] and clou[Am]ds of white
-The br[Gm7]ight blesse[F]d da[A7]y, the dark [Dm]sacred night
-And I th[Db]ink to my[Gm7(C)]self wh[C7]at a wonde[F]rful [Bb]world    [F] 
-The co[C7]lours of the rainbow[F], so pretty in the sky
-Are al[C7]so on the face[F]s of people goin' by
-I see f[Dm]riends s[C(E)]hakin' hand[Dm(F)]s, sayin' "Ho[C(G)]w do you do!"
-[Dm(F)]They're re[F#dim]ally s[Gm7]ayin[F#dim]' I lo[C7]ve you
-I hea[F]r bab[Am]ies c[Bb]ry, I watch [Am]them grow
-[Gm7]They'll learn so [F]much more th[A7]an [Dm]I'll ever know
-And I th[Db]ink to my[Gm7(C)]self what a wond[F]erful[Am7-5] world 
-[D7]Yes I [Gm7]think to myself w[C7-9]hat a wonder[F]ful wo[Bb6]rld.   [F] 
+I see[D] trees of [F#m]green, [G]red roses [F#m]too
+[Em7]I see them [D]bloom,[F#7] for me and [Bm]you,                  
+And I [Bb]think to myself,[Em7/A] What a [A7]wonderful [D]world[D+].    [Gmaj7]        [A7]  
+
+I see[D] skies of [F#m]blue and [G]clouds of [F#m]white,
+[Em7]The bright blessed [D]day, the [F#7]dark sacred [Bm]night,
+And I [Bb]think to myself,[Em7/A] what a w[A7]onderful w[D]orld[G]    [G]    [D] 
+
+The [A7]colors of the rainbow, so [D]pretty in the sky
+Are [A7]also on the faces of [D]people goin' by
+I see [Bm]friends shaking [F#m]hands, saying, "[Bm]How do you [F#m]do?"
+[Em7]They're really [F#dim7]saying,  [Em7]"I   [F#dim7]love    [Em7]you."   
+
+[A7]I hear [D]babies [F#m]cry, I [G]watch them [F#m]grow
+[Em7]They'll learn much [D]more [F#7]than I'll ever [Bm]know,
+And I [Bb]think to myself [Em7/A]what a wo[A7]nderful wo[D]rld [F#m7b5]         [B7]  
+
+Yes I [Em7]think to myself,[Em7/A] what a [A7b9]wonderful [D]world[G6].   [D] 
