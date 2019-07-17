@@ -56,8 +56,8 @@ public class RegEx {
 	private static final String regexCommentBox			= "^\\s*\\{\\s*\\b(comment_box|cb)\\b\\s*:\\s*(.*?)\\s*\\}\\s*$";
 	private static final String regexCommentItalic		= "^\\s*\\{\\s*\\b(comment_italic|ci)\\b\\s*:\\s*(.*?)\\s*\\}\\s*$";
 	
-	private static final String regexDefineChord		= "^\\s*\\{\\s*\\b(define|chord)\\b\\s*:?\\s+(.*?)\\s+base-fret\\s+(.*?)frets\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s*\\}\\s*$";
 	private static final String regexDefineChordFingers	= "^\\s*\\{\\s*\\b(define|chord)\\b\\s*:?\\s+(.*?)\\s+base-fret\\s+(.*?)frets\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+fingers\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s*\\}\\s*$";
+	private static final String regexDefineChord		= "^\\s*\\{\\s*\\b(define|chord)\\b\\s*:?\\s+(.*?)\\s+base-fret\\s+(.*?)frets\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s*\\}\\s*$";
 	
 	private String tempTitle = "";
 	private int tempType = EnvironmentImpl.TYPE_NULL;
