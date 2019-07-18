@@ -31,8 +31,8 @@ They'll learn much more than I'll ever know,
       Bb                Em7/A         A7          D    F#m7b5         B7
 And I think to myself what a wonderful world          
       Em7                Em7/A        A7b9          D     G6    D
-Yes I think to myself, what a wonderful world.
-   
+Yes I think to myself, what a wonderful world.   
+
 Chord: D+
 =============
 |=|=|=|=|=|=|
@@ -73,29 +73,6 @@ Chord: A7b9
 | | | |o| | |
 -------------
 
-Chord: G6
-=============
-|=|=|=|=|=|=|
--------------
-| | | | | | |
--------------
-| |o| | | | |
--------------
-|o| | | | | |
--------------
-
-
-
-Chord: A7b9
-=============
-|=|=|=|=|=|=|
--x-----------
-| | | | | | |
--------------
-| | |o| |o| |
--------------
-| | | |o| | |
--------------
 Chord: G6
 =============
 |=|=|=|=|=|=|
