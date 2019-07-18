@@ -1,34 +1,109 @@
-Title What a Wonderful World
-Subtitle Louis Armstrong
+Title: What A Wonderful World
+Subtitle: Louis Armstrong
 
 
-# From johnmac@reg.triumf.ca (JOHNMACDOUGALL TRIUMF OPERATIONS)
-       F   Am     Bb          Am          
+# From: stevenj1@aol.com (StevenJ1)
+#By George David Weiss and Bob Thiele
+     D          F#m       G          F#m   
 I see trees of green, red roses too
-Gm7          F         A7     Dm       
-I see them bloom for me and you
-        Db         Gm7(C)        C7          F     F+5      Bmaj7
-And I think to myself what a wonderful world  
-C7      F    Am         Bb         Am           
-I see skies of blue and clouds of white
-      Gm7           F    A7            Dm            
-The bright blessed day, the dark sacred night
-        Db         Gm7(C)       C7          F     Bb         F
-And I think to myself what a wonderful world    
-      C7                    F                      
-The colours of the rainbow, so pretty in the sky
-      C7              F                    
+Em7           D      F#7            Bm    
+I see them bloom, for me and you,
+      Bb                Em7/A        A7          D     D+     Gmaj7        A7
+And I think to myself, What a wonderful world.            
+     D          F#m         G          F#m      
+I see skies of blue and clouds of white,
+Em7                   D         F#7            Bm      
+The bright blessed day, the dark sacred night,
+      Bb                Em7/A         A7          D    G    G    D
+And I think to myself, what a wonderful world        
+    A7                          D                 
+The colors of the rainbow, so pretty in the sky
+    A7                     D               
 Are also on the faces of people goin' by
-       Dm        C(E)           Dm(F)             C(G)             
-I see friends shakin' hands, sayin' How do you do!
-Dm(F)          F#dim      Gm7    F#dim      C7      
-They're really sayin' I love you
-     F     Am     Bb            Am         
+      Bm                F#m                Bm           F#m    
+I see friends shaking hands, saying, "How do you do?"
+Em7               F#dim7         Em7     F#dim7        Em7     
+They're really saying,  "I   love    you."
+A7       D       F#m       G           F#m    
 I hear babies cry, I watch them grow
-Gm7                 F            A7   Dm              
-They'll learn so much more than I'll ever know
-        Db         Gm7(C)                F     Am7-5      
-And I think to myself what a wonderful world
-D7      Gm7                 C7-9            F      Bb6       F
-Yes I think to myself what a wonderful world.   
+Em7                   D     F#7               Bm     
+They'll learn much more than I'll ever know,
+      Bb                Em7/A         A7          D    F#m7b5         B7
+And I think to myself what a wonderful world          
+      Em7                Em7/A        A7b9          D     G6    D
+Yes I think to myself, what a wonderful world.
+   
+Chord: D+
+=============
+|=|=|=|=|=|=|
+-x-x---------
+| | |1| | | |
+-------------
+| | | | | |4|
+-------------
+| | | |2|3| |
+-------------
+
+Chord: F#dim7
+=============
+|=|=|=|=|=|=|
+-x-x---------
+| | |1| |1| |
+-------------
+| | | |2| |2|
+-------------
+
+Chord: F#m7b5
+=============
+|=|=|=|=|=|=|
+-x-x---------
+| | | | |o| |
+-------------
+| | |o|o| |o|
+-------------
+
+Chord: A7b9
+=============
+|=|=|=|=|=|=|
+-x-----------
+| | | | | | |
+-------------
+| | |o| |o| |
+-------------
+| | | |o| | |
+-------------
+
+Chord: G6
+=============
+|=|=|=|=|=|=|
+-------------
+| | | | | | |
+-------------
+| |o| | | | |
+-------------
+|o| | | | | |
+-------------
+
+
+
+Chord: A7b9
+=============
+|=|=|=|=|=|=|
+-x-----------
+| | | | | | |
+-------------
+| | |o| |o| |
+-------------
+| | | |o| | |
+-------------
+Chord: G6
+=============
+|=|=|=|=|=|=|
+-------------
+| | | | | | |
+-------------
+| |o| | | | |
+-------------
+|o| | | | | |
+-------------
 
