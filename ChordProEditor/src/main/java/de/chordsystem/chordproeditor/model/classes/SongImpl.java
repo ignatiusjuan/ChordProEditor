@@ -359,6 +359,10 @@ public class SongImpl implements Song{
 			sb.append(env.toString());
 		}
 		
+		for (Fingering f : fingeringList) {
+			sb.append("\n" + f.toString());
+		}
+		
 		return sb.toString();
 	}
 

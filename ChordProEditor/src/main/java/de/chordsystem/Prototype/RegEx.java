@@ -271,7 +271,8 @@ public class RegEx {
 				}
 			}
 			Fingering f = new FingeringImpl(name, 6, basefret, frets, fingers);
-			System.out.println(f);
+			song.addFingering(f);
+			//System.out.println(f);
 		} else if (Pattern.compile(regexDefineChord).matcher(toMatch).find()){
 			Matcher m = Pattern.compile(regexDefineChord).matcher(toMatch);
 			m.find();
@@ -284,7 +285,8 @@ public class RegEx {
 				}
 			}
 			Fingering f = new FingeringImpl(name, 6, basefret, frets);
-			System.out.println(f);
+			song.addFingering(f);
+			//System.out.println(f);
 		} else {
 			System.out.println("Parse error: " + toMatch);
 			//later --> else = error
@@ -319,7 +321,7 @@ public class RegEx {
 					song.addEnvironment(env);
 				}
 			}
-			//System.out.println(song.toString());
+			System.out.println(song.toString());
 			reader.close();
 		}
 		catch (Exception e)
