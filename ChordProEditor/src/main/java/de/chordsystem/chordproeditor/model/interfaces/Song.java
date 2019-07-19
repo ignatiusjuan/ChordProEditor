@@ -1,6 +1,9 @@
 package de.chordsystem.chordproeditor.model.interfaces;
 
+import java.util.List;
+
 import de.chordsystem.chordproeditor.model.interfaces.Environment;
+import de.chordsystem.chordproeditor.model.interfaces.Fingering;
 
 public interface Song {
 
@@ -17,7 +20,7 @@ public interface Song {
 	/**
 	 * @return the subtitle
 	 */
-	String getSubtitle();
+	List<String> getSubtitle();
 
 	/**
 	 * @param subtitle the subtitle to set
@@ -27,7 +30,7 @@ public interface Song {
 	/**
 	 * @return the artist
 	 */
-	String getArtist();
+	List<String> getArtist();
 
 	/**
 	 * @param artist the artist to set
@@ -37,7 +40,7 @@ public interface Song {
 	/**
 	 * @return the composer
 	 */
-	String getComposer();
+	List<String> getComposer();
 
 	/**
 	 * @param composer the composer to set
@@ -47,7 +50,7 @@ public interface Song {
 	/**
 	 * @return the lyricist
 	 */
-	String getLyricist();
+	List<String> getLyricist();
 
 	/**
 	 * @param lyricist the lyricist to set
@@ -57,7 +60,7 @@ public interface Song {
 	/**
 	 * @return the copyright
 	 */
-	String getCopyright();
+	List<String> getCopyright();
 
 	/**
 	 * @param copyright the copyright to set
@@ -137,44 +140,93 @@ public interface Song {
 	/**
 	 * @return the meta
 	 */
-	String getMeta();
+	List<String> getMeta();
 
 	/**
 	 * @param meta the meta to set
 	 */
 	void setMeta(String meta);
-	
+
+	/**
+	 * @return the textfont
+	 */
+	String getTextfont();
+
+	/**
+	 * @param textfont the textfont to set
+	 */
+	void setTextfont(String textfont);
+
+	/**
+	 * @return the textsize
+	 */
+	int getTextsize();
+
+	/**
+	 * @param textsize the textsize to set
+	 */
+	void setTextsize(int textsize);
+
+	/**
+	 * @return the textcolour
+	 */
+	String getTextcolour();
+
+	/**
+	 * @param textcolour the textcolour to set
+	 */
+	void setTextcolour(String textcolour);
+
+	/**
+	 * @return the chordcolour
+	 */
+	String getChordcolour();
+
+	/**
+	 * @param chordcolour the chordcolour to set
+	 */
+	void setChordcolour(String chordcolour);
+
 	/**
 	 * @return the isFinished
 	 */
 	boolean isFinished();
-	
+
 	/**
 	 * @param isFinished the isFinished to set
 	 */
 	void setFinished(boolean isFinished);
-	
+
+	/**
+	 * @return the xth fingering
+	 */
+	Fingering getFingering(int x);
+
+	/**
+	 * @return the fingeringList size
+	 */
+	int getFingeringSize();
+
+	/**
+	 * @param fingering the fingering to add
+	 */
+	void addFingering(Fingering fingering);
+
 	/**
 	 * @return the xth environment
 	 */
 	Environment getEnvironment(int x);
-	
+
 	/**
 	 * @return the environment size
 	 */
 	int getEnvironmentSize();
-	
+
 	/**
 	 * @param environment the environment to add
 	 */
 	void addEnvironment(Environment environment);
 
 	String toString();
-
-	Fingering getFingering(int x);
-
-	int getFingeringSize();
-
-	void addFingering(Fingering fingering);
 
 }

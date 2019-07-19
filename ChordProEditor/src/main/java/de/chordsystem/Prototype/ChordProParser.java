@@ -3,6 +3,8 @@ package de.chordsystem.Prototype;
 import de.chordsystem.chordproeditor.model.classes.*;
 import de.chordsystem.chordproeditor.model.interfaces.*;
 
+import de.chordsystem.Prototype.*;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -10,7 +12,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.BufferedReader;
 
-public class RegEx {
+public class ChordProParser {
 	
 	private static final String regexChordLyric			= "^\\s*[^\\{\\}]*\\s*$";
 	
@@ -59,10 +61,19 @@ public class RegEx {
 	private static final String regexDefineChordFingers	= "^\\s*\\{\\s*\\b(define|chord)\\b\\s*:?\\s+(.*?)\\s+base-fret\\s+(.*?)frets\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+fingers\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s*\\}\\s*$";
 	private static final String regexDefineChord		= "^\\s*\\{\\s*\\b(define|chord)\\b\\s*:?\\s+(.*?)\\s+base-fret\\s+(.*?)frets\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s*\\}\\s*$";
 	
-	private String tempTitle = "";
-	private int tempType = EnvironmentImpl.TYPE_NULL;
+	private static final String regexTextfont			= "^\\s*\\{\\s*textfont\\s*:\\s*(?<textfont>.*?)\\s*\\}\\s*$";
+	private static final String regexTextsize			= "^\\s*\\{\\s*textsize\\s*:\\s*(?<textsize>.*?)\\s*\\}\\s*$";
+	private static final String regexTextcolour			= "^\\s*\\{\\s*textcolour\\s*:\\s*(?<textcolour>.*?)\\s*\\}\\s*$";;
+	private static final String regexChordcolour		= "^\\s*\\{\\s*chordcolour\\s*:\\s*(?<chordcolour>.*?)\\s*\\}\\s*$";
 	
-	public Environment tryParseChordLyric(String toParse) {
+	private static String tempTitle = "";
+	private static int tempType = EnvironmentImpl.TYPE_NULL;
+	private int verseCounter = 0;
+	private int chorusCounter = 0;
+	private int tabCounter = 0;
+	private int gridCounter = 0;
+	
+	private Environment tryParseChordLyric(String toParse) {
 		Environment env = new EnvironmentImpl();
 		
 		StringBuffer chord = new StringBuffer();
@@ -90,7 +101,7 @@ public class RegEx {
 		return env;
 	}
 	
-	public void tryParseLine(String toMatch, Song song) {
+	private void tryParseLine(String toMatch, Song song) {
 		if (Pattern.compile(regexChordLyric).matcher(toMatch).find()) {
 			Environment env = tryParseChordLyric(toMatch);
 			env.setTitle(tempTitle);
@@ -102,7 +113,8 @@ public class RegEx {
 			tempTitle = m.group(2);
 			tempType = EnvironmentImpl.TYPE_CHORUS;
 		} else if (Pattern.compile(regexStartofChorusv2).matcher(toMatch).find()) {
-			tempTitle = "";
+			chorusCounter++;
+			tempTitle = "Chorus " + chorusCounter;
 			tempType = EnvironmentImpl.TYPE_CHORUS;
 		} else if (Pattern.compile(regexEndofChorus).matcher(toMatch).find()) {
 			tempTitle = "";
@@ -113,7 +125,8 @@ public class RegEx {
 			tempTitle = m.group(2);
 			tempType = EnvironmentImpl.TYPE_VERSE;
 		} else if (Pattern.compile(regexStartofVersev2).matcher(toMatch).find()) {
-			tempTitle = "";
+			verseCounter++;
+			tempTitle = "Verse " + verseCounter;
 			tempType = EnvironmentImpl.TYPE_VERSE;
 		} else if (Pattern.compile(regexEndofVerse).matcher(toMatch).find()) {
 			tempTitle = "";
@@ -124,7 +137,8 @@ public class RegEx {
 			tempTitle = m.group(2);
 			tempType = EnvironmentImpl.TYPE_TAB;
 		} else if (Pattern.compile(regexStartofTabv2).matcher(toMatch).find()) {
-			tempTitle = "";
+			tabCounter++;
+			tempTitle = "Tab " + tabCounter;
 			tempType = EnvironmentImpl.TYPE_TAB;
 		} else if (Pattern.compile(regexEndofTab).matcher(toMatch).find()) {
 			tempTitle = "";
@@ -135,7 +149,8 @@ public class RegEx {
 			tempTitle = m.group(2);
 			tempType = EnvironmentImpl.TYPE_GRID;
 		} else if (Pattern.compile(regexStartofGridv2).matcher(toMatch).find()) {
-			tempTitle = "";
+			gridCounter++;
+			tempTitle = "Grid " + gridCounter;
 			tempType = EnvironmentImpl.TYPE_GRID;
 		} else if (Pattern.compile(regexEndofGrid).matcher(toMatch).find()) {
 			tempTitle = "";
@@ -147,14 +162,14 @@ public class RegEx {
 			tempType = EnvironmentImpl.TYPE_NULL;
 			Environment env = new EnvironmentImpl();
 			env.setType(EnvironmentImpl.TYPE_INSTRUCTION);
-			env.setLyric("CHORUS: " + m.group(1));
+			env.setLyric("chorus: " + m.group(1));
 			song.addEnvironment(env);
 		} else if (Pattern.compile(regexGoToChorusv2).matcher(toMatch).find()) {
 			tempTitle = "";
 			tempType = EnvironmentImpl.TYPE_NULL;
 			Environment env = new EnvironmentImpl();
 			env.setType(EnvironmentImpl.TYPE_INSTRUCTION);
-			env.setLyric("CHORUS");
+			env.setLyric("chorus");
 			song.addEnvironment(env);
 		} else if (Pattern.compile(regexGoToVersev1).matcher(toMatch).find()) {
 			Matcher m = Pattern.compile(regexGoToVersev1).matcher(toMatch);
@@ -163,14 +178,14 @@ public class RegEx {
 			tempType = EnvironmentImpl.TYPE_NULL;
 			Environment env = new EnvironmentImpl();
 			env.setType(EnvironmentImpl.TYPE_INSTRUCTION);
-			env.setLyric("VERSE: " + m.group(1));
+			env.setLyric("verse: " + m.group(1));
 			song.addEnvironment(env);
 		} else if (Pattern.compile(regexGoToVersev2).matcher(toMatch).find()) {
 			tempTitle = "";
 			tempType = EnvironmentImpl.TYPE_NULL;
 			Environment env = new EnvironmentImpl();
 			env.setType(EnvironmentImpl.TYPE_INSTRUCTION);
-			env.setLyric("VERSE");
+			env.setLyric("verse");
 			song.addEnvironment(env);
 		} else if (Pattern.compile(regexCommentNormal).matcher(toMatch).find()) {
 			Matcher m = Pattern.compile(regexCommentNormal).matcher(toMatch);
@@ -195,6 +210,39 @@ public class RegEx {
 			env.setLyric(m.group(2));
 			env.setCommentInBox(true);
 			song.addEnvironment(env);
+		} else if (Pattern.compile(regexDefineChordFingers).matcher(toMatch).find()){
+			Matcher m = Pattern.compile(regexDefineChordFingers).matcher(toMatch);
+			m.find();
+			String name = m.group(2);
+			int basefret = m.group(3).charAt(0) - '0';
+			int[] frets = {-1,-1,-1,-1,-1,-1};
+			for (int i = 0; i < 6; i++) {
+				if ((m.group(4+i).charAt(0) - '0' >= 0) && (m.group(4+i).charAt(0) - '0' <= 9)) {
+					frets[i] = m.group(4+i).charAt(0) - '0';
+				}
+			}
+			int[] fingers = {-1,-1,-1,-1,-1,-1};
+			for (int i = 0; i < 6; i++) {
+				if ((m.group(10+i).charAt(0) - '0' >= 0) && (m.group(10+i).charAt(0) - '0' <= 9)) {
+					fingers[i] = m.group(10+i).charAt(0) - '0';
+				}
+			}
+			Fingering f = new FingeringImpl(name, 6, basefret, frets, fingers);
+			song.addFingering(f);
+			//System.out.println(f);
+		} else if (Pattern.compile(regexDefineChord).matcher(toMatch).find()){
+			Matcher m = Pattern.compile(regexDefineChord).matcher(toMatch);
+			m.find();
+			String name = m.group(2);
+			int basefret = m.group(3).charAt(0) - '0';
+			int[] frets = {-1,-1,-1,-1,-1,-1};
+			for (int i = 0; i < 6; i++) {
+				if ((m.group(4+i).charAt(0) - '0' >= 0) && (m.group(4+i).charAt(0) - '0' <= 9)) {
+					frets[i] = m.group(4+i).charAt(0) - '0';
+				}
+			}
+			Fingering f = new FingeringImpl(name, 6, basefret, frets);
+			song.addFingering(f);
 		} else if (Pattern.compile(regexTitle).matcher(toMatch).find()) {
 			Matcher m = Pattern.compile(regexTitle).matcher(toMatch);
 			m.find();
@@ -251,42 +299,24 @@ public class RegEx {
 			Matcher m = Pattern.compile(regexMeta).matcher(toMatch);
 			m.find();
 			song.setMeta(m.group(1));
+		} else if (Pattern.compile(regexTextfont).matcher(toMatch).find()) {
+			Matcher m = Pattern.compile(regexTextfont).matcher(toMatch);
+			m.find();
+			song.setTextfont(m.group(1));
+		} else if (Pattern.compile(regexTextsize).matcher(toMatch).find()) {
+			Matcher m = Pattern.compile(regexTextsize).matcher(toMatch);
+			m.find();
+			song.setTextsize(Integer.parseInt(m.group(1)));
+		} else if (Pattern.compile(regexTextcolour).matcher(toMatch).find()) {
+			Matcher m = Pattern.compile(regexTextcolour).matcher(toMatch);
+			m.find();
+			song.setTextcolour(m.group(1));
+		} else if (Pattern.compile(regexChordcolour).matcher(toMatch).find()) {
+			Matcher m = Pattern.compile(regexChordcolour).matcher(toMatch);
+			m.find();
+			song.setChordcolour(m.group(1));
 		} else if (Pattern.compile(regexNewSong).matcher(toMatch).find()) {
 			song.setFinished(false);
-		} else if (Pattern.compile(regexDefineChordFingers).matcher(toMatch).find()){
-			Matcher m = Pattern.compile(regexDefineChordFingers).matcher(toMatch);
-			m.find();
-			String name = m.group(2);
-			int basefret = m.group(3).charAt(0) - '0';
-			int[] frets = {-1,-1,-1,-1,-1,-1};
-			for (int i = 0; i < 6; i++) {
-				if ((m.group(4+i).charAt(0) - '0' >= 0) && (m.group(4+i).charAt(0) - '0' <= 9)) {
-					frets[i] = m.group(4+i).charAt(0) - '0';
-				}
-			}
-			int[] fingers = {-1,-1,-1,-1,-1,-1};
-			for (int i = 0; i < 6; i++) {
-				if ((m.group(10+i).charAt(0) - '0' >= 0) && (m.group(10+i).charAt(0) - '0' <= 9)) {
-					fingers[i] = m.group(10+i).charAt(0) - '0';
-				}
-			}
-			Fingering f = new FingeringImpl(name, 6, basefret, frets, fingers);
-			song.addFingering(f);
-			//System.out.println(f);
-		} else if (Pattern.compile(regexDefineChord).matcher(toMatch).find()){
-			Matcher m = Pattern.compile(regexDefineChord).matcher(toMatch);
-			m.find();
-			String name = m.group(2);
-			int basefret = m.group(3).charAt(0) - '0';
-			int[] frets = {-1,-1,-1,-1,-1,-1};
-			for (int i = 0; i < 6; i++) {
-				if ((m.group(4+i).charAt(0) - '0' >= 0) && (m.group(4+i).charAt(0) - '0' <= 9)) {
-					frets[i] = m.group(4+i).charAt(0) - '0';
-				}
-			}
-			Fingering f = new FingeringImpl(name, 6, basefret, frets);
-			song.addFingering(f);
-			//System.out.println(f);
 		} else {
 			System.out.println("Parse error: " + toMatch);
 			//later --> else = error
@@ -299,29 +329,26 @@ public class RegEx {
 		}*/
 	}
 	
-	public void start() {
-		//System.out.println("Working Directory = " + System.getProperty("user.dir"));
-		File file = new File(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "Heaven.chordpro");
-		//File file = new File(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "10000 Reasons.chordpro");
+	public Song tryParseChordPro(String pathname) {
+		File file = new File(pathname);
+		Song song = new SongImpl();
 		
 		try
 		{
 			BufferedReader reader = new BufferedReader(new FileReader(file));
-			String line;
-			Song song = new SongImpl();
+			String line;	
 			
 			while ((line = reader.readLine()) != null)
 			{
 				if (line.trim().length() > 0 && !line.trim().isEmpty())
 					tryParseLine(line.trim(),song);
-				else if (!(tempTitle.equals("")) && (tempType != EnvironmentImpl.TYPE_NULL)){
+				else {
 					Environment env = new EnvironmentImpl();
 					env.setTitle(tempTitle);
 					env.setType(tempType);
 					song.addEnvironment(env);
 				}
 			}
-			System.out.println(song.toString());
 			reader.close();
 		}
 		catch (Exception e)
@@ -329,10 +356,25 @@ public class RegEx {
 			System.err.format("Exception occurred trying to read '%s'.", file);
 			e.printStackTrace();
 		}
+		
+		return song;
+	}
+	
+	public void start() {
+		//Song song = tryParseChordPro(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "Heaven.chordpro");
+		Song song = tryParseChordPro(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "10000 Reasons.chordpro");
+		
+		//System.out.println(song.toString());
+		//File file = new File(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "Heaven.chordpro");
+		//File file = new File(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "10000 Reasons.chordpro");
+		
+		de.chordsystem.Prototype.ChordProConverter converter = new de.chordsystem.Prototype.ChordProConverter();
+		
+		System.out.println(converter.tryConvertToChordPro(song));
 	}
 
 	public static void main(String[] args) {
-		RegEx regex = new RegEx();
+		ChordProParser regex = new ChordProParser();
 		regex.start();
 	}
 }

@@ -12,11 +12,11 @@ public class SongImpl implements Song{
 	private static final int DEFAULT_STRINGS = 6;
 	
 	private String title;
-	private String subtitle;
-	private String artist;
-	private String composer;
-	private String lyricist;
-	private String copyright;
+	private List<String> subtitle;
+	private List<String> artist;
+	private List<String> composer;
+	private List<String> lyricist;
+	private List<String> copyright;
 	private String album;
 	private int year;
 	private String key;
@@ -24,11 +24,11 @@ public class SongImpl implements Song{
 	private int tempo;
 	private int duration;
 	private int capo;
-	private String meta;
-	private int textfont;
+	private List<String> meta;
+	private String textfont;
 	private int textsize;
-	private int textcolour;
-	private int chordcolour;
+	private String textcolour;
+	private String chordcolour;
 	private boolean isFinished;
 	
 	private List<Fingering> fingeringList;
@@ -37,11 +37,11 @@ public class SongImpl implements Song{
 	public SongImpl() {
 		super();
 		this.title = "";
-		this.subtitle = "";
-		this.artist = "";
-		this.composer = "";
-		this.lyricist = "";
-		this.copyright = "";
+		this.subtitle = new ArrayList<String>();
+		this.artist = new ArrayList<String>();
+		this.composer = new ArrayList<String>();
+		this.lyricist = new ArrayList<String>();
+		this.copyright = new ArrayList<String>();
 		this.album = "";
 		this.year = 0;
 		this.key = "";
@@ -49,7 +49,11 @@ public class SongImpl implements Song{
 		this.tempo = 0;
 		this.duration = 0;
 		this.capo = 0;
-		this.meta = "";
+		this.meta = new ArrayList<String>();
+		this.textfont = "";
+		this.textsize = 0;
+		this.textcolour = "";
+		this.chordcolour = "";
 		this.isFinished = true;
 		this.fingeringList = new ArrayList<Fingering>();
 		this.environmentList = new ArrayList<Environment>();
@@ -72,7 +76,7 @@ public class SongImpl implements Song{
 	 * @return the subtitle
 	 */
 	@Override
-	public String getSubtitle() {
+	public List<String> getSubtitle() {
 		return subtitle;
 	}
 	/**
@@ -80,13 +84,13 @@ public class SongImpl implements Song{
 	 */
 	@Override
 	public void setSubtitle(String subtitle) {
-		this.subtitle = subtitle;
+		this.subtitle.add(subtitle);
 	}
 	/**
 	 * @return the artist
 	 */
 	@Override
-	public String getArtist() {
+	public List<String> getArtist() {
 		return artist;
 	}
 	/**
@@ -94,13 +98,13 @@ public class SongImpl implements Song{
 	 */
 	@Override
 	public void setArtist(String artist) {
-		this.artist = artist;
+		this.artist.add(artist);
 	}
 	/**
 	 * @return the composer
 	 */
 	@Override
-	public String getComposer() {
+	public List<String> getComposer() {
 		return composer;
 	}
 	/**
@@ -108,13 +112,13 @@ public class SongImpl implements Song{
 	 */
 	@Override
 	public void setComposer(String composer) {
-		this.composer = composer;
+		this.composer.add(composer);
 	}
 	/**
 	 * @return the lyricist
 	 */
 	@Override
-	public String getLyricist() {
+	public List<String> getLyricist() {
 		return lyricist;
 	}
 	/**
@@ -122,13 +126,13 @@ public class SongImpl implements Song{
 	 */
 	@Override
 	public void setLyricist(String lyricist) {
-		this.lyricist = lyricist;
+		this.lyricist.add(lyricist);
 	}
 	/**
 	 * @return the copyright
 	 */
 	@Override
-	public String getCopyright() {
+	public List<String> getCopyright() {
 		return copyright;
 	}
 	/**
@@ -136,7 +140,7 @@ public class SongImpl implements Song{
 	 */
 	@Override
 	public void setCopyright(String copyright) {
-		this.copyright = copyright;
+		this.copyright.add(copyright);
 	}
 	/**
 	 * @return the album
@@ -240,7 +244,7 @@ public class SongImpl implements Song{
 	 * @return the meta
 	 */
 	@Override
-	public String getMeta() {
+	public List<String> getMeta() {
 		return meta;
 	}
 	/**
@@ -248,17 +252,75 @@ public class SongImpl implements Song{
 	 */
 	@Override
 	public void setMeta(String meta) {
-		this.meta = meta;
+		this.meta.add(meta);
+	}
+	/**
+	 * @return the textfont
+	 */
+	@Override
+	public String getTextfont() {
+		return textfont;
+	}
+	/**
+	 * @param textfont the textfont to set
+	 */
+	@Override
+	public void setTextfont(String textfont) {
+		this.textfont = textfont;
+	}
+	/**
+	 * @return the textsize
+	 */
+	@Override
+	public int getTextsize() {
+		return textsize;
+	}
+	/**
+	 * @param textsize the textsize to set
+	 */
+	@Override
+	public void setTextsize(int textsize) {
+		this.textsize = textsize;
+	}
+	/**
+	 * @return the textcolour
+	 */
+	@Override
+	public String getTextcolour() {
+		return textcolour;
+	}
+	/**
+	 * @param textcolour the textcolour to set
+	 */
+	@Override
+	public void setTextcolour(String textcolour) {
+		this.textcolour = textcolour;
+	}
+	/**
+	 * @return the chordcolour
+	 */
+	@Override
+	public String getChordcolour() {
+		return chordcolour;
+	}
+	/**
+	 * @param chordcolour the chordcolour to set
+	 */
+	@Override
+	public void setChordcolour(String chordcolour) {
+		this.chordcolour = chordcolour;
 	}
 	/**
 	 * @return the isFinished
 	 */
+	@Override
 	public boolean isFinished() {
 		return isFinished;
 	}
 	/**
 	 * @param isFinished the isFinished to set
 	 */
+	@Override
 	public void setFinished(boolean isFinished) {
 		this.isFinished = isFinished;
 	}
@@ -311,16 +373,21 @@ public class SongImpl implements Song{
 		
 		if (title.length() > 0) 
 			sb.append("Title: " + title + "\n");
-		if (subtitle.length() > 0)
-			sb.append("Subtitle: " + subtitle + "\n");
-		if (artist.length() > 0)
-			sb.append("Artist: " + artist + "\n");
-		if (composer.length() > 0)
-			sb.append("Composer: " + composer + "\n");
-		if (lyricist.length() > 0)
-			sb.append("Lyricist: " + lyricist + "\n");
-		if (copyright.length() > 0)
-			sb.append("Copyright: " + copyright + "\n");
+		if (subtitle.size() > 0)
+			for (String s : subtitle)
+				sb.append("Subtitle: " + s + "\n");
+		if (artist.size() > 0)
+			for (String s : artist)
+				sb.append("Artist: " + s + "\n");
+		if (composer.size() > 0)
+			for (String s : composer)
+				sb.append("Composer: " + s + "\n");
+		if (lyricist.size() > 0)
+			for (String s : lyricist)
+				sb.append("Lyricist: " + s + "\n");
+		if (copyright.size() > 0)
+			for (String s : copyright)
+				sb.append("Copyright: " + s + "\n");
 		if (album.length() > 0)
 			sb.append("Album: " + album + "\n");
 		if (year > 0)
@@ -335,8 +402,9 @@ public class SongImpl implements Song{
 			sb.append("Duration: " + duration + "seconds\n");
 		if (capo > 0)
 			sb.append("Capo: " + capo + "\n");
-		if (meta.length() > 0)
-			sb.append("Meta: " + meta + "\n");
+		if (meta.size() > 0)
+			for (String s : meta)
+				sb.append("Meta: " + s + "\n");
 		
 		String lastTitle = "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@";
 		int lastType = EnvironmentImpl.TYPE_NULL;

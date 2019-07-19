@@ -96,7 +96,7 @@ public class EnvironmentImpl implements Environment {
 			sb.append(this.chord + "\n");
 			sb.append(this.lyric + "\n");
 		} else if (this.type == TYPE_INSTRUCTION) {
-			sb.append("--GO TO " + this.lyric + "--\n");
+			sb.append("GO TO --> " + this.lyric + "\n");
 		} else if (this.type == TYPE_COMMENT) {
 			sb.append("//" + this.lyric + "\n");
 		} else 

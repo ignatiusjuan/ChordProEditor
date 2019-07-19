@@ -1,40 +1,48 @@
-{title: 10,000 Reasons}
-{subtitle: Bless the Lord}
-{artist: Jonas Myrin & Matt Redman}
-{key: G}
-{album: Retreat 2015, Retreat 2014}
-{year: 2014}
-{tempo: 73}
+{t: Don't Cry}
+{st: Asia}
+# transcription by Maurizio Codogno <mau@beatles.cselt.stet.it>
+#
+{define: Bb9 base-fret 0 frets x 1 3 3 1 1}
+{define: C/E base-fret 0 frets 0 3 2 0 1 0}
+{define: E/G# base-fret 4 frets 1 4 3 1 2 1}
+#
+[Am] [G/B] [Dm] [F] [Am] [G/B] [Dm] [F]
+[C]   Hard times you had before you
+[Am]   I know when I first saw you
+[Dm]   You girl you've always been mis[G]treated, 
+   [E/G#]Cheated
 
-{start_of_chorus}
-Bless the[C] Lord, O my[G] soul,[D/F#] O my [Em]soul,
-[C]Worship His ho[G]ly n[Dsus4]ame.    [D]
-Sing like [C]never be[Em]fore, [C]   [D]O m[Em]y soul.
-I'll[C] worship Your ho[D]ly na[C/G]me.   [G]
-{end_of_chorus}
+[C]   So leave it all behind you
+[Am]   It took so long to find you
+[Dm]   I know that we can last for[G]ever,
+   [E/G#]Ever and [Am]mo[G/B]re, [Dm]oh, [G]oh!
 
-{start_of_verse: Verse 1}
-The[C] sun comes[G] up, it's a n[D]ew day da[Em]wning;
-[C]It's time to[G] sing Your son[D]g ag[Em]ain.
-[C]Whatever may [G]pass, and what[D]ever lies be[Em]fore me,
-[C2]Let me be s[G]inging when the [Dsus4]even--in[D]g co[G]mes.[Gsus4]    [G]
-{end_of_verse}
+{soc}
+[C]   Don't [G/B]cry [F/A]now that I have [G/B]found you
+[C]   Don't [G/B]cry, [F/A]take a look a[G/B]round you
+[C]   Don't [G/B]cry, [F/A]it took so long to [G/B]find you
+   [Dm]Do what you [C/E]want, but [F]little darling [G]please
+{eoc}
+   Don't [Bb9]cry...
 
-{start_of_verse: Verse 2}
-You're [C]rich in[G] love, and You're[D] slow to [Em]anger.
-Your[C] name is g[G]reat, and Your h[D]eart is ki[Em]nd.
-For[C] all Your [G]goodness, I will[D] keep on[Em] singing;
-[C2]Ten thousand[G] reasons for my[Dsus4] heart t[D]o fi[G]nd. [Gsus4]    [G]
-{end_of_verse}
+   I knew I'd never doubt it
+   I was so sure about it
+   Don't think of all that's been before
+   oh...
 
-{start_of_verse: Verse 3}
-And[C] on that[G] day when my[D] strength is f[Em]ailing,
-The[C] end draws[G] near, and my[D] time has [Em]come;
-[C]Still my[G] soul will sing Your [D]praise un[Em]ending:
-[C2]Ten thousand[G] years and then fo[Dsus4]re----ve[D]rmo[G]re! [Gsus4]    [G]
-{end_of_verse}
+   I'll hear you when you're calling,
+   I'll catch you when you're falling,
+   Don't worry, I will always be there
+   Like never before, oh, oh!
 
-{start_of_chorus: Bridge}
-[Em]I'll wor[C]ship Your [D]holy n[Em]ame.
-Yes, I'll [C]worship Your [D]holy na[G]me.
-{end_of_chorus}
+{c: Chorus twice}
+   Don't [Am]cry... [G/B] [Dm] [F]
+{c: Chorus - then choruses with vocals ad lib}
+
+{sot}
+asd
+{eot}
+
+{sog}
+asd
+{eog}
