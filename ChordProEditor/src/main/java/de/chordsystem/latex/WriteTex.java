@@ -27,21 +27,85 @@ public class WriteTex {
 
 		FileWriter tex = new FileWriter(song.getTitle()+".tex");
 		BufferedWriter bw = new BufferedWriter(tex);
+		//Documentclass article 
 		bw.write("\\documentclass{scrartcl}");
 		bw.newLine();
+		//Set title
 		bw.write("\\title{"+song.getTitle()+"}");
 		bw.newLine();
+		//Set author
 		bw.write("\\author{"+song.getArtist()+"}");
 		bw.newLine();
+		//Set year
 		bw.write("\\date{"+song.getYear()+"}");
 		bw.newLine();
+		//Begin of document
 		bw.write("\begin{document}");
 		bw.newLine();
+		//Text monospaced
+		bw.write("\\ttfamily");
+		bw.newLine();
+		//isFinished
+		if(!song.isFinished()) {
+			bw.write("Not Finished");
+			bw.newLine();
+		}
+		//Maketitle
 		bw.write("\\maketitle");
 		bw.newLine();
-		writeLyrics(song, bw);
-		bw.write(song.getCopyright());
+		//Subtitles
+		for(int i = 0; i < song.getSubtitle().size(); i++) {
+			bw.write(song.getSubtitle().get(i));
+			bw.newLine();
+		}
 		bw.newLine();
+		//Album
+		bw.write("Album: " + song.getAlbum());
+		bw.newLine();
+		//Composers
+		bw.write("Composer: ");
+		for(int i = 0; i < song.getComposer().size(); i++) {
+			bw.write(song.getComposer().get(i));
+			bw.newLine();
+		}
+		bw.newLine();
+		//Lyricists
+		bw.write("Lyricists: ");
+		for(int i = 0; i < song.getLyricist().size(); i++) {
+			bw.write(song.getLyricist().get(i));
+			bw.newLine();
+		}
+		bw.newLine();
+		//Key
+		bw.write("Key: " + song.getKey());
+		bw.newLine();
+		//Time
+		bw.write("Time: " + song.getTime());
+		bw.newLine();
+		//Tempo
+		bw.write("Tempo: " + song.getTempo());
+		bw.newLine();
+		//Duration
+		bw.write("Duration: " + song.getDuration());
+		bw.newLine();
+		//Capo
+		bw.write("Capo: " + song.getCapo());
+		bw.newLine();
+		//Meta
+		bw.write("Metadata: ");
+		for(int i = 0; i < song.getMeta().size(); i++) {
+			bw.write(song.getMeta().get(i));
+			bw.newLine();
+		}
+		bw.newLine();
+		//Lyrics
+		writeLyrics(song, bw);
+		bw.newLine();
+		for(int i = 0; i < song.getCopyright().size(); i++) {
+			bw.write(song.getCopyright().get(i));
+		}
+		bw.newLine();
+		//End of document
 		bw.write("\\end{document}");
 		bw.newLine();
 		bw.close();

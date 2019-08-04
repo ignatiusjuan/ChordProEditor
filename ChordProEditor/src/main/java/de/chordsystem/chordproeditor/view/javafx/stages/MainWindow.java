@@ -22,7 +22,7 @@ public class MainWindow extends Application{
 		window = primaryStage;
 		final URL fxmlUrl = getClass().getResource("/fxml/NewEditor.fxml");
 		final FXMLLoader fxmlLoader = new FXMLLoader(fxmlUrl);
-		fxmlLoader.setController(new NewEditorController());
+//		fxmlLoader.setController(new NewEditorController());
 		final Parent root = fxmlLoader.load();
 		root.setCache(true);
 		root.setCacheHint(CacheHint.SPEED);
