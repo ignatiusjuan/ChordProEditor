@@ -1,0 +1,51 @@
+\documentclass{scrbook}
+\usepackage[ngerman]{babel}		% deutsche Trennregeln
+\usepackage{microtype}				% verbesserter Randausgleich
+\usepackage[colorlinks=true, urlcolor=blue]{hyperref}
+\usepackage[a4paper,inner=2.5cm,lmargin=2.5cm,outer=2.5cm,tmargin=4cm,bmargin=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage[]{algorithm2e}
+
+\newcommand*\oldurlbreaks{}		%URLs richtig trennen
+\let\oldurlbreaks=\UrlBreaks
+\renewcommand{\UrlBreaks}{\oldurlbreaks\do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j\do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t\do\u\do\v\do\w\do\x\do\y\do\z\do\?\do\&}
+
+\author{wir}
+\title{Der ChordPro-Editor}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\chapter{Einleitung}
+	\section{Gr\"unde f\"ur den Editor}
+
+\chapter{Grundlagen}
+	\section{ChordPro-Dateien}
+		\subsection{Syntax}
+	
+	\section{LaTeX}
+		\subsection{Benutzte Syntax}
+		
+	\section{Implementierung}
+	
+
+\chapter{Fazit}
+	\section{Vorteile}
+	\section{Nachteile}
+
+\chapter{Benutzung}
+	\section{Installation}
+	
+	\section{Anwendung}
+		\subsection{Laden}
+		
+		\subsection{Bearbeiten}
+		
+		\subsection{Speichern}
+
+\end{document}

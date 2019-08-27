@@ -1,0 +1,18 @@
+\babel@toc {ngerman}{}
+\contentsline {chapter}{\numberline {1}Einleitung}{5}{chapter.1}
+\contentsline {section}{\numberline {1.1}Gr\"unde f\"ur den Editor}{5}{section.1.1}
+\contentsline {chapter}{\numberline {2}Grundlagen}{7}{chapter.2}
+\contentsline {section}{\numberline {2.1}ChordPro-Dateien}{7}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Syntax}{7}{subsection.2.1.1}
+\contentsline {section}{\numberline {2.2}LaTeX}{7}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Benutzte Syntax}{7}{subsection.2.2.1}
+\contentsline {section}{\numberline {2.3}Implementierung}{7}{section.2.3}
+\contentsline {chapter}{\numberline {3}Fazit}{9}{chapter.3}
+\contentsline {section}{\numberline {3.1}Vorteile}{9}{section.3.1}
+\contentsline {section}{\numberline {3.2}Nachteile}{9}{section.3.2}
+\contentsline {chapter}{\numberline {4}Benutzung}{11}{chapter.4}
+\contentsline {section}{\numberline {4.1}Installation}{11}{section.4.1}
+\contentsline {section}{\numberline {4.2}Anwendung}{11}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Laden}{11}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Bearbeiten}{11}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}Speichern}{11}{subsection.4.2.3}

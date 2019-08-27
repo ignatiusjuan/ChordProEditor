@@ -13,6 +13,10 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 
+import de.chordsystem.chordproeditor.model.classes.SongImpl;
+import de.chordsystem.latex.GeneratePDF;
+
+import de.chordsystem.chordproeditor.model.interfaces.Song;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -174,6 +178,13 @@ public class NewEditorController implements Initializable {
     	
     }
     
+    //Methode to call generatePDF
+    private void clickOnWriteTex(ActionEvent event) {
+    	Song song = new SongImpl();
+    	song.setTitle("Hallo");
+    	GeneratePDF.generatePDF(song);
+    }
+    
     
 
 	public void initialize(URL location, ResourceBundle resources) {
@@ -182,6 +193,11 @@ public class NewEditorController implements Initializable {
 		//btnUncapoed.setOnAction(this::onEnter);
 		txtSongTitle.setOnAction(this::onEnterSongTitle);
 		txtAlternativeTitle.setOnAction(this::onEnterAlternativeTitle);
+		
+		
+		btnWriteTex.setOnAction(this::clickOnWriteTex);
+		
+		
 		//methode noch eigene animation bauen 
 		
 		//-----------------------Erledigen----------------
