@@ -409,6 +409,7 @@ public class NewEditorController implements Initializable {
 		setDataBind();
 		setFormatter();
 		showTime();
+
 		
 		HamburgerSlideCloseTransition transition = new HamburgerSlideCloseTransition(hamburger);
 		transition.setRate(-1);
