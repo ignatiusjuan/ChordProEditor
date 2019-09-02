@@ -23,7 +23,6 @@ import de.chordsystem.Prototype.ChordProParser;
 import de.chordsystem.chordproeditor.model.classes.SongImpl;
 import de.chordsystem.chordproeditor.model.classes.SongProperties;
 import de.chordsystem.chordproeditor.model.interfaces.Song;
-import de.chordsystem.latex.GeneratePDF;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -66,7 +65,6 @@ public class NewEditorController implements Initializable {
 	Song tempSong;
 	SongProperties tempSongProperties;
 	
-	ObservableList list = FXCollections.observableArrayList();
 	
 	Clipboard clipboard = Clipboard.getSystemClipboard();
 	
@@ -117,9 +115,6 @@ public class NewEditorController implements Initializable {
     
     @FXML
     private MenuItem menuEditSelectAll;
-    
-    @FXML
-    private JFXListView<String> SongList;
     
     @FXML
     private AnchorPane anchorPane;
@@ -185,10 +180,7 @@ public class NewEditorController implements Initializable {
     private TextField TextFieldCapo;
     
     @FXML
-    private ImageView ivSaveAsPDF;
-    
-    @FXML
-    private Label lblSaveAsPDF;
+    private ImageView SaveAsPdf;
     
     @FXML
     private ImageView SaveAsChordPro;
@@ -211,58 +203,12 @@ public class NewEditorController implements Initializable {
     BooleanProperty clipboardEmpty = new SimpleBooleanProperty(false);
     BooleanProperty hideSidePane = new SimpleBooleanProperty(false);
     
-    /**
-     * Getter
-     * @return
-     */
-    public JFXListView getSongList() {
-    	return SongList;
-    }
-    public JFXTextField gettxtSongTitle() {
-    	return txtTitle;
-    }
-    public JFXTextField gettxtAlternativeTitle() {
-    	return txtSubtitle;
-    }
-    public JFXTextField gettxtArtist() {
-    	return txtArtist;
-    }
-    public JFXTextField gettxtSongId() {
-    	return txtComposer;
-    }
-    public JFXTextArea gettxtSongInsert() {
-    	return txtSongEdit;
-    }
-    public JFXTextField getScreen() {
-    	return screen;
-    }
-    public MenuButton getbtnUncapoed() {
-    	return btnUncapoed;
-    }
-    public TextField getTextFieldCapo() {
-    	return TextFieldCapo; 
-    } 
-    public ImageView getSaveAsChordPro() {
-    	return SaveAsChordPro;
-    }
-    public JFXHamburger gethamburger() {
-    	return hamburger; 
-    }
-    public Label getlblDateTime() {
-    	return lblDateTime;
-    }
-    public JFXButton getbtnWriteTex() {
-    	return btnWriteTex;
-    }
     
     private void setOnAction() {
     	menuFileNew.setOnAction(this::onClickFileNew);
 		menuFileOpen.setOnAction(this::onClickFileOpen);
 		menuFileSave.setOnAction(this::onClickFileSave);
 		menuFileSaveAs.setOnAction(this::onClickFileSaveAs);
-		
-		ivSaveAsPDF.setOnMouseClicked(this::generatePDF);
-		lblSaveAsPDF.setOnMouseClicked(this::generatePDF);
 		hamburger.setOnMouseClicked(this::onClickHamburger);
     }
     
@@ -400,11 +346,6 @@ public class NewEditorController implements Initializable {
 		});
     }
     
-    @FXML
-    private void generatePDF(MouseEvent event) {
-    	GeneratePDF.generatePDF(tempSong);
-    }
-    
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		tempSong = new SongImpl();
@@ -417,7 +358,6 @@ public class NewEditorController implements Initializable {
 		setDataBind();
 		setFormatter();
 		showTime();
-
 		
 		HamburgerSlideCloseTransition transition = new HamburgerSlideCloseTransition(hamburger);
 		transition.setRate(-1);
@@ -438,23 +378,6 @@ public class NewEditorController implements Initializable {
         }), new KeyFrame(Duration.seconds(1)));
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
-    }
-    
-    
-    /**
-     * Methode um einen Song aus der SongListe auszuwählen 
-     * @param event
-     */
-    @FXML
-    void displaySelected(MouseEvent event) {
-    	String song = SongList.getSelectionModel().getSelectedItem();
-    	if (song==null || song.isEmpty()) {
-    		screen.setText("Kein Song ausgewäht");
-    		
-    	} else {
-    		screen.setText(song + "Ausgewählt");
-    	}
-
     }
 
 
