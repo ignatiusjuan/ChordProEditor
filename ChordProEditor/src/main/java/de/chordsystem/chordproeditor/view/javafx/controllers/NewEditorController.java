@@ -17,6 +17,7 @@ import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 
 import de.chordsystem.Prototype.ChordProParser;
 import de.chordsystem.chordproeditor.model.classes.SongImpl;
@@ -36,6 +37,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
@@ -66,6 +68,12 @@ public class NewEditorController implements Initializable {
 	ObservableList list = FXCollections.observableArrayList();
 	
 	Clipboard clipboard = Clipboard.getSystemClipboard();
+	
+	@FXML
+	private Label lblProperties;
+	
+	@FXML
+	private ScrollPane scrollpaneProperties;
 	
     @FXML
     private MenuBar MenuBar;
@@ -197,6 +205,7 @@ public class NewEditorController implements Initializable {
     private JFXButton btnWriteTex;
  
     BooleanProperty clipboardEmpty = new SimpleBooleanProperty(false);
+    BooleanProperty hideSidePane = new SimpleBooleanProperty(false);
     
     /**
      * Getter
@@ -228,7 +237,8 @@ public class NewEditorController implements Initializable {
     }
     public TextField getTextFieldCapo() {
     	return TextFieldCapo; 
-    }public ImageView getSaveAsPdf() {
+    } 
+    public ImageView getSaveAsPdf() {
     	return SaveAsPdf;
     }
     public ImageView getSaveAsChordPro() {
@@ -250,7 +260,7 @@ public class NewEditorController implements Initializable {
 		menuFileSave.setOnAction(this::onClickFileSave);
 		menuFileSaveAs.setOnAction(this::onClickFileSaveAs);
 		
-		hamburger.setOnMouseClicked((this::onClickHamburger);
+		hamburger.setOnMouseClicked(this::onClickHamburger);
     }
     
     private void setShortcut() {
@@ -362,7 +372,30 @@ public class NewEditorController implements Initializable {
     	System.out.println(txtTitle.getText());
     	System.out.println(tempSongProperties.subtitle.getValue());
     	System.out.println(txtSubtitle.getText());
+    }
+    
+    private void setSidePaneBind() {
+    	lblProperties.visibleProperty().bind(hideSidePane.not());
+    	scrollpaneProperties.visibleProperty().bind(hideSidePane.not());
+    	scrollpaneProperties.disableProperty().bind(hideSidePane);
+    }
+    
+    @FXML
+    private void onClickHamburger(MouseEvent event) {
+    	System.out.println(!hideSidePane.get());
+    	if (!hideSidePane.get()) {
+    		AnchorPane.setLeftAnchor(txtSongEdit, 70.0);
+    	} else {
+    		AnchorPane.setLeftAnchor(txtSongEdit, 265.0);
+    	}
+    	hideSidePane.set(!hideSidePane.get());
     	
+    	HamburgerSlideCloseTransition transition = new HamburgerSlideCloseTransition(hamburger);
+		transition.setRate(-1);
+		hamburger.addEventHandler(MouseEvent.MOUSE_CLICKED,(e) -> {
+			transition.setRate(transition.getRate() * -1);
+			transition.play();
+		});
     }
     
 	public void initialize(URL location, ResourceBundle resources) {
@@ -370,6 +403,7 @@ public class NewEditorController implements Initializable {
 		tempSong = new SongImpl();
 		tempSongProperties = new SongProperties(tempSong);
 		txtTitle.setOnMouseClicked(this::onFocusTxtTitle);
+		setSidePaneBind();
 		setShortcut();
 		setOnAction();
 		setMenuBind();
@@ -377,29 +411,14 @@ public class NewEditorController implements Initializable {
 		setFormatter();
 		showTime();
 		
+		
+
+		}
 		//-----------------------Erledigen----------------
 		//SaveAsChordPro.setOnMouseClicked();
 		//SaveAsPdf.setOnMouseClicked();
 		//-----------------------Erledigen----------------
-		try {
-			/**
-			 * Methode um auf den Slide des Menu Hamburgers zuzugreifen und auszugeben
-			 */
-			VBox box = FXMLLoader.load(getClass().getResource("DrawerContent.fxml"));
-			drawerLeft.setSidePane(box);
-			HamburgerBackArrowBasicTransition burgerTask2 = new HamburgerBackArrowBasicTransition(hamburger);
-				burgerTask2.setRate(-1);
-				hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
-					burgerTask2.setRate(burgerTask2.getRate() * -1);
-					burgerTask2.play();
-					
-					if(drawerLeft.isOpened())
-						drawerLeft.close();
-					else
-						drawerLeft.open();
-				});
-		}
-		catch(Exception e) {}
+		
 		
 	}
 	
