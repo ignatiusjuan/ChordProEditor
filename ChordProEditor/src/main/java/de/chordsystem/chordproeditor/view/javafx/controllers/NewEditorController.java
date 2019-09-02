@@ -249,6 +249,8 @@ public class NewEditorController implements Initializable {
 		menuFileOpen.setOnAction(this::onClickFileOpen);
 		menuFileSave.setOnAction(this::onClickFileSave);
 		menuFileSaveAs.setOnAction(this::onClickFileSaveAs);
+		
+		hamburger.setOnMouseClicked((this::onClickHamburger);
     }
     
     private void setShortcut() {
@@ -379,23 +381,25 @@ public class NewEditorController implements Initializable {
 		//SaveAsChordPro.setOnMouseClicked();
 		//SaveAsPdf.setOnMouseClicked();
 		//-----------------------Erledigen----------------
-		
-		/**
-		 * Methode um auf den Slide des Menu Hamburgers zuzugreifen und auszugeben
-		 */
-		VBox box = FXMLLoader.load(getClass().getResource("DrawerContent.fxml"));
-		drawer.setSidePane(box);
-		HamburgerBackArrowBasicTransition burgerTask2 = new HamburgerBackArrowBasicTransition(hamburger);
-			burgerTask2.setRate(-1);
-			hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
-				burgerTask2.setRate(burgerTask2.getRate() * -1);
-				burgerTask2.play();
-				
-				if(drawer.isShown())
-				drawer.hide();
-				else
-				drawer.draw();
-			});
+		try {
+			/**
+			 * Methode um auf den Slide des Menu Hamburgers zuzugreifen und auszugeben
+			 */
+			VBox box = FXMLLoader.load(getClass().getResource("DrawerContent.fxml"));
+			drawerLeft.setSidePane(box);
+			HamburgerBackArrowBasicTransition burgerTask2 = new HamburgerBackArrowBasicTransition(hamburger);
+				burgerTask2.setRate(-1);
+				hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
+					burgerTask2.setRate(burgerTask2.getRate() * -1);
+					burgerTask2.play();
+					
+					if(drawerLeft.isOpened())
+						drawerLeft.close();
+					else
+						drawerLeft.open();
+				});
+		}
+		catch(Exception e) {}
 		
 	}
 	

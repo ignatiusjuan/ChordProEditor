@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXDrawer?>
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -93,31 +94,60 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </JFXButton>
-      <ScrollPane hbarPolicy="NEVER" layoutX="19.0" layoutY="88.0" prefHeight="538.0" prefWidth="224.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="85.0">
-         <content>
-            <AnchorPane prefHeight="850.0" prefWidth="228.0" style="-fx-background-color: #fff;">
-               <children>
-                  <JFXTextField fx:id="txtTitle" labelFloat="true" layoutX="5.0" layoutY="20.0" prefHeight="25.0" prefWidth="200.0" promptText="Title" style="-fx-background-color: #fff;" />
-                  <JFXTextField fx:id="txtSubtitle" labelFloat="true" layoutX="5.0" layoutY="70.0" prefHeight="25.0" prefWidth="200.0" promptText="Subtitle" style="-fx-background-color: #fff;" />
-                  <JFXTextField fx:id="txtArtist" labelFloat="true" layoutX="5.0" layoutY="120.0" prefHeight="25.0" prefWidth="200.0" promptText="Artist" style="-fx-background-color: #fff;" />
-                  <JFXTextField fx:id="txtComposer" labelFloat="true" layoutX="5.0" layoutY="170.0" prefHeight="25.0" prefWidth="200.0" promptText="Composer" style="-fx-background-color: #fff;" />
-                  <JFXTextField fx:id="txtLyricist" labelFloat="true" layoutX="5.0" layoutY="220.0" prefHeight="25.0" prefWidth="200.0" promptText="Lyricist" style="-fx-background-color: #fff;" />
-                  <JFXTextField fx:id="txtCopyright" labelFloat="true" layoutX="5.0" layoutY="270.0" prefHeight="25.0" prefWidth="200.0" promptText="Copyright" style="-fx-background-color: #fff;" />
-                  <JFXTextField fx:id="txtAlbum" labelFloat="true" layoutX="5.0" layoutY="320.0" prefHeight="25.0" prefWidth="200.0" promptText="Album" style="-fx-background-color: #fff;" />
-                  <JFXTextField fx:id="txtYear" labelFloat="true" layoutX="5.0" layoutY="370.0" prefHeight="25.0" prefWidth="200.0" promptText="Year" style="-fx-background-color: #fff;" />
-                  <JFXTextField fx:id="txtKey" labelFloat="true" layoutX="5.0" layoutY="420.0" prefHeight="25.0" prefWidth="200.0" promptText="Key" style="-fx-background-color: #fff;" />
-                  <JFXTextField fx:id="txtTime" labelFloat="true" layoutX="5.0" layoutY="470.0" prefHeight="25.0" prefWidth="200.0" promptText="Time" style="-fx-background-color: #fff;" />
-                  <JFXTextField fx:id="txtTempo" labelFloat="true" layoutX="5.0" layoutY="520.0" prefHeight="25.0" prefWidth="200.0" promptText="Tempo" style="-fx-background-color: #fff;" />
-                  <JFXTextField fx:id="txtDuration" labelFloat="true" layoutX="5.0" layoutY="570.0" prefHeight="25.0" prefWidth="200.0" promptText="Duration" style="-fx-background-color: #fff;" />
-                  <JFXTextField fx:id="txtTextFont" labelFloat="true" layoutX="5.0" layoutY="620.0" prefHeight="25.0" prefWidth="200.0" promptText="Text Font" style="-fx-background-color: #fff;" />
-                  <JFXTextField fx:id="txtTextSize" labelFloat="true" layoutX="5.0" layoutY="670.0" prefHeight="25.0" prefWidth="200.0" promptText="Text Size" style="-fx-background-color: #fff;" />
-                  <JFXTextField fx:id="txtTextColour" labelFloat="true" layoutX="5.0" layoutY="720.0" prefHeight="25.0" prefWidth="200.0" promptText="Text Colour" style="-fx-background-color: #fff;" />
-                  <JFXTextField fx:id="txtChordColour" labelFloat="true" layoutX="5.0" layoutY="770.0" prefHeight="25.0" prefWidth="200.0" promptText="Chord Colour" style="-fx-background-color: #fff;" />
-                  <JFXCheckBox fx:id="cbIsFinished" layoutX="5.0" layoutY="820.0" prefHeight="25.0" prefWidth="200.0" text="is Finished" />
-               </children>
-            </AnchorPane>
-         </content>
-      </ScrollPane>
+      
+<!--       <ScrollPane hbarPolicy="NEVER" layoutX="19.0" layoutY="88.0" prefHeight="538.0" prefWidth="224.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="85.0"> -->
+<!--          <content> -->
+<!--             <AnchorPane prefHeight="850.0" prefWidth="228.0" style="-fx-background-color: #fff;"> -->
+<!--                <children> -->
+<!--                   <JFXTextField fx:id="txtTitle" labelFloat="true" layoutX="5.0" layoutY="20.0" prefHeight="25.0" prefWidth="200.0" promptText="Title" style="-fx-background-color: #fff;" /> -->
+<!--                   <JFXTextField fx:id="txtSubtitle" labelFloat="true" layoutX="5.0" layoutY="70.0" prefHeight="25.0" prefWidth="200.0" promptText="Subtitle" style="-fx-background-color: #fff;" /> -->
+<!--                   <JFXTextField fx:id="txtArtist" labelFloat="true" layoutX="5.0" layoutY="120.0" prefHeight="25.0" prefWidth="200.0" promptText="Artist" style="-fx-background-color: #fff;" /> -->
+<!--                   <JFXTextField fx:id="txtComposer" labelFloat="true" layoutX="5.0" layoutY="170.0" prefHeight="25.0" prefWidth="200.0" promptText="Composer" style="-fx-background-color: #fff;" /> -->
+<!--                   <JFXTextField fx:id="txtLyricist" labelFloat="true" layoutX="5.0" layoutY="220.0" prefHeight="25.0" prefWidth="200.0" promptText="Lyricist" style="-fx-background-color: #fff;" /> -->
+<!--                   <JFXTextField fx:id="txtCopyright" labelFloat="true" layoutX="5.0" layoutY="270.0" prefHeight="25.0" prefWidth="200.0" promptText="Copyright" style="-fx-background-color: #fff;" /> -->
+<!--                   <JFXTextField fx:id="txtAlbum" labelFloat="true" layoutX="5.0" layoutY="320.0" prefHeight="25.0" prefWidth="200.0" promptText="Album" style="-fx-background-color: #fff;" /> -->
+<!--                   <JFXTextField fx:id="txtYear" labelFloat="true" layoutX="5.0" layoutY="370.0" prefHeight="25.0" prefWidth="200.0" promptText="Year" style="-fx-background-color: #fff;" /> -->
+<!--                   <JFXTextField fx:id="txtKey" labelFloat="true" layoutX="5.0" layoutY="420.0" prefHeight="25.0" prefWidth="200.0" promptText="Key" style="-fx-background-color: #fff;" /> -->
+<!--                   <JFXTextField fx:id="txtTime" labelFloat="true" layoutX="5.0" layoutY="470.0" prefHeight="25.0" prefWidth="200.0" promptText="Time" style="-fx-background-color: #fff;" /> -->
+<!--                   <JFXTextField fx:id="txtTempo" labelFloat="true" layoutX="5.0" layoutY="520.0" prefHeight="25.0" prefWidth="200.0" promptText="Tempo" style="-fx-background-color: #fff;" /> -->
+<!--                   <JFXTextField fx:id="txtDuration" labelFloat="true" layoutX="5.0" layoutY="570.0" prefHeight="25.0" prefWidth="200.0" promptText="Duration" style="-fx-background-color: #fff;" /> -->
+<!--                   <JFXTextField fx:id="txtTextFont" labelFloat="true" layoutX="5.0" layoutY="620.0" prefHeight="25.0" prefWidth="200.0" promptText="Text Font" style="-fx-background-color: #fff;" /> -->
+<!--                   <JFXTextField fx:id="txtTextSize" labelFloat="true" layoutX="5.0" layoutY="670.0" prefHeight="25.0" prefWidth="200.0" promptText="Text Size" style="-fx-background-color: #fff;" /> -->
+<!--                   <JFXTextField fx:id="txtTextColour" labelFloat="true" layoutX="5.0" layoutY="720.0" prefHeight="25.0" prefWidth="200.0" promptText="Text Colour" style="-fx-background-color: #fff;" /> -->
+<!--                   <JFXTextField fx:id="txtChordColour" labelFloat="true" layoutX="5.0" layoutY="770.0" prefHeight="25.0" prefWidth="200.0" promptText="Chord Colour" style="-fx-background-color: #fff;" /> -->
+<!--                   <JFXCheckBox fx:id="cbIsFinished" layoutX="5.0" layoutY="820.0" prefHeight="25.0" prefWidth="200.0" text="is Finished" /> -->
+<!--                </children> -->
+<!--             </AnchorPane> -->
+<!--          </content> -->
+<!--       </ScrollPane> -->
+      <JFXDrawer fx:id="drawerLeft" layoutX="19.0" layoutY="88.0" prefHeight="538.0" prefWidth="224.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="85.0">
+         <children>
+            <ScrollPane hbarPolicy="NEVER" layoutX="19.0" layoutY="88.0" prefHeight="538.0" prefWidth="224.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="85.0">
+		         <content>
+		            <AnchorPane prefHeight="850.0" prefWidth="228.0" style="-fx-background-color: #fff;">
+		               <children>
+		                  <JFXTextField fx:id="txtTitle" labelFloat="true" layoutX="5.0" layoutY="20.0" prefHeight="25.0" prefWidth="200.0" promptText="Title" style="-fx-background-color: #fff;" />
+		                  <JFXTextField fx:id="txtSubtitle" labelFloat="true" layoutX="5.0" layoutY="70.0" prefHeight="25.0" prefWidth="200.0" promptText="Subtitle" style="-fx-background-color: #fff;" />
+		                  <JFXTextField fx:id="txtArtist" labelFloat="true" layoutX="5.0" layoutY="120.0" prefHeight="25.0" prefWidth="200.0" promptText="Artist" style="-fx-background-color: #fff;" />
+		                  <JFXTextField fx:id="txtComposer" labelFloat="true" layoutX="5.0" layoutY="170.0" prefHeight="25.0" prefWidth="200.0" promptText="Composer" style="-fx-background-color: #fff;" />
+		                  <JFXTextField fx:id="txtLyricist" labelFloat="true" layoutX="5.0" layoutY="220.0" prefHeight="25.0" prefWidth="200.0" promptText="Lyricist" style="-fx-background-color: #fff;" />
+		                  <JFXTextField fx:id="txtCopyright" labelFloat="true" layoutX="5.0" layoutY="270.0" prefHeight="25.0" prefWidth="200.0" promptText="Copyright" style="-fx-background-color: #fff;" />
+		                  <JFXTextField fx:id="txtAlbum" labelFloat="true" layoutX="5.0" layoutY="320.0" prefHeight="25.0" prefWidth="200.0" promptText="Album" style="-fx-background-color: #fff;" />
+		                  <JFXTextField fx:id="txtYear" labelFloat="true" layoutX="5.0" layoutY="370.0" prefHeight="25.0" prefWidth="200.0" promptText="Year" style="-fx-background-color: #fff;" />
+		                  <JFXTextField fx:id="txtKey" labelFloat="true" layoutX="5.0" layoutY="420.0" prefHeight="25.0" prefWidth="200.0" promptText="Key" style="-fx-background-color: #fff;" />
+		                  <JFXTextField fx:id="txtTime" labelFloat="true" layoutX="5.0" layoutY="470.0" prefHeight="25.0" prefWidth="200.0" promptText="Time" style="-fx-background-color: #fff;" />
+		                  <JFXTextField fx:id="txtTempo" labelFloat="true" layoutX="5.0" layoutY="520.0" prefHeight="25.0" prefWidth="200.0" promptText="Tempo" style="-fx-background-color: #fff;" />
+		                  <JFXTextField fx:id="txtDuration" labelFloat="true" layoutX="5.0" layoutY="570.0" prefHeight="25.0" prefWidth="200.0" promptText="Duration" style="-fx-background-color: #fff;" />
+		                  <JFXTextField fx:id="txtTextFont" labelFloat="true" layoutX="5.0" layoutY="620.0" prefHeight="25.0" prefWidth="200.0" promptText="Text Font" style="-fx-background-color: #fff;" />
+		                  <JFXTextField fx:id="txtTextSize" labelFloat="true" layoutX="5.0" layoutY="670.0" prefHeight="25.0" prefWidth="200.0" promptText="Text Size" style="-fx-background-color: #fff;" />
+		                  <JFXTextField fx:id="txtTextColour" labelFloat="true" layoutX="5.0" layoutY="720.0" prefHeight="25.0" prefWidth="200.0" promptText="Text Colour" style="-fx-background-color: #fff;" />
+		                  <JFXTextField fx:id="txtChordColour" labelFloat="true" layoutX="5.0" layoutY="770.0" prefHeight="25.0" prefWidth="200.0" promptText="Chord Colour" style="-fx-background-color: #fff;" />
+		                  <JFXCheckBox fx:id="cbIsFinished" layoutX="5.0" layoutY="820.0" prefHeight="25.0" prefWidth="200.0" text="is Finished" />
+		               </children>
+		            </AnchorPane>
+		         </content>
+     		 </ScrollPane>
+         </children></JFXDrawer>
       <Label layoutX="61.0" layoutY="48.0" prefHeight="31.0" prefWidth="114.0" text="Properties" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="45.0">
          <font>
             <Font name="EmojiOne Color SVGinOT" size="24.0" />
