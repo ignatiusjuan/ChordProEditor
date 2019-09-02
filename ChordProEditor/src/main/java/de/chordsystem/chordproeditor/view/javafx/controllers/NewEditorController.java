@@ -17,6 +17,7 @@ import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 
 import de.chordsystem.Prototype.ChordProParser;
 import de.chordsystem.chordproeditor.model.classes.SongImpl;
@@ -250,7 +251,7 @@ public class NewEditorController implements Initializable {
 		menuFileSave.setOnAction(this::onClickFileSave);
 		menuFileSaveAs.setOnAction(this::onClickFileSaveAs);
 		
-		hamburger.setOnMouseClicked((this::onClickHamburger);
+//		hamburger.setOnMouseClicked((this::onClickHamburger);
     }
     
     private void setShortcut() {
@@ -377,31 +378,19 @@ public class NewEditorController implements Initializable {
 		setFormatter();
 		showTime();
 		
+		HamburgerSlideCloseTransition transition = new HamburgerSlideCloseTransition(hamburger);
+		transition.setRate(-1);
+		hamburger.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->{
+				transition.setRate(transition.getRate()*-1);
+		transition.play();
+		});
+	}
+		
 		//-----------------------Erledigen----------------
 		//SaveAsChordPro.setOnMouseClicked();
 		//SaveAsPdf.setOnMouseClicked();
 		//-----------------------Erledigen----------------
-		try {
-			/**
-			 * Methode um auf den Slide des Menu Hamburgers zuzugreifen und auszugeben
-			 */
-			VBox box = FXMLLoader.load(getClass().getResource("DrawerContent.fxml"));
-			drawerLeft.setSidePane(box);
-			HamburgerBackArrowBasicTransition burgerTask2 = new HamburgerBackArrowBasicTransition(hamburger);
-				burgerTask2.setRate(-1);
-				hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
-					burgerTask2.setRate(burgerTask2.getRate() * -1);
-					burgerTask2.play();
-					
-					if(drawerLeft.isOpened())
-						drawerLeft.close();
-					else
-						drawerLeft.open();
-				});
-		}
-		catch(Exception e) {}
-		
-	}
+
 	
 	/**
 	 * Methode um die Aktuelle Uhrzeit mit Sekundentakt in dem 
