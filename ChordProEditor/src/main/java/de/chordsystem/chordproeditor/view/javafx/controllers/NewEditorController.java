@@ -23,6 +23,7 @@ import de.chordsystem.Prototype.ChordProParser;
 import de.chordsystem.chordproeditor.model.classes.SongImpl;
 import de.chordsystem.chordproeditor.model.classes.SongProperties;
 import de.chordsystem.chordproeditor.model.interfaces.Song;
+import de.chordsystem.latex.GeneratePDF;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -199,6 +200,12 @@ public class NewEditorController implements Initializable {
     
     @FXML
     private JFXButton btnWriteTex;
+    
+    @FXML
+    private ImageView ivSaveAsPDF;
+
+    @FXML
+    private Label lblSaveAsPDF;
  
     BooleanProperty clipboardEmpty = new SimpleBooleanProperty(false);
     BooleanProperty hideSidePane = new SimpleBooleanProperty(false);
@@ -209,6 +216,10 @@ public class NewEditorController implements Initializable {
 		menuFileOpen.setOnAction(this::onClickFileOpen);
 		menuFileSave.setOnAction(this::onClickFileSave);
 		menuFileSaveAs.setOnAction(this::onClickFileSaveAs);
+		
+		ivSaveAsPDF.setOnMouseClicked(this::generatePDF);
+		lblSaveAsPDF.setOnMouseClicked(this::generatePDF);
+		
 		hamburger.setOnMouseClicked(this::onClickHamburger);
     }
     
@@ -346,6 +357,12 @@ public class NewEditorController implements Initializable {
 		});
     }
     
+    
+    @FXML
+    private void generatePDF(MouseEvent event) {
+    	GeneratePDF.generatePDF(tempSong);
+    }
+    
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		tempSong = new SongImpl();
@@ -379,6 +396,7 @@ public class NewEditorController implements Initializable {
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
     }
-
+    
+  
 
 }
