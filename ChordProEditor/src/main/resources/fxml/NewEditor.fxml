@@ -78,7 +78,7 @@
             <MenuItem mnemonicParsing="false" text="B" />
         </items>
       </MenuButton>
-      <ImageView fx:id="SaveAsPdf" fitHeight="37.0" fitWidth="37.0" layoutX="1017.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="40.0">
+      <ImageView fx:id="ivSaveAsPDF" fitHeight="37.0" fitWidth="37.0" layoutX="1017.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="40.0">
          <image>
             <Image url="@../Icons/SaveAsPdf.png" />
          </image>
@@ -125,7 +125,7 @@
             <Font name="EmojiOne Color SVGinOT" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="995.0" layoutY="668.0" text="Save as Pdf File" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="20.0" />
+      <Label fx:id="lblSaveAsPDF" layoutX="995.0" layoutY="668.0" text="Save as Pdf File" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="20.0" />
       <ImageView fx:id="SaveAsChordPro" fitHeight="37.0" fitWidth="37.0" layoutX="900.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="150.0">
          <image>
             <Image url="@../Icons/SaveAsChordpro.png" />

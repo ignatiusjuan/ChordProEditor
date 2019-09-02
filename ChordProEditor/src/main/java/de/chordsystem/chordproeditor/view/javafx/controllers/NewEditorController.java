@@ -23,6 +23,7 @@ import de.chordsystem.Prototype.ChordProParser;
 import de.chordsystem.chordproeditor.model.classes.SongImpl;
 import de.chordsystem.chordproeditor.model.classes.SongProperties;
 import de.chordsystem.chordproeditor.model.interfaces.Song;
+import de.chordsystem.latex.GeneratePDF;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -184,7 +185,10 @@ public class NewEditorController implements Initializable {
     private TextField TextFieldCapo;
     
     @FXML
-    private ImageView SaveAsPdf;
+    private ImageView ivSaveAsPDF;
+    
+    @FXML
+    private Label lblSaveAsPDF;
     
     @FXML
     private ImageView SaveAsChordPro;
@@ -238,9 +242,6 @@ public class NewEditorController implements Initializable {
     public TextField getTextFieldCapo() {
     	return TextFieldCapo; 
     } 
-    public ImageView getSaveAsPdf() {
-    	return SaveAsPdf;
-    }
     public ImageView getSaveAsChordPro() {
     	return SaveAsChordPro;
     }
@@ -260,6 +261,8 @@ public class NewEditorController implements Initializable {
 		menuFileSave.setOnAction(this::onClickFileSave);
 		menuFileSaveAs.setOnAction(this::onClickFileSaveAs);
 		
+		ivSaveAsPDF.setOnMouseClicked(this::generatePDF);
+		lblSaveAsPDF.setOnMouseClicked(this::generatePDF);
 		hamburger.setOnMouseClicked(this::onClickHamburger);
     }
     
@@ -395,6 +398,11 @@ public class NewEditorController implements Initializable {
 			transition.setRate(transition.getRate() * -1);
 			transition.play();
 		});
+    }
+    
+    @FXML
+    private void generatePDF(MouseEvent event) {
+    	GeneratePDF.generatePDF(tempSong);
     }
     
 	public void initialize(URL location, ResourceBundle resources) {
