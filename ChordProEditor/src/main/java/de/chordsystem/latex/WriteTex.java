@@ -40,7 +40,7 @@ public class WriteTex {
 		bw.write("\\maketitle");
 		bw.newLine();
 		writeLyrics(song, bw);
-		bw.write(song.getCopyright());
+		//bw.write(song.getCopyright());
 		bw.newLine();
 		bw.write("\\end{document}");
 		bw.newLine();
@@ -50,6 +50,11 @@ public class WriteTex {
 	/***
 	 * Decides which method has to be called to write the current environment 
 	 * @return
+	 * @throws IOException
+	 */
+	/**
+	 * @param song
+	 * @param bw
 	 * @throws IOException
 	 */
 	private static void writeLyrics(Song song, BufferedWriter bw) throws IOException
@@ -62,32 +67,33 @@ public class WriteTex {
 			}else {
 				newEnv = true;
 			}
-			switch(song.getEnvironment(currentEnv).getType()) {
-				case EnvironmentImpl.TYPE_CHORUS:
-					writeChorus(song, currentEnv, bw, newEnv);
-					break;
-				case EnvironmentImpl.TYPE_VERSE:
-					writeVerse(song, currentEnv, bw, newEnv);
-					break;
-				case EnvironmentImpl.TYPE_TAB:
-					writeTab(song, currentEnv, bw, newEnv);
-					break;
-				case EnvironmentImpl.TYPE_GRID:
-					writeGrid(song, currentEnv, bw, newEnv);
-					break;
-				case EnvironmentImpl.TYPE_INSTRUCTION:
-					writeInstruction(song, currentEnv, bw, newEnv);
-					break;
-				case EnvironmentImpl.TYPE_COMMENT:
-					writeComment(song, currentEnv, bw, newEnv);
-					break;
-				case EnvironmentImpl.TYPE_OTHER:
-					writeOther(song, currentEnv, bw, newEnv);
-					break;
-				case EnvironmentImpl.TYPE_NULL:
-					writeNull(song, currentEnv, bw, newEnv);
-					break;
-			}
+//			switch(song.getEnvironment(currentEnv).getType()) {
+//				case EnvironmentImpl.TYPE_CHORUS:
+//					writeChorus(song, currentEnv, bw, newEnv);
+//					break;
+//				case EnvironmentImpl.TYPE_VERSE:
+//					writeVerse(song, currentEnv, bw, newEnv);
+//					break;
+//				case EnvironmentImpl.TYPE_TAB:
+//					writeTab(song, currentEnv, bw, newEnv);
+//					break;
+//				case EnvironmentImpl.TYPE_GRID:
+//					writeGrid(song, currentEnv, bw, newEnv);
+//					break;
+			
+//				case EnvironmentImpl.TYPE_INSTRUCTION:
+//					writeInstruction(song, currentEnv, bw, newEnv);
+//					break;
+//				case EnvironmentImpl.TYPE_COMMENT:
+//					writeComment(song, currentEnv, bw, newEnv);
+//					break;
+//				case EnvironmentImpl.TYPE_OTHER:
+//					writeOther(song, currentEnv, bw, newEnv);
+//					break;
+//				case EnvironmentImpl.TYPE_NULL:
+//					writeNull(song, currentEnv, bw, newEnv);
+//					break;
+//			}
 		}
 	}
 

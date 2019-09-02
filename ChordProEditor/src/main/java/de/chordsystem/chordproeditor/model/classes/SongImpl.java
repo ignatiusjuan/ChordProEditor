@@ -36,6 +36,7 @@ public class SongImpl implements Song{
 	
 	public SongImpl() {
 		super();
+		System.out.println("Created new Song");
 		this.title = "";
 		this.subtitle = new ArrayList<String>();
 		this.artist = new ArrayList<String>();
@@ -351,6 +352,35 @@ public class SongImpl implements Song{
 	@Override
 	public Environment getEnvironment(int x) {
 		return environmentList.get(x);
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	@Override
+	public String getEnvironmentsAsString() {
+		String lastTitle = "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@";
+		int lastType = EnvironmentImpl.TYPE_NULL;
+		
+		StringBuilder sb = new StringBuilder();
+		for (Environment env : environmentList) {
+			if (!(lastType == env.getType() && lastTitle.equals(env.getTitle()))){
+				sb.append("\n");
+				if (env.getType() == EnvironmentImpl.TYPE_CHORUS)
+					sb.append("Chorus: " + env.getTitle());
+				else if (env.getType() == EnvironmentImpl.TYPE_VERSE)
+					sb.append("Verse: " + env.getTitle());
+				else if (env.getType() == EnvironmentImpl.TYPE_TAB)
+					sb.append("Tab: " + env.getTitle());
+				else if (env.getType() == EnvironmentImpl.TYPE_GRID)
+					sb.append("Grid: " + env.getTitle());
+				sb.append("\n");
+				lastTitle = env.getTitle();
+				lastType = env.getType();
+			}
+			sb.append(env.toString());
+		}
+		return sb.toString();
 	}
 	/**
 	 * @return the environment size

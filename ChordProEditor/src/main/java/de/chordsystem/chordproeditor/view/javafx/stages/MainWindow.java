@@ -3,18 +3,20 @@ package de.chordsystem.chordproeditor.view.javafx.stages;
 
 
 import java.net.URL;
+import java.util.ResourceBundle;
 
 import de.chordsystem.chordproeditor.view.javafx.controllers.NewEditorController;
 import javafx.application.Application;
 //import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.CacheHint;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 //import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-public class MainWindow extends Application{
+public class MainWindow extends Application implements Initializable{
 	private static Stage window;
 
 	@Override
@@ -39,6 +41,12 @@ public class MainWindow extends Application{
 	}
 	
 	public static void main(String[] args){
-		launch(args);
+		launch(args); 
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		
 	}
 }

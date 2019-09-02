@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -10,6 +10,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.image.Image?>
@@ -21,61 +22,47 @@
    <children>
       <MenuBar fx:id="MenuBar" layoutY="-1.0" prefHeight="31.0" prefWidth="1084.0">
         <menus>
-          <Menu mnemonicParsing="false" text="Datei">
+          <Menu mnemonicParsing="false" text="File">
             <items>
-                  <MenuItem mnemonicParsing="false" text="New File" />
-              <MenuItem mnemonicParsing="false" text="Öffnen" />
-                  <MenuItem mnemonicParsing="false" text="Aktuellen Ordner öffnen" />
+                  <MenuItem fx:id="menuFileNew" mnemonicParsing="false" text="New" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Speichern" />
-                  <MenuItem mnemonicParsing="false" text="Speichern unter ..." />
-                  <MenuItem mnemonicParsing="false" text="Speichern als Pdf-Datei" />
+              <MenuItem fx:id="menuFileOpen" mnemonicParsing="false" text="Open" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Speichern" />
-                  <MenuItem mnemonicParsing="false" text="Speichern" />
+                  <MenuItem fx:id="menuFileSave" mnemonicParsing="false" text="Save" />
+                  <MenuItem fx:id="menuFileSaveAs" mnemonicParsing="false" text="Save As" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="menuFileExportAsPDF" mnemonicParsing="false" text="Export as PDF" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="menuFilePreferences" mnemonicParsing="false" text="Preferences" />
+                  <MenuItem fx:id="menuFileQuit" mnemonicParsing="false" text="Quit" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Bearbeiten">
+          <Menu mnemonicParsing="false" text="Edit">
             <items>
-                  <MenuItem mnemonicParsing="false" text="Löschen" />
+              <MenuItem fx:id="menuEditUndo" mnemonicParsing="false" text="Undo" />
+                  <MenuItem fx:id="menuEditRedo" mnemonicParsing="false" text="Redo" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-              <MenuItem mnemonicParsing="false" text="Ruckgängig" />
-                  <MenuItem mnemonicParsing="false" text="Ausschneiden" />
+                  <MenuItem fx:id="menuEditCut" mnemonicParsing="false" text="Cut" />
+                  <MenuItem fx:id="menuEditCopy" mnemonicParsing="false" text="Copy" />
+                  <MenuItem fx:id="menuEditPaste" mnemonicParsing="false" text="Paste" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Alles auswählen     Ctlr+A" />
-                  <MenuItem mnemonicParsing="false" text="Kopieren   Ctlr+C" />
-                  <MenuItem mnemonicParsing="false" text="Einfügen    Ctlr+V" />
+                  <MenuItem fx:id="menuEditSelectAll" mnemonicParsing="false" text="Select All" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem mnemonicParsing="false" text="Help" />
+                  <MenuItem mnemonicParsing="false" text="About" />
             </items>
           </Menu>
-            <Menu mnemonicParsing="false" text="Sonstiges">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="About" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Sonstiges">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="About" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Sonstiges">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="About" />
-               </items>
-            </Menu>
         </menus>
       </MenuBar>
-      <JFXTextArea fx:id="txtSongInsert" layoutX="266.0" layoutY="34.0" prefHeight="591.0" prefWidth="797.0" style="-fx-background-color: #000;" text="Enter your song here, e.g.&#10;&#10;Verse &#10; Am&#9;&#9;C&#10;Alas my love,&#10;&#9;G&#9; Em&#10;you do me wrong&#10;&#10;Chorus:&#10;&#10;C&#9;&#9;&#9;    G       Em&#10;greensleeves was all my joy,&#10;Am&#9;&#9;&#9;     E&#10;greensleeves was my delight,&#10;&#10;...">
+      <JFXTextArea fx:id="txtSongEdit" layoutX="266.0" layoutY="55.0" prefHeight="570.0" prefWidth="797.0" promptText="Enter your song here . . ." style="-fx-background-color: #fff;" unFocusColor="#838181">
          <font>
             <Font size="24.0" />
          </font></JFXTextArea>
-      <MenuButton fx:id="btnUncapoed" layoutX="357.0" layoutY="631.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="104.0" text="MenuButton">
+      <MenuButton fx:id="btnUncapoed" layoutX="266.0" layoutY="631.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="104.0" text="Key">
         <items>
-          <MenuItem mnemonicParsing="false" text="B" />
           <MenuItem mnemonicParsing="false" text="C" />
             <MenuItem mnemonicParsing="false" text="C#" />
             <MenuItem mnemonicParsing="false" text="D" />
@@ -84,29 +71,19 @@
             <MenuItem mnemonicParsing="false" text="F" />
             <MenuItem mnemonicParsing="false" text="F#" />
             <MenuItem mnemonicParsing="false" text="G" />
+            <MenuItem mnemonicParsing="false" text="G#" />
+          <MenuItem mnemonicParsing="false" text="A" />
+            <MenuItem mnemonicParsing="false" text="B♭" />
+            <MenuItem mnemonicParsing="false" text="B" />
         </items>
       </MenuButton>
-      <Label fx:id="label" layoutX="268.0" layoutY="630.0" prefHeight="31.0" prefWidth="84.0" text="Uncapoed" textFill="WHITE">
-         <font>
-            <Font name="Segoe UI Bold" size="14.0" />
-         </font></Label>
-      <JFXButton fx:id="btnMinus" layoutX="577.0" layoutY="622.0" prefHeight="25.0" prefWidth="29.0" text="-">
-         <font>
-            <Font name="System Bold" size="25.0" />
-         </font>
-      </JFXButton>
-      <JFXButton fx:id="btnPlus" layoutX="622.0" layoutY="622.0" text="+">
-         <font>
-            <Font name="System Bold" size="25.0" />
-         </font>
-      </JFXButton>
       <ImageView fx:id="SaveAsPdf" fitHeight="37.0" fitWidth="37.0" layoutX="1017.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Icons/SaveAsPdf.png" />
          </image>
       </ImageView>
-      <JFXTextField fx:id="TextFieldCapo" focusColor="BLACK" layoutX="471.0" layoutY="631.0" prefHeight="31.0" prefWidth="84.0" promptText="Capo" style="-fx-background-color: #fff;" unFocusColor="BLACK" />
-      <Label fx:id="lblDateTime" layoutX="9.0" layoutY="640.0" prefHeight="31.0" prefWidth="104.0" text="Time">
+      <JFXTextField fx:id="TextFieldCapo" focusColor="BLACK" layoutX="381.0" layoutY="631.0" prefHeight="31.0" prefWidth="84.0" promptText="Capo" style="-fx-background-color: #fff;" unFocusColor="BLACK" />
+      <Label fx:id="lblDateTime" layoutX="9.0" layoutY="640.0" prefHeight="31.0" prefWidth="138.0" text="Time">
          <font>
             <Font name="Gabriola" size="18.0" />
          </font>
@@ -116,18 +93,32 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </JFXButton>
-      <AnchorPane layoutX="21.0" layoutY="105.0" prefHeight="488.0" prefWidth="227.0">
-         <children>
-            <JFXTextField fx:id="txtSongTitle" layoutY="23.0" prefHeight="73.0" prefWidth="227.0" promptText="Song Title" style="-fx-background-color: #fff;" />
-            <JFXTextField fx:id="txtAlternativeTitle" layoutX="-1.0" layoutY="150.0" prefHeight="73.0" prefWidth="227.0" promptText="Alternative Song Title" style="-fx-background-color: #fff;" />
-            <JFXTextField fx:id="txtArtist" layoutX="-1.0" layoutY="277.0" prefHeight="73.0" prefWidth="227.0" promptText="Artist" style="-fx-background-color: #fff;" />
-            <JFXTextField fx:id="txtSongId" layoutY="401.0" prefHeight="73.0" prefWidth="227.0" promptText="Optional Song ID" style="-fx-background-color: #fff;" />
-            <Separator layoutX="-1.0" layoutY="119.0" prefHeight="15.0" prefWidth="227.0" />
-            <Separator layoutY="244.0" prefHeight="15.0" prefWidth="227.0" />
-            <Separator layoutX="-1.0" layoutY="371.0" prefHeight="15.0" prefWidth="227.0" />
-            <JFXDrawer fx:id="drawer" layoutX="-17.0" layoutY="-66.0" prefHeight="647.0" prefWidth="243.0" />
-         </children></AnchorPane>
-      <Label layoutX="61.0" layoutY="53.0" prefHeight="31.0" prefWidth="67.0" text="Menu">
+      <ScrollPane hbarPolicy="NEVER" layoutX="19.0" layoutY="88.0" prefHeight="538.0" prefWidth="224.0" style="-fx-background-color: #fff;">
+         <content>
+            <AnchorPane prefHeight="850.0" prefWidth="228.0" style="-fx-background-color: #fff;">
+               <children>
+                  <JFXTextField fx:id="txtTitle" labelFloat="true" layoutX="5.0" layoutY="20.0" prefHeight="25.0" prefWidth="200.0" promptText="Title" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtSubtitle" labelFloat="true" layoutX="5.0" layoutY="70.0" prefHeight="25.0" prefWidth="200.0" promptText="Subtitle" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtArtist" labelFloat="true" layoutX="5.0" layoutY="120.0" prefHeight="25.0" prefWidth="200.0" promptText="Artist" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtComposer" labelFloat="true" layoutX="5.0" layoutY="170.0" prefHeight="25.0" prefWidth="200.0" promptText="Composer" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtLyricist" labelFloat="true" layoutX="5.0" layoutY="220.0" prefHeight="25.0" prefWidth="200.0" promptText="Lyricist" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtCopyright" labelFloat="true" layoutX="5.0" layoutY="270.0" prefHeight="25.0" prefWidth="200.0" promptText="Copyright" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtAlbum" labelFloat="true" layoutX="5.0" layoutY="320.0" prefHeight="25.0" prefWidth="200.0" promptText="Album" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtYear" labelFloat="true" layoutX="5.0" layoutY="370.0" prefHeight="25.0" prefWidth="200.0" promptText="Year" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtKey" labelFloat="true" layoutX="5.0" layoutY="420.0" prefHeight="25.0" prefWidth="200.0" promptText="Key" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtTime" labelFloat="true" layoutX="5.0" layoutY="470.0" prefHeight="25.0" prefWidth="200.0" promptText="Time" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtTempo" labelFloat="true" layoutX="5.0" layoutY="520.0" prefHeight="25.0" prefWidth="200.0" promptText="Tempo" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtDuration" labelFloat="true" layoutX="5.0" layoutY="570.0" prefHeight="25.0" prefWidth="200.0" promptText="Duration" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtTextFont" labelFloat="true" layoutX="5.0" layoutY="620.0" prefHeight="25.0" prefWidth="200.0" promptText="Text Font" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtTextSize" labelFloat="true" layoutX="5.0" layoutY="670.0" prefHeight="25.0" prefWidth="200.0" promptText="Text Size" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtTextColour" labelFloat="true" layoutX="5.0" layoutY="720.0" prefHeight="25.0" prefWidth="200.0" promptText="Text Colour" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtChordColour" labelFloat="true" layoutX="5.0" layoutY="770.0" prefHeight="25.0" prefWidth="200.0" promptText="Chord Colour" style="-fx-background-color: #fff;" />
+                  <JFXCheckBox fx:id="cbIsFinished" layoutX="5.0" layoutY="820.0" prefHeight="25.0" prefWidth="200.0" text="is Finished" />
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+      <Label layoutX="61.0" layoutY="48.0" prefHeight="31.0" prefWidth="114.0" text="Properties">
          <font>
             <Font name="EmojiOne Color SVGinOT" size="24.0" />
          </font>
@@ -140,6 +131,6 @@
       </ImageView>
       <Label layoutX="861.0" layoutY="668.0" text="Save as ChordPro File" />
       <Separator layoutX="981.0" layoutY="637.0" orientation="VERTICAL" prefHeight="47.0" prefWidth="8.0" />
-      <JFXHamburger fx:id="hamburger" layoutX="14.0" layoutY="53.0" prefHeight="31.0" prefWidth="37.0" />
+      <JFXHamburger fx:id="hamburger" layoutX="14.0" layoutY="48.0" prefHeight="31.0" prefWidth="37.0" />
    </children>
 </AnchorPane>

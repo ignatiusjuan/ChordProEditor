@@ -361,16 +361,16 @@ public class ChordProParser {
 	}
 	
 	public void start() {
-		//Song song = tryParseChordPro(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "Heaven.chordpro");
-		Song song = tryParseChordPro(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "10000 Reasons.chordpro");
+		Song song = tryParseChordPro(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "Heaven.chordpro");
+		//Song song = tryParseChordPro(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "10000 Reasons.chordpro");
 		
-		//System.out.println(song.toString());
+		System.out.println(song.toString());
 		//File file = new File(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "Heaven.chordpro");
 		//File file = new File(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "10000 Reasons.chordpro");
 		
 		de.chordsystem.Prototype.ChordProConverter converter = new de.chordsystem.Prototype.ChordProConverter();
 		
-		System.out.println(converter.tryConvertToChordPro(song));
+		//System.out.println(converter.tryConvertToChordPro(song));
 	}
 
 	public static void main(String[] args) {

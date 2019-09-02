@@ -229,4 +229,6 @@ public interface Song {
 
 	String toString();
 
+	String getEnvironmentsAsString();
+
 }
