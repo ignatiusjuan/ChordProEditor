@@ -117,9 +117,6 @@ public class NewEditorController implements Initializable {
     private MenuItem menuEditSelectAll;
     
     @FXML
-    private JFXListView<String> SongList;
-    
-    @FXML
     private AnchorPane anchorPane;
 
     @FXML
@@ -212,7 +209,6 @@ public class NewEditorController implements Initializable {
 		menuFileOpen.setOnAction(this::onClickFileOpen);
 		menuFileSave.setOnAction(this::onClickFileSave);
 		menuFileSaveAs.setOnAction(this::onClickFileSaveAs);
-		
 		hamburger.setOnMouseClicked(this::onClickHamburger);
     }
     
@@ -382,23 +378,6 @@ public class NewEditorController implements Initializable {
         }), new KeyFrame(Duration.seconds(1)));
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
-    }
-    
-    
-    /**
-     * Methode um einen Song aus der SongListe auszuwählen 
-     * @param event
-     */
-    @FXML
-    void displaySelected(MouseEvent event) {
-    	String song = SongList.getSelectionModel().getSelectedItem();
-    	if (song==null || song.isEmpty()) {
-    		screen.setText("Kein Song ausgewäht");
-    		
-    	} else {
-    		screen.setText(song + "Ausgewählt");
-    	}
-
     }
 
 
