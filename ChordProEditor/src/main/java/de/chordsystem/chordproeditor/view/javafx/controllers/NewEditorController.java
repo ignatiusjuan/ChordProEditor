@@ -382,7 +382,6 @@ public class NewEditorController implements Initializable {
     
     @FXML
     private void onClickHamburger(MouseEvent event) {
-    	System.out.println(!hideSidePane.get());
     	if (!hideSidePane.get()) {
     		AnchorPane.setLeftAnchor(txtSongEdit, 70.0);
     	} else {
@@ -411,17 +410,14 @@ public class NewEditorController implements Initializable {
 		setFormatter();
 		showTime();
 		
-		
-
-		}
-		//-----------------------Erledigen----------------
-		//SaveAsChordPro.setOnMouseClicked();
-		//SaveAsPdf.setOnMouseClicked();
-		//-----------------------Erledigen----------------
-		
-		
+		HamburgerSlideCloseTransition transition = new HamburgerSlideCloseTransition(hamburger);
+		transition.setRate(-1);
+		hamburger.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->{
+				transition.setRate(transition.getRate()*-1);
+		transition.play();
+		});
 	}
-	
+			
 	/**
 	 * Methode um die Aktuelle Uhrzeit mit Sekundentakt in dem 
 	 * Fenster auszugeben
