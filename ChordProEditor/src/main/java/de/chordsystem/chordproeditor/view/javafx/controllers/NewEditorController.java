@@ -338,6 +338,8 @@ public class NewEditorController implements Initializable {
     	fileChooser.setTitle("Save ChordPro File As");
     	fileChooser.getExtensionFilters().addAll(
     			new FileChooser.ExtensionFilter("ChordProFiles", "*.chopro", "*.crd", "*.cho", "*.chord", "*.pro"),
+    			new FileChooser.ExtensionFilter("PDF", "*.pdf"),
+    			new FileChooser.ExtensionFilter("Text file", "*.txt"),
     			new FileChooser.ExtensionFilter("All Files", "*.*")
     	);
     	String[] defaultName = txtSongEdit.getText().split("\\n");
