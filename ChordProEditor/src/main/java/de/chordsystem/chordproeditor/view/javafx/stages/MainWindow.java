@@ -30,7 +30,7 @@ public class MainWindow extends Application implements Initializable{
 		root.setCacheHint(CacheHint.SPEED);
 		Scene scene = new Scene(root); 
 		window.setScene(scene);
-		window.setResizable(false);
+		window.setResizable(true);
 		window.setTitle("ChordPro Editor");
 		//window.getIcons().add(new Image("/Pictures/icon.png"));
 		window.show();

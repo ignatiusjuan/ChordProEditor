@@ -167,6 +167,9 @@ public class NewEditorController implements Initializable {
     private JFXCheckBox cbIsFinished;
     
     @FXML
+    private JFXDrawer drawerLeft;
+    
+    @FXML
     private MenuButton btnUncapoed;
     
     @FXML
@@ -380,19 +383,19 @@ public class NewEditorController implements Initializable {
 		/**
 		 * Methode um auf den Slide des Menu Hamburgers zuzugreifen und auszugeben
 		 */
-//		VBox box = FXMLLoader.load(getClass().getResource("DrawerContent.fxml"));
-//		drawer.setSidePane(box);
-//		HamburgerBackArrowBasicTransition burgerTask2 = new HamburgerBackArrowBasicTransition(hamburger);
-//			burgerTask2.setRate(-1);
-//			hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
-//				burgerTask2.setRate(burgerTask2.getRate() * -1);
-//				burgerTask2.play();
-//				
-//				if(drawer.isShown())
-//				drawer.hide();
-//				else
-//				drawer.draw();
-//			});
+		VBox box = FXMLLoader.load(getClass().getResource("DrawerContent.fxml"));
+		drawer.setSidePane(box);
+		HamburgerBackArrowBasicTransition burgerTask2 = new HamburgerBackArrowBasicTransition(hamburger);
+			burgerTask2.setRate(-1);
+			hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
+				burgerTask2.setRate(burgerTask2.getRate() * -1);
+				burgerTask2.play();
+				
+				if(drawer.isShown())
+				drawer.hide();
+				else
+				drawer.draw();
+			});
 		
 	}
 	

@@ -20,7 +20,7 @@
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="693.0" prefWidth="1084.0" stylesheets="@../Css/Main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <MenuBar fx:id="MenuBar" layoutY="-1.0" prefHeight="31.0" prefWidth="1084.0">
+      <MenuBar fx:id="MenuBar" layoutY="-1.0" prefHeight="31.0" prefWidth="1084.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
@@ -57,11 +57,11 @@
           </Menu>
         </menus>
       </MenuBar>
-      <JFXTextArea fx:id="txtSongEdit" layoutX="266.0" layoutY="55.0" prefHeight="570.0" prefWidth="797.0" promptText="Enter your song here . . ." style="-fx-background-color: #fff;" unFocusColor="#838181">
+      <JFXTextArea fx:id="txtSongEdit" layoutX="266.0" layoutY="55.0" prefHeight="570.0" prefWidth="797.0" promptText="Enter your song here . . ." style="-fx-background-color: #fff;" unFocusColor="#838181" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="265.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="55.0">
          <font>
             <Font size="24.0" />
          </font></JFXTextArea>
-      <MenuButton fx:id="btnUncapoed" layoutX="266.0" layoutY="631.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="104.0" text="Key">
+      <MenuButton fx:id="btnUncapoed" layoutX="266.0" layoutY="631.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="104.0" text="Key" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="265.0">
         <items>
           <MenuItem mnemonicParsing="false" text="C" />
             <MenuItem mnemonicParsing="false" text="C#" />
@@ -77,23 +77,23 @@
             <MenuItem mnemonicParsing="false" text="B" />
         </items>
       </MenuButton>
-      <ImageView fx:id="SaveAsPdf" fitHeight="37.0" fitWidth="37.0" layoutX="1017.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="SaveAsPdf" fitHeight="37.0" fitWidth="37.0" layoutX="1017.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="40.0">
          <image>
             <Image url="@../Icons/SaveAsPdf.png" />
          </image>
       </ImageView>
-      <JFXTextField fx:id="TextFieldCapo" focusColor="BLACK" layoutX="381.0" layoutY="631.0" prefHeight="31.0" prefWidth="84.0" promptText="Capo" style="-fx-background-color: #fff;" unFocusColor="BLACK" />
-      <Label fx:id="lblDateTime" layoutX="9.0" layoutY="640.0" prefHeight="31.0" prefWidth="138.0" text="Time">
+      <JFXTextField fx:id="TextFieldCapo" focusColor="BLACK" layoutX="381.0" layoutY="631.0" prefHeight="31.0" prefWidth="84.0" promptText="Capo" style="-fx-background-color: #fff;" unFocusColor="BLACK" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="380.0" />
+      <Label fx:id="lblDateTime" layoutX="9.0" layoutY="640.0" prefHeight="31.0" prefWidth="224.0" text="Time" textAlignment="JUSTIFY" wrapText="true" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
          <font>
-            <Font name="Gabriola" size="18.0" />
+            <Font name="Gabriola" size="24.0" />
          </font>
       </Label>
-      <JFXButton fx:id="btnWriteTex" layoutX="729.0" layoutY="644.0" prefHeight="37.0" prefWidth="104.0" text="WriteTex">
+      <JFXButton fx:id="btnWriteTex" layoutX="729.0" layoutY="644.0" prefHeight="37.0" prefWidth="104.0" text="WriteTex" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="250.0">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </JFXButton>
-      <ScrollPane hbarPolicy="NEVER" layoutX="19.0" layoutY="88.0" prefHeight="538.0" prefWidth="224.0" style="-fx-background-color: #fff;">
+      <ScrollPane hbarPolicy="NEVER" layoutX="19.0" layoutY="88.0" prefHeight="538.0" prefWidth="224.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="85.0">
          <content>
             <AnchorPane prefHeight="850.0" prefWidth="228.0" style="-fx-background-color: #fff;">
                <children>
@@ -118,19 +118,19 @@
             </AnchorPane>
          </content>
       </ScrollPane>
-      <Label layoutX="61.0" layoutY="48.0" prefHeight="31.0" prefWidth="114.0" text="Properties">
+      <Label layoutX="61.0" layoutY="48.0" prefHeight="31.0" prefWidth="114.0" text="Properties" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="45.0">
          <font>
             <Font name="EmojiOne Color SVGinOT" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="995.0" layoutY="668.0" text="Save as Pdf File" />
-      <ImageView fx:id="SaveAsChordPro" fitHeight="37.0" fitWidth="37.0" layoutX="900.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true">
+      <Label layoutX="995.0" layoutY="668.0" text="Save as Pdf File" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="20.0" />
+      <ImageView fx:id="SaveAsChordPro" fitHeight="37.0" fitWidth="37.0" layoutX="900.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="150.0">
          <image>
             <Image url="@../Icons/SaveAsChordpro.png" />
          </image>
       </ImageView>
-      <Label layoutX="861.0" layoutY="668.0" text="Save as ChordPro File" />
-      <Separator layoutX="981.0" layoutY="637.0" orientation="VERTICAL" prefHeight="47.0" prefWidth="8.0" />
-      <JFXHamburger fx:id="hamburger" layoutX="14.0" layoutY="48.0" prefHeight="31.0" prefWidth="37.0" />
+      <Label layoutX="861.0" layoutY="668.0" text="Save as ChordPro File" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="110.0" />
+      <Separator layoutX="981.0" layoutY="637.0" orientation="VERTICAL" prefHeight="47.0" prefWidth="8.0" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="100.0" />
+      <JFXHamburger fx:id="hamburger" layoutX="14.0" layoutY="48.0" prefHeight="31.0" prefWidth="37.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="45.0" />
    </children>
 </AnchorPane>
