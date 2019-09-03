@@ -206,7 +206,10 @@ public class NewEditorController implements Initializable {
 
     @FXML
     private Label lblSaveAsPDF;
- 
+
+    @FXML 
+    private ImageView ivEditIcon;
+    
     BooleanProperty clipboardEmpty = new SimpleBooleanProperty(false);
     BooleanProperty hideSidePane = new SimpleBooleanProperty(false);
     
@@ -219,6 +222,7 @@ public class NewEditorController implements Initializable {
 		
 		ivSaveAsPDF.setOnMouseClicked(this::generatePDF);
 		lblSaveAsPDF.setOnMouseClicked(this::generatePDF);
+		
 		
 		hamburger.setOnMouseClicked(this::onClickHamburger);
     }
