@@ -1,4 +1,4 @@
-package de.chordsystem.chordproeditor.model.classes;
+package de.chordsystem.Prototype;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
