@@ -33,7 +33,7 @@ public class MainWindow extends Application implements Initializable{
 		window.setScene(scene);
 		window.setResizable(true);
 		window.setTitle("ChordPro Editor");
-		window.getIcons().add(new Image("/Icons/icon 128x128.png/"));
+		window.getIcons().add(new Image("/Icons/icon 512x512.png/"));
 		window.show();
 	}
 
