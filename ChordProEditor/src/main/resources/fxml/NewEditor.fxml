@@ -20,6 +20,11 @@
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="693.0" prefWidth="1084.0" stylesheets="@../Css/Main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <JFXHamburger fx:id="hamburger" layoutX="14.0" layoutY="48.0" prefHeight="31.0" prefWidth="37.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="45.0" />
+      <Label fx:id="lblProperties" layoutX="61.0" layoutY="48.0" prefHeight="31.0" prefWidth="114.0" text="Properties" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="45.0">
+         <font>
+            <Font name="EmojiOne Color SVGinOT" size="24.0" />
+         </font>
+      </Label>
       <MenuBar fx:id="MenuBar" layoutY="-1.0" prefHeight="31.0" prefWidth="1084.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
@@ -57,37 +62,6 @@
           </Menu>
         </menus>
       </MenuBar>
-      <JFXTextArea fx:id="txtSongEdit" layoutX="266.0" layoutY="55.0" prefHeight="570.0" prefWidth="797.0" promptText="Enter your song here . . ." style="-fx-background-color: #fff;" unFocusColor="#838181" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="265.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="55.0">
-         <font>
-            <Font size="24.0" />
-         </font></JFXTextArea>
-      <MenuButton fx:id="btnUncapoed" layoutX="266.0" layoutY="631.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="104.0" text="Key" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="265.0">
-        <items>
-          <MenuItem mnemonicParsing="false" text="C" />
-            <MenuItem mnemonicParsing="false" text="C#" />
-            <MenuItem mnemonicParsing="false" text="D" />
-            <MenuItem mnemonicParsing="false" text="E♭" />
-            <MenuItem mnemonicParsing="false" text="E" />
-            <MenuItem mnemonicParsing="false" text="F" />
-            <MenuItem mnemonicParsing="false" text="F#" />
-            <MenuItem mnemonicParsing="false" text="G" />
-            <MenuItem mnemonicParsing="false" text="G#" />
-          <MenuItem mnemonicParsing="false" text="A" />
-            <MenuItem mnemonicParsing="false" text="B♭" />
-            <MenuItem mnemonicParsing="false" text="B" />
-        </items>
-      </MenuButton>
-      <ImageView fx:id="ivSaveAsPDF" fitHeight="37.0" fitWidth="37.0" layoutX="1017.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="40.0">
-         <image>
-            <Image url="@../Icons/SaveAsPdf.png" />
-         </image>
-      </ImageView>
-      <JFXTextField fx:id="TextFieldCapo" focusColor="BLACK" layoutX="381.0" layoutY="631.0" prefHeight="31.0" prefWidth="84.0" promptText="Capo" style="-fx-background-color: #fff;" unFocusColor="BLACK" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="380.0" />
-      <Label fx:id="lblDateTime" layoutX="9.0" layoutY="640.0" prefHeight="31.0" prefWidth="224.0" text="Time" textAlignment="JUSTIFY" wrapText="true" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
-         <font>
-            <Font name="Gabriola" size="24.0" />
-         </font>
-      </Label>
       
       <ScrollPane fx:id="scrollpaneProperties" hbarPolicy="NEVER" layoutX="19.0" layoutY="88.0" prefHeight="538.0" prefWidth="224.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="85.0">
          <content>
@@ -114,12 +88,39 @@
             </AnchorPane>
          </content>
       </ScrollPane>
-      <Label fx:id="lblProperties" layoutX="61.0" layoutY="48.0" prefHeight="31.0" prefWidth="114.0" text="Properties" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="45.0">
+      <JFXTextArea fx:id="txtSongEdit" layoutX="266.0" layoutY="55.0" prefHeight="570.0" prefWidth="797.0" promptText="Enter your song here . . ." style="-fx-background-color: #fff;" unFocusColor="#838181" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="265.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="55.0">
          <font>
-            <Font name="EmojiOne Color SVGinOT" size="24.0" />
+            <Font size="24.0" />
+         </font></JFXTextArea>
+      <Label fx:id="lblDateTime" layoutX="9.0" layoutY="640.0" prefHeight="31.0" prefWidth="224.0" text="Time" textAlignment="JUSTIFY" wrapText="true" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+         <font>
+            <Font name="Gabriola" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="lblSaveAsPDF" layoutX="995.0" layoutY="668.0" text="Save as Pdf File" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="20.0" />
+      <MenuButton fx:id="btnUncapoed" layoutX="266.0" layoutY="631.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="104.0" text="Key" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="265.0">
+        <items>
+          <MenuItem mnemonicParsing="false" text="C" />
+            <MenuItem mnemonicParsing="false" text="C#" />
+            <MenuItem mnemonicParsing="false" text="D" />
+            <MenuItem mnemonicParsing="false" text="E♭" />
+            <MenuItem mnemonicParsing="false" text="E" />
+            <MenuItem mnemonicParsing="false" text="F" />
+            <MenuItem mnemonicParsing="false" text="F#" />
+            <MenuItem mnemonicParsing="false" text="G" />
+            <MenuItem mnemonicParsing="false" text="G#" />
+          <MenuItem mnemonicParsing="false" text="A" />
+            <MenuItem mnemonicParsing="false" text="B♭" />
+            <MenuItem mnemonicParsing="false" text="B" />
+        </items>
+      </MenuButton>
+      <JFXTextField fx:id="TextFieldCapo" focusColor="BLACK" layoutX="381.0" layoutY="631.0" prefHeight="31.0" prefWidth="84.0" promptText="Capo" style="-fx-background-color: #fff;" unFocusColor="BLACK" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="380.0" />
+      <ImageView fx:id="EditIcon" fitHeight="31.0" fitWidth="28.0" layoutX="801.0" layoutY="638.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="27.0" AnchorPane.rightAnchor="255.0">
+         <image>
+            <Image url="@../Icons/EditIcon.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="786.0" layoutY="666.0" text="Bearbeiten" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="241.0" />
+      <Separator layoutX="847.0" layoutY="637.0" orientation="VERTICAL" prefHeight="47.0" prefWidth="8.0" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="229.0" />
       <ImageView fx:id="SaveAsChordPro" fitHeight="37.0" fitWidth="37.0" layoutX="896.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="151.0">
          <image>
             <Image url="@../Icons/SaveAsChordpro.png" />
@@ -127,12 +128,11 @@
       </ImageView>
       <Label layoutX="855.0" layoutY="666.0" text="Save as ChordPro File" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="115.0" />
       <Separator layoutX="973.0" layoutY="637.0" orientation="VERTICAL" prefHeight="47.0" prefWidth="8.0" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="103.0" />
-      <Separator layoutX="847.0" layoutY="637.0" orientation="VERTICAL" prefHeight="47.0" prefWidth="8.0" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="229.0" />
-      <ImageView fx:id="EditIcon" fitHeight="31.0" fitWidth="28.0" layoutX="801.0" layoutY="638.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="27.0" AnchorPane.rightAnchor="255.0">
+      <ImageView fx:id="ivSaveAsPDF" fitHeight="37.0" fitWidth="37.0" layoutX="1017.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="40.0">
          <image>
-            <Image url="@../Icons/EditIcon.png" />
+            <Image url="@../Icons/SaveAsPdf.png" />
          </image>
       </ImageView>
-      <Label layoutX="786.0" layoutY="666.0" text="Bearbeiten" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="241.0" />
+      <Label fx:id="lblSaveAsPDF" layoutX="995.0" layoutY="668.0" text="Save as Pdf File" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="20.0" />
    </children>
 </AnchorPane>
