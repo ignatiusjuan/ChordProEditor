@@ -234,6 +234,8 @@ public class NewEditorController implements Initializable {
 		
 		
 		hamburger.setOnMouseClicked(this::onClickHamburger);
+		
+		EditIcon.setOnMouseClicked(this::switchSceneToEdit);
     }
     
     
@@ -405,7 +407,7 @@ public class NewEditorController implements Initializable {
 		setDataBind();
 		setFormatter();
 		showTime();
-		EditIcon.setOnMouseClicked(this::switchSceneToEdit);
+		
 		
 		HamburgerSlideCloseTransition transition = new HamburgerSlideCloseTransition(hamburger);
 		transition.setRate(-1);
