@@ -5,6 +5,8 @@ import de.chordsystem.chordproeditor.view.javafx.helperclasses.WindowPresetSwitc
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
+
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
@@ -18,6 +20,10 @@ public class EditController implements Initializable {
 
     @FXML
     private JFXTextArea txtAreaEditSong;
+    
+
+    @FXML
+    private JFXButton btnSpeichern;
     
     public void initialize(URL location, ResourceBundle resources) {
     	
