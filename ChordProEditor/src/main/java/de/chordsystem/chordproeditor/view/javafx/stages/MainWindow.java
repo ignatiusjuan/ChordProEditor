@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.CacheHint;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 //import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -32,7 +33,7 @@ public class MainWindow extends Application implements Initializable{
 		window.setScene(scene);
 		window.setResizable(true);
 		window.setTitle("ChordPro Editor");
-		//window.getIcons().add(new Image("/Pictures/icon.png"));
+		window.getIcons().add(new Image("/Icons/icon 128x128.png/"));
 		window.show();
 	}
 
