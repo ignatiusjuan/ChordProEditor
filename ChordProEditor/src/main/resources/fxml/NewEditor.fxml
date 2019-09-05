@@ -120,19 +120,19 @@
          </font>
       </Label>
       <Label fx:id="lblSaveAsPDF" layoutX="995.0" layoutY="668.0" text="Save as Pdf File" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="20.0" />
-      <ImageView fx:id="SaveAsChordPro" fitHeight="37.0" fitWidth="37.0" layoutX="900.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="150.0">
+      <ImageView fx:id="SaveAsChordPro" fitHeight="37.0" fitWidth="37.0" layoutX="896.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="151.0">
          <image>
             <Image url="@../Icons/SaveAsChordpro.png" />
          </image>
       </ImageView>
-      <Label layoutX="861.0" layoutY="668.0" text="Save as ChordPro File" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="110.0" />
-      <Separator layoutX="981.0" layoutY="637.0" orientation="VERTICAL" prefHeight="47.0" prefWidth="8.0" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="100.0" />
-      <Separator layoutX="848.0" layoutY="640.0" orientation="VERTICAL" prefHeight="47.0" prefWidth="8.0" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="228.0" />
-      <ImageView fx:id="EditIcon" fitHeight="31.0" fitWidth="28.0" layoutX="810.0" layoutY="636.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="246.0">
+      <Label layoutX="855.0" layoutY="666.0" text="Save as ChordPro File" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="115.0" />
+      <Separator layoutX="973.0" layoutY="637.0" orientation="VERTICAL" prefHeight="47.0" prefWidth="8.0" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="103.0" />
+      <Separator layoutX="847.0" layoutY="637.0" orientation="VERTICAL" prefHeight="47.0" prefWidth="8.0" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="229.0" />
+      <ImageView fx:id="EditIcon" fitHeight="31.0" fitWidth="28.0" layoutX="801.0" layoutY="638.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="27.0" AnchorPane.rightAnchor="255.0">
          <image>
             <Image url="@../Icons/EditIcon.png" />
          </image>
       </ImageView>
-      <Label layoutX="789.0" layoutY="666.0" text="Bearbeiten" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="238.0" />
+      <Label layoutX="786.0" layoutY="666.0" text="Bearbeiten" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="241.0" />
    </children>
 </AnchorPane>
