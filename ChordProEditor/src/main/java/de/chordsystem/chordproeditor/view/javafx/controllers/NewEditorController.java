@@ -1,5 +1,8 @@
 package de.chordsystem.chordproeditor.view.javafx.controllers;
 
+import de.chordsystem.chordproeditor.view.javafx.helperclasses.WindowPresetSwitchStage;
+import de.chordsystem.chordproeditor.view.javafx.helperclasses.WindowPresetSwitchScene;
+
 import java.awt.Toolkit;
 import java.io.File;
 import java.net.URL;
@@ -54,14 +57,18 @@ import javafx.util.converter.NumberStringConverter;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-
-
+import javafx.stage.Stage;
+import de.chordsystem.chordproeditor.view.javafx.helperclasses.WindowPresetSwitchStage;
+import de.chordsystem.chordproeditor.view.javafx.helperclasses.WindowPresetSwitchStage;
 /**
  * 
  * @author engin
  *
  */
 public class NewEditorController implements Initializable {
+	
+	private WindowPresetSwitchStage wp = new WindowPresetSwitchStage();
+	private WindowPresetSwitchScene wpss = new WindowPresetSwitchScene();
 	
 	Song tempSong;
 	SongProperties tempSongProperties;
@@ -208,13 +215,14 @@ public class NewEditorController implements Initializable {
     private Label lblSaveAsPDF;
 
     @FXML 
-    private ImageView ivEditIcon;
+    private ImageView EditIcon;
+    
     
     BooleanProperty clipboardEmpty = new SimpleBooleanProperty(false);
     BooleanProperty hideSidePane = new SimpleBooleanProperty(false);
     
     
-    private void setOnAction() {
+    private void setOnAction(){
     	menuFileNew.setOnAction(this::onClickFileNew);
 		menuFileOpen.setOnAction(this::onClickFileOpen);
 		menuFileSave.setOnAction(this::onClickFileSave);
@@ -224,8 +232,26 @@ public class NewEditorController implements Initializable {
 		lblSaveAsPDF.setOnMouseClicked(this::generatePDF);
 		
 		
+		
 		hamburger.setOnMouseClicked(this::onClickHamburger);
     }
+    
+    
+//    public void switchSceneToEdit(MouseEvent event) {
+//    	Stage stageInfo = (Stage) EditIcon.getScene().getWindow();
+//    	wpss.createWindowSwitchScene("/fxml/Edit.fxml", new EditController(), stageInfo);
+//    	
+//    }
+    
+    
+
+    /*Wenn auf das Bearbeiten Bild geklickt wird, öffnet sich das Fenster zum Editieren des Songs auswählen*/
+    public void switchSceneToEdit(MouseEvent event) {
+    	wp.createWindowNewStage("/fxml/Edit.fxml", "Editiere den Song", new EditController());
+    	
+    }
+    
+    
     
     private void setShortcut() {
     	menuFileNew.setAccelerator(new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN));
@@ -379,6 +405,7 @@ public class NewEditorController implements Initializable {
 		setDataBind();
 		setFormatter();
 		showTime();
+		EditIcon.setOnMouseClicked(this::switchSceneToEdit);
 		
 		HamburgerSlideCloseTransition transition = new HamburgerSlideCloseTransition(hamburger);
 		transition.setRate(-1);
