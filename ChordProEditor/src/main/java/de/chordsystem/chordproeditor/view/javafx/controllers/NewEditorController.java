@@ -3,6 +3,7 @@ package de.chordsystem.chordproeditor.view.javafx.controllers;
 import de.chordsystem.chordproeditor.view.javafx.helperclasses.WindowPresetSwitchStage;
 import de.chordsystem.chordproeditor.view.javafx.helperclasses.WindowPresetSwitchScene;
 
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
 import java.net.URL;
@@ -217,6 +218,8 @@ public class NewEditorController implements Initializable {
     @FXML 
     private ImageView EditIcon;
     
+    @FXML
+    private ImageView ivHelp;
     
     BooleanProperty clipboardEmpty = new SimpleBooleanProperty(false);
     BooleanProperty hideSidePane = new SimpleBooleanProperty(false);
@@ -251,6 +254,10 @@ public class NewEditorController implements Initializable {
     public void switchSceneToEdit(MouseEvent event) {
     	wp.createWindowNewStage("/fxml/Edit.fxml", "Editiere den Song", new EditController());
     	
+    }
+    
+    public void switchSceneToQuestionIcon(MouseEvent event) {
+    	wp.createWindowNewStage("/fxml/HelpWindowController.fxml", "Informationen zum Anwenden des Editors", new HelpWindowController());
     }
     
     
@@ -415,6 +422,8 @@ public class NewEditorController implements Initializable {
 				transition.setRate(transition.getRate()*-1);
 		transition.play();
 		});
+		
+		ivHelp.setOnMouseClicked(this::switchSceneToQuestionIcon);
 	}
 			
 	/**

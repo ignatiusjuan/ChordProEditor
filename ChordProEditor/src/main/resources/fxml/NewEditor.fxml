@@ -134,5 +134,10 @@
          </image>
       </ImageView>
       <Label fx:id="lblSaveAsPDF" layoutX="995.0" layoutY="668.0" text="Save as Pdf File" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="20.0" />
+      <ImageView fx:id="ivHelp" fitHeight="37.0" fitWidth="47.0" layoutX="475.0" layoutY="634.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="475.0" AnchorPane.rightAnchor="572.0">
+         <image>
+            <Image url="@../Icons/information.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
