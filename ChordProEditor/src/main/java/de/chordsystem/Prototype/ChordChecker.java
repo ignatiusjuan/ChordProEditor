@@ -17,7 +17,12 @@ public class ChordChecker {
 		return isAChord;
 	}
 	
-	public static void main(String[] args) {
-		isAChord("Bbsus7#9b9#11#5/Ab");
-	}
+//	public static void main(String[] args) {
+//		isAChord("Bbsus7#9b9#11#5/Ab");
+//		String temp = "Bbsus7#9b9#11#5/Ab";
+//		for (int i = 0; i < 15; i++) {
+//			System.out.println(temp);
+//			temp = ChordTransposer.transposeDown(temp);
+//		}
+//	}
 }
