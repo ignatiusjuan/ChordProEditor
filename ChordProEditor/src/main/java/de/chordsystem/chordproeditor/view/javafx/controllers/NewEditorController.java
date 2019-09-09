@@ -392,7 +392,15 @@ public class NewEditorController implements Initializable {
     private void onClickFileOpen(ActionEvent event) {
     	
     	FileChooser fileChooser = new FileChooser();
-    	fileChooser.setInitialDirectory(new File(UserData.getOpenPath()));
+    	try {
+    		File f = new File(UserData.getOpenPath());
+        	if (f.exists() && f.isDirectory())
+            	fileChooser.setInitialDirectory(new File(UserData.getOpenPath()));
+    	} 
+    	catch (Exception e) 
+    	{
+    		fileChooser.setInitialDirectory(null);
+    	}
     	fileChooser.setTitle("Open ChordPro File");
     	fileChooser.getExtensionFilters().addAll(
     			new FileChooser.ExtensionFilter("ChordProFiles", "*.cho", "*.crd", "*.chopro", "*.chord", "*.pro"),
