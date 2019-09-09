@@ -233,6 +233,7 @@ public class NewEditorController implements Initializable {
     Song tempSong = new SongImpl();
     Song emptySong = new SongImpl();
     String filepath = "";
+    String filename = "";
     SongProperties loadedSong;
 	
 	Clipboard clipboard = Clipboard.getSystemClipboard();
@@ -384,6 +385,7 @@ public class NewEditorController implements Initializable {
 	    	        }
 	    	});
     	}
+    	filename = "";
     }
     
     @FXML
@@ -399,19 +401,37 @@ public class NewEditorController implements Initializable {
     	
     	File selectedFile = fileChooser.showOpenDialog(null);
     	
-    	UserData.setPath(selectedFile.getParent());
-    	
     	if (selectedFile != null) {
+    		UserData.setPath(selectedFile.getParent());
     		ChordProParser cpp = new ChordProParser();
     		tempSong = cpp.tryParseChordPro(selectedFile.getAbsolutePath());
     		loadedSong = new SongProperties(tempSong);
     		setDataBind();
+    		filename = selectedFile.getAbsolutePath();
     	}
     }
     
     @FXML
     private void onClickFileSave(ActionEvent event) {
-    	//Write process
+    	if (filename.isBlank()) {
+    		FileChooser fileChooser = new FileChooser();
+        	fileChooser.setTitle("Save ChordPro File As");
+        	fileChooser.getExtensionFilters().addAll(
+        			new FileChooser.ExtensionFilter("ChordProFiles", "*.chopro", "*.crd", "*.cho", "*.chord", "*.pro"),
+        			new FileChooser.ExtensionFilter("PDF", "*.pdf"),
+        			new FileChooser.ExtensionFilter("Text file", "*.txt"),
+        			new FileChooser.ExtensionFilter("All Files", "*.*")
+        	);
+        	String[] defaultName = txtSongEdit.getText().split("\\n");
+        	fileChooser.setInitialFileName(defaultName[0].toString());
+        	
+        	File selectedFile = fileChooser.showSaveDialog(null);
+        	filename = selectedFile.getAbsolutePath();
+    	}
+
+    	if (!filename.isBlank()) {
+    		//Write process
+    	}	
     }
     
     @FXML
@@ -428,9 +448,11 @@ public class NewEditorController implements Initializable {
     	fileChooser.setInitialFileName(defaultName[0].toString());
     	
     	File selectedFile = fileChooser.showSaveDialog(null);
+    	filename = selectedFile.getAbsolutePath();
     	
-    	//Write process
-    	
+    	if (!filename.isBlank()) {
+    		//Write process
+    	}
     }
     
     private void setSidePaneBind() {
@@ -448,12 +470,6 @@ public class NewEditorController implements Initializable {
     	}
     	hideSidePane.set(!hideSidePane.get());
     	
-    	HamburgerSlideCloseTransition transition = new HamburgerSlideCloseTransition(hamburger);
-		transition.setRate(-1);
-		hamburger.addEventHandler(MouseEvent.MOUSE_CLICKED,(e) -> {
-			transition.setRate(transition.getRate() * -1);
-			transition.play();
-		});
     }
     
 	public void initialize(URL location, ResourceBundle resources) {
