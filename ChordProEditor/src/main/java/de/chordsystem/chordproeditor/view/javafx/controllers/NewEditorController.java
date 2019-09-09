@@ -227,6 +227,13 @@ public class NewEditorController implements Initializable {
     @FXML
     private ImageView ivHelp;
     
+    @FXML
+    private JFXButton btnPlus;
+
+    @FXML
+    private JFXButton bznMinus;
+    
+    
     BooleanProperty clipboardEmpty = new SimpleBooleanProperty(false);
     BooleanProperty hideSidePane = new SimpleBooleanProperty(false);
     
