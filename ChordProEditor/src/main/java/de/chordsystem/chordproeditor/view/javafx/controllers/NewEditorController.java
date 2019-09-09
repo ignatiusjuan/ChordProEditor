@@ -402,7 +402,6 @@ public class NewEditorController implements Initializable {
     	File selectedFile = fileChooser.showOpenDialog(null);
     	
     	if (selectedFile != null) {
-    		UserData.setPath(selectedFile.getParent());
     		ChordProParser cpp = new ChordProParser();
     		tempSong = cpp.tryParseChordPro(selectedFile.getAbsolutePath());
     		loadedSong = new SongProperties(tempSong);
