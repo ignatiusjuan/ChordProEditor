@@ -392,7 +392,7 @@ public class NewEditorController implements Initializable {
     private void onClickFileOpen(ActionEvent event) {
     	
     	FileChooser fileChooser = new FileChooser();
-    	fileChooser.setInitialDirectory(new File(UserData.getPath()));
+    	fileChooser.setInitialDirectory(new File(UserData.getOpenPath()));
     	fileChooser.setTitle("Open ChordPro File");
     	fileChooser.getExtensionFilters().addAll(
     			new FileChooser.ExtensionFilter("ChordProFiles", "*.cho", "*.crd", "*.chopro", "*.chord", "*.pro"),
@@ -406,6 +406,7 @@ public class NewEditorController implements Initializable {
     		tempSong = cpp.tryParseChordPro(selectedFile.getAbsolutePath());
     		loadedSong = new SongProperties(tempSong);
     		setDataBind();
+    		UserData.setOpenPath(selectedFile.getParent());
     		filename = selectedFile.getAbsolutePath();
     	}
     }

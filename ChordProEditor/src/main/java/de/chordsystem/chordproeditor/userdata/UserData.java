@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 public class UserData {
 	
-	public static String getPath() {
+	public static String getOpenPath() {
 		File folderpath = new File("src/main/java/de/chordsystem/chordproeditor/userdata/folderpath");
 		if (!folderpath.exists())
 			return null;
@@ -32,7 +32,7 @@ public class UserData {
 	    	return null;
 	}
 	
-	public static void setPath(String path) {
+	public static void setOpenPath(String path) {
 		try
 		{
     		FileWriter fw=new FileWriter("src/main/java/de/chordsystem/chordproeditor/userdata/folderpath");
