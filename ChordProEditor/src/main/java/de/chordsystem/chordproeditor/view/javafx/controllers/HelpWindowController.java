@@ -27,8 +27,7 @@ public class HelpWindowController implements Initializable {
     @FXML
     private CheckBox cklShowHelpOnStart;
     
-    
- private void closeHelpWindow(ActionEvent event) {
+    private void closeHelpWindow(ActionEvent event) {
     	
     }
     
