@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="909.0" stylesheets="@../Css/Edit.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EditController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="909.0" stylesheets="@../Css/Edit.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <JFXTextArea fx:id="txtAreaEditSong" layoutX="13.0" layoutY="14.0" prefHeight="544.0" prefWidth="883.0" style="-fx-background-color: #fff;" />
       <JFXButton fx:id="btnSpeichern" layoutX="780.0" layoutY="564.0" prefHeight="35.0" prefWidth="115.0" text="Speichern">
