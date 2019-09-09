@@ -93,14 +93,15 @@ public class EnvironmentImpl implements Environment {
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		if (this.chord.trim().length() > 0 && !this.chord.trim().isEmpty()) {
-			sb.append(this.chord + "\n");
-			sb.append(this.lyric + "\n");
+			sb.append(this.chord.trim() + "\n");
+			sb.append(this.lyric.trim() + "\n");
 		} else if (this.type == TYPE_INSTRUCTION) {
-			sb.append("GO TO --> " + this.lyric + "\n");
+			sb.append("GO TO --> " + this.lyric.trim() + "\n");
 		} else if (this.type == TYPE_COMMENT) {
-			sb.append("//" + this.lyric + "\n");
-		} else 
-			sb.append(this.lyric + "\n");
+			sb.append("//" + this.lyric.trim() + "\n");
+		} else
+			sb.append(this.lyric.trim() + "\n");
+		
 		return sb.toString();
 	}
 	

@@ -114,12 +114,12 @@
         </items>
       </MenuButton>
       <JFXTextField fx:id="TextFieldCapo" focusColor="BLACK" layoutX="381.0" layoutY="631.0" prefHeight="31.0" prefWidth="84.0" promptText="Capo" style="-fx-background-color: #fff;" unFocusColor="BLACK" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="380.0" />
-      <ImageView fx:id="EditIcon" fitHeight="31.0" fitWidth="28.0" layoutX="801.0" layoutY="638.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="27.0" AnchorPane.rightAnchor="255.0">
+      <ImageView fx:id="EditIcon" fitHeight="31.0" fitWidth="28.0" layoutX="767.0" layoutY="638.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="27.0" AnchorPane.rightAnchor="289.0">
          <image>
             <Image url="@../Icons/EditIcon.png" />
          </image>
       </ImageView>
-      <Label layoutX="786.0" layoutY="666.0" text="Bearbeiten" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="241.0" />
+      <Label layoutX="786.0" layoutY="666.0" text="Edit in ChordPro Format" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="241.0" />
       <Separator layoutX="847.0" layoutY="637.0" orientation="VERTICAL" prefHeight="47.0" prefWidth="8.0" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="229.0" />
       <ImageView fx:id="SaveAsChordPro" fitHeight="37.0" fitWidth="37.0" layoutX="896.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="151.0">
          <image>

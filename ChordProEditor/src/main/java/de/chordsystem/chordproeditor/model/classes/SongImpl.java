@@ -365,7 +365,7 @@ public class SongImpl implements Song{
 		StringBuilder sb = new StringBuilder();
 		for (Environment env : environmentList) {
 			if (!(lastType == env.getType() && lastTitle.equals(env.getTitle()))){
-				sb.append("\n");
+				//sb.append("\n");
 				if (env.getType() == EnvironmentImpl.TYPE_CHORUS)
 					sb.append("Chorus: " + env.getTitle());
 				else if (env.getType() == EnvironmentImpl.TYPE_VERSE)
@@ -374,7 +374,7 @@ public class SongImpl implements Song{
 					sb.append("Tab: " + env.getTitle());
 				else if (env.getType() == EnvironmentImpl.TYPE_GRID)
 					sb.append("Grid: " + env.getTitle());
-				sb.append("\n");
+				//sb.append("\n");
 				lastTitle = env.getTitle();
 				lastType = env.getType();
 			}
@@ -441,7 +441,7 @@ public class SongImpl implements Song{
 		
 		for (Environment env : environmentList) {
 			if (!(lastType == env.getType() && lastTitle.equals(env.getTitle()))){
-				sb.append("\n");
+				//sb.append("\n");
 				if (env.getType() == EnvironmentImpl.TYPE_CHORUS)
 					sb.append("Chorus: " + env.getTitle());
 				else if (env.getType() == EnvironmentImpl.TYPE_VERSE)
@@ -450,7 +450,7 @@ public class SongImpl implements Song{
 					sb.append("Tab: " + env.getTitle());
 				else if (env.getType() == EnvironmentImpl.TYPE_GRID)
 					sb.append("Grid: " + env.getTitle());
-				sb.append("\n");
+				//sb.append("\n");
 				lastTitle = env.getTitle();
 				lastType = env.getType();
 			}

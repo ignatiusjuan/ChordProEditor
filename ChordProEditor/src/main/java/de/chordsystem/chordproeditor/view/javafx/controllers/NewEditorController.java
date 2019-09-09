@@ -6,6 +6,7 @@ import de.chordsystem.chordproeditor.view.javafx.helperclasses.WindowPresetSwitc
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
+import java.io.FileWriter;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -27,6 +28,7 @@ import de.chordsystem.Prototype.ChordProParser;
 import de.chordsystem.chordproeditor.model.classes.SongImpl;
 import de.chordsystem.chordproeditor.model.classes.SongProperties;
 import de.chordsystem.chordproeditor.model.interfaces.Song;
+import de.chordsystem.chordproeditor.userdata.UserData;
 import de.chordsystem.latex.GeneratePDF;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -39,6 +41,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -70,12 +76,6 @@ public class NewEditorController implements Initializable {
 	
 	private WindowPresetSwitchStage wp = new WindowPresetSwitchStage();
 	private WindowPresetSwitchScene wpss = new WindowPresetSwitchScene();
-	
-	Song tempSong;
-	SongProperties tempSongProperties;
-	
-	
-	Clipboard clipboard = Clipboard.getSystemClipboard();
 	
 	@FXML
 	private Label lblProperties;
@@ -224,7 +224,13 @@ public class NewEditorController implements Initializable {
     BooleanProperty clipboardEmpty = new SimpleBooleanProperty(false);
     BooleanProperty hideSidePane = new SimpleBooleanProperty(false);
     
-    
+    Song tempSong = new SongImpl();
+    Song emptySong = new SongImpl();
+    String filepath = "";
+    SongProperties loadedSong;
+	
+	Clipboard clipboard = Clipboard.getSystemClipboard();
+	
     private void setOnAction(){
     	menuFileNew.setOnAction(this::onClickFileNew);
 		menuFileOpen.setOnAction(this::onClickFileOpen);
@@ -233,7 +239,6 @@ public class NewEditorController implements Initializable {
 		
 		ivSaveAsPDF.setOnMouseClicked(this::generatePDF);
 		lblSaveAsPDF.setOnMouseClicked(this::generatePDF);
-		
 		
 		
 		hamburger.setOnMouseClicked(this::onClickHamburger);
@@ -260,7 +265,11 @@ public class NewEditorController implements Initializable {
     	wp.createWindowNewStage("/fxml/HelpWindowController.fxml", "Informationen zum Anwenden des Editors", new HelpWindowController());
     }
     
-    
+    private boolean songsEqual(Song songA, Song songB) {
+    	if (songA.toString().equals(songB.toString()))
+    		return true;
+    	return false;
+    }
     
     private void setShortcut() {
     	menuFileNew.setAccelerator(new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN));
@@ -295,34 +304,56 @@ public class NewEditorController implements Initializable {
     }
     
     private void setDataBind() {
-    	txtTitle.textProperty().bindBidirectional(tempSongProperties.title);
-    	txtSubtitle.textProperty().bindBidirectional(tempSongProperties.subtitle);
-    	txtArtist.textProperty().bindBidirectional(tempSongProperties.artist);
-    	txtComposer.textProperty().bindBidirectional(tempSongProperties.composer);
-    	txtLyricist.textProperty().bindBidirectional(tempSongProperties.lyricist);
-    	txtCopyright.textProperty().bindBidirectional(tempSongProperties.copyright);
-    	txtAlbum.textProperty().bindBidirectional(tempSongProperties.album);
-    	txtYear.textProperty().bindBidirectional(tempSongProperties.year, new NumberStringConverter());
-    	txtKey.textProperty().bindBidirectional(tempSongProperties.key);
-    	txtTime.textProperty().bindBidirectional(tempSongProperties.time);
-    	txtTempo.textProperty().bindBidirectional(tempSongProperties.tempo, new NumberStringConverter());
-    	txtDuration.textProperty().bindBidirectional(tempSongProperties.duration, new NumberStringConverter());
-    	txtTextFont.textProperty().bindBidirectional(tempSongProperties.textfont);
-    	txtTextSize.textProperty().bindBidirectional(tempSongProperties.textsize, new NumberStringConverter());
-    	txtTextColour.textProperty().bindBidirectional(tempSongProperties.textcolour);
-    	txtChordColour.textProperty().bindBidirectional(tempSongProperties.chordcolour);
-    	cbIsFinished.selectedProperty().bindBidirectional(tempSongProperties.isFinished);
-    	txtSongEdit.textProperty().bindBidirectional(tempSongProperties.contents);
+    	txtTitle.textProperty().bindBidirectional(loadedSong.title);
+    	txtSubtitle.textProperty().bindBidirectional(loadedSong.subtitle);
+    	txtArtist.textProperty().bindBidirectional(loadedSong.artist);
+    	txtComposer.textProperty().bindBidirectional(loadedSong.composer);
+    	txtLyricist.textProperty().bindBidirectional(loadedSong.lyricist);
+    	txtCopyright.textProperty().bindBidirectional(loadedSong.copyright);
+    	txtAlbum.textProperty().bindBidirectional(loadedSong.album);
+    	txtYear.textProperty().bindBidirectional(loadedSong.year, new NumberStringConverter());
+    	txtKey.textProperty().bindBidirectional(loadedSong.key);
+    	txtTime.textProperty().bindBidirectional(loadedSong.time);
+    	txtTempo.textProperty().bindBidirectional(loadedSong.tempo, new NumberStringConverter());
+    	txtDuration.textProperty().bindBidirectional(loadedSong.duration, new NumberStringConverter());
+    	txtTextFont.textProperty().bindBidirectional(loadedSong.textfont);
+    	txtTextSize.textProperty().bindBidirectional(loadedSong.textsize, new NumberStringConverter());
+    	txtTextColour.textProperty().bindBidirectional(loadedSong.textcolour);
+    	txtChordColour.textProperty().bindBidirectional(loadedSong.chordcolour);
+    	cbIsFinished.selectedProperty().bindBidirectional(loadedSong.isFinished);
+    	txtSongEdit.textProperty().bindBidirectional(loadedSong.contents);
     }
     
     @FXML
     private void onClickFileNew(ActionEvent event) {
-    	
+    	if (!songsEqual(emptySong, loadedSong.toSong())) {
+    		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+	    	alert.setTitle("Current project is modified");
+	    	alert.setContentText("Save?");
+	    	ButtonType yesButton = new ButtonType("Yes", ButtonData.YES);
+	    	ButtonType noButton = new ButtonType("No", ButtonData.NO);
+	    	ButtonType cancelButton = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+	    	alert.getButtonTypes().setAll(yesButton, noButton, cancelButton);
+	    	alert.showAndWait().ifPresent(type -> {
+	    	        if (type == yesButton) {
+	    	        	//Write process
+	    	        	loadedSong = new SongProperties(emptySong);
+	    	    		setDataBind();
+	    	        } else if (type == noButton) {
+	    	        	loadedSong = new SongProperties(emptySong);
+	    	    		setDataBind();
+	    	        } else {
+
+	    	        }
+	    	});
+    	}
     }
     
     @FXML
     private void onClickFileOpen(ActionEvent event) {
+    	
     	FileChooser fileChooser = new FileChooser();
+    	fileChooser.setInitialDirectory(new File(UserData.getPath()));
     	fileChooser.setTitle("Open ChordPro File");
     	fileChooser.getExtensionFilters().addAll(
     			new FileChooser.ExtensionFilter("ChordProFiles", "*.cho", "*.crd", "*.chopro", "*.chord", "*.pro"),
@@ -331,19 +362,19 @@ public class NewEditorController implements Initializable {
     	
     	File selectedFile = fileChooser.showOpenDialog(null);
     	
+    	UserData.setPath(selectedFile.getParent());
+    	
     	if (selectedFile != null) {
-        	System.out.println(selectedFile);
     		ChordProParser cpp = new ChordProParser();
     		tempSong = cpp.tryParseChordPro(selectedFile.getAbsolutePath());
-        	System.out.println(selectedFile.getAbsolutePath());
-    		tempSongProperties = new SongProperties(tempSong);
+    		loadedSong = new SongProperties(tempSong);
     		setDataBind();
     	}
     }
     
     @FXML
     private void onClickFileSave(ActionEvent event) {
-    	
+    	//Write process
     }
     
     @FXML
@@ -363,14 +394,6 @@ public class NewEditorController implements Initializable {
     	
     	//Write process
     	
-    }
-
-    @FXML
-    private void onFocusTxtTitle(MouseEvent event) {
-    	System.out.println(tempSongProperties.title.getValue());
-    	System.out.println(txtTitle.getText());
-    	System.out.println(tempSongProperties.subtitle.getValue());
-    	System.out.println(txtSubtitle.getText());
     }
     
     private void setSidePaneBind() {
@@ -404,9 +427,7 @@ public class NewEditorController implements Initializable {
     
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		tempSong = new SongImpl();
-		tempSongProperties = new SongProperties(tempSong);
-		txtTitle.setOnMouseClicked(this::onFocusTxtTitle);
+		loadedSong = new SongProperties(emptySong);
 		setSidePaneBind();
 		setShortcut();
 		setOnAction();
@@ -424,6 +445,7 @@ public class NewEditorController implements Initializable {
 		});
 		
 		ivHelp.setOnMouseClicked(this::switchSceneToQuestionIcon);
+		
 	}
 			
 	/**
