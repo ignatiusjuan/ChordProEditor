@@ -38,6 +38,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -46,6 +47,7 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
@@ -63,6 +65,7 @@ import javafx.util.converter.IntegerStringConverter;
 import javafx.util.converter.NumberStringConverter;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.robot.Robot;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import de.chordsystem.chordproeditor.view.javafx.helperclasses.WindowPresetSwitchStage;
@@ -106,6 +109,9 @@ public class NewEditorController implements Initializable {
     
     @FXML
     private MenuItem menuFileQuit;
+    
+    @FXML
+    private Menu menuEdit;
     
     @FXML
     private MenuItem menuEditUndo;
@@ -231,15 +237,49 @@ public class NewEditorController implements Initializable {
 	
 	Clipboard clipboard = Clipboard.getSystemClipboard();
 	
+	private void simulateKeyPress(KeyCode a, KeyCode b) {
+		Robot bot;
+		bot = new Robot();
+		bot.keyPress(a);
+		bot.keyPress(b);
+		bot.keyRelease(a);
+		bot.keyRelease(b);
+	}
+	
     private void setOnAction(){
     	menuFileNew.setOnAction(this::onClickFileNew);
 		menuFileOpen.setOnAction(this::onClickFileOpen);
 		menuFileSave.setOnAction(this::onClickFileSave);
 		menuFileSaveAs.setOnAction(this::onClickFileSaveAs);
 		
-		ivSaveAsPDF.setOnMouseClicked(this::generatePDF);
-		lblSaveAsPDF.setOnMouseClicked(this::generatePDF);
+		menuEdit.setOnShowing((event) -> {
+			clipboardEmpty.set(clipboard.hasString());
+		});
+		menuEditUndo.setOnAction((event) -> {
+			simulateKeyPress(KeyCode.CONTROL, KeyCode.Z);
+		});
+		menuEditRedo.setOnAction((event) -> {
+			simulateKeyPress(KeyCode.CONTROL, KeyCode.Y);
+		});
+		menuEditCopy.setOnAction((event) -> {
+			simulateKeyPress(KeyCode.CONTROL, KeyCode.C);
+		});
+		menuEditCut.setOnAction((event) -> {
+			simulateKeyPress(KeyCode.CONTROL, KeyCode.X);
+		});
+		menuEditPaste.setOnAction((event) -> {
+			simulateKeyPress(KeyCode.CONTROL, KeyCode.V);
+		});
+		menuEditSelectAll.setOnAction((event) -> {
+			simulateKeyPress(KeyCode.CONTROL, KeyCode.A);
+		});
 		
+		ivSaveAsPDF.setOnMouseClicked((event) -> {
+			GeneratePDF.generatePDF(tempSong);
+		});
+		lblSaveAsPDF.setOnMouseClicked((event) -> {
+			GeneratePDF.generatePDF(tempSong);
+		});
 		
 		hamburger.setOnMouseClicked(this::onClickHamburger);
 		
@@ -258,7 +298,6 @@ public class NewEditorController implements Initializable {
     /*Wenn auf das Bearbeiten Bild geklickt wird, öffnet sich das Fenster zum Editieren des Songs auswählen*/
     public void switchSceneToEdit(MouseEvent event) {
     	wp.createWindowNewStage("/fxml/Edit.fxml", "Editiere den Song", new EditController());
-    	
     }
     
     public void switchSceneToQuestionIcon(MouseEvent event) {
@@ -266,9 +305,7 @@ public class NewEditorController implements Initializable {
     }
     
     private boolean songsEqual(Song songA, Song songB) {
-    	if (songA.toString().equals(songB.toString()))
-    		return true;
-    	return false;
+    	return songA.toString().equals(songB.toString()) ? true : false;
     }
     
     private void setShortcut() {
@@ -293,7 +330,7 @@ public class NewEditorController implements Initializable {
     	menuEditRedo.disableProperty().bind(txtSongEdit.redoableProperty().not());
     	menuEditCut.disableProperty().bind(txtSongEdit.selectedTextProperty().isEmpty());
     	menuEditCopy.disableProperty().bind(txtSongEdit.selectedTextProperty().isEmpty());
-    	menuEditPaste.disableProperty().bind(clipboardEmpty);
+    	menuEditPaste.disableProperty().bind(clipboardEmpty.not());
     }
     
     private void setFormatter() {
@@ -417,12 +454,6 @@ public class NewEditorController implements Initializable {
 			transition.setRate(transition.getRate() * -1);
 			transition.play();
 		});
-    }
-    
-    
-    @FXML
-    private void generatePDF(MouseEvent event) {
-    	GeneratePDF.generatePDF(tempSong);
     }
     
 	public void initialize(URL location, ResourceBundle resources) {

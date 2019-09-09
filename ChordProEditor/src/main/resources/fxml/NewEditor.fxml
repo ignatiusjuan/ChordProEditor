@@ -42,7 +42,7 @@
                   <MenuItem fx:id="menuFileQuit" mnemonicParsing="false" text="Quit" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
+          <Menu fx:id="menuEdit" mnemonicParsing="false" text="Edit">
             <items>
               <MenuItem fx:id="menuEditUndo" mnemonicParsing="false" text="Undo" />
                   <MenuItem fx:id="menuEditRedo" mnemonicParsing="false" text="Redo" />
