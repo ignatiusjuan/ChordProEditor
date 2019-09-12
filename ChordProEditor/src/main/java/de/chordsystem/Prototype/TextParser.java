@@ -24,12 +24,12 @@ public class TextParser {
 	public static final int TYPE_COMMENT = 6;
 	public static final int TYPE_OTHER = 7;
 	
-	public Song parseText(TextArea text) {
+	public Song parseText(String text) {
 		int lastType = TYPE_NULL;
 		String command = "none";
 		Song song = new SongImpl();
 		Environment env = new EnvironmentImpl();
-		String[] zeilen = text.getText().split("\\n");
+		String[] zeilen = text.split("\\n");
 		for(int i = 0; i < zeilen.length; i++) {
 			if(getCommand(zeilen[i])!="none") {
 				command = getCommand(zeilen[i]);
@@ -58,12 +58,12 @@ public class TextParser {
 				}else{
 					if(isChordRow(zeilen[i])) {
 						env.setChord(zeilen[i]);
-					}else {
-						env.setLyric(zeilen[i]);
 						if(isChordRow(zeilen[i+1])) {
 							env.setChord(zeilen[i+1]);
 							i++;
 						}
+					}else{
+						env.setLyric(zeilen[i]);
 					}
 				}
 				song.addEnvironment(env);
