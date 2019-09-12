@@ -25,6 +25,7 @@ import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 
 import de.chordsystem.Prototype.ChordProParser;
+import de.chordsystem.Prototype.TextParser;
 import de.chordsystem.chordproeditor.model.classes.SongImpl;
 import de.chordsystem.chordproeditor.model.classes.SongProperties;
 import de.chordsystem.chordproeditor.model.interfaces.Song;
@@ -283,7 +284,35 @@ public class NewEditorController implements Initializable {
 		});
 		
 		ivSaveAsPDF.setOnMouseClicked((event) -> {
-			GeneratePDF.generatePDF(tempSong);
+			String text = "";
+			text += "# From: stevenj1@aol.com (StevenJ1)\n";
+			text += "<mau@beatles.cselt.stet.it>\n";
+			text += "#By George David Weiss and Bob Thiele\n";
+			text += "\n";
+			text += "D          F#m       G          F#m\n";
+			text += "I see trees of green, red roses too\n";
+			text += "Em7           D      F#7            Bm\n";
+			text += "I see them bloom, for me and you,\n";
+			text += "Bb                Em7/A        A7          D     D+     Gmaj7        A7\n";
+			text += "And I think to myself, What a wonderful world.\n";
+			text += "//cb\n";
+			text += "\n";
+			text += "Chorus: chorus 1G\n";
+			text += "aaaaaaaaa\n";
+			text += "\n";
+			text += "Chorus: chorus 2G\n";
+			text += "aaaaaaaaa\n";
+			text += "//cb\n";
+			text += "\n";
+			text += "//cb\n";
+			text += "\n";
+			text += "Chorus: chorus 3G\n";
+			text += "aaaaaaaaa\n";
+			
+			Song song = TextParser.parseText(text);
+			String ausgabe = song.toString();
+			System.out.print(ausgabe);
+			//GeneratePDF.generatePDF(tempSong);
 		});
 		lblSaveAsPDF.setOnMouseClicked((event) -> {
 			GeneratePDF.generatePDF(tempSong);
