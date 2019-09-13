@@ -24,7 +24,7 @@ public class TextParser {
 	public static final int TYPE_COMMENT = 6;
 	public static final int TYPE_OTHER = 7;
 	
-	public Song parseText(String text) {
+	public static Song parseText(String text) {
 		int lastType = TYPE_NULL;
 		String command = "none";
 		Song song = new SongImpl();
@@ -93,7 +93,7 @@ public class TextParser {
 		return song;
 	}
 	
-	private boolean isChordRow(String row) {
+	private static boolean isChordRow(String row) {
 		Boolean isChord = true;
 		String[] words = row.split(" ");
 		for(int i = 0; i < words.length; i++) {
@@ -105,7 +105,7 @@ public class TextParser {
 		return isChord;
 	}
 	
-	private String getCommand(String string) {
+	private static String getCommand(String string) {
 		String[] command = string.split(":");
 		switch(command[0]) {
 		case "Chorus":
@@ -123,6 +123,12 @@ public class TextParser {
 			}
 			if(command[0].startsWith("\\\\")) {
 				return "\\\\";
+			}
+			String[] words = string.split(" ");
+			for(int i = 0; i < words.length; i++) {
+				if(ChordChecker.isAChord(words[i])) {
+					return "Chorus";
+				}
 			}
 			return "none";
 		}
