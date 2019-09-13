@@ -231,7 +231,7 @@ public class NewEditorController implements Initializable {
     private JFXButton btnPlus;
 
     @FXML
-    private JFXButton bznMinus;
+    private JFXButton btnMinus;
     
     
     BooleanProperty clipboardEmpty = new SimpleBooleanProperty(false);
