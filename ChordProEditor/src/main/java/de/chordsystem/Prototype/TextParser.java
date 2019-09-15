@@ -28,12 +28,14 @@ public class TextParser {
 		int lastType = TYPE_NULL;
 		String command = "none";
 		Song song = new SongImpl();
-		Environment env = new EnvironmentImpl();
 		String[] zeilen = text.split("\\n");
 		for(int i = 0; i < zeilen.length; i++) {
+			Environment env = new EnvironmentImpl();
 			if(getCommand(zeilen[i])!="none") {
 				command = getCommand(zeilen[i]);
 			}
+			System.out.println("Zeile:"+zeilen[i]);
+			System.out.println("Kommando:"+command);
 			switch(command) {
 			case "#":
 				env.setType(TYPE_COMMENT);
@@ -45,7 +47,7 @@ public class TextParser {
 				env.setLyric(zeilen[i]);
 				song.addEnvironment(env);
 				break;
-			case "\\\\":
+			case "//":
 				env.setType(TYPE_COMMENT);
 				env.setLyric(zeilen[i]);
 				song.addEnvironment(env);
@@ -121,8 +123,8 @@ public class TextParser {
 			if(command[0].startsWith("<")) {
 				return "<";
 			}
-			if(command[0].startsWith("\\\\")) {
-				return "\\\\";
+			if(command[0].startsWith("//")) {
+				return "//";
 			}
 			String[] words = string.split(" ");
 			for(int i = 0; i < words.length; i++) {

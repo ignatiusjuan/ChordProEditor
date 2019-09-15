@@ -315,7 +315,7 @@ public class NewEditorController implements Initializable {
 			//GeneratePDF.generatePDF(tempSong);
 		});
 		lblSaveAsPDF.setOnMouseClicked((event) -> {
-			GeneratePDF.generatePDF(tempSong);
+			//GeneratePDF.generatePDF(tempSong);
 		});
 		
 		hamburger.setOnMouseClicked(this::onClickHamburger);
