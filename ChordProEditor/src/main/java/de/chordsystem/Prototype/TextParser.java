@@ -34,10 +34,9 @@ public class TextParser {
 			if(getCommand(zeilen[i])!="none") {
 				command = getCommand(zeilen[i]);
 			}
-			System.out.println("Zeile:"+zeilen[i]);
-			System.out.println("Kommando:"+command);
 			switch(command) {
 			case "#":
+				zeilen[i] = zeilen[i].replace("#", "");
 				env.setType(TYPE_COMMENT);
 				env.setLyric(zeilen[i]);
 				song.addEnvironment(env);
@@ -48,11 +47,13 @@ public class TextParser {
 				song.addEnvironment(env);
 				break;
 			case "//":
+				zeilen[i] = zeilen[i].replace("//", "");
 				env.setType(TYPE_COMMENT);
 				env.setLyric(zeilen[i]);
 				song.addEnvironment(env);
 				break;
 			case "Chorus":
+				zeilen[i] = zeilen[i].replace("Chorus:", "");
 				env.setType(TYPE_CHORUS);
 				if(lastType != TYPE_CHORUS){
 					String[] teil = zeilen[i].split(":");
@@ -71,6 +72,7 @@ public class TextParser {
 				song.addEnvironment(env);
 				break;
 			case "Tab":
+				zeilen[i] = zeilen[i].replace("Tab:", "");
 				env.setType(TYPE_TAB);
 				if(isChordRow(zeilen[i])) {
 					env.setChord(zeilen[i]);
@@ -80,6 +82,7 @@ public class TextParser {
 				song.addEnvironment(env);
 				break;
 			case "Grid":
+				zeilen[i] = zeilen[i].replace("Grid:", "");
 				env.setType(TYPE_GRID);
 				if(isChordRow(zeilen[i])) {
 					env.setChord(zeilen[i]);
@@ -91,6 +94,8 @@ public class TextParser {
 			default:
 				break;
 			}
+//			System.out.println("Zeile:"+zeilen[i]);
+//			System.out.println("Kommando:"+command);
 		}
 		return song;
 	}
