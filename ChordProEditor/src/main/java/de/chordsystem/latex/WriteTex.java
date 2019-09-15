@@ -29,6 +29,8 @@ public class WriteTex {
 		BufferedWriter bw = new BufferedWriter(tex);
 		bw.write("\\documentclass{scrartcl}");
 		bw.newLine();
+		bw.write("\\setlength{\\parindent}{0em}");
+		bw.newLine();
 		bw.write("\\title{"+song.getTitle()+"}");
 		bw.newLine();
 		bw.write("\\author{"+song.getArtist()+"}");
@@ -39,8 +41,12 @@ public class WriteTex {
 		bw.newLine();
 		bw.write("\\maketitle");
 		bw.newLine();
+		bw.write("\\texttt{");
+		bw.newLine();
 		writeLyrics(song, bw);
-		//bw.write(song.getCopyright());
+		bw.write(song.getCopyright().toString());
+		bw.newLine();
+		bw.write("}");
 		bw.newLine();
 		bw.write("\\end{document}");
 		bw.newLine();
@@ -61,39 +67,40 @@ public class WriteTex {
 	{
 		boolean newEnv = true;
 		for (int currentEnv = 0; currentEnv < song.getEnvironmentSize(); currentEnv++) {
-			if(song.getEnvironment(currentEnv).getTitle()==song.getEnvironment(currentEnv-1).getTitle()&&
+			if(currentEnv-1 >= 0 &&
+				song.getEnvironment(currentEnv).getTitle()==song.getEnvironment(currentEnv-1).getTitle()&&
 				song.getEnvironment(currentEnv).getType()==song.getEnvironment(currentEnv-1).getType()) {
 				newEnv = false;
 			}else {
 				newEnv = true;
 			}
-//			switch(song.getEnvironment(currentEnv).getType()) {
-//				case EnvironmentImpl.TYPE_CHORUS:
-//					writeChorus(song, currentEnv, bw, newEnv);
-//					break;
-//				case EnvironmentImpl.TYPE_VERSE:
-//					writeVerse(song, currentEnv, bw, newEnv);
-//					break;
-//				case EnvironmentImpl.TYPE_TAB:
-//					writeTab(song, currentEnv, bw, newEnv);
-//					break;
-//				case EnvironmentImpl.TYPE_GRID:
-//					writeGrid(song, currentEnv, bw, newEnv);
-//					break;
+			switch(song.getEnvironment(currentEnv).getType()) {
+				case EnvironmentImpl.TYPE_CHORUS:
+					writeChorus(song, currentEnv, bw, newEnv);
+					break;
+				case EnvironmentImpl.TYPE_VERSE:
+					writeVerse(song, currentEnv, bw, newEnv);
+					break;
+				case EnvironmentImpl.TYPE_TAB:
+					writeTab(song, currentEnv, bw, newEnv);
+					break;
+				case EnvironmentImpl.TYPE_GRID:
+					writeGrid(song, currentEnv, bw, newEnv);
+					break;
 			
-//				case EnvironmentImpl.TYPE_INSTRUCTION:
-//					writeInstruction(song, currentEnv, bw, newEnv);
-//					break;
-//				case EnvironmentImpl.TYPE_COMMENT:
-//					writeComment(song, currentEnv, bw, newEnv);
-//					break;
-//				case EnvironmentImpl.TYPE_OTHER:
-//					writeOther(song, currentEnv, bw, newEnv);
-//					break;
-//				case EnvironmentImpl.TYPE_NULL:
-//					writeNull(song, currentEnv, bw, newEnv);
-//					break;
-//			}
+				case EnvironmentImpl.TYPE_INSTRUCTION:
+					writeInstruction(song, currentEnv, bw, newEnv);
+					break;
+				case EnvironmentImpl.TYPE_COMMENT:
+					writeComment(song, currentEnv, bw, newEnv);
+					break;
+				case EnvironmentImpl.TYPE_OTHER:
+					writeOther(song, currentEnv, bw, newEnv);
+					break;
+				case EnvironmentImpl.TYPE_NULL:
+					writeNull(song, currentEnv, bw, newEnv);
+					break;
+			}
 		}
 	}
 
@@ -108,21 +115,15 @@ public class WriteTex {
 	private static void writeChorus(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException
 	{
 		if(newEnv == true) {
-			bw.write("\noindent");
-			bw.write("\textbf{Chorus:"+song.getEnvironment(env).getTitle()+"}");
-			bw.newLine();
+			bw.write("\\textbf{Chorus:"+song.getEnvironment(env).getTitle()+"} \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getChord() != null) {
-			bw.write("\noindent");
-			bw.write(song.getEnvironment(env).getChord());
-			bw.newLine();
+			bw.write(song.getEnvironment(env).getChord()+" \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getLyric() != null) {
-			bw.write("\noindent");
-			bw.write(song.getEnvironment(env).getLyric());
-			bw.newLine();
+			bw.write(song.getEnvironment(env).getLyric()+" \\\\");
 			bw.newLine();
 		}
 	}
@@ -137,21 +138,15 @@ public class WriteTex {
 	 */
 	private static void writeVerse(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException{
 		if(newEnv == true) {
-			bw.write("\noindent");
-			bw.write("\textbf{Verse:"+song.getEnvironment(env).getTitle()+"}");
-			bw.newLine();
+			bw.write("\\textbf{Verse:"+song.getEnvironment(env).getTitle()+"} \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getChord() != null) {
-			bw.write("\noindent");
-			bw.write(song.getEnvironment(env).getChord());
-			bw.newLine();
+			bw.write(song.getEnvironment(env).getChord()+" \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getLyric() != null) {
-			bw.write("\noindent");
-			bw.write(song.getEnvironment(env).getLyric());
-			bw.newLine();
+			bw.write(song.getEnvironment(env).getLyric()+" \\\\");
 			bw.newLine();
 		}
 	}
@@ -166,21 +161,15 @@ public class WriteTex {
 	 */
 	private static void writeTab(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException{
 		if(newEnv == true) {
-			bw.write("\noindent");
-			bw.write("\textbf{Tab:"+song.getEnvironment(env).getTitle()+"}");
-			bw.newLine();
+			bw.write("\\textbf{Tab:"+song.getEnvironment(env).getTitle()+"} \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getChord() != null) {
-			bw.write("\noindent");
-			bw.write(song.getEnvironment(env).getChord());
-			bw.newLine();
+			bw.write(song.getEnvironment(env).getChord()+" \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getLyric() != null) {
-			bw.write("\noindent");
-			bw.write(song.getEnvironment(env).getLyric());
-			bw.newLine();
+			bw.write(song.getEnvironment(env).getLyric()+" \\\\");
 			bw.newLine();
 		}
 	}
@@ -195,21 +184,15 @@ public class WriteTex {
 	 */
 	private static void writeGrid(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException{
 		if(newEnv == true) {
-			bw.write("\noindent");
-			bw.write("\textbf{Grid:"+song.getEnvironment(env).getTitle()+"}");
-			bw.newLine();
+			bw.write("\\textbf{Grid:"+song.getEnvironment(env).getTitle()+"} \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getChord() != null) {
-			bw.write("\noindent");
-			bw.write(song.getEnvironment(env).getChord());
-			bw.newLine();
+			bw.write(song.getEnvironment(env).getChord()+" \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getLyric() != null) {
-			bw.write("\noindent");
-			bw.write(song.getEnvironment(env).getLyric());
-			bw.newLine();
+			bw.write(song.getEnvironment(env).getLyric()+" \\\\");
 			bw.newLine();
 		}
 	}
@@ -226,21 +209,15 @@ public class WriteTex {
 	{
 		// TODO Auto-generated method stub
 		if(newEnv == true) {
-			bw.write("\noindent");
-			bw.write("\textbf{Null:"+song.getEnvironment(env).getTitle()+"}");
-			bw.newLine();
+			bw.write("\\textbf{Null:"+song.getEnvironment(env).getTitle()+"} \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getChord() != null) {
-			bw.write("\noindent");
-			bw.write(song.getEnvironment(env).getChord());
-			bw.newLine();
+			bw.write(song.getEnvironment(env).getChord()+" \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getLyric() != null) {
-			bw.write("\noindent");
-			bw.write(song.getEnvironment(env).getLyric());
-			bw.newLine();
+			bw.write(song.getEnvironment(env).getLyric()+" \\\\");
 			bw.newLine();
 		}
 	}
@@ -257,21 +234,15 @@ public class WriteTex {
 	{
 		// TODO Auto-generated method stub
 		if(newEnv == true) {
-			bw.write("\noindent");
-			bw.write("\textbf{Other:"+song.getEnvironment(env).getTitle()+"}");
-			bw.newLine();
+			bw.write("\\textbf{Other:"+song.getEnvironment(env).getTitle()+"} \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getChord() != null) {
-			bw.write("\noindent");
-			bw.write(song.getEnvironment(env).getChord());
-			bw.newLine();
+			bw.write(song.getEnvironment(env).getChord()+" \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getLyric() != null) {
-			bw.write("\noindent");
-			bw.write(song.getEnvironment(env).getLyric());
-			bw.newLine();
+			bw.write(song.getEnvironment(env).getLyric()+" \\\\");
 			bw.newLine();
 		}
 	}
@@ -289,27 +260,23 @@ public class WriteTex {
 		//TODO Box
 		if(newEnv == true) {
 			if(song.getEnvironment(env).getCommentIsItalic()==true) {
-				bw.write("\textit{");
+				bw.write("\\textit{");
+				bw.newLine();
 			}
-			bw.write("\noindent");
-			bw.write("\textbf{Comment:"+song.getEnvironment(env).getTitle()+"}");
-			bw.newLine();
+			bw.write("\\textbf{Comment:"+song.getEnvironment(env).getTitle()+"} \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getChord() != null) {
-			bw.write("\noindent");
-			bw.write(song.getEnvironment(env).getChord());
-			bw.newLine();
+			bw.write(song.getEnvironment(env).getChord()+" \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getLyric() != null) {
-			bw.write("\noindent");
-			bw.write(song.getEnvironment(env).getLyric());
-			bw.newLine();
+			bw.write(song.getEnvironment(env).getLyric()+" \\\\");
 			bw.newLine();
 		}
 		if(newEnv == true) {
-			bw.write("}");
+			bw.write("\\}");
+			bw.newLine();
 		}
 	}
 
@@ -325,21 +292,15 @@ public class WriteTex {
 	{
 		// TODO Auto-generated method stub
 		if(newEnv == true) {
-			bw.write("\noindent");
-			bw.write("\textbf{Instruction:"+song.getEnvironment(env).getTitle()+"}");
-			bw.newLine();
+			bw.write("\\textbf{Instruction:"+song.getEnvironment(env).getTitle()+"} \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getChord() != null) {
-			bw.write("\noindent");
-			bw.write(song.getEnvironment(env).getChord());
-			bw.newLine();
+			bw.write(song.getEnvironment(env).getChord()+" \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getLyric() != null) {
-			bw.write("\noindent");
-			bw.write(song.getEnvironment(env).getLyric());
-			bw.newLine();
+			bw.write(song.getEnvironment(env).getLyric()+" \\\\");
 			bw.newLine();
 		}
 	}
