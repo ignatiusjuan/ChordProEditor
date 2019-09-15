@@ -8,12 +8,12 @@
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="428.0" prefWidth="694.0" stylesheets="@../Css/HelpWindow.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="16.0" layoutY="78.0" prefHeight="277.0" prefWidth="661.0" text="♫ anleitung schreiben&#10;&#10;♫ .................................&#10;&#10;♫ .................................&#10;&#10;♫ .................................&#10;&#10;♫ .................................">
+      <Label layoutX="16.0" layoutY="78.0" prefHeight="277.0" prefWidth="661.0" text="♫ Zum bear beiten einer Chordpro Datei muss man zuerst auf den oben&#10;    links befindenden File. Unter Open kann man eine Datei&#10;    öffnen zum bearbeiten.&#10;&#10;♫ Nach Wunsch kann man mit einem jeweiligen Button die geöffnete &#10;    Datei als Chordpro-Datei oder als Pdf-Datei auf seinem Rechner &#10;    speichern.&#10;&#10;♫ Das bearbeiten einer geöffneten Datei erfolgt durch das anklicken &#10;    des bearbeiten-Buttons.&#10;&#10;♫ Viele verschiedene Aktionen liefert die oben angegebene MenuBar,&#10;    dort befinden sich Methoden um bspw. das bearbeiten einer Datei &#10;    zu vereinfachen.&#10;&#10;♫ ................................." textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="181.0" prefHeight="78.0" prefWidth="332.0" text="Anleitung zur Anwendung de&#10;        Chordpro-Editors&#10;">
+      <Label layoutX="181.0" prefHeight="78.0" prefWidth="332.0" text="Anleitung zur Anwendung des&#10;        Chordpro-Editors&#10;" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
