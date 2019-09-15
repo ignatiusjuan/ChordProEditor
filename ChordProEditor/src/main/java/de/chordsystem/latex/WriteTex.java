@@ -44,7 +44,9 @@ public class WriteTex {
 		bw.write("\\texttt{");
 		bw.newLine();
 		writeLyrics(song, bw);
-		bw.write(song.getCopyright().toString());
+		String temp = song.getCopyright().toString().replace("[", "");
+		temp = temp.replace("]", "");
+		bw.write(temp);
 		bw.newLine();
 		bw.write("}");
 		bw.newLine();
@@ -274,8 +276,8 @@ public class WriteTex {
 			bw.write(song.getEnvironment(env).getLyric()+" \\\\");
 			bw.newLine();
 		}
-		if(newEnv == true) {
-			bw.write("\\}");
+		if(newEnv == true && song.getEnvironment(env).getCommentIsItalic()==true) {
+			bw.write("}");
 			bw.newLine();
 		}
 	}
