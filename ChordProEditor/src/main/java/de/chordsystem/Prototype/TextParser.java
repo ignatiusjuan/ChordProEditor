@@ -55,20 +55,8 @@ public class TextParser {
 			case "Chorus":
 				zeilen[i] = zeilen[i].replace("Chorus:", "");
 				env.setType(TYPE_CHORUS);
-				if(lastType != TYPE_CHORUS){
-					String[] teil = zeilen[i].split(":");
-					env.setTitle(teil[0]);
-				}else{
-					if(isChordRow(zeilen[i])) {
-						env.setChord(zeilen[i]);
-						if(isChordRow(zeilen[i+1])) {
-							env.setChord(zeilen[i+1]);
-							i++;
-						}
-					}else{
-						env.setLyric(zeilen[i]);
-					}
-				}
+				String[] teil = zeilen[i].split(":");
+				env.setTitle(teil[0]);
 				song.addEnvironment(env);
 				break;
 			case "Tab":
@@ -87,6 +75,19 @@ public class TextParser {
 				if(isChordRow(zeilen[i])) {
 					env.setChord(zeilen[i]);
 				}else {
+					env.setLyric(zeilen[i]);
+				}
+				song.addEnvironment(env);
+				break;
+			case "Verse":
+				env.setType(TYPE_VERSE);
+				if(isChordRow(zeilen[i])) {
+					env.setChord(zeilen[i]);
+					if((i+1) < zeilen.length && !isChordRow(zeilen[i+1])) {
+						env.setLyric(zeilen[i+1]);
+						i++;
+					}
+				}else{
 					env.setLyric(zeilen[i]);
 				}
 				song.addEnvironment(env);
@@ -131,13 +132,7 @@ public class TextParser {
 			if(command[0].startsWith("//")) {
 				return "//";
 			}
-			String[] words = string.split(" ");
-			for(int i = 0; i < words.length; i++) {
-				if(ChordChecker.isAChord(words[i])) {
-					return "Chorus";
-				}
-			}
-			return "none";
+			return "Verse";
 		}
 	}
 

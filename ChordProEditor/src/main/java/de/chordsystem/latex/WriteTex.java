@@ -35,7 +35,7 @@ public class WriteTex {
 		bw.newLine();
 		bw.write("\\date{"+song.getYear()+"}");
 		bw.newLine();
-		bw.write("\begin{document}");
+		bw.write("\\begin{document}");
 		bw.newLine();
 		bw.write("\\maketitle");
 		bw.newLine();
