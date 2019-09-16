@@ -56,7 +56,7 @@ public class EditController implements Initializable {
     	
     }
     
-    
+    /*Hier werden die anklickbaren Button ihren jeweiligen Methoden zugewiesen*/
     public void initialize(URL location, ResourceBundle resources) {
     	Font font = new Font("Courier", 20);
     	txtAreaEditSong.setFont(font);

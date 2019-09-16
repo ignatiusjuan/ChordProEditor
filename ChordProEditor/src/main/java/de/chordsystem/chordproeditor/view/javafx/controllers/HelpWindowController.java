@@ -27,6 +27,7 @@ public class HelpWindowController implements Initializable {
     @FXML
     private CheckBox cklShowHelpOnStart;
     
+    /*Methode für den Back Button im Fenster*/
     private void closeHelpWindow(ActionEvent event) {
     	btnBack.getScene().getWindow().hide();
     }
@@ -35,7 +36,7 @@ public class HelpWindowController implements Initializable {
     	
     }
     
-    
+    /*Hier werden die anklickbaren Button ihren jeweiligen Methoden zugewiesen*/
     @Override
  	public void initialize(URL url, ResourceBundle resourceBundle) {
  		btnBack.setOnAction(this::closeHelpWindow);
