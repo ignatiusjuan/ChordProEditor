@@ -314,6 +314,7 @@ public class NewEditorController implements Initializable {
 //			Song song = TextParser.parseText(text);
 //			String ausgabe = song.toString();
 //			System.out.print(ausgabe);
+			
 			tempSong.setArtist("Kuenstler Test");
 			tempSong.setAlbum("Album Test");
 			tempSong.setComposer("Composer Test");
@@ -324,21 +325,23 @@ public class NewEditorController implements Initializable {
 			tempSong.setTitle("Test");
 			tempSong.setYear(2000);
 			tempSong.setSubtitle("Subtitle Test");
-			for(int i = 0; i < 6; i++) {
-				Environment env1 = new EnvironmentImpl();
-				env1.setType(EnvironmentImpl.TYPE_CHORUS);
-				env1.setTitle("Title Test "+i);
-				tempSong.addEnvironment(env1);
-				Environment env2 = new EnvironmentImpl();
-				env2.setType(EnvironmentImpl.TYPE_VERSE);
-				env2.setChord("Chord Test "+i);
-				env2.setLyric("Test Lyric "+i);
-				tempSong.addEnvironment(env2);
-				Environment env3 = new EnvironmentImpl();
-				env3.setType(EnvironmentImpl.TYPE_COMMENT);
-				env3.setLyric("Kommentar "+i);
-				tempSong.addEnvironment(env3);
-			}
+			
+//			for(int i = 0; i < 6; i++) {
+//				Environment env1 = new EnvironmentImpl();
+//				env1.setType(EnvironmentImpl.TYPE_CHORUS);
+//				env1.setTitle("Title Test "+i);
+//				tempSong.addEnvironment(env1);
+//				Environment env2 = new EnvironmentImpl();
+//				env2.setType(EnvironmentImpl.TYPE_VERSE);
+//				env2.setChord("Chord Test "+i);
+//				env2.setLyric("Test Lyric "+i);
+//				tempSong.addEnvironment(env2);
+//				Environment env3 = new EnvironmentImpl();
+//				env3.setType(EnvironmentImpl.TYPE_COMMENT);
+//				env3.setLyric("Kommentar "+i);
+//				tempSong.addEnvironment(env3);
+//			}
+			
 			GeneratePDF.generatePDF(tempSong);
 		});
 		lblSaveAsPDF.setOnMouseClicked((event) -> {
@@ -361,6 +364,8 @@ public class NewEditorController implements Initializable {
 
     /*Wenn auf das Bearbeiten Bild geklickt wird, öffnet sich das Fenster zum Editieren des Songs auswählen*/
     public void switchSceneToEdit(MouseEvent event) {
+    	String wysiwygContent = txtSongEdit.getText();
+    	Song tmpSong = TextParser.parseText(wysiwygContent);
     	wp.createWindowNewStage("/fxml/Edit.fxml", "Editiere den Song", new EditController());
     }
     
