@@ -6,23 +6,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="428.0" prefWidth="694.0" stylesheets="@../Css/HelpWindow.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="578.0" prefWidth="814.0" stylesheets="@../Css/HelpWindow.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="16.0" layoutY="78.0" prefHeight="277.0" prefWidth="661.0" text="♫ Zum bear beiten einer Chordpro Datei muss man zuerst auf den oben&#10;    links befindenden File. Unter Open kann man eine Datei&#10;    öffnen zum bearbeiten.&#10;&#10;♫ Nach Wunsch kann man mit einem jeweiligen Button die geöffnete &#10;    Datei als Chordpro-Datei oder als Pdf-Datei auf seinem Rechner &#10;    speichern.&#10;&#10;♫ Das bearbeiten einer geöffneten Datei erfolgt durch das anklicken &#10;    des bearbeiten-Buttons.&#10;&#10;♫ Viele verschiedene Aktionen liefert die oben angegebene MenuBar,&#10;    dort befinden sich Methoden um bspw. das bearbeiten einer Datei &#10;    zu vereinfachen.&#10;&#10;♫ ................................." textFill="WHITE">
+      <Label layoutX="16.0" layoutY="78.0" prefHeight="430.0" prefWidth="783.0" text="♫ Zum bearbeiten einer Chordpro Datei muss man zuerst auf den oben&#10;    links befindenden File. Unter Open kann man eine Datei&#10;    öffnen zum bearbeiten.&#10;&#10;♫ Nach Wunsch kann man mit einem jeweiligen Button die geöffnete &#10;    Datei als Chordpro-Datei oder als Pdf-Datei auf seinem Rechner &#10;    speichern.&#10;&#10;♫ Das bearbeiten einer geöffneten Datei erfolgt durch das anklicken &#10;    des bearbeiten-Buttons.&#10;&#10;♫ Viele verschiedene Aktionen liefert die oben angegebene MenuBar,&#10;    dort befinden sich Methoden um bspw. das bearbeiten einer Datei &#10;    zu vereinfachen.&#10;&#10;♫ ................................." textFill="WHITE">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="181.0" prefHeight="78.0" prefWidth="332.0" text="Anleitung zur Anwendung des&#10;        Chordpro-Editors&#10;" textAlignment="CENTER" textFill="WHITE">
+      <Label layoutX="241.0" prefHeight="78.0" prefWidth="332.0" text="Anleitung zur Anwendung des&#10;        Chordpro-Editors&#10;" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <JFXButton fx:id="btnBack" layoutX="14.0" layoutY="366.0" prefHeight="48.0" prefWidth="119.0" text="Zurück">
+      <JFXButton fx:id="btnBack" layoutX="16.0" layoutY="519.0" prefHeight="48.0" prefWidth="119.0" text="Zurück">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
       </JFXButton>
-      <CheckBox fx:id="cklShowHelpOnStart" layoutX="584.0" layoutY="403.0" mnemonicParsing="false" text="Show on Start" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="15.0" />
+      <CheckBox fx:id="cklShowHelpOnStart" layoutX="703.0" layoutY="534.0" mnemonicParsing="false" text="Show on Start" AnchorPane.bottomAnchor="26.66666666666663" AnchorPane.rightAnchor="14.333333333333371" />
    </children>
 </AnchorPane>
