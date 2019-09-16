@@ -7,7 +7,7 @@ import de.chordsystem.chordproeditor.model.interfaces.*;
 
 public class ChordProConverter {
 	
-	private String combineChordLyric(String chord, String lyric) {
+	private static String combineChordLyric(String chord, String lyric) {
 		StringBuffer sb = new StringBuffer();
 		int chordCounter = 0;
 		int lyricCounter = 0;
@@ -42,7 +42,7 @@ public class ChordProConverter {
 		return sb.toString();
 	}
 	
-	public String tryConvertToChordPro(Song song) {
+	public static String tryConvertToChordPro(Song song) {
 		StringBuffer sb = new StringBuffer();
 		
 		if (!song.getTitle().isBlank())

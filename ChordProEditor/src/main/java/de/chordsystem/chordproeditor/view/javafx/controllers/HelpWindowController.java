@@ -28,7 +28,7 @@ public class HelpWindowController implements Initializable {
     private CheckBox cklShowHelpOnStart;
     
     private void closeHelpWindow(ActionEvent event) {
-    	
+    	btnBack.getScene().getWindow().hide();
     }
     
     private void tickShowHelp(ActionEvent event) {

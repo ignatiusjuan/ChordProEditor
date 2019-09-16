@@ -14,7 +14,6 @@ import javafx.scene.CacheHint;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-//import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class MainWindow extends Application implements Initializable{

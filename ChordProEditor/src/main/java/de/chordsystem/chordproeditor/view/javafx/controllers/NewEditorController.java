@@ -3,10 +3,10 @@ package de.chordsystem.chordproeditor.view.javafx.controllers;
 import de.chordsystem.chordproeditor.view.javafx.helperclasses.WindowPresetSwitchStage;
 import de.chordsystem.chordproeditor.view.javafx.helperclasses.WindowPresetSwitchScene;
 
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -24,6 +24,7 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 
+import de.chordsystem.Prototype.ChordProConverter;
 import de.chordsystem.Prototype.ChordProParser;
 import de.chordsystem.Prototype.TextParser;
 import de.chordsystem.chordproeditor.model.classes.EnvironmentImpl;
@@ -45,6 +46,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -57,7 +59,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
@@ -69,7 +71,9 @@ import javafx.util.converter.NumberStringConverter;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.robot.Robot;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import de.chordsystem.chordproeditor.view.javafx.helperclasses.WindowPresetSwitchStage;
 import de.chordsystem.chordproeditor.view.javafx.helperclasses.WindowPresetSwitchStage;
@@ -366,11 +370,28 @@ public class NewEditorController implements Initializable {
     public void switchSceneToEdit(MouseEvent event) {
     	String wysiwygContent = txtSongEdit.getText();
     	Song tmpSong = TextParser.parseText(wysiwygContent);
-    	wp.createWindowNewStage("/fxml/Edit.fxml", "Editiere den Song", new EditController());
+    	EditController editController = new EditController();
+    	try{
+    		final FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/fxml/Edit.fxml"));
+            fxmlLoader.setController(editController);
+            editController.receiveEditText(ChordProConverter.tryConvertToChordPro(tmpSong));
+            Stage stage = new Stage();
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setResizable(false);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.setTitle("Editiere den Song");
+            stage.getIcons().add(new Image("/Icons/icon 512x512.png/"));
+            stage.show();
+
+        }catch(IOException io){
+            io.printStackTrace();
+        }
     }
     
     public void switchSceneToQuestionIcon(MouseEvent event) {
-    	wp.createWindowNewStage("/fxml/HelpWindow.fxml", "Informationen zum Anwenden des Editors", new HelpWindowController());
+    	wp.createWindowNewStage("/fxml/HelpWindow.fxml", "Informationen zum Anwenden des Editors", new HelpWindowController(), lblDateTime.getScene().getWindow());
     }
     
     private boolean songsEqual(Song songA, Song songB) {
@@ -559,6 +580,8 @@ public class NewEditorController implements Initializable {
 		setFormatter();
 		showTime();
 		
+		Font font = new Font("Courier", 20);
+		txtSongEdit.setFont(font);
 		
 		HamburgerSlideCloseTransition transition = new HamburgerSlideCloseTransition(hamburger);
 		transition.setRate(-1);

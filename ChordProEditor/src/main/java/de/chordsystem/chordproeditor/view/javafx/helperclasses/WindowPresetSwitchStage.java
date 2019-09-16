@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.IOException;
 
@@ -20,6 +21,25 @@ public class WindowPresetSwitchStage {
 	            final Stage stage = new Stage();
 	            Scene scene = new Scene(fxmlLoader.load());
 	            stage.setResizable(false);
+	            stage.initModality(Modality.APPLICATION_MODAL);
+	            stage.setScene(scene);
+	            stage.setTitle(title);
+	            stage.show();
+
+	        }catch(IOException io){
+	            io.printStackTrace();
+	        }
+	    }
+	    
+	    public void createWindowNewStage(String path, String title, Object controller, Window owner){
+	        try {
+	            final FXMLLoader fxmlLoader = new FXMLLoader();
+	            fxmlLoader.setLocation(getClass().getResource(path));
+	            fxmlLoader.setController(controller);
+	            final Stage stage = new Stage();
+	            Scene scene = new Scene(fxmlLoader.load());
+	            stage.setResizable(false);
+	            stage.initOwner(owner);
 	            stage.initModality(Modality.APPLICATION_MODAL);
 	            stage.setScene(scene);
 	            stage.setTitle(title);

@@ -10,9 +10,13 @@ import javafx.fxml.Initializable;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 
 public class EditController implements Initializable {
@@ -23,11 +27,12 @@ public class EditController implements Initializable {
     private AnchorPane anchorPane;
 
     @FXML
-    private JFXTextArea txtEditSong;
-    
+    private JFXTextArea txtAreaEditSong;
 
     @FXML
     private JFXButton btnSave;
+    
+    StringProperty textFieldProperty = new SimpleStringProperty();
     
     private void setOnAction() {
     	btnSave.setOnAction(this::onClickFileSave);
@@ -38,20 +43,14 @@ public class EditController implements Initializable {
     	
     }
     
+    public void receiveEditText(String message) {
+    	textFieldProperty.set(message);
+    }
+    
     @FXML
     private void onClickFileSaveAs(ActionEvent event) {
-    	FileChooser fileChooser = new FileChooser();
-    	fileChooser.setTitle("Save ChordPro File As");
-    	fileChooser.getExtensionFilters().addAll(
-    			new FileChooser.ExtensionFilter("ChordProFiles", "*.chopro", "*.crd", "*.cho", "*.chord", "*.pro"),
-    			new FileChooser.ExtensionFilter("PDF", "*.pdf"),
-    			new FileChooser.ExtensionFilter("Text file", "*.txt"),
-    			new FileChooser.ExtensionFilter("All Files", "*.*")
-    	);
-    	String[] defaultName = txtEditSong.getText().split("\\n");
-    	fileChooser.setInitialFileName(defaultName[0].toString());
     	
-    	File selectedFile = fileChooser.showSaveDialog(null);
+    	
     	
     	//Write process
     	
@@ -59,7 +58,9 @@ public class EditController implements Initializable {
     
     
     public void initialize(URL location, ResourceBundle resources) {
-    	
+    	Font font = new Font("Courier", 20);
+    	txtAreaEditSong.setFont(font);
+    	txtAreaEditSong.textProperty().bindBidirectional(textFieldProperty);
     }
 
 }
