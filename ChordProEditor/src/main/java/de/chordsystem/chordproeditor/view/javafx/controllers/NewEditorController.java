@@ -72,6 +72,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.robot.Robot;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -373,9 +374,9 @@ public class NewEditorController implements Initializable {
     	
     	//Test parser
     	//Ab hier
-    	System.out.println(tempSong.getEnvironmentsAsString());
+    	System.out.println(tempSong.getEnvironmentsAsString2());
     	System.out.println("---------------------------------------------------------------------------------------");
-    	System.out.println(tmpSong.getEnvironmentsAsString());
+    	System.out.println(tmpSong.getEnvironmentsAsString2());
     	//bis hier
     	
     	EditController editController = new EditController();
@@ -387,6 +388,7 @@ public class NewEditorController implements Initializable {
             Stage stage = new Stage();
             Scene scene = new Scene(fxmlLoader.load());
             stage.setResizable(false);
+            stage.initOwner(lblDateTime.getScene().getWindow());
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.setTitle("Editiere den Song");
@@ -594,8 +596,7 @@ public class NewEditorController implements Initializable {
 		setFormatter();
 		showTime();
 		
-		Font font = new Font("Courier", 20);
-		txtSongEdit.setFont(font);
+		txtSongEdit.setFont(Font.font("monospaced",FontWeight.NORMAL,20));
 		
 		HamburgerSlideCloseTransition transition = new HamburgerSlideCloseTransition(hamburger);
 		transition.setRate(-1);

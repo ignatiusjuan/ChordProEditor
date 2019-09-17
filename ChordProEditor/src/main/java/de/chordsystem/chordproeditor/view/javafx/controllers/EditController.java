@@ -17,12 +17,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
 
 public class EditController implements Initializable {
 	
-	WindowPresetSwitchStage wp = new WindowPresetSwitchStage();
-
     @FXML
     private AnchorPane anchorPane;
 
@@ -34,32 +33,22 @@ public class EditController implements Initializable {
     
     StringProperty textFieldProperty = new SimpleStringProperty();
     
-    private void setOnAction() {
-    	btnSave.setOnAction(this::onClickFileSave);
-    }
-    
-    @FXML
-    private void onClickFileSave(ActionEvent event) {
-    	
-    }
-    
     public void receiveEditText(String message) {
     	textFieldProperty.set(message);
     }
     
     @FXML
-    private void onClickFileSaveAs(ActionEvent event) {
-    	
-    	
+    private void onClickSaveBtn(ActionEvent event) {
     	
     	//Write process
     	
+    	btnSave.getScene().getWindow().hide();
     }
     
     /*Hier werden die anklickbaren Button ihren jeweiligen Methoden zugewiesen*/
     public void initialize(URL location, ResourceBundle resources) {
-    	Font font = new Font("Courier", 20);
-    	txtAreaEditSong.setFont(font);
+    	btnSave.setOnAction(this::onClickSaveBtn);
+    	txtAreaEditSong.setFont(Font.font("monospaced",FontWeight.NORMAL,20));
     	txtAreaEditSong.textProperty().bindBidirectional(textFieldProperty);
     }
 

@@ -93,8 +93,8 @@ public class EnvironmentImpl implements Environment {
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		if (this.chord.trim().length() > 0 && !this.chord.trim().isEmpty()) {
-			sb.append("Chord: " + this.chord.trim() + "\n");
-			sb.append("Lyric: " + this.lyric.trim() + "\n");
+			sb.append(this.chord.trim() + "\n");
+			sb.append(this.lyric.trim() + "\n");
 		} else if (this.type == TYPE_INSTRUCTION) {
 			sb.append("GO TO --> " + this.lyric.trim() + "\n");
 		} else if (this.type == TYPE_COMMENT) {
