@@ -370,6 +370,14 @@ public class NewEditorController implements Initializable {
     public void switchSceneToEdit(MouseEvent event) {
     	String wysiwygContent = txtSongEdit.getText();
     	Song tmpSong = TextParser.parseText(wysiwygContent);
+    	
+    	//Test parser
+    	//Ab hier
+    	System.out.println(tempSong.getEnvironmentsAsString());
+    	System.out.println("---------------------------------------------------------------------------------------");
+    	System.out.println(tmpSong.getEnvironmentsAsString());
+    	//bis hier
+    	
     	EditController editController = new EditController();
     	try{
     		final FXMLLoader fxmlLoader = new FXMLLoader();
