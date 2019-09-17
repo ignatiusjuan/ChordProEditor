@@ -390,6 +390,7 @@ public class NewEditorController implements Initializable {
         }
     }
     
+    /* Diese Methode oeffnet das Fenster zu Hilfestellung des Programms */
     public void switchSceneToQuestionIcon(MouseEvent event) {
     	wp.createWindowNewStage("/fxml/HelpWindow.fxml", "Informationen zum Anwenden des Editors", new HelpWindowController(), lblDateTime.getScene().getWindow());
     }
@@ -398,6 +399,7 @@ public class NewEditorController implements Initializable {
     	return songA.toString().equals(songB.toString()) ? true : false;
     }
     
+    /*Diese Methode dient dazu um die Shortcuts für die in der MenuBar angebenen Aktionen auszufuehren */
     private void setShortcut() {
     	menuFileNew.setAccelerator(new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN));
     	menuFileOpen.setAccelerator(new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN));
@@ -414,7 +416,7 @@ public class NewEditorController implements Initializable {
     	menuEditPaste.setAccelerator(new KeyCodeCombination(KeyCode.V, KeyCombination.CONTROL_DOWN));
     	menuEditSelectAll.setAccelerator(new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_DOWN));
     }
-    
+    /*Einige hilfen zum Editieren des Songs Undo, Redo, Cut, Copy, Paste*/
     private void setMenuBind() {
     	menuEditUndo.disableProperty().bind(txtSongEdit.undoableProperty().not());
     	menuEditRedo.disableProperty().bind(txtSongEdit.redoableProperty().not());
@@ -451,6 +453,7 @@ public class NewEditorController implements Initializable {
     	txtSongEdit.textProperty().bindBidirectional(loadedSong.contents);
     }
     
+    /*Beim anklicken von Open wird eine neue Datei erstellt*/
     @FXML
     private void onClickFileNew(ActionEvent event) {
     	if (!songsEqual(emptySong, loadedSong.toSong())) {
@@ -477,6 +480,7 @@ public class NewEditorController implements Initializable {
     	filename = "";
     }
     
+    /*Methode zum offnen eines Songs im WYSIWYG (What You See Is What You Get) modus im TextArea des Programms*/
     @FXML
     private void onClickFileOpen(ActionEvent event) {
     	
@@ -507,7 +511,7 @@ public class NewEditorController implements Initializable {
     		filename = selectedFile.getAbsolutePath();
     	}
     }
-    
+    /*Hier wird beim anklicken des Saves in der MenuBar, die Datei in der Form gespeichert in der Sie geoeffnet ist*/
     @FXML
     private void onClickFileSave(ActionEvent event) {
     	if (filename.isBlank()) {
@@ -530,7 +534,7 @@ public class NewEditorController implements Initializable {
     		//Write process
     	}	
     }
-    
+    /*Diese Methode dient zur Speicherung der Datei in einer der vorgegebenen Arten*/
     @FXML
     private void onClickFileSaveAs(ActionEvent event) {
     	FileChooser fileChooser = new FileChooser();
@@ -558,6 +562,7 @@ public class NewEditorController implements Initializable {
     	scrollpaneProperties.disableProperty().bind(hideSidePane);
     }
     
+    /*Methode zum benutzen des Hamburger Buttons im Fenster*/
     @FXML
     private void onClickHamburger(MouseEvent event) {
     	if (!hideSidePane.get()) {
@@ -569,6 +574,7 @@ public class NewEditorController implements Initializable {
     	
     }
     
+    /*Hier werden die anklickbaren Button ihren jeweiligen Methoden zugewiesen*/
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		loadedSong = new SongProperties(emptySong);
