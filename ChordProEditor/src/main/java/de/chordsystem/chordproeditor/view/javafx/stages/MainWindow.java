@@ -5,7 +5,10 @@ package de.chordsystem.chordproeditor.view.javafx.stages;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import de.chordsystem.chordproeditor.userdata.UserData;
+import de.chordsystem.chordproeditor.view.javafx.controllers.HelpWindowController;
 import de.chordsystem.chordproeditor.view.javafx.controllers.NewEditorController;
+import de.chordsystem.chordproeditor.view.javafx.helperclasses.WindowPresetSwitchStage;
 import javafx.application.Application;
 //import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +21,8 @@ import javafx.stage.Stage;
 
 public class MainWindow extends Application implements Initializable{
 	private static Stage window;
-
+	private WindowPresetSwitchStage wp = new WindowPresetSwitchStage();
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		window = primaryStage;
@@ -34,6 +38,9 @@ public class MainWindow extends Application implements Initializable{
 		window.setTitle("ChordPro Editor");
 		window.getIcons().add(new Image("/Icons/icon 512x512.png/"));
 		window.show();
+		
+		if (UserData.getShowHelpOnStart())
+			wp.createWindowNewStage("/fxml/HelpWindow.fxml", "Informationen zum Anwenden des Editors", new HelpWindowController(), window);
 	}
 
 	public Stage getWindow(){

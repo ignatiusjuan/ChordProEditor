@@ -4,6 +4,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
+
+import de.chordsystem.chordproeditor.userdata.UserData;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -32,13 +34,17 @@ public class HelpWindowController implements Initializable {
     }
     
     private void tickShowHelp(ActionEvent event) {
-    	
+    	if (cklShowHelpOnStart.isSelected())
+    		UserData.setShowHelpOnStart(true);
+    	else
+    		UserData.setShowHelpOnStart(false);
     }
     
     
     @Override
  	public void initialize(URL url, ResourceBundle resourceBundle) {
  		btnBack.setOnAction(this::closeHelpWindow);
+ 		cklShowHelpOnStart.setSelected(UserData.getShowHelpOnStart());
     	cklShowHelpOnStart.setOnAction(this::tickShowHelp);
     
     }

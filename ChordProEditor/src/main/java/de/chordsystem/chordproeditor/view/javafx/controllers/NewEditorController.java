@@ -592,6 +592,7 @@ public class NewEditorController implements Initializable {
 		
 		ivHelp.setOnMouseClicked(this::switchSceneToQuestionIcon);
 		
+		
 	}
 			
 	/**
