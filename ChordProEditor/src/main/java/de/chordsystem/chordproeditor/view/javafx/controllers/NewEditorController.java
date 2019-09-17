@@ -392,7 +392,7 @@ public class NewEditorController implements Initializable {
     
     /* Diese Methode oeffnet das Fenster zu Hilfestellung des Programms */
     public void switchSceneToQuestionIcon(MouseEvent event) {
-    	wp.createWindowNewStage("/fxml/HelpWindow.fxml", "Informationen zum Anwenden des Editors", new HelpWindowController(), lblDateTime.getScene().getWindow());
+    	wp.createWindowNewStage("/fxml/HelpWindow.fxml", "Informationen zum Anwenden des Editors", new HelpWindowController(), lblDateTime.getScene().getWindow(), new Image("/Icons/icon 512x512.png/"));
     }
     
     private boolean songsEqual(Song songA, Song songB) {

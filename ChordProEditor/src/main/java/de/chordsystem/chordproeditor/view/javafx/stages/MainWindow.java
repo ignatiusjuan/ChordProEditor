@@ -40,7 +40,7 @@ public class MainWindow extends Application implements Initializable{
 		window.show();
 		
 		if (UserData.getShowHelpOnStart())
-			wp.createWindowNewStage("/fxml/HelpWindow.fxml", "Informationen zum Anwenden des Editors", new HelpWindowController(), window);
+			wp.createWindowNewStage("/fxml/HelpWindow.fxml", "Informationen zum Anwenden des Editors", new HelpWindowController(), window, new Image("/Icons/icon 512x512.png/"));
 	}
 
 	public Stage getWindow(){
