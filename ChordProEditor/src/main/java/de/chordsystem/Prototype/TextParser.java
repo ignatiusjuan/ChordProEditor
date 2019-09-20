@@ -83,14 +83,18 @@ public class TextParser {
 				env.setType(TYPE_VERSE);
 				if(isChordRow(zeilen[i])) {
 					env.setChord(zeilen[i]);
+					System.out.println("Chord: "+zeilen[i]);
 					if((i+1) < zeilen.length && !isChordRow(zeilen[i+1])) {
 						env.setLyric(zeilen[i+1]);
 						i++;
+						System.out.println("Lyric after Chord: "+zeilen[i]);
 					}
 				}else{
 					env.setLyric(zeilen[i]);
+					System.out.println("Lyric only: "+zeilen[i]);
 				}
 				song.addEnvironment(env);
+				System.out.println();
 				break;
 			default:
 				break;
@@ -102,19 +106,30 @@ public class TextParser {
 	}
 	
 	private static boolean isChordRow(String row) {
-		Boolean isChord = true;
+		Boolean isChord = false;
 		String[] words = row.split(" ");
 		for(int i = 0; i < words.length; i++) {
-			if(ChordChecker.isAChord(words[i])) {
-			}else{
+			String trimmed = words[i].trim();
+//			System.out.println("Word: "+trimmed);
+			if(!trimmed.isEmpty() && ChordChecker.isAChord(trimmed)) {
+				isChord = true;
+			}
+			if(!trimmed.isEmpty() && !ChordChecker.isAChord(trimmed)) {
 				isChord = false;
 			}
+//			System.out.println("Ist Chord: "+isChord);
+//			System.out.println();
+//			if(words[i] != null && words[i] != "") {
+//				System.out.println("Wort: "+words[i]);
+//				System.out.println((int)words[i].charAt(0)+" erste Stelle");
+//			}
 		}
 		return isChord;
 	}
 	
 	private static String getCommand(String string) {
 		String[] command = string.split(":");
+//		System.out.println(command[0]);
 		switch(command[0]) {
 		case "Chorus":
 			return "Chorus";
