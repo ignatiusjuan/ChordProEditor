@@ -18,7 +18,6 @@ public class ChordChecker {
 
 	//--------------Test with complicated chord--------------
 	public static void main(String[] args) {
-		System.out.println(isAChord("Cheater"));
 		System.out.println(isAChord("Cadd"));
 		isAChord("Bbsus7#9b9#11#5/Ab");
 		String temp = "Bbsus7#9b9#11#5/Ab";
