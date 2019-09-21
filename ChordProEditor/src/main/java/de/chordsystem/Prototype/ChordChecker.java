@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ChordChecker {
-	private static final String chordPattern = "(C|D|E|F|G|A|B)(#|b)?((add|sus|M|m|min|man|aug|dim)?(0|2|4|5|6|7|9|11|13)?(#|b)?)*+/?(C|D|E|F|G|A|B)?(#|b)?";
+	private static final String chordPattern = "^\\s*(C|D|E|F|G|A|B)(#|b)?((add|sus|M|m|min|man|aug|dim)?(0|2|4|5|6|7|9|11|13)?(#|b)?)*+/?(C|D|E|F|G|A|B)?(#|b)?\\s*$";
 	
 	public static boolean isAChord(String word) {
 		
@@ -18,7 +18,8 @@ public class ChordChecker {
 
 	//--------------Test with complicated chord--------------
 	public static void main(String[] args) {
-		System.out.println(isAChord("Bbsus7#9b9#11#5/Ab"));
+		System.out.println(isAChord("Cheater"));
+		System.out.println(isAChord("Cadd"));
 		isAChord("Bbsus7#9b9#11#5/Ab");
 		String temp = "Bbsus7#9b9#11#5/Ab";
 		//for (int i = 0; i < 15; i++) {
