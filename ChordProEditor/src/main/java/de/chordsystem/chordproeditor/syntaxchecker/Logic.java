@@ -1,8 +1,8 @@
-package de.chordsystem.Prototype;
+package de.chordsystem.chordproeditor.syntaxchecker;
 
 import java.util.ArrayList;
 
-public class SyntaxChecker_Logic {
+public class Logic {
 	
 	public static int[][] checkText(String text){
 		int countFehler = 0;
@@ -24,19 +24,19 @@ public class SyntaxChecker_Logic {
 		String[] command = zeile.split(":");
 		String commandGues = "";
 		ArrayList<String> liste = new ArrayList<String>();
-		liste = SyntaxChecker_WordList.forChorus();
+		liste = WordList.forChorus();
 		if(liste.contains(command[0])) {
 			commandGues = "Chorus";
 		}
-		liste =  SyntaxChecker_WordList.forGrid();
+		liste =  WordList.forGrid();
 		if(liste.contains(command[0])) {
 			commandGues = "Grid";
 		}
-		liste =  SyntaxChecker_WordList.forTab();
+		liste =  WordList.forTab();
 		if(liste.contains(command[0])) {
 			commandGues = "Tab";
 		}
-		liste =  SyntaxChecker_WordList.forComment();
+		liste =  WordList.forComment();
 		if(liste.contains(command[0])) {
 			commandGues = "Comment";
 		}

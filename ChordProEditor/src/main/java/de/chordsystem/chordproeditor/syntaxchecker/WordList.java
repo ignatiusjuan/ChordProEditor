@@ -1,8 +1,8 @@
-package de.chordsystem.Prototype;
+package de.chordsystem.chordproeditor.syntaxchecker;
 
 import java.util.ArrayList;
 
-public class SyntaxChecker_WordList {
+public class WordList {
 	
 	public static ArrayList<String> forChorus(){
 		ArrayList<String> liste = new ArrayList<String>();
