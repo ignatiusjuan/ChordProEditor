@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 public class WordList {
 	
-	public static ArrayList<String> forChorus(){
+	//Textarea Startseite
+	
+	public static ArrayList<String> forChorusText(){
 		ArrayList<String> liste = new ArrayList<String>();
 		liste.add("chorus");
 		liste.add("Xhorus");
@@ -42,7 +44,7 @@ public class WordList {
 		return liste;
 	}
 	
-	public static ArrayList<String>forTab(){
+	public static ArrayList<String>forTabText(){
 		ArrayList<String> liste = new ArrayList<String>();
 		liste.add("tab");//Erster Buchstabe
 		liste.add("Rab");
@@ -63,7 +65,7 @@ public class WordList {
 		return liste;
 	}
 	
-	public static ArrayList<String> forGrid(){
+	public static ArrayList<String> forGridText(){
 		ArrayList<String> liste = new ArrayList<String>();
 		liste.add("grid");//Erster Buchstabe
 		liste.add("Frid");
@@ -94,11 +96,20 @@ public class WordList {
 		return liste;
 	}
 	
-	public static ArrayList<String> forComment(){
+	public static ArrayList<String> forCommentText(){
 		ArrayList<String> liste = new ArrayList<String>();
 		liste.add("/");
 		liste.add("\\\\");
 		liste.add("\\");
+		return liste;
+	}
+	
+	//ChordPro Ansicht
+	
+	public static ArrayList<String> forTitle(){
+		ArrayList<String> liste = new ArrayList<String>();
+		liste.add("titel");
+		liste.add("ritle");
 		return liste;
 	}
 

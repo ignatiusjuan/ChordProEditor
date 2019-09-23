@@ -4,43 +4,63 @@ import java.util.ArrayList;
 
 public class Logic {
 	
-	public static int[][] checkText(String text){
+	/***
+	 * scanns the text line by line for faults
+	 * @param text
+	 * @return Array of FoundFaults
+	 */
+	public static FoundFault[] checkText(String text){
 		int countFehler = 0;
-		int [][] fehler = new int[1][3];//Muss dynamisch erweitert werden
+		FoundFault [] fehlerArray = new FoundFault[1];//Muss dynamisch erweitert werden
 		String[] zeilen = text.split("\\n");
 		for(int i = 0; i < zeilen.length; i++) {
-			String start = getStart(zeilen[i]);
-			if(fehler.length < countFehler) {//Array erweitern
-				int [][] tmp = new int[fehler.length+1][3];
-				System.arraycopy(fehler, 0, tmp, 0, tmp.length);
-				fehler = tmp;
+			if(fehlerArray.length < countFehler) {//Array erweitern
+				FoundFault [] tmp = new FoundFault[fehlerArray.length+1];
+				System.arraycopy(fehlerArray, 0, tmp, 0, tmp.length);
+				fehlerArray = tmp;
+			}
+			FoundFault fehler = getFaultText(zeilen[i], i);
+			if(fehler.verbesserungsVorschlag != null) {
+				fehlerArray[i] = fehler;
+				countFehler ++;
 			}
 			
 		}
-		return fehler;
+		return fehlerArray;
 	}
 
-	private static String getStart(String zeile) {
+	private static FoundFault getFaultText(String zeile, int zeilennummer) {
+		FoundFault fehler = new FoundFault();
 		String[] command = zeile.split(":");
+		command[0] = command[0].trim();
 		String commandGues = "";
 		ArrayList<String> liste = new ArrayList<String>();
-		liste = WordList.forChorus();
+		liste = WordList.forChorusText();
 		if(liste.contains(command[0])) {
 			commandGues = "Chorus";
+			fehler.setStart(0);
+			fehler.setEnde(5);
 		}
-		liste =  WordList.forGrid();
+		liste =  WordList.forGridText();
 		if(liste.contains(command[0])) {
 			commandGues = "Grid";
+			fehler.setStart(0);
+			fehler.setEnde(3);
 		}
-		liste =  WordList.forTab();
+		liste =  WordList.forTabText();
 		if(liste.contains(command[0])) {
 			commandGues = "Tab";
+			fehler.setStart(0);
+			fehler.setEnde(2);
 		}
-		liste =  WordList.forComment();
+		liste =  WordList.forCommentText();
 		if(liste.contains(command[0])) {
 			commandGues = "Comment";
+			fehler.setStart(0);
+			fehler.setEnde(1);
 		}
-		return commandGues;
+		fehler.setVorschlag(commandGues);
+		return fehler;
 	}
 
 }
