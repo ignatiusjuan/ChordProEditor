@@ -341,7 +341,7 @@ public class ChordProParser {
 			while ((line = reader.readLine()) != null)
 			{
 				if (line.trim().length() > 0 && !line.trim().isEmpty())
-					tryParseLine(line.trim(),song);
+					tryParseLine(line,song);
 				else {
 					Environment env = new EnvironmentImpl();
 					env.setTitle(tempTitle);
@@ -360,11 +360,37 @@ public class ChordProParser {
 		return song;
 	}
 	
+	public Song tryParseChordProString(String lines) {
+		Song song = new SongImpl();
+		
+		try
+		{
+			String[] separatedLines = lines.split("\n");
+			for (String line : separatedLines)
+			{
+				if (line.trim().length() > 0 && !line.trim().isEmpty())
+					tryParseLine(line,song);
+				else {
+					Environment env = new EnvironmentImpl();
+					env.setTitle(tempTitle);
+					env.setType(tempType);
+					song.addEnvironment(env);
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return song;
+	}
+	
 	public void start() {
 		Song song = tryParseChordPro(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "Heaven.chordpro");
 		//Song song = tryParseChordPro(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "10000 Reasons.chordpro");
 		
-		System.out.println(song.toString());
+		//System.out.println(song.toString());
 		//File file = new File(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "Heaven.chordpro");
 		//File file = new File(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "10000 Reasons.chordpro");
 		

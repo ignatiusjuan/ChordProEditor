@@ -36,7 +36,6 @@ public class SongImpl implements Song{
 	
 	public SongImpl() {
 		super();
-		System.out.println("Created new Song");
 		this.title = "";
 		this.subtitle = new ArrayList<String>();
 		this.artist = new ArrayList<String>();
@@ -396,7 +395,7 @@ public class SongImpl implements Song{
 		int i = 0;
 		for (Environment env : environmentList) {
 			i++;
-			//sb.append("-------" + i + "-------\n");
+			sb.append("-------" + i + "-------\n");
 			if (!(lastType == env.getType() && lastTitle.equals(env.getTitle()))){
 				if (env.getType() == EnvironmentImpl.TYPE_CHORUS)
 					sb.append("Chorus: " + env.getTitle() + "\n");

@@ -74,11 +74,12 @@
                   <JFXTextField fx:id="txtTime" labelFloat="true" layoutX="5.0" layoutY="470.0" prefHeight="25.0" prefWidth="200.0" promptText="Time" style="-fx-background-color: #fff;" />
                   <JFXTextField fx:id="txtTempo" labelFloat="true" layoutX="5.0" layoutY="520.0" prefHeight="25.0" prefWidth="200.0" promptText="Tempo" style="-fx-background-color: #fff;" />
                   <JFXTextField fx:id="txtDuration" labelFloat="true" layoutX="5.0" layoutY="570.0" prefHeight="25.0" prefWidth="200.0" promptText="Duration" style="-fx-background-color: #fff;" />
-                  <JFXTextField fx:id="txtTextFont" labelFloat="true" layoutX="5.0" layoutY="620.0" prefHeight="25.0" prefWidth="200.0" promptText="Text Font" style="-fx-background-color: #fff;" />
-                  <JFXTextField fx:id="txtTextSize" labelFloat="true" layoutX="5.0" layoutY="670.0" prefHeight="25.0" prefWidth="200.0" promptText="Text Size" style="-fx-background-color: #fff;" />
-                  <JFXTextField fx:id="txtTextColour" labelFloat="true" layoutX="5.0" layoutY="720.0" prefHeight="25.0" prefWidth="200.0" promptText="Text Colour" style="-fx-background-color: #fff;" />
-                  <JFXTextField fx:id="txtChordColour" labelFloat="true" layoutX="5.0" layoutY="770.0" prefHeight="25.0" prefWidth="200.0" promptText="Chord Colour" style="-fx-background-color: #fff;" />
-                  <JFXCheckBox fx:id="cbIsFinished" layoutX="5.0" layoutY="820.0" prefHeight="25.0" prefWidth="200.0" text="is Finished" />
+                  <JFXTextField fx:id="txtCapo" labelFloat="true" layoutX="5.0" layoutY="620.0" prefHeight="25.0" prefWidth="200.0" promptText="Capo" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtTextFont" labelFloat="true" layoutX="5.0" layoutY="670.0" prefHeight="25.0" prefWidth="200.0" promptText="Text Font" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtTextSize" labelFloat="true" layoutX="5.0" layoutY="720.0" prefHeight="25.0" prefWidth="200.0" promptText="Text Size" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtTextColour" labelFloat="true" layoutX="5.0" layoutY="770.0" prefHeight="25.0" prefWidth="200.0" promptText="Text Colour" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtChordColour" labelFloat="true" layoutX="5.0" layoutY="820.0" prefHeight="25.0" prefWidth="200.0" promptText="Chord Colour" style="-fx-background-color: #fff;" />
+                  <JFXCheckBox fx:id="cbIsFinished" layoutX="5.0" layoutY="870.0" prefHeight="25.0" prefWidth="200.0" text="is Finished" />
                </children>
             </AnchorPane>
          </content>

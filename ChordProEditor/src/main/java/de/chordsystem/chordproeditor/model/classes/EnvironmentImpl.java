@@ -96,11 +96,11 @@ public class EnvironmentImpl implements Environment {
 			sb.append(this.chord + "\n");
 			sb.append(this.lyric + "\n");
 		} else if (this.type == TYPE_INSTRUCTION) {
-			sb.append("GO TO --> " + this.lyric.trim() + "\n");
+			sb.append("GO TO --> " + this.lyric + "\n");
 		} else if (this.type == TYPE_COMMENT) {
-			sb.append("//" + this.lyric.trim() + "\n");
+			sb.append("//" + this.lyric + "\n");
 		} else
-			sb.append(this.lyric.trim() + "\n");
+			sb.append(this.lyric + "\n");
 		
 		return sb.toString();
 	}

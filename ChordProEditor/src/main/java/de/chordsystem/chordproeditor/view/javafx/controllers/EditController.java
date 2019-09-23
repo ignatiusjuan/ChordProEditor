@@ -1,5 +1,9 @@
 package de.chordsystem.chordproeditor.view.javafx.controllers;
 
+import de.chordsystem.Prototype.ChordProParser;
+import de.chordsystem.chordproeditor.model.classes.SongProperties;
+import de.chordsystem.chordproeditor.model.interfaces.Song;
+import de.chordsystem.chordproeditor.userdata.UserData;
 import de.chordsystem.chordproeditor.view.javafx.helperclasses.WindowPresetSwitchStage;
 
 import java.io.File;
@@ -19,6 +23,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class EditController implements Initializable {
 	
@@ -32,6 +38,7 @@ public class EditController implements Initializable {
     private JFXButton btnSave;
     
     StringProperty textFieldProperty = new SimpleStringProperty();
+    private NewEditorController newEditorController;
     
     public void receiveEditText(String message) {
     	textFieldProperty.set(message);
@@ -40,9 +47,10 @@ public class EditController implements Initializable {
     @FXML
     private void onClickSaveBtn(ActionEvent event) {
     	
-    	//Write process
-    	
-    	btnSave.getScene().getWindow().hide();
+    	ChordProParser cpp = new ChordProParser();
+		Song tempSong = cpp.tryParseChordProString(txtAreaEditSong.textProperty().getValue());
+		newEditorController.updateSong(tempSong);
+		btnSave.getScene().getWindow().hide();
     }
     
     /*Hier werden die anklickbaren Button ihren jeweiligen Methoden zugewiesen*/
@@ -50,6 +58,10 @@ public class EditController implements Initializable {
     	btnSave.setOnAction(this::onClickSaveBtn);
     	txtAreaEditSong.setFont(Font.font("monospaced",FontWeight.NORMAL,14));
     	txtAreaEditSong.textProperty().bindBidirectional(textFieldProperty);
+    }
+    
+    public void setNewEditorController(NewEditorController newEditorController) {
+    	this.newEditorController = newEditorController;
     }
 
 }

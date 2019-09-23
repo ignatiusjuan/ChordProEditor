@@ -7,7 +7,12 @@ import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -180,6 +185,9 @@ public class NewEditorController implements Initializable {
     private JFXTextField txtDuration;  
 
     @FXML
+    private JFXTextField txtCapo;
+    
+    @FXML
     private JFXTextField txtTextFont;
 
     @FXML
@@ -196,12 +204,6 @@ public class NewEditorController implements Initializable {
     
     @FXML
     private JFXDrawer drawerLeft;
-    
-    @FXML
-    private MenuButton btnUncapoed;
-    
-    @FXML
-    private TextField TextFieldCapo;
     
     @FXML
     private ImageView SaveAsPdf;
@@ -293,34 +295,6 @@ public class NewEditorController implements Initializable {
 		});
 		
 		ivSaveAsPDF.setOnMouseClicked((event) -> {
-//			String text = "";
-//			text += "# From: stevenj1@aol.com (StevenJ1)\n";
-//			text += "<mau@beatles.cselt.stet.it>\n";
-//			text += "#By George David Weiss and Bob Thiele\n";
-//			text += "\n";
-//			text += "D          F#m       G          F#m\n";
-//			text += "I see trees of green, red roses too\n";
-//			text += "Em7           D      F#7            Bm\n";
-//			text += "I see them bloom, for me and you,\n";
-//			text += "Bb                Em7/A        A7          D     D+     Gmaj7        A7\n";
-//			text += "And I think to myself, What a wonderful world.\n";
-//			text += "//cb\n";
-//			text += "\n";
-//			text += "Chorus: chorus 1G\n";
-//			text += "aaaaaaaaa\n";
-//			text += "\n";
-//			text += "Chorus: chorus 2G\n";
-//			text += "aaaaaaaaa\n";
-//			text += "//cb\n";
-//			text += "\n";
-//			text += "//cb\n";
-//			text += "\n";
-//			text += "Chorus: chorus 3G\n";
-//			text += "aaaaaaaaa\n";
-//			
-//			Song song = TextParser.parseText(text);
-//			String ausgabe = song.toString();
-//			System.out.print(ausgabe);
 			
 			tempSong.setArtist("Kuenstler Test");
 			tempSong.setAlbum("Album Test");
@@ -332,22 +306,6 @@ public class NewEditorController implements Initializable {
 			tempSong.setTitle("Test");
 			tempSong.setYear(2000);
 			tempSong.setSubtitle("Subtitle Test");
-			
-//			for(int i = 0; i < 6; i++) {
-//				Environment env1 = new EnvironmentImpl();
-//				env1.setType(EnvironmentImpl.TYPE_CHORUS);
-//				env1.setTitle("Title Test "+i);
-//				tempSong.addEnvironment(env1);
-//				Environment env2 = new EnvironmentImpl();
-//				env2.setType(EnvironmentImpl.TYPE_VERSE);
-//				env2.setChord("Chord Test "+i);
-//				env2.setLyric("Test Lyric "+i);
-//				tempSong.addEnvironment(env2);
-//				Environment env3 = new EnvironmentImpl();
-//				env3.setType(EnvironmentImpl.TYPE_COMMENT);
-//				env3.setLyric("Kommentar "+i);
-//				tempSong.addEnvironment(env3);
-//			}
 			
 			GeneratePDF.generatePDF(tempSong);
 		});
@@ -362,15 +320,13 @@ public class NewEditorController implements Initializable {
 
     /*Wenn auf das Bearbeiten Bild geklickt wird, öffnet sich das Fenster zum Editieren des Songs auswählen*/
     public void switchSceneToEdit(MouseEvent event) {
-    	String wysiwygContent = txtSongEdit.getText();
-    	Song tmpSong = TextParser.parseText(wysiwygContent);
+    	Song tmpSong = loadedSong.toSong(txtSongEdit.getText());
+    	tmpSong.setYear(Integer.parseInt(txtYear.getText()));
+    	tmpSong.setTempo(Integer.parseInt(txtTempo.getText()));
+    	tmpSong.setDuration(Integer.parseInt(txtDuration.getText()));
+    	tmpSong.setCapo(Integer.parseInt(txtCapo.getText()));
+    	tmpSong.setTextsize(Integer.parseInt(txtTextSize.getText()));
     	
-    	//Test parser
-    	//Ab hier
-    	System.out.println(tempSong.getEnvironmentsAsString2());
-    	System.out.println("---------------------------------------------------------------------------------------");
-    	System.out.println(tmpSong.getEnvironmentsAsString2());
-    	//bis hier
     	
     	EditController editController = new EditController();
     	try{
@@ -378,6 +334,7 @@ public class NewEditorController implements Initializable {
             fxmlLoader.setLocation(getClass().getResource("/fxml/Edit.fxml"));
             fxmlLoader.setController(editController);
             editController.receiveEditText(ChordProConverter.tryConvertToChordPro(tmpSong));
+            editController.setNewEditorController(this);
             Stage stage = new Stage();
             Scene scene = new Scene(fxmlLoader.load());
             stage.setResizable(false);
@@ -419,6 +376,7 @@ public class NewEditorController implements Initializable {
     	menuEditPaste.setAccelerator(new KeyCodeCombination(KeyCode.V, KeyCombination.CONTROL_DOWN));
     	menuEditSelectAll.setAccelerator(new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_DOWN));
     }
+    
     /*Einige hilfen zum Editieren des Songs Undo, Redo, Cut, Copy, Paste*/
     private void setMenuBind() {
     	menuEditUndo.disableProperty().bind(txtSongEdit.undoableProperty().not());
@@ -432,6 +390,7 @@ public class NewEditorController implements Initializable {
     	txtYear.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
     	txtTempo.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
     	txtDuration.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
+    	txtCapo.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
     	txtTextSize.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
     }
     
@@ -443,13 +402,14 @@ public class NewEditorController implements Initializable {
     	txtLyricist.textProperty().bindBidirectional(loadedSong.lyricist);
     	txtCopyright.textProperty().bindBidirectional(loadedSong.copyright);
     	txtAlbum.textProperty().bindBidirectional(loadedSong.album);
-    	txtYear.textProperty().bindBidirectional(loadedSong.year, new NumberStringConverter());
+    	txtYear.textProperty().set(loadedSong.year.getValue().toString());
     	txtKey.textProperty().bindBidirectional(loadedSong.key);
     	txtTime.textProperty().bindBidirectional(loadedSong.time);
-    	txtTempo.textProperty().bindBidirectional(loadedSong.tempo, new NumberStringConverter());
-    	txtDuration.textProperty().bindBidirectional(loadedSong.duration, new NumberStringConverter());
+    	txtTempo.textProperty().set(loadedSong.tempo.getValue().toString());
+    	txtDuration.textProperty().set(loadedSong.duration.getValue().toString());
+    	txtCapo.textProperty().set(loadedSong.capo.getValue().toString());
     	txtTextFont.textProperty().bindBidirectional(loadedSong.textfont);
-    	txtTextSize.textProperty().bindBidirectional(loadedSong.textsize, new NumberStringConverter());
+    	txtTextSize.textProperty().set(loadedSong.textsize.getValue().toString());
     	txtTextColour.textProperty().bindBidirectional(loadedSong.textcolour);
     	txtChordColour.textProperty().bindBidirectional(loadedSong.chordcolour);
     	cbIsFinished.selectedProperty().bindBidirectional(loadedSong.isFinished);
@@ -459,7 +419,13 @@ public class NewEditorController implements Initializable {
     /*Beim anklicken von Open wird eine neue Datei erstellt*/
     @FXML
     private void onClickFileNew(ActionEvent event) {
-    	if (!songsEqual(emptySong, loadedSong.toSong())) {
+    	Song tmpSong = loadedSong.toSong(txtSongEdit.getText());
+    	tmpSong.setYear(Integer.parseInt(txtYear.getText()));
+    	tmpSong.setTempo(Integer.parseInt(txtTempo.getText()));
+    	tmpSong.setDuration(Integer.parseInt(txtDuration.getText()));
+    	tmpSong.setCapo(Integer.parseInt(txtCapo.getText()));
+    	tmpSong.setTextsize(Integer.parseInt(txtTextSize.getText()));
+    	if (!songsEqual(emptySong, tmpSong)) {
     		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 	    	alert.setTitle("Current project is modified");
 	    	alert.setContentText("Save?");
@@ -518,23 +484,21 @@ public class NewEditorController implements Initializable {
     @FXML
     private void onClickFileSave(ActionEvent event) {
     	if (filename.isBlank()) {
-    		FileChooser fileChooser = new FileChooser();
-        	fileChooser.setTitle("Save ChordPro File As");
-        	fileChooser.getExtensionFilters().addAll(
-        			new FileChooser.ExtensionFilter("ChordProFiles", "*.chopro", "*.crd", "*.cho", "*.chord", "*.pro"),
-        			new FileChooser.ExtensionFilter("PDF", "*.pdf"),
-        			new FileChooser.ExtensionFilter("Text file", "*.txt"),
-        			new FileChooser.ExtensionFilter("All Files", "*.*")
-        	);
-        	String[] defaultName = txtSongEdit.getText().split("\\n");
-        	fileChooser.setInitialFileName(defaultName[0].toString());
-        	
-        	File selectedFile = fileChooser.showSaveDialog(null);
-        	filename = selectedFile.getAbsolutePath();
-    	}
-
-    	if (!filename.isBlank()) {
-    		//Write process
+    		onClickFileSaveAs(event);
+    	} else {
+    		try {
+        		PrintWriter out = new PrintWriter(filename);
+        		Song tmpSong = loadedSong.toSong(txtSongEdit.getText());
+            	tmpSong.setYear(Integer.parseInt(txtYear.getText()));
+            	tmpSong.setTempo(Integer.parseInt(txtTempo.getText()));
+            	tmpSong.setDuration(Integer.parseInt(txtDuration.getText()));
+            	tmpSong.setCapo(Integer.parseInt(txtCapo.getText()));
+            	tmpSong.setTextsize(Integer.parseInt(txtTextSize.getText()));
+        		out.println(ChordProConverter.tryConvertToChordPro(tmpSong));
+        		out.close();
+        	} catch (Exception e) {
+        		e.printStackTrace();
+        	}
     	}	
     }
     /*Diese Methode dient zur Speicherung der Datei in einer der vorgegebenen Arten*/
@@ -555,8 +519,20 @@ public class NewEditorController implements Initializable {
     	filename = selectedFile.getAbsolutePath();
     	
     	if (!filename.isBlank()) {
-    		//Write process
-    	}
+    		try {
+        		PrintWriter out = new PrintWriter(filename);
+        		Song tmpSong = loadedSong.toSong(txtSongEdit.getText());
+            	tmpSong.setYear(Integer.parseInt(txtYear.getText()));
+            	tmpSong.setTempo(Integer.parseInt(txtTempo.getText()));
+            	tmpSong.setDuration(Integer.parseInt(txtDuration.getText()));
+            	tmpSong.setCapo(Integer.parseInt(txtCapo.getText()));
+            	tmpSong.setTextsize(Integer.parseInt(txtTextSize.getText()));
+        		out.println(ChordProConverter.tryConvertToChordPro(tmpSong));
+        		out.close();
+        	} catch (Exception e) {
+        		e.printStackTrace();
+        	}
+    	}	
     }
     
     @FXML
@@ -581,6 +557,11 @@ public class NewEditorController implements Initializable {
     	}
     	hideSidePane.set(!hideSidePane.get());
     	
+    }
+    
+    public void updateSong(Song song) {
+    	loadedSong = new SongProperties(song);
+		setDataBind();
     }
     
     /*Hier werden die anklickbaren Button ihren jeweiligen Methoden zugewiesen*/

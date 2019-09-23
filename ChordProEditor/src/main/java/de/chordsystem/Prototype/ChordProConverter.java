@@ -8,12 +8,12 @@ import de.chordsystem.chordproeditor.model.interfaces.*;
 public class ChordProConverter {
 	
 	private static String combineChordLyric(String chord, String lyric) {
-		System.out.println(chord);
-		System.out.println(lyric);
+		//System.out.println(chord);
+		//System.out.println(lyric);
 		StringBuffer sb = new StringBuffer();
 		int chordCounter = 0;
 		int lyricCounter = 0;
-		while (chordCounter < chord.length()-1 && lyricCounter < lyric.length()-1) {
+		while (chordCounter < chord.length() && lyricCounter < lyric.length()) {
 			if (chordCounter < chord.length())
 				if (chord.charAt(chordCounter) == ' ') {
 					sb.append(lyric.charAt(lyricCounter));
@@ -122,6 +122,23 @@ public class ChordProConverter {
 		
 		for (int i = 0; i < song.getEnvironmentSize(); i++) {
 			Environment e = song.getEnvironment(i);
+			if (e.getType() == EnvironmentImpl.TYPE_OTHER) {
+				switch(lastType) {
+					case EnvironmentImpl.TYPE_CHORUS:
+						sb.append("{end_of_chorus}\n");
+						break;
+					case EnvironmentImpl.TYPE_VERSE:
+						sb.append("{end_of_verse}\n");							
+						break;
+					case EnvironmentImpl.TYPE_TAB:
+						sb.append("{end_of_tab}\n");
+						break;
+					case EnvironmentImpl.TYPE_GRID:
+						sb.append("{end_of_grid}\n");
+						break;
+				}
+				openEnvironment = -1;
+			}
 			if (e.getType() == EnvironmentImpl.TYPE_COMMENT) {
 				if (e.getCommentInBox()) {
 					sb.append("{comment_box: ");
@@ -152,9 +169,9 @@ public class ChordProConverter {
 				if (e.getType() == EnvironmentImpl.TYPE_CHORUS) {
 					if (openEnvironment == -1) {
 						if (!e.getTitle().isBlank())
-							sb.append("{start_of_chorus: " + e.getTitle() + "}\n");
+							sb.append("\n{start_of_chorus: " + e.getTitle() + "}\n");
 						else
-							sb.append("{start_of_chorus}\n");
+							sb.append("\n{start_of_chorus}\n");
 					}
 					String chord = e.getChord();
 					String lyric = e.getLyric();
@@ -165,9 +182,9 @@ public class ChordProConverter {
 				} else if (e.getType() == EnvironmentImpl.TYPE_VERSE) {
 					if (openEnvironment == -1) {
 						if (!e.getTitle().isBlank())
-							sb.append("{start_of_verse: " + e.getTitle() + "}\n");
+							sb.append("\n{start_of_verse: " + e.getTitle() + "}\n");
 						else
-							sb.append("{start_of_verse}\n");
+							sb.append("\n{start_of_verse}\n");
 					}
 					String chord = e.getChord();
 					String lyric = e.getLyric();
@@ -178,9 +195,9 @@ public class ChordProConverter {
 				} else if (e.getType() == EnvironmentImpl.TYPE_TAB) {
 					if (openEnvironment == -1) {
 						if (!e.getTitle().isBlank())
-							sb.append("{start_of_tab: " + e.getTitle() + "}\n");
+							sb.append("\n{start_of_tab: " + e.getTitle() + "}\n");
 						else
-							sb.append("{start_of_tab}\n");
+							sb.append("\n{start_of_tab}\n");
 					}
 					String lyric = e.getLyric();
 					sb.append(lyric + "\n");
@@ -190,9 +207,9 @@ public class ChordProConverter {
 				} else if (e.getType() == EnvironmentImpl.TYPE_GRID) {
 					if (openEnvironment == -1) {
 						if (!e.getTitle().isBlank())
-							sb.append("{start_of_grid: " + e.getTitle() + "}\n");
+							sb.append("\n{start_of_grid: " + e.getTitle() + "}\n");
 						else
-							sb.append("{start_of_grid}\n");
+							sb.append("\n{start_of_grid}\n");
 					}
 					String lyric = e.getLyric();
 					sb.append(lyric + "\n");
@@ -201,13 +218,13 @@ public class ChordProConverter {
 					lastTitle = e.getTitle();
 				} else if (e.getType() == EnvironmentImpl.TYPE_INSTRUCTION) {
 					sb.append("{" + e.getLyric() + "}\n");
-				} else if (e.getType() == EnvironmentImpl.TYPE_NULL) {
+				} else if (e.getType() == EnvironmentImpl.TYPE_OTHER) {
 					if (!e.getChord().isBlank()) {
 						String chord = e.getChord();
 						String lyric = e.getLyric();
 						sb.append(combineChordLyric(chord,lyric) + "\n");
 					} else {
-						sb.append(e.getLyric() + "\n");
+						sb.append(e.getLyric());
 					}
 				}
 			}

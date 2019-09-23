@@ -3,6 +3,7 @@ package de.chordsystem.chordproeditor.model.classes;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.chordsystem.Prototype.TextParser;
 import de.chordsystem.chordproeditor.model.interfaces.Environment;
 import de.chordsystem.chordproeditor.model.interfaces.Fingering;
 import de.chordsystem.chordproeditor.model.interfaces.Song;
@@ -16,6 +17,7 @@ import javafx.beans.property.StringProperty;
 public class SongProperties {
 	
 	public Song original;
+	public Song edited;
 	
 	public StringProperty title = new SimpleStringProperty();
 	public StringProperty subtitle = new SimpleStringProperty();
@@ -89,7 +91,7 @@ public class SongProperties {
 		return result;
 	}
 	
-	public Song toSong() {
+	public Song toSong(String wysiwygContent) {
 		Song song = new SongImpl();
 		song.setTitle(this.title.getValue());
 		for (String s : stringToArrayList(this.subtitle.getValue()))
@@ -103,22 +105,22 @@ public class SongProperties {
 		for (String s : stringToArrayList(this.copyright.getValue()))
 			song.setCopyright(s);
 		song.setAlbum(this.album.getValue());
-		song.setYear(this.year.intValue());
+		song.setYear(this.year.getValue());
 		song.setKey(this.key.getValue());
 		song.setTime(this.time.getValue());
-		song.setTempo(this.tempo.intValue());
-		song.setDuration(this.duration.intValue());
-		song.setCapo(this.capo.intValue());
+		song.setTempo(this.tempo.getValue());
+		song.setDuration(this.duration.getValue());
+		song.setCapo(this.capo.getValue());
 		for (String s : stringToArrayList(this.meta.getValue()))
 			song.setMeta(s);
 		song.setTextfont(this.textfont.getValue());
-		song.setTextsize(this.textsize.intValue());
+		song.setTextsize(this.textsize.getValue());
 		song.setTextcolour(this.textcolour.getValue());
 		song.setChordcolour(this.chordcolour.getValue());
 		song.setFinished(this.isFinished.getValue());
 		
-		for (int i = 0; i < original.getEnvironmentSize(); i++)
-			song.addEnvironment(original.getEnvironment(i));
+    	TextParser.parseText(song, wysiwygContent);
+		
 		for (int i = 0; i < original.getFingeringSize(); i++) {
 			song.addFingering(original.getFingering(i));
 		}
