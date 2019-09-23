@@ -48,7 +48,7 @@ public class EditController implements Initializable {
     /*Hier werden die anklickbaren Button ihren jeweiligen Methoden zugewiesen*/
     public void initialize(URL location, ResourceBundle resources) {
     	btnSave.setOnAction(this::onClickSaveBtn);
-    	txtAreaEditSong.setFont(Font.font("monospaced",FontWeight.NORMAL,20));
+    	txtAreaEditSong.setFont(Font.font("monospaced",FontWeight.NORMAL,14));
     	txtAreaEditSong.textProperty().bindBidirectional(textFieldProperty);
     }
 

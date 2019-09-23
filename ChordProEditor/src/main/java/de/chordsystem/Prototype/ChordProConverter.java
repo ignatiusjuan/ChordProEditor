@@ -8,10 +8,12 @@ import de.chordsystem.chordproeditor.model.interfaces.*;
 public class ChordProConverter {
 	
 	private static String combineChordLyric(String chord, String lyric) {
+		System.out.println(chord);
+		System.out.println(lyric);
 		StringBuffer sb = new StringBuffer();
 		int chordCounter = 0;
 		int lyricCounter = 0;
-		while (chordCounter < chord.length() && lyricCounter < lyric.length()) {
+		while (chordCounter < chord.length()-1 && lyricCounter < lyric.length()-1) {
 			if (chordCounter < chord.length())
 				if (chord.charAt(chordCounter) == ' ') {
 					sb.append(lyric.charAt(lyricCounter));

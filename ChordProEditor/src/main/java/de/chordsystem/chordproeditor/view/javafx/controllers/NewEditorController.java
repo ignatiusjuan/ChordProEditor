@@ -37,6 +37,7 @@ import de.chordsystem.latex.GeneratePDF;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
@@ -267,6 +268,7 @@ public class NewEditorController implements Initializable {
 		menuFileOpen.setOnAction(this::onClickFileOpen);
 		menuFileSave.setOnAction(this::onClickFileSave);
 		menuFileSaveAs.setOnAction(this::onClickFileSaveAs);
+		menuFileQuit.setOnAction(this::onClickFileQuit);
 		
 		menuEdit.setOnShowing((event) -> {
 			clipboardEmpty.set(clipboard.hasString());
@@ -357,15 +359,6 @@ public class NewEditorController implements Initializable {
 		
 		EditIcon.setOnMouseClicked(this::switchSceneToEdit);
     }
-    
-    
-//    public void switchSceneToEdit(MouseEvent event) {
-//    	Stage stageInfo = (Stage) EditIcon.getScene().getWindow();
-//    	wpss.createWindowSwitchScene("/fxml/Edit.fxml", new EditController(), stageInfo);
-//    	
-//    }
-    
-    
 
     /*Wenn auf das Bearbeiten Bild geklickt wird, öffnet sich das Fenster zum Editieren des Songs auswählen*/
     public void switchSceneToEdit(MouseEvent event) {
@@ -566,6 +559,12 @@ public class NewEditorController implements Initializable {
     	}
     }
     
+    @FXML
+    private void onClickFileQuit(ActionEvent event) {
+    	Platform.exit();
+        System.exit(0);
+    }
+    
     private void setSidePaneBind() {
     	lblProperties.visibleProperty().bind(hideSidePane.not());
     	scrollpaneProperties.visibleProperty().bind(hideSidePane.not());
@@ -596,7 +595,7 @@ public class NewEditorController implements Initializable {
 		setFormatter();
 		showTime();
 		
-		txtSongEdit.setFont(Font.font("monospaced",FontWeight.NORMAL,20));
+		txtSongEdit.setFont(Font.font("monospaced",FontWeight.NORMAL,14));
 		
 		HamburgerSlideCloseTransition transition = new HamburgerSlideCloseTransition(hamburger);
 		transition.setRate(-1);

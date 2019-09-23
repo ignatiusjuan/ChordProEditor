@@ -368,14 +368,13 @@ public class SongImpl implements Song{
 			i++;
 			if (!(lastType == env.getType() && lastTitle.equals(env.getTitle()))){
 				if (env.getType() == EnvironmentImpl.TYPE_CHORUS)
-					sb.append("Chorus: " + env.getTitle());
+					sb.append("Chorus: " + env.getTitle() + "\n");
 				else if (env.getType() == EnvironmentImpl.TYPE_VERSE)
-					sb.append("Verse: " + env.getTitle());
+					sb.append("Verse: " + env.getTitle() + "\n");
 				else if (env.getType() == EnvironmentImpl.TYPE_TAB)
-					sb.append("Tab: " + env.getTitle());
+					sb.append("Tab: " + env.getTitle() + "\n");
 				else if (env.getType() == EnvironmentImpl.TYPE_GRID)
-					sb.append("Grid: " + env.getTitle());
-				//sb.append("\n");
+					sb.append("Grid: " + env.getTitle() + "\n");
 				lastTitle = env.getTitle();
 				lastType = env.getType();
 			}
@@ -397,17 +396,17 @@ public class SongImpl implements Song{
 		int i = 0;
 		for (Environment env : environmentList) {
 			i++;
-			sb.append("-------" + i + "-------\n");
+			//sb.append("-------" + i + "-------\n");
 			if (!(lastType == env.getType() && lastTitle.equals(env.getTitle()))){
 				if (env.getType() == EnvironmentImpl.TYPE_CHORUS)
-					sb.append("Chorus: " + env.getTitle());
+					sb.append("Chorus: " + env.getTitle() + "\n");
 				else if (env.getType() == EnvironmentImpl.TYPE_VERSE)
-					sb.append("Verse: " + env.getTitle());
+					sb.append("Verse: " + env.getTitle() + "\n");
 				else if (env.getType() == EnvironmentImpl.TYPE_TAB)
-					sb.append("Tab: " + env.getTitle());
+					sb.append("Tab: " + env.getTitle() + "\n");
 				else if (env.getType() == EnvironmentImpl.TYPE_GRID)
-					sb.append("Grid: " + env.getTitle());
-				//sb.append("\n");
+					sb.append("Grid: " + env.getTitle() + "\n");
+				sb.append("\n");
 				lastTitle = env.getTitle();
 				lastType = env.getType();
 			}
@@ -477,14 +476,13 @@ public class SongImpl implements Song{
 			if (!(lastType == env.getType() && lastTitle.equals(env.getTitle()))){
 				//sb.append("\n");
 				if (env.getType() == EnvironmentImpl.TYPE_CHORUS)
-					sb.append("Chorus: " + env.getTitle());
+					sb.append("Chorus: " + env.getTitle() + "\n");
 				else if (env.getType() == EnvironmentImpl.TYPE_VERSE)
-					sb.append("Verse: " + env.getTitle());
+					sb.append("Verse: " + env.getTitle() + "\n");
 				else if (env.getType() == EnvironmentImpl.TYPE_TAB)
-					sb.append("Tab: " + env.getTitle());
+					sb.append("Tab: " + env.getTitle() + "\n");
 				else if (env.getType() == EnvironmentImpl.TYPE_GRID)
-					sb.append("Grid: " + env.getTitle());
-				//sb.append("\n");
+					sb.append("Grid: " + env.getTitle() + "\n");
 				lastTitle = env.getTitle();
 				lastType = env.getType();
 			}
