@@ -40,7 +40,21 @@ public class GeneratePDF {
 			Runtime rt = Runtime.getRuntime();
 			rt.exec("pdflatex "+title+".tex");
 		}catch(Exception e){
-			System.out.println("Exception");
+			System.out.println("Konsolen Exception callLatex");
+		}
+	}
+	
+	/***
+	 * Moves PDF from song to given path
+	 * @param path
+	 * @param song
+	 */
+	public static void movePDF(String path, Song song) {
+		try{
+			Runtime rt = Runtime.getRuntime();
+			rt.exec("move "+song.getTitle()+" "+path);
+		}catch(Exception e){
+			System.out.println("Konsolen Exception movePDF");
 		}
 	}
 	
