@@ -63,7 +63,15 @@ public class GeneratePDF {
 	 * @param song
 	 */
 	private static void makeClean(Song song) {
-		//TODO move pdf elsewhere, delete the rest
+		try{
+			Runtime rt = Runtime.getRuntime();
+			rt.exec("del "+song.getTitle()+".aux");
+			rt.exec("del "+song.getTitle()+".tex");
+			rt.exec("del "+song.getTitle()+".log");
+			rt.exec("del "+song.getTitle()+".out");
+		}catch(Exception e){
+			System.out.println("Konsolen Exception movePDF");
+		}
 	}
 
 }
