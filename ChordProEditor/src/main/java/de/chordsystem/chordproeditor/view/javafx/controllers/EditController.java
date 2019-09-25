@@ -25,6 +25,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
@@ -127,6 +128,12 @@ public class EditController implements Initializable {
 
     @FXML
     private JFXButton btnSave;
+    
+    @FXML
+    private ImageView ivRedo;
+    
+    @FXML
+    private ImageView ivUndo;
 
     StringProperty textFieldProperty = new SimpleStringProperty();
     BooleanProperty hideSidePane = new SimpleBooleanProperty(false);
@@ -237,6 +244,9 @@ public class EditController implements Initializable {
     	btnInsertGrid.setOnAction((e) -> onClickInsertText(templateGrid));
     	btnInsertComment.setOnAction((e) -> onClickInsertText(templateComment));
     	btnInsertChordDiagram.setOnAction((e) -> onClickInsertText(templateChordDiagram));
+    	
+    	ivRedo.setOnMouseClicked((e) -> {txtAreaEditSong.redo(); txtAreaEditSong.requestFocus();});
+    	ivRedo.setOnMouseClicked((e) -> {txtAreaEditSong.undo(); txtAreaEditSong.requestFocus();});
     	
     	setSidePaneBind();
     	HamburgerSlideCloseTransition transition = new HamburgerSlideCloseTransition(jfxHamHide);
