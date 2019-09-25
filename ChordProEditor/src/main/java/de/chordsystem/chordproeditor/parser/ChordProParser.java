@@ -76,7 +76,7 @@ public class ChordProParser {
 	private int tabCounter = 0;
 	private int gridCounter = 0;
 	
-	public List<Integer> errorList;
+	private List<Integer> errorList;
 	
 	private Environment tryParseChordLyric(String toParse) {
 		Environment env = new EnvironmentImpl();
