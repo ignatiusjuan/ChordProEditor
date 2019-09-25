@@ -239,7 +239,11 @@ public class EditController implements Initializable {
     	btnInsertChordDiagram.setOnAction((e) -> onClickInsertText(templateChordDiagram));
     	
     	ivRedo.setOnMouseClicked((e) -> {txtAreaEditSong.redo(); txtAreaEditSong.requestFocus();});
-    	ivRedo.setOnMouseClicked((e) -> {txtAreaEditSong.undo(); txtAreaEditSong.requestFocus();});
+    	ivRedo.visibleProperty().bind(txtAreaEditSong.redoableProperty());
+    	ivRedo.disableProperty().bind(txtAreaEditSong.redoableProperty().not());
+    	ivUndo.setOnMouseClicked((e) -> {txtAreaEditSong.undo(); txtAreaEditSong.requestFocus();});
+    	ivUndo.visibleProperty().bind(txtAreaEditSong.undoableProperty());
+    	ivUndo.disableProperty().bind(txtAreaEditSong.undoableProperty().not());
     	
     	setSidePaneBind();
     	HamburgerSlideCloseTransition transition = new HamburgerSlideCloseTransition(jfxHamHide);
