@@ -1,16 +1,17 @@
 package de.chordsystem.chordproeditor.parser;
 
-import de.chordsystem.chordproeditor.model.classes.*;
-import de.chordsystem.chordproeditor.model.interfaces.*;
-
-import de.chordsystem.chordproeditor.parser.*;
-
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.BufferedReader;
+import de.chordsystem.chordproeditor.model.classes.EnvironmentImpl;
+import de.chordsystem.chordproeditor.model.classes.FingeringImpl;
+import de.chordsystem.chordproeditor.model.classes.SongImpl;
+import de.chordsystem.chordproeditor.model.interfaces.Environment;
+import de.chordsystem.chordproeditor.model.interfaces.Fingering;
+import de.chordsystem.chordproeditor.model.interfaces.Song;
 
 public class ChordProParser {
 	

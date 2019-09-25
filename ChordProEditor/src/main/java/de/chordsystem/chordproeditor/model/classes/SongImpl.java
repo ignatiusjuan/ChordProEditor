@@ -1,15 +1,15 @@
 package de.chordsystem.chordproeditor.model.classes;
 
-import de.chordsystem.chordproeditor.model.interfaces.*;
+import java.util.ArrayList;
+import java.util.List;
+
 //import de.chordsystem.chordproeditor.model.classes.*;
 //import de.chordsystem.chordproeditor.model.abstracts.*;
-
-import java.util.List;
-import java.util.ArrayList;
+import de.chordsystem.chordproeditor.model.interfaces.Environment;
+import de.chordsystem.chordproeditor.model.interfaces.Fingering;
+import de.chordsystem.chordproeditor.model.interfaces.Song;
 
 public class SongImpl implements Song{
-	
-	private static final int DEFAULT_STRINGS = 6;
 	
 	private String title;
 	private List<String> subtitle;

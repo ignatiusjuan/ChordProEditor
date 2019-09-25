@@ -1,27 +1,22 @@
 package de.chordsystem.chordproeditor.view.javafx.controllers;
 
-import de.chordsystem.chordproeditor.parser.ChordProParser;
-import de.chordsystem.chordproeditor.model.classes.SongProperties;
-import de.chordsystem.chordproeditor.model.interfaces.Song;
-import de.chordsystem.chordproeditor.userdata.UserData;
-import de.chordsystem.chordproeditor.view.javafx.helperclasses.WindowPresetSwitchStage;
-
-import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.fxml.Initializable;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 
+import de.chordsystem.chordproeditor.model.interfaces.Song;
+import de.chordsystem.chordproeditor.parser.ChordProParser;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -30,9 +25,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import javafx.stage.Window;
 
 public class EditController implements Initializable {
 	
@@ -215,7 +207,8 @@ public class EditController implements Initializable {
     }
     
     /*Hier werden die anklickbaren Button ihren jeweiligen Methoden zugewiesen*/
-    public void initialize(URL location, ResourceBundle resources) {
+    @Override
+	public void initialize(URL location, ResourceBundle resources) {
     	btnSave.setOnAction(this::onClickSaveBtn);
     	txtAreaEditSong.setFont(Font.font("monospaced",FontWeight.NORMAL,14));
     	txtAreaEditSong.textProperty().bindBidirectional(textFieldProperty);

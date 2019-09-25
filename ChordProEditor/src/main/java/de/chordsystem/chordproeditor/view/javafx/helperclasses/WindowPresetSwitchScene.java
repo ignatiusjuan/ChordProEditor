@@ -1,10 +1,10 @@
 package de.chordsystem.chordproeditor.view.javafx.helperclasses;
 
+import java.io.IOException;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class WindowPresetSwitchScene {
     /* Diese Methode dient dazu neue Scenen erstellen zu können, welche innerhalb der selben Stage

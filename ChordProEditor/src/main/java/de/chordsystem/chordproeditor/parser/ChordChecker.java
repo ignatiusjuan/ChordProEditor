@@ -12,19 +12,18 @@ public class ChordChecker {
 		Matcher m = Pattern.compile(chordPattern).matcher(word);
 		if (m.find())
 			return true;
-//		System.out.println(m.group(0));
 		return false;
 	}
 
-	//--------------Test with complicated chord--------------
-	public static void main(String[] args) {
-		System.out.println(isAChord("Cadd"));
-		isAChord("Bbsus7#9b9#11#5/Ab");
-		String temp = "Bbsus7#9b9#11#5/Ab";
-		//for (int i = 0; i < 15; i++) {
-		//	System.out.println(temp);
-		//	temp = ChordTransposer.transposeDown(temp);
-		//	temp = ChordTransposer.transposeUp(temp);
-		//}
-	}
+//--------------Test with complicated chord--------------
+//	public static void main(String[] args) {
+//		System.out.println(isAChord("Cadd"));
+//		isAChord("Bbsus7#9b9#11#5/Ab");
+//		String temp = "Bbsus7#9b9#11#5/Ab";
+//		//for (int i = 0; i < 15; i++) {
+//		//	System.out.println(temp);
+//		//	temp = ChordTransposer.transposeDown(temp);
+//		//	temp = ChordTransposer.transposeUp(temp);
+//		//}
+//	}
 }

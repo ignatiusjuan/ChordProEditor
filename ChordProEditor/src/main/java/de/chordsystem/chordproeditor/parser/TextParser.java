@@ -7,10 +7,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import de.chordsystem.chordproeditor.model.classes.EnvironmentImpl;
-import de.chordsystem.chordproeditor.model.classes.SongImpl;
 import de.chordsystem.chordproeditor.model.interfaces.Environment;
 import de.chordsystem.chordproeditor.model.interfaces.Song;
-import javafx.scene.control.TextArea;
 
 /**
  * @author shineglurak

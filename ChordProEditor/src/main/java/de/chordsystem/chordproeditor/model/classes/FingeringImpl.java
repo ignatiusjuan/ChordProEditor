@@ -1,12 +1,10 @@
 package de.chordsystem.chordproeditor.model.classes;
 
-import de.chordsystem.chordproeditor.model.interfaces.Fingering;
-
 import java.util.Arrays;
 
+import de.chordsystem.chordproeditor.model.interfaces.Fingering;
+
 public class FingeringImpl implements Fingering {
-	
-	private static final int DEFAULT_STRINGS = 6;
 	
 	private String chordName;
 	private int strings;

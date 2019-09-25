@@ -2,14 +2,14 @@ package de.chordsystem.chordproeditor.parser;
 
 import java.util.Arrays;
 
-import de.chordsystem.chordproeditor.model.classes.*;
-import de.chordsystem.chordproeditor.model.interfaces.*;
+import de.chordsystem.chordproeditor.model.classes.EnvironmentImpl;
+import de.chordsystem.chordproeditor.model.interfaces.Environment;
+import de.chordsystem.chordproeditor.model.interfaces.Fingering;
+import de.chordsystem.chordproeditor.model.interfaces.Song;
 
 public class ChordProConverter {
 	
 	private static String combineChordLyric(String chord, String lyric) {
-		//System.out.println(chord);
-		//System.out.println(lyric);
 		StringBuffer sb = new StringBuffer();
 		int chordCounter = 0;
 		int lyricCounter = 0;
