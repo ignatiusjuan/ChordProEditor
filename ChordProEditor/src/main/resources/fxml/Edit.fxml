@@ -166,6 +166,16 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </JFXButton>
+      <ImageView fitHeight="39.0" fitWidth="47.0" layoutX="190.0" layoutY="564.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="672.0">
+         <image>
+            <Image url="@../Icons/undo_grey.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="260.0" layoutY="564.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="610.0">
+         <image>
+            <Image url="@../Icons/redo_grey.png" />
+         </image>
+      </ImageView>
       <ImageView fx:id="ivUndo" fitHeight="39.0" fitWidth="47.0" layoutX="190.0" layoutY="564.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="672.0">
          <image>
             <Image url="@../Icons/undo.png" />
