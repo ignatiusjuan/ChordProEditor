@@ -1,4 +1,4 @@
-package de.chordsystem.Prototype;
+package de.chordsystem.chordproeditor.parser;
 /*
 import java.io.*;
 import java.util.Locale;

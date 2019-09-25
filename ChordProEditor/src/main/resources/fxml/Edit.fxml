@@ -1,14 +1,166 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="909.0" stylesheets="@../Css/Edit.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <JFXTextArea fx:id="txtAreaEditSong" layoutX="13.0" layoutY="14.0" prefHeight="544.0" prefWidth="883.0" style="-fx-background-color: #fff;" />
-      <JFXButton fx:id="btnSave" layoutX="780.0" layoutY="564.0" prefHeight="35.0" prefWidth="115.0" text="Save">
+      <JFXTextArea fx:id="txtAreaEditSong" layoutX="13.0" layoutY="14.0" prefHeight="543.0" prefWidth="706.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
+      <JFXHamburger fx:id="jfxHamHide" layoutX="15.0" layoutY="23.0" />
+      <Label fx:id="lblInsert" layoutX="55.0" layoutY="15.0" text="Insert" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="15.0">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblAttributes" layoutX="19.0" layoutY="58.0" text="Attributes" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="55.0">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <ScrollPane fx:id="scrollpaneAttributes" layoutY="86.0" prefHeight="273.0" prefWidth="160.0" AnchorPane.bottomAnchor="255.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="85.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="563.0" prefWidth="145.0">
+               <children>
+                  <Button fx:id="btnInsertTitle" layoutX="1.0" layoutY="2.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="143.0" text="Title">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnInsertSubtitle" layoutX="1.0" layoutY="35.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Subtitle">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnInsertArtist" layoutX="1.0" layoutY="68.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Artist">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnInsertComposer" layoutX="1.0" layoutY="101.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Composer">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnInsertLyricist" layoutX="1.0" layoutY="134.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Lyricist">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnInsertCopyright" layoutX="1.0" layoutY="167.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Copyright">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnInsertAlbum" layoutX="1.0" layoutY="200.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Album">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnInsertYear" layoutX="1.0" layoutY="233.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Year">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnInsertKey" layoutX="1.0" layoutY="266.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Key">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnInsertTime" layoutX="1.0" layoutY="299.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Time">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnInsertTempo" layoutX="1.0" layoutY="332.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Tempo">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnInsertDuration" layoutX="1.0" layoutY="365.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Duration">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnInsertCapo" layoutX="1.0" layoutY="398.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Capo">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnInsertTextFont" layoutX="1.0" layoutY="431.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Text Font">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnInsertTextSize" layoutX="1.0" layoutY="464.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Text Size">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnInsertTextColour" layoutX="1.0" layoutY="497.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Text Colour">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnInsertChordColour" layoutX="1.0" layoutY="530.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Chord Colour">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+      <Label fx:id="lblContents" layoutX="15.0" layoutY="366.0" text="Contents" AnchorPane.bottomAnchor="225.0" AnchorPane.leftAnchor="15.0">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <ScrollPane fx:id="scrollpaneContents" layoutY="390.0" prefHeight="167.0" prefWidth="160.0" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="15.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="145.0">
+               <children>
+                  <Button fx:id="btnInsertVerse" layoutX="1.0" layoutY="1.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="143.0" text="Verse">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnInsertChorus" layoutX="1.0" layoutY="34.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="143.0" text="Chorus">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnInsertGrid" layoutX="1.0" layoutY="67.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="143.0" text="Grid">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnInsertTab" layoutX="1.0" layoutY="100.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="143.0" text="Tab">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnInsertComment" layoutX="1.0" layoutY="133.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="143.0" text="Comment">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnInsertChordDiagram" layoutX="1.0" layoutY="166.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="143.0" text="Chord Diagram">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+      <JFXButton fx:id="btnSave" layoutX="780.0" layoutY="564.0" prefHeight="35.0" prefWidth="115.0" text="Save" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="15.0">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

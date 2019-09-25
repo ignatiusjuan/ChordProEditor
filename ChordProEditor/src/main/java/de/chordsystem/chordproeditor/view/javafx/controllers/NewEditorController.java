@@ -29,14 +29,14 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 
-import de.chordsystem.Prototype.ChordProConverter;
-import de.chordsystem.Prototype.ChordProParser;
-import de.chordsystem.Prototype.TextParser;
+import de.chordsystem.chordproeditor.parser.ChordProConverter;
 import de.chordsystem.chordproeditor.model.classes.EnvironmentImpl;
 import de.chordsystem.chordproeditor.model.classes.SongImpl;
 import de.chordsystem.chordproeditor.model.classes.SongProperties;
 import de.chordsystem.chordproeditor.model.interfaces.Environment;
 import de.chordsystem.chordproeditor.model.interfaces.Song;
+import de.chordsystem.chordproeditor.parser.ChordProParser;
+import de.chordsystem.chordproeditor.parser.TextParser;
 import de.chordsystem.chordproeditor.userdata.UserData;
 import de.chordsystem.latex.GeneratePDF;
 import javafx.animation.Animation;
@@ -95,10 +95,10 @@ public class NewEditorController implements Initializable {
 	private WindowPresetSwitchScene wpss = new WindowPresetSwitchScene();
 	
 	@FXML
-	private Label lblProperties;
+	private Label lblAttributes;
 	
 	@FXML
-	private ScrollPane scrollpaneProperties;
+	private ScrollPane scrollpaneAttributes;
 	
     @FXML
     private MenuBar MenuBar;
@@ -272,6 +272,8 @@ public class NewEditorController implements Initializable {
 		menuFileSaveAs.setOnAction(this::onClickFileSaveAs);
 		menuFileQuit.setOnAction(this::onClickFileQuit);
 		
+		SaveAsChordPro.setOnMousePressed(this::OnMousePressedSaveAsChordPro);
+		
 		menuEdit.setOnShowing((event) -> {
 			clipboardEmpty.set(clipboard.hasString());
 		});
@@ -326,7 +328,6 @@ public class NewEditorController implements Initializable {
     	tmpSong.setDuration(Integer.parseInt(txtDuration.getText()));
     	tmpSong.setCapo(Integer.parseInt(txtCapo.getText()));
     	tmpSong.setTextsize(Integer.parseInt(txtTextSize.getText()));
-    	
     	
     	EditController editController = new EditController();
     	try{
@@ -516,23 +517,22 @@ public class NewEditorController implements Initializable {
     	fileChooser.setInitialFileName(defaultName[0].toString());
     	
     	File selectedFile = fileChooser.showSaveDialog(null);
-    	filename = selectedFile.getAbsolutePath();
-    	
-    	if (!filename.isBlank()) {
-    		try {
-        		PrintWriter out = new PrintWriter(filename);
-        		Song tmpSong = loadedSong.toSong(txtSongEdit.getText());
-            	tmpSong.setYear(Integer.parseInt(txtYear.getText()));
-            	tmpSong.setTempo(Integer.parseInt(txtTempo.getText()));
-            	tmpSong.setDuration(Integer.parseInt(txtDuration.getText()));
-            	tmpSong.setCapo(Integer.parseInt(txtCapo.getText()));
-            	tmpSong.setTextsize(Integer.parseInt(txtTextSize.getText()));
-        		out.println(ChordProConverter.tryConvertToChordPro(tmpSong));
-        		out.close();
-        	} catch (Exception e) {
-        		e.printStackTrace();
-        	}
-    	}	
+    	if (selectedFile != null) {
+	    	filename = selectedFile.getAbsolutePath();
+	    	try {
+	    		PrintWriter out = new PrintWriter(filename);
+	    		Song tmpSong = loadedSong.toSong(txtSongEdit.getText());
+	        	tmpSong.setYear(Integer.parseInt(txtYear.getText()));
+	        	tmpSong.setTempo(Integer.parseInt(txtTempo.getText()));
+	        	tmpSong.setDuration(Integer.parseInt(txtDuration.getText()));
+	        	tmpSong.setCapo(Integer.parseInt(txtCapo.getText()));
+	        	tmpSong.setTextsize(Integer.parseInt(txtTextSize.getText()));
+	    		out.println(ChordProConverter.tryConvertToChordPro(tmpSong));
+	    		out.close();
+	    	} catch (Exception e) {
+	    		e.printStackTrace();
+	    	}
+    	}
     }
     
     @FXML
@@ -541,10 +541,15 @@ public class NewEditorController implements Initializable {
         System.exit(0);
     }
     
+    @FXML
+    private void OnMousePressedSaveAsChordPro(MouseEvent event) {
+    	onClickFileSaveAs(new ActionEvent());
+    }
+    
     private void setSidePaneBind() {
-    	lblProperties.visibleProperty().bind(hideSidePane.not());
-    	scrollpaneProperties.visibleProperty().bind(hideSidePane.not());
-    	scrollpaneProperties.disableProperty().bind(hideSidePane);
+    	lblAttributes.visibleProperty().bind(hideSidePane.not());
+    	scrollpaneAttributes.visibleProperty().bind(hideSidePane.not());
+    	scrollpaneAttributes.disableProperty().bind(hideSidePane);
     }
     
     /*Methode zum benutzen des Hamburger Buttons im Fenster*/
@@ -575,6 +580,11 @@ public class NewEditorController implements Initializable {
 		setDataBind();
 		setFormatter();
 		showTime();
+		txtYear.setText("0");
+		txtTempo.setText("0");
+		txtDuration.setText("0");
+		txtCapo.setText("0");
+		txtTextSize.setText("0");
 		
 		txtSongEdit.setFont(Font.font("monospaced",FontWeight.NORMAL,14));
 		

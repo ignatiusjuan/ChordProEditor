@@ -21,9 +21,9 @@
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="693.0" prefWidth="1084.0" stylesheets="@../Css/Main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <JFXHamburger fx:id="hamburger" layoutX="14.0" layoutY="48.0" prefHeight="31.0" prefWidth="37.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="45.0" />
-      <Label fx:id="lblProperties" layoutX="61.0" layoutY="48.0" prefHeight="31.0" prefWidth="114.0" text="Properties" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="45.0">
+      <Label fx:id="lblAttributes" layoutX="61.0" layoutY="48.0" prefHeight="31.0" prefWidth="114.0" text="Attributes" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="45.0">
          <font>
-            <Font name="EmojiOne Color SVGinOT" size="24.0" />
+            <Font name="System Bold" size="24.0" />
          </font>
       </Label>
       <MenuBar fx:id="MenuBar" layoutY="-1.0" prefHeight="31.0" prefWidth="1084.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -58,7 +58,7 @@
         </menus>
       </MenuBar>
       
-      <ScrollPane fx:id="scrollpaneProperties" hbarPolicy="NEVER" layoutX="19.0" layoutY="88.0" prefHeight="538.0" prefWidth="224.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="85.0">
+      <ScrollPane fx:id="scrollpaneAttributes" hbarPolicy="NEVER" layoutX="19.0" layoutY="88.0" prefHeight="538.0" prefWidth="224.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="85.0">
          <content>
             <AnchorPane prefHeight="850.0" prefWidth="228.0" style="-fx-background-color: #fff;">
                <children>

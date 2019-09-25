@@ -3,7 +3,7 @@ package de.chordsystem.chordproeditor.model.classes;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.chordsystem.Prototype.TextParser;
+import de.chordsystem.chordproeditor.parser.TextParser;
 import de.chordsystem.chordproeditor.model.interfaces.Environment;
 import de.chordsystem.chordproeditor.model.interfaces.Fingering;
 import de.chordsystem.chordproeditor.model.interfaces.Song;

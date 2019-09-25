@@ -1,9 +1,9 @@
-package de.chordsystem.Prototype;
+package de.chordsystem.chordproeditor.parser;
 
 import de.chordsystem.chordproeditor.model.classes.*;
 import de.chordsystem.chordproeditor.model.interfaces.*;
 
-import de.chordsystem.Prototype.*;
+import de.chordsystem.chordproeditor.parser.*;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -386,21 +386,21 @@ public class ChordProParser {
 		return song;
 	}
 	
-	public void start() {
-		Song song = tryParseChordPro(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "Heaven.chordpro");
-		//Song song = tryParseChordPro(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "10000 Reasons.chordpro");
-		
-		//System.out.println(song.toString());
-		//File file = new File(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "Heaven.chordpro");
-		//File file = new File(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "10000 Reasons.chordpro");
-		
-		de.chordsystem.Prototype.ChordProConverter converter = new de.chordsystem.Prototype.ChordProConverter();
-		
-		//System.out.println(converter.tryConvertToChordPro(song));
-	}
+//	public void start() {
+//		Song song = tryParseChordPro(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "Heaven.chordpro");
+//		//Song song = tryParseChordPro(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "10000 Reasons.chordpro");
+//		
+//		//System.out.println(song.toString());
+//		//File file = new File(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "Heaven.chordpro");
+//		//File file = new File(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "10000 Reasons.chordpro");
+//		
+//		de.chordsystem.chordproeditor.parser.ChordProConverter converter = new de.chordsystem.chordproeditor.parser.ChordProConverter();
+//		
+//		//System.out.println(converter.tryConvertToChordPro(song));
+//	}
 
-	public static void main(String[] args) {
-		ChordProParser regex = new ChordProParser();
-		regex.start();
-	}
+//	public static void main(String[] args) {
+//		ChordProParser regex = new ChordProParser();
+//		regex.start();
+//	}
 }
