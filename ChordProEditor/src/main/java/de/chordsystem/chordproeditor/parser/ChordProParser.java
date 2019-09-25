@@ -3,6 +3,8 @@ package de.chordsystem.chordproeditor.parser;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -74,6 +76,8 @@ public class ChordProParser {
 	private int tabCounter = 0;
 	private int gridCounter = 0;
 	
+	public List<Integer> errorList;
+	
 	private Environment tryParseChordLyric(String toParse) {
 		Environment env = new EnvironmentImpl();
 		
@@ -102,7 +106,7 @@ public class ChordProParser {
 		return env;
 	}
 	
-	private void tryParseLine(String toMatch, Song song) {
+	private boolean tryParseLine(String toMatch, Song song) {
 		if (Pattern.compile(regexChordLyric).matcher(toMatch).find()) {
 			Environment env = tryParseChordLyric(toMatch);
 			env.setTitle(tempTitle);
@@ -320,17 +324,13 @@ public class ChordProParser {
 			song.setFinished(false);
 		} else {
 			System.out.println("Parse error: " + toMatch);
-			//later --> else = error
+			return false;
 		}
-		//System.out.println(toMatch);
-		/*else if (Pattern.compile(regexTitle).matcher(toMatch).find()) {
-			Matcher m = Pattern.compile(regexTitle).matcher(toMatch);
-			m.find();
-			song.setTitle(m.group(1));
-		}*/
+		return true;
 	}
 	
 	public Song tryParseChordPro(String pathname) {
+		errorList = new ArrayList<Integer>();
 		File file = new File(pathname);
 		Song song = new SongImpl();
 		
@@ -338,17 +338,19 @@ public class ChordProParser {
 		{
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			String line;	
-			
+			int i = 0;
 			while ((line = reader.readLine()) != null)
 			{
 				if (line.trim().length() > 0 && !line.trim().isEmpty())
-					tryParseLine(line,song);
+					if (!tryParseLine(line,song))
+						errorList.add(i);
 				else {
 					Environment env = new EnvironmentImpl();
 					env.setTitle(tempTitle);
 					env.setType(tempType);
 					song.addEnvironment(env);
 				}
+				i++;
 			}
 			reader.close();
 		}
@@ -362,21 +364,25 @@ public class ChordProParser {
 	}
 	
 	public Song tryParseChordProString(String lines) {
+		errorList = new ArrayList<Integer>();
 		Song song = new SongImpl();
 		
 		try
 		{
 			String[] separatedLines = lines.split("\n");
+			int i = 0;
 			for (String line : separatedLines)
 			{
 				if (line.trim().length() > 0 && !line.trim().isEmpty())
-					tryParseLine(line,song);
+					if (!tryParseLine(line,song))
+						errorList.add(i);
 				else {
 					Environment env = new EnvironmentImpl();
 					env.setTitle(tempTitle);
 					env.setType(tempType);
 					song.addEnvironment(env);
 				}
+				i++;
 			}
 		}
 		catch (Exception e)
@@ -385,6 +391,10 @@ public class ChordProParser {
 		}
 		
 		return song;
+	}
+	
+	public List<Integer> getErrorLines(){
+		return errorList != null ? errorList : null;
 	}
 	
 //	public void start() {

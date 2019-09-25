@@ -253,6 +253,7 @@ public class EditController implements Initializable {
 		transition.play();
 		});
 		jfxHamHide.setOnMouseClicked(this::onClickHamburger);
+		
     }
     
     public void setNewEditorController(NewEditorController newEditorController) {
