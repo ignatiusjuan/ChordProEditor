@@ -29,11 +29,22 @@ public class WriteTex {
 		BufferedWriter bw = new BufferedWriter(tex);
 		bw.write("\\documentclass{scrartcl}");
 		bw.newLine();
+		bw.write("\\usepackage{courier}");
+		bw.newLine();
 		bw.write("\\setlength{\\parindent}{0em}");
 		bw.newLine();
-		bw.write("\\title{"+song.getTitle()+"}");
+		String tmp = prepareString(song.getTitle());
+		bw.write("\\title{"+tmp+"}");
 		bw.newLine();
-		bw.write("\\author{"+song.getArtist()+"}");
+		bw.write("\\author{");
+		for(int i = 0; i < song.getArtist().size(); i++) {
+			tmp = prepareString(song.getArtist().get(i));
+			bw.write(tmp);
+		}
+		if(song.getArtist().size() == 0) {
+			bw.write("no Author");
+		}
+		bw.write("}");
 		bw.newLine();
 		bw.write("\\date{"+song.getYear()+"}");
 		bw.newLine();
@@ -44,8 +55,7 @@ public class WriteTex {
 		bw.write("\\texttt{");
 		bw.newLine();
 		writeLyrics(song, bw);
-		String temp = song.getCopyright().toString().replace("[", "");
-		temp = temp.replace("]", "");
+		String temp = prepareString(song.getCopyright().toString());
 		bw.write(temp);
 		bw.newLine();
 		bw.write("}");
@@ -121,11 +131,13 @@ public class WriteTex {
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getChord() != null) {
-			bw.write(song.getEnvironment(env).getChord()+" \\\\");
+			String text = prepareString(song.getEnvironment(env).getChord());
+			bw.write("\\textbf{ "+text+"} \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getLyric() != null) {
-			bw.write(song.getEnvironment(env).getLyric()+" \\\\");
+			String text = prepareString(song.getEnvironment(env).getLyric());
+			bw.write(text+" \\\\");
 			bw.newLine();
 		}
 	}
@@ -144,11 +156,13 @@ public class WriteTex {
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getChord() != null) {
-			bw.write(song.getEnvironment(env).getChord()+" \\\\");
+			String text = prepareString(song.getEnvironment(env).getChord());
+			bw.write("\\textbf{ "+text+"} \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getLyric() != null) {
-			bw.write(song.getEnvironment(env).getLyric()+" \\\\");
+			String text = prepareString(song.getEnvironment(env).getLyric());
+			bw.write(text+" \\\\");
 			bw.newLine();
 		}
 	}
@@ -167,11 +181,13 @@ public class WriteTex {
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getChord() != null) {
-			bw.write(song.getEnvironment(env).getChord()+" \\\\");
+			String text = prepareString(song.getEnvironment(env).getChord());
+			bw.write("\\textbf{ "+text+"} \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getLyric() != null) {
-			bw.write(song.getEnvironment(env).getLyric()+" \\\\");
+			String text = prepareString(song.getEnvironment(env).getLyric());
+			bw.write(text+" \\\\");
 			bw.newLine();
 		}
 	}
@@ -190,11 +206,13 @@ public class WriteTex {
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getChord() != null) {
-			bw.write(song.getEnvironment(env).getChord()+" \\\\");
+			String text = prepareString(song.getEnvironment(env).getChord());
+			bw.write("\\textbf{ "+text+"} \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getLyric() != null) {
-			bw.write(song.getEnvironment(env).getLyric()+" \\\\");
+			String text = prepareString(song.getEnvironment(env).getLyric());
+			bw.write(text+" \\\\");
 			bw.newLine();
 		}
 	}
@@ -211,15 +229,17 @@ public class WriteTex {
 	{
 		// TODO Auto-generated method stub
 		if(newEnv == true) {
-			bw.write("\\textbf{Null:"+song.getEnvironment(env).getTitle()+"} \\\\");
+			bw.write(" \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getChord() != null) {
-			bw.write(song.getEnvironment(env).getChord()+" \\\\");
+			String text = prepareString(song.getEnvironment(env).getChord());
+			bw.write("\\textbf{ "+text+"} \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getLyric() != null) {
-			bw.write(song.getEnvironment(env).getLyric()+" \\\\");
+			String text = prepareString(song.getEnvironment(env).getLyric());
+			bw.write(text+" \\\\");
 			bw.newLine();
 		}
 	}
@@ -240,11 +260,13 @@ public class WriteTex {
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getChord() != null) {
-			bw.write(song.getEnvironment(env).getChord()+" \\\\");
+			String text = prepareString(song.getEnvironment(env).getChord());
+			bw.write("\\textbf{ "+text+"} \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getLyric() != null) {
-			bw.write(song.getEnvironment(env).getLyric()+" \\\\");
+			String text = prepareString(song.getEnvironment(env).getLyric());
+			bw.write(text+" \\\\");
 			bw.newLine();
 		}
 	}
@@ -268,12 +290,14 @@ public class WriteTex {
 			bw.write("\\textbf{Comment:"+song.getEnvironment(env).getTitle()+"} \\\\");
 			bw.newLine();
 		}
-		if(song.getEnvironment(env).getChord() != null) {
-			bw.write(song.getEnvironment(env).getChord()+" \\\\");
-			bw.newLine();
-		}
+//		if(song.getEnvironment(env).getChord() != null) {
+//			String text = prepareString(song.getEnvironment(env).getChord());
+//			bw.write("\\textbf{ "+text+"} \\\\");
+//			bw.newLine();
+//		}
 		if(song.getEnvironment(env).getLyric() != null) {
-			bw.write(song.getEnvironment(env).getLyric()+" \\\\");
+			String text = prepareString(song.getEnvironment(env).getLyric());
+			bw.write(text+" \\\\");
 			bw.newLine();
 		}
 		if(newEnv == true && song.getEnvironment(env).getCommentIsItalic()==true) {
@@ -298,12 +322,41 @@ public class WriteTex {
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getChord() != null) {
-			bw.write(song.getEnvironment(env).getChord()+" \\\\");
+			String text = prepareString(song.getEnvironment(env).getChord());
+			bw.write("\\textbf{ "+text+"} \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getLyric() != null) {
-			bw.write(song.getEnvironment(env).getLyric()+" \\\\");
+			String text = prepareString(song.getEnvironment(env).getLyric());
+			bw.write(text+" \\\\");
 			bw.newLine();
 		}
+	}
+	
+	private static String prepareString(String line) {
+		String lineFix = line;
+		lineFix = line.replace("#", "\\# ");
+		lineFix = lineFix.replace("<", "$<$");
+		lineFix = lineFix.replace(">", "$>$");
+		lineFix = lineFix.replace("[", "{[} ");
+		lineFix = lineFix.replace("]", "{]} ");
+		lineFix = lineFix.replace(" ", "~");
+		lineFix = replaceFirstSpaces(lineFix);
+		return lineFix;
+	}
+	
+	private static String replaceFirstSpaces(String line) {
+		String tmp = line;
+		int count = 0;
+//		System.out.println(line);
+		while(!tmp.isEmpty() && tmp.charAt(0)=='~') {
+//			System.out.println(tmp);
+			count ++;
+			tmp = tmp.substring(1);
+		}
+		if(count > 0) {
+			tmp = "\\hspace*{"+count+"em}"+tmp;
+		}
+		return tmp;
 	}
 }
