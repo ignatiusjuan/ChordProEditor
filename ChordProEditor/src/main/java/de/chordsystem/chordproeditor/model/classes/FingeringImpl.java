@@ -162,7 +162,6 @@ public class FingeringImpl implements Fingering {
 			}
 		}
 		for (int i = 0; i < Arrays.stream(frets).max().getAsInt(); i++) {
-			StringBuffer temp = new StringBuffer();
 			for (int j = 0; j < 13; j++) {
 				if (j % 2 == 0)
 					sb.append('|');
