@@ -127,6 +127,12 @@ public class EditController implements Initializable {
     @FXML
     private ImageView ivUndo;
 
+    @FXML
+    private ImageView ivRedoGrey;
+    
+    @FXML
+    private ImageView ivUndoGrey;
+    
     StringProperty textFieldProperty = new SimpleStringProperty();
     BooleanProperty hideSidePane = new SimpleBooleanProperty(false);
     private NewEditorController newEditorController;
@@ -154,16 +160,16 @@ public class EditController implements Initializable {
     private final String templateVerse 			= "{start_of_verse: verse_name}\n" 	+ 
     											  "chord_and_lyric_\n"				+
     											  "{end_of_verse}\n";
-    private final String templateChorus 			= "{start_of_chorus: chorus_name}\n"+ 
+    private final String templateChorus 		= "{start_of_chorus: chorus_name}\n"+ 
 			  									  "chord_and_lyric\n"				+
 			  									  "{end_of_chorus}\n";
-    private final String templateTab 			= "{start_of_tab: tab_name}\n"		+ 
+    private final String templateTab			= "{start_of_tab: tab_name}\n"		+ 
     											  "tab_contents\n"					+
     											  "{end_of_chorus}\n";
     private final String templateGrid 			= "{start_of_grid: grid_name}\n"	+ 
 			  									  "grid_contents\n"					+
 			  									  "{end_of_grid}\n";
-    private final String templateComment			= "{comment: comment}";
+    private final String templateComment		= "{comment: comment}";
     private final String templateChordDiagram	= "{chord: chord_name base-fret offset frets x 0 1 2 3 4 fingers x 0 1 2 3 4 5}";
     
     private void setSidePaneBind() {
@@ -181,8 +187,16 @@ public class EditController implements Initializable {
     private void onClickHamburger(MouseEvent event) {
     	if (!hideSidePane.get()) {
     		AnchorPane.setLeftAnchor(txtAreaEditSong, 60.0);
+    		AnchorPane.setLeftAnchor(ivUndo, 60.0);
+    		AnchorPane.setLeftAnchor(ivUndoGrey, 60.0);
+    		AnchorPane.setLeftAnchor(ivRedo, 130.0);
+    		AnchorPane.setLeftAnchor(ivRedoGrey, 130.0);
     	} else {
     		AnchorPane.setLeftAnchor(txtAreaEditSong, 190.0);
+    		AnchorPane.setLeftAnchor(ivUndo, 190.0);
+    		AnchorPane.setLeftAnchor(ivUndoGrey, 190.0);
+    		AnchorPane.setLeftAnchor(ivRedo, 260.0);
+    		AnchorPane.setLeftAnchor(ivRedoGrey, 260.0);
     	}
     	hideSidePane.set(!hideSidePane.get());
     }

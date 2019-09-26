@@ -482,8 +482,10 @@ public class SongImpl implements Song{
 					sb.append("Tab: " + env.getTitle() + "\n");
 				else if (env.getType() == EnvironmentImpl.TYPE_GRID)
 					sb.append("Grid: " + env.getTitle() + "\n");
-				lastTitle = env.getTitle();
-				lastType = env.getType();
+				if (env.getType() != EnvironmentImpl.TYPE_COMMENT) {
+					lastTitle = env.getTitle();
+					lastType = env.getType();
+				}
 			}
 			sb.append(env.toString());
 		}

@@ -341,9 +341,10 @@ public class ChordProParser {
 			int i = 0;
 			while ((line = reader.readLine()) != null)
 			{
-				if (line.trim().length() > 0 && !line.trim().isEmpty())
+				if (line.trim().length() > 0 && !line.trim().isEmpty()) {
 					if (!tryParseLine(line,song))
 						errorList.add(i);
+				}
 				else {
 					Environment env = new EnvironmentImpl();
 					env.setTitle(tempTitle);
@@ -373,9 +374,10 @@ public class ChordProParser {
 			int i = 0;
 			for (String line : separatedLines)
 			{
-				if (line.trim().length() > 0 && !line.trim().isEmpty())
+				if (line.trim().length() > 0 && !line.trim().isEmpty()) {
 					if (!tryParseLine(line,song))
 						errorList.add(i);
+				}
 				else {
 					Environment env = new EnvironmentImpl();
 					env.setTitle(tempTitle);

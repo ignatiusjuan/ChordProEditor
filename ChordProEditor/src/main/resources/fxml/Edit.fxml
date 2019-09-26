@@ -25,9 +25,9 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <ScrollPane fx:id="scrollpaneAttributes" layoutY="86.0" prefHeight="273.0" prefWidth="160.0" AnchorPane.bottomAnchor="255.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="85.0">
+      <ScrollPane fx:id="scrollpaneAttributes" layoutY="86.0" maxHeight="563.0" prefHeight="273.0" prefWidth="160.0" AnchorPane.bottomAnchor="255.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="85.0">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="563.0" prefWidth="145.0">
+          <AnchorPane maxHeight="563.0" minHeight="0.0" minWidth="0.0" prefHeight="563.0" prefWidth="145.0">
                <children>
                   <Button fx:id="btnInsertTitle" layoutX="1.0" layoutY="2.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="143.0" text="Title">
                      <font>
@@ -166,22 +166,22 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </JFXButton>
-      <ImageView fitHeight="39.0" fitWidth="47.0" layoutX="190.0" layoutY="564.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="672.0">
+      <ImageView fx:id="ivUndoGrey" fitHeight="39.0" fitWidth="47.0" layoutX="190.0" layoutY="564.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="200.0">
          <image>
             <Image url="@../Icons/undo_grey.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="260.0" layoutY="564.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="610.0">
+      <ImageView fx:id="ivRedoGrey" fitHeight="39.0" fitWidth="39.0" layoutX="260.0" layoutY="564.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="260.0">
          <image>
             <Image url="@../Icons/redo_grey.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="ivUndo" fitHeight="39.0" fitWidth="47.0" layoutX="190.0" layoutY="564.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="672.0">
+      <ImageView fx:id="ivUndo" fitHeight="39.0" fitWidth="47.0" layoutX="198.0" layoutY="564.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="200.0">
          <image>
             <Image url="@../Icons/undo.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="ivRedo" fitHeight="39.0" fitWidth="39.0" layoutX="260.0" layoutY="564.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="610.0">
+      <ImageView fx:id="ivRedo" fitHeight="39.0" fitWidth="39.0" layoutX="260.0" layoutY="564.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="260.0">
          <image>
             <Image url="@../Icons/redo.png" />
          </image>

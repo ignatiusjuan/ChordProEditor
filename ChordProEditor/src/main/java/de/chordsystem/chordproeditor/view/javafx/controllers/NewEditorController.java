@@ -221,7 +221,6 @@ public class NewEditorController implements Initializable {
     @FXML
     private JFXButton btnMinus;
     
-    
     BooleanProperty clipboardEmpty = new SimpleBooleanProperty(false);
     BooleanProperty hideSidePane = new SimpleBooleanProperty(false);
     
@@ -315,11 +314,11 @@ public class NewEditorController implements Initializable {
             editController.setNewEditorController(this);
             Stage stage = new Stage();
             Scene scene = new Scene(fxmlLoader.load());
-            stage.setResizable(false);
+            stage.setResizable(true);
             stage.initOwner(lblDateTime.getScene().getWindow());
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
-            stage.setTitle("Editiere den Song");
+            stage.setTitle("Syntax Mode");
             stage.getIcons().add(new Image("/Icons/icon 512x512.png/"));
             stage.show();
 
@@ -546,6 +545,17 @@ public class NewEditorController implements Initializable {
 		setDataBind();
     }
     
+    private boolean changeKey(int valChange) {
+    	String[] keyList = {"C","C#","D","Eb","E","F","F#","G","G#","A","Bb","B"};
+    	for (int i = 0; i < keyList.length; i++) {
+    		if (keyList[i].equals(txtKey.getText())) {
+    			txtKey.setText(keyList[(i + valChange + keyList.length) % keyList.length]);
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+    
     /*Hier werden die anklickbaren Button ihren jeweiligen Methoden zugewiesen*/
 	public void initialize(URL location, ResourceBundle resources) {
 		
@@ -574,9 +584,11 @@ public class NewEditorController implements Initializable {
 		
 		ivHelp.setOnMouseClicked(this::switchSceneToQuestionIcon);
 		
+		btnPlus.setOnMouseClicked((e) -> changeKey(1));
+		btnMinus.setOnMouseClicked((e) -> changeKey(-1));
 		
 	}
-			
+	
 	/**
 	 * Methode um die Aktuelle Uhrzeit mit Sekundentakt in dem 
 	 * Fenster auszugeben
