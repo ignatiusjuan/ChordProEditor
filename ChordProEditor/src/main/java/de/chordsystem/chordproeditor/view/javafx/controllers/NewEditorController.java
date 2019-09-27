@@ -71,7 +71,7 @@ import javafx.util.converter.IntegerStringConverter;
 public class NewEditorController implements Initializable {
 	
 	private WindowPresetSwitchStage wp = new WindowPresetSwitchStage();
-	private WindowPresetSwitchScene wpss = new WindowPresetSwitchScene();
+	//private WindowPresetSwitchScene wpss = new WindowPresetSwitchScene();
 	
 	@FXML
 	private Label lblAttributes;
