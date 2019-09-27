@@ -24,7 +24,7 @@ import de.chordsystem.chordproeditor.parser.ChordProConverter;
 import de.chordsystem.chordproeditor.parser.ChordProParser;
 import de.chordsystem.chordproeditor.parser.ChordTransposer;
 import de.chordsystem.chordproeditor.userdata.UserData;
-import de.chordsystem.chordproeditor.view.javafx.helperclasses.WindowPresetSwitchScene;
+//import de.chordsystem.chordproeditor.view.javafx.helperclasses.WindowPresetSwitchScene;
 import de.chordsystem.chordproeditor.view.javafx.helperclasses.WindowPresetSwitchStage;
 import de.chordsystem.latex.GeneratePDF;
 import javafx.animation.Animation;
