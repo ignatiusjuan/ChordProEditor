@@ -3,7 +3,6 @@ package de.chordsystem.chordproeditor.parser;
 import java.util.Arrays;
 import java.util.List;
 
-import com.jfoenix.controls.JFXTextArea;
 
 /**
  * This class contains all function used for transposing chords

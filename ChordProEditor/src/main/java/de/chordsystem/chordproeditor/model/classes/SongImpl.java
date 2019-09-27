@@ -366,9 +366,7 @@ public class SongImpl implements Song{
 		int lastType = EnvironmentImpl.TYPE_NULL;
 		
 		StringBuilder sb = new StringBuilder();
-		int i = 0;
 		for (Environment env : environmentList) {
-			i++;
 			if (!(lastType == env.getType() && lastTitle.equals(env.getTitle()))){
 				if (env.getType() == EnvironmentImpl.TYPE_CHORUS)
 					sb.append("Chorus: " + env.getTitle() + "\n");

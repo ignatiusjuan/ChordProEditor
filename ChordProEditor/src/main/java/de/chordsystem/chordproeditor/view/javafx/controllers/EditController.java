@@ -206,7 +206,6 @@ public class EditController implements Initializable {
     	hideSidePane.set(!hideSidePane.get());
     }
     
-    @FXML
     private void onClickInsertText(String insertText) {
     	txtAreaEditSong.insertText(txtAreaEditSong.getCaretPosition(), insertText);
     	// need to add undo point to txtAreaEditSong 
