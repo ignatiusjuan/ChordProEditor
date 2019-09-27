@@ -186,5 +186,10 @@
             <Image url="@../Icons/redo.png" />
          </image>
       </ImageView>
+      <ImageView fx:id="editAsWYSIWYG" fitHeight="31.0" fitWidth="28.0" layoutX="607.0" layoutY="570.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="274.0">
+         <image>
+            <Image url="@../Icons/EditIcon.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
