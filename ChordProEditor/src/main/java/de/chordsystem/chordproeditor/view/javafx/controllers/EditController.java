@@ -26,6 +26,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+/**
+ * Controller for ChordProEditController
+ * @author IgnatiusJuanPradipta
+ *
+ */
 public class EditController implements Initializable {
 	
 	@FXML
@@ -170,7 +175,7 @@ public class EditController implements Initializable {
 			  									  "grid_contents\n"					+
 			  									  "{end_of_grid}\n";
     private final String templateComment		= "{comment: comment}";
-    private final String templateChordDiagram	= "{chord: chord_name base-fret offset frets x 0 1 2 3 4 fingers x 0 1 2 3 4 5}";
+    private final String templateChordDiagram	= "{chord: chord_name base-fret offset frets x 0 1 2 3 4 fingers x 0 1 2 3 4}";
     
     private void setSidePaneBind() {
     	lblInsert.visibleProperty().bind(hideSidePane.not());

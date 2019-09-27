@@ -7,9 +7,24 @@ import de.chordsystem.chordproeditor.model.interfaces.Environment;
 import de.chordsystem.chordproeditor.model.interfaces.Fingering;
 import de.chordsystem.chordproeditor.model.interfaces.Song;
 
+/**
+ * This class is used to convert a Song class to ChordPro Syntaxes
+ * @author IgnatiusJuanPradipta
+ *
+ */
 public class ChordProConverter {
 	
+	/**
+	 * This method combine given chord and lyric into standard ChordPro format (i.e. This [C]is [G]an [C]example)
+	 * @param 		chord		chord to be combined
+	 * @param 		lyric		lyric to be combined
+	 * @return					combined chord and lyric as ChordPro syntax
+	 */
 	private static String combineChordLyric(String chord, String lyric) {
+		chord = chord.stripTrailing();
+		lyric = lyric.stripTrailing();
+		for (int i = 0; i < chord.length() - lyric.length(); i++)
+			lyric += " ";
 		StringBuffer sb = new StringBuffer();
 		int chordCounter = 0;
 		int lyricCounter = 0;
@@ -21,7 +36,7 @@ public class ChordProConverter {
 					lyricCounter++;
 				} else {
 					sb.append("[");
-					while (chord.charAt(chordCounter) != ' ') {
+					while (chordCounter < chord.length() && chord.charAt(chordCounter) != ' ') {
 						sb.append(chord.charAt(chordCounter));
 						chordCounter++;
 					}
@@ -41,9 +56,14 @@ public class ChordProConverter {
 			lyricCounter++;
 		}
 		
-		return sb.toString();
+		return sb.toString().stripTrailing();
 	}
 	
+	/**
+	 * This method parse a given Song class into standard ChordPro syntax
+	 * @param 		song		Song to be parsed
+	 * @return					ChordPro syntax of a Song class
+	 */
 	public static String tryConvertToChordPro(Song song) {
 		StringBuffer sb = new StringBuffer();
 		

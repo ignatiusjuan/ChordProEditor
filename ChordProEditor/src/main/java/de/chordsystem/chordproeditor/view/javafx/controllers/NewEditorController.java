@@ -19,8 +19,10 @@ import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import de.chordsystem.chordproeditor.model.classes.SongImpl;
 import de.chordsystem.chordproeditor.model.classes.SongProperties;
 import de.chordsystem.chordproeditor.model.interfaces.Song;
+import de.chordsystem.chordproeditor.parser.ChordChecker;
 import de.chordsystem.chordproeditor.parser.ChordProConverter;
 import de.chordsystem.chordproeditor.parser.ChordProParser;
+import de.chordsystem.chordproeditor.parser.ChordTransposer;
 import de.chordsystem.chordproeditor.userdata.UserData;
 import de.chordsystem.chordproeditor.view.javafx.helperclasses.WindowPresetSwitchScene;
 import de.chordsystem.chordproeditor.view.javafx.helperclasses.WindowPresetSwitchStage;
@@ -62,9 +64,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.converter.IntegerStringConverter;
 /**
- * 
+ * Controller for WYSIWYGEditorController
  * @author engin
- *
+ * @author IgnatiusJuanPradipta
  */
 public class NewEditorController implements Initializable {
 	
@@ -232,6 +234,11 @@ public class NewEditorController implements Initializable {
 	
 	Clipboard clipboard = Clipboard.getSystemClipboard();
 	
+	/**
+	 * This function simulate a two key pressed.
+	 * @param 		a		first key
+	 * @param 		b		second key
+	 */	
 	private void simulateKeyPress(KeyCode a, KeyCode b) {
 		Robot bot;
 		bot = new Robot();
@@ -241,7 +248,10 @@ public class NewEditorController implements Initializable {
 		bot.keyRelease(b);
 	}
 	
-    private void setOnAction(){
+	/**
+	 * Set functions to be called when an element is clicked
+	 */
+	private void setOnAction(){
     	menuFileNew.setOnAction(this::onClickFileNew);
 		menuFileOpen.setOnAction(this::onClickFileOpen);
 		menuFileSave.setOnAction(this::onClickFileSave);
@@ -287,6 +297,7 @@ public class NewEditorController implements Initializable {
 			
 			GeneratePDF.generatePDF(tempSong);
 		});
+		
 		lblSaveAsPDF.setOnMouseClicked((event) -> {
 			//GeneratePDF.generatePDF(tempSong);
 		});
@@ -294,9 +305,26 @@ public class NewEditorController implements Initializable {
 		hamburger.setOnMouseClicked(this::onClickHamburger);
 		
 		EditIcon.setOnMouseClicked(this::switchSceneToEdit);
+		
+		ivHelp.setOnMouseClicked(this::switchSceneToQuestionIcon);
+		
+		btnPlus.setOnMouseClicked((e) -> {
+			if (!txtKey.getText().isEmpty())
+				txtKey.setText(ChordTransposer.transposeUp(txtKey.getText())); 
+			txtSongEdit.replaceText(0, txtSongEdit.getLength(), ChordTransposer.changeChord(1,txtSongEdit.getText()));
+			});
+		
+		btnMinus.setOnMouseClicked((e) -> {
+			if (!txtKey.getText().isEmpty())
+				txtKey.setText(ChordTransposer.transposeDown(txtKey.getText())); 
+			txtSongEdit.replaceText(0, txtSongEdit.getLength(), ChordTransposer.changeChord(-1,txtSongEdit.getText()));
+			});
     }
 
-    /*Wenn auf das Bearbeiten Bild geklickt wird, öffnet sich das Fenster zum Editieren des Songs auswählen*/
+    /**
+     * Function to switch to Syntax Edit Window
+     * @param event
+     */
     public void switchSceneToEdit(MouseEvent event) {
     	Song tmpSong = loadedSong.toSong(txtSongEdit.getText());
     	tmpSong.setYear(Integer.parseInt(txtYear.getText()));
@@ -308,7 +336,7 @@ public class NewEditorController implements Initializable {
     	EditController editController = new EditController();
     	try{
     		final FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("/fxml/Edit.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("/fxml/ChordProEdit.fxml"));
             fxmlLoader.setController(editController);
             editController.receiveEditText(ChordProConverter.tryConvertToChordPro(tmpSong));
             editController.setNewEditorController(this);
@@ -327,16 +355,27 @@ public class NewEditorController implements Initializable {
         }
     }
     
-    /* Diese Methode oeffnet das Fenster zu Hilfestellung des Programms */
+    /**
+     * Function to switch to Help Window
+     * @param event
+     */
     public void switchSceneToQuestionIcon(MouseEvent event) {
     	wp.createWindowNewStage("/fxml/HelpWindow.fxml", "Informationen zum Anwenden des Editors", new HelpWindowController(), lblDateTime.getScene().getWindow(), new Image("/Icons/icon 512x512.png/"));
     }
-    
+
+    /**
+     * Check if songA equal to songB. CONTAINS BUGS!
+     * @param 		songA		first song
+     * @param 		songB		second song
+     * @return					true if both song are equal
+     */
     private boolean songsEqual(Song songA, Song songB) {
     	return songA.toString().equals(songB.toString()) ? true : false;
     }
     
-    /*Diese Methode dient dazu um die Shortcuts für die in der MenuBar angebenen Aktionen auszufuehren */
+    /**
+     * Set shortcut for menu items
+     */
     private void setShortcut() {
     	menuFileNew.setAccelerator(new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN));
     	menuFileOpen.setAccelerator(new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN));
@@ -354,7 +393,9 @@ public class NewEditorController implements Initializable {
     	menuEditSelectAll.setAccelerator(new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_DOWN));
     }
     
-    /*Einige hilfen zum Editieren des Songs Undo, Redo, Cut, Copy, Paste*/
+    /**
+     * Set disable property of edit menu
+     */
     private void setMenuBind() {
     	menuEditUndo.disableProperty().bind(txtSongEdit.undoableProperty().not());
     	menuEditRedo.disableProperty().bind(txtSongEdit.redoableProperty().not());
@@ -363,6 +404,9 @@ public class NewEditorController implements Initializable {
     	menuEditPaste.disableProperty().bind(clipboardEmpty.not());
     }
     
+    /**
+     * Set formatter for number only Textfields
+     */
     private void setFormatter() {
     	txtYear.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
     	txtTempo.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
@@ -371,6 +415,9 @@ public class NewEditorController implements Initializable {
     	txtTextSize.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
     }
     
+    /**
+     * Set properties when song is changed or new syntax is parsed
+     */
     private void setDataBind() {
     	txtTitle.textProperty().bindBidirectional(loadedSong.title);
     	txtSubtitle.textProperty().bindBidirectional(loadedSong.subtitle);
@@ -393,7 +440,9 @@ public class NewEditorController implements Initializable {
     	txtSongEdit.textProperty().bindBidirectional(loadedSong.contents);
     }
     
-    /*Beim anklicken von Open wird eine neue Datei erstellt*/
+    /**
+     * This function create a new document and clear edited fields.
+     **/
     @FXML
     private void onClickFileNew(ActionEvent event) {
     	Song tmpSong = loadedSong.toSong(txtSongEdit.getText());
@@ -406,6 +455,7 @@ public class NewEditorController implements Initializable {
     		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 	    	alert.setTitle("Current project is modified");
 	    	alert.setContentText("Save?");
+	    	((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("/Icons/icon 512x512.png/"));
 	    	ButtonType yesButton = new ButtonType("Yes", ButtonData.YES);
 	    	ButtonType noButton = new ButtonType("No", ButtonData.NO);
 	    	ButtonType cancelButton = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
@@ -426,7 +476,9 @@ public class NewEditorController implements Initializable {
     	filename = "";
     }
     
-    /*Methode zum offnen eines Songs im WYSIWYG (What You See Is What You Get) modus im TextArea des Programms*/
+    /**
+     * This function shows an open dialog window and open the chosen file.
+     **/
     @FXML
     private void onClickFileOpen(ActionEvent event) {
     	
@@ -450,6 +502,7 @@ public class NewEditorController implements Initializable {
     	
     	if (selectedFile != null) {
     		ChordProParser cpp = new ChordProParser();
+    		ChordChecker.customChord.clear();
     		tempSong = cpp.tryParseChordPro(selectedFile.getAbsolutePath());
     		loadedSong = new SongProperties(tempSong);
     		setDataBind();
@@ -457,7 +510,11 @@ public class NewEditorController implements Initializable {
     		filename = selectedFile.getAbsolutePath();
     	}
     }
-    /*Hier wird beim anklicken des Saves in der MenuBar, die Datei in der Form gespeichert in der Sie geoeffnet ist*/
+
+    /**
+     * This function save the edited ChordPro document. If it was opened from a file, then the file will be overwritten, else a dialog to save it as new file will be opened.
+     * @param event
+     */
     @FXML
     private void onClickFileSave(ActionEvent event) {
     	if (filename.isBlank()) {
@@ -478,8 +535,11 @@ public class NewEditorController implements Initializable {
         	}
     	}	
     }
-    /*Diese Methode dient zur Speicherung der Datei in einer der vorgegebenen Arten*/
-    @FXML
+    
+    /**
+     * This function save the edited ChordPro document directly as a new file and a dialog window to choose path and name will be opened.
+     * @param event
+     */
     private void onClickFileSaveAs(ActionEvent event) {
     	FileChooser fileChooser = new FileChooser();
     	fileChooser.setTitle("Save ChordPro File As");
@@ -510,25 +570,38 @@ public class NewEditorController implements Initializable {
 	    	}
     	}
     }
-    
+      
+    /**
+     * This function close the whole program.
+     * @param event
+     */
     @FXML
     private void onClickFileQuit(ActionEvent event) {
     	Platform.exit();
         System.exit(0);
     }
-    
+     
+    /**
+     * This function reacts the same as "Save As"
+     * @param event
+     */
     @FXML
     private void OnMousePressedSaveAsChordPro(MouseEvent event) {
     	onClickFileSaveAs(new ActionEvent());
     }
     
+    /**
+     * This function shows/hides right sidePane when hamburger is clicked ;
+     */
     private void setSidePaneBind() {
     	lblAttributes.visibleProperty().bind(hideSidePane.not());
     	scrollpaneAttributes.visibleProperty().bind(hideSidePane.not());
     	scrollpaneAttributes.disableProperty().bind(hideSidePane);
     }
-    
-    /*Methode zum benutzen des Hamburger Buttons im Fenster*/
+       
+    /**
+     * Functions to be executed when Hamburger is clicked
+     */
     @FXML
     private void onClickHamburger(MouseEvent event) {
     	if (!hideSidePane.get()) {
@@ -540,23 +613,18 @@ public class NewEditorController implements Initializable {
     	
     }
     
+    /**
+     * Update loaded song, whenever new file is opened or user create a new document
+     * @param 		song		song to be loaded and binded to TextArea and TextFields
+     */
     public void updateSong(Song song) {
     	loadedSong = new SongProperties(song);
 		setDataBind();
     }
     
-    private boolean changeKey(int valChange) {
-    	String[] keyList = {"C","C#","D","Eb","E","F","F#","G","G#","A","Bb","B"};
-    	for (int i = 0; i < keyList.length; i++) {
-    		if (keyList[i].equals(txtKey.getText())) {
-    			txtKey.setText(keyList[(i + valChange + keyList.length) % keyList.length]);
-    			return true;
-    		}
-    	}
-    	return false;
-    }
-    
-    /*Hier werden die anklickbaren Button ihren jeweiligen Methoden zugewiesen*/
+    /**
+     * Functions to be initialised during first window load
+     */
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		loadedSong = new SongProperties(emptySong);
@@ -582,16 +650,10 @@ public class NewEditorController implements Initializable {
 		transition.play();
 		});
 		
-		ivHelp.setOnMouseClicked(this::switchSceneToQuestionIcon);
-		
-		btnPlus.setOnMouseClicked((e) -> changeKey(1));
-		btnMinus.setOnMouseClicked((e) -> changeKey(-1));
-		
 	}
 	
 	/**
-	 * Methode um die Aktuelle Uhrzeit mit Sekundentakt in dem 
-	 * Fenster auszugeben
+	 * This function shows the clock.
 	 */
     private void showTime() {
     	Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {

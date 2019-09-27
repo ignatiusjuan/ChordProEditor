@@ -161,12 +161,14 @@ public class TextParser {
 		return song;
 	}
 	
-	private static boolean isChordRow(String row) {
+	public static boolean isChordRow(String row) {
 		String[] words = row.split(" ");
 		for(int i = 0; i < words.length; i++) {
 			String trimmed = words[i].trim();
 			if(!trimmed.isEmpty() && ChordChecker.isAChord(trimmed)) {
 				return true;
+			} else {
+				
 			}
 		}
 		return false;

@@ -78,6 +78,11 @@ public class ChordProParser {
 	
 	private List<Integer> errorList;
 	
+	/**
+	 * Convert a String which contains lyric and chord into an environment
+	 * @param toParse
+	 * @return
+	 */
 	private Environment tryParseChordLyric(String toParse) {
 		Environment env = new EnvironmentImpl();
 		
@@ -106,6 +111,12 @@ public class ChordProParser {
 		return env;
 	}
 	
+	/**
+	 * Check if a line is a valid ChordPro syntax
+	 * @param 			toMatch			String to be checked
+	 * @param 			song			a Song object to be updated
+	 * @return
+	 */
 	private boolean tryParseLine(String toMatch, Song song) {
 		if (Pattern.compile(regexChordLyric).matcher(toMatch).find()) {
 			Environment env = tryParseChordLyric(toMatch);
@@ -329,6 +340,11 @@ public class ChordProParser {
 		return true;
 	}
 	
+	/**
+	 * This function will try to parse a ChordPro file
+	 * @param 			pathname		filepath
+	 * @return							parsed Song object
+	 */
 	public Song tryParseChordPro(String pathname) {
 		errorList = new ArrayList<Integer>();
 		File file = new File(pathname);
@@ -364,6 +380,11 @@ public class ChordProParser {
 		return song;
 	}
 	
+	/**
+	 * This function will try to parse the content of a ChordPro file
+	 * @param 			lines		content of a ChordPro file
+	 * @return						parsed Song object
+	 */
 	public Song tryParseChordProString(String lines) {
 		errorList = new ArrayList<Integer>();
 		Song song = new SongImpl();
@@ -395,6 +416,10 @@ public class ChordProParser {
 		return song;
 	}
 	
+	/**
+	 * return lines with error from last parse
+	 * @return
+	 */
 	public List<Integer> getErrorLines(){
 		return errorList != null ? errorList : null;
 	}

@@ -4,6 +4,11 @@ import java.util.Arrays;
 
 import de.chordsystem.chordproeditor.model.interfaces.Fingering;
 
+/**
+ * This class save a Chord Diagram
+ * @author IgnatiusJuanPradipta
+ *
+ */
 public class FingeringImpl implements Fingering {
 	
 	private String chordName;
@@ -12,6 +17,12 @@ public class FingeringImpl implements Fingering {
 	private int[] frets;
 	private int[] fingers;
 	
+	/**
+	 * Helper function to initialise the array if no value given.
+	 * @param strings
+	 * @param array
+	 * @return
+	 */
 	private final static int[] fill(int strings, int[] array) {
 		for (int i = 0; i < strings; i++) {
 			array[i] = -1;
@@ -19,14 +30,34 @@ public class FingeringImpl implements Fingering {
 		return array;
 	}
 	
+	/**
+	 * 3 Parameter Constructor for FingeringImpl
+	 * @param chordName			Name of the chord
+	 * @param strings			amount of instrument strings
+	 */
 	public FingeringImpl(String chordName, int strings) {
 		this(chordName, strings, 0, fill(strings, new int[strings]));
 	}
 	
+	/**
+	 * 4 Parameter Constructor for FingeringImpl
+	 * @param chordName			Name of the chord
+	 * @param strings			amount of instrument strings
+	 * @param baseFret			base fret of the chord
+	 * @param frets				fret descriptions of the chord (which frets should be played or ignored)
+	 */
 	public FingeringImpl(String chordName, int strings, int baseFret, int[] frets) {
 		this(chordName, strings, baseFret, frets, fill(strings, new int[strings]));
 	}
 	
+	/**
+	 * 5 Parameter Constructor for FingeringImpl
+	 * @param chordName			Name of the chord
+	 * @param strings			amount of instrument strings
+	 * @param baseFret			base fret of the chord
+	 * @param frets				fret descriptions of the chord (which frets should be played or ignored)
+	 * @param fingers			finger position on the frets
+	 */
 	public FingeringImpl(String chordName, int strings, int baseFret, int[] frets, int[] fingers) {
 		setChordName(chordName);
 		setStrings(strings);
@@ -116,7 +147,7 @@ public class FingeringImpl implements Fingering {
 	}
 	
 	/**
-	 * toString funktion
+	 * toString function
 	 */
 	@Override
 	public String toString() {

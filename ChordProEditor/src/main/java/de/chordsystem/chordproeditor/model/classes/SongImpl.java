@@ -8,7 +8,11 @@ import java.util.List;
 import de.chordsystem.chordproeditor.model.interfaces.Environment;
 import de.chordsystem.chordproeditor.model.interfaces.Fingering;
 import de.chordsystem.chordproeditor.model.interfaces.Song;
+import de.chordsystem.chordproeditor.parser.ChordChecker;
 
+/**Song class to save a loaded song or a new song
+ * @author IgnatiusJuanPradipta
+ */
 public class SongImpl implements Song{
 	
 	private String title;
@@ -344,6 +348,7 @@ public class SongImpl implements Song{
 	@Override
 	public void addFingering(Fingering fingering) {
 		fingeringList.add(fingering);
+		ChordChecker.customChord.add(fingering.getChordName());
 	}
 	/**
 	 * @return the xth environment
@@ -353,8 +358,7 @@ public class SongImpl implements Song{
 		return environmentList.get(x);
 	}
 	/**
-	 * 
-	 * @return
+	 * return all environment as String
 	 */
 	@Override
 	public String getEnvironmentsAsString() {
@@ -383,8 +387,7 @@ public class SongImpl implements Song{
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * return all environment as String with debugging lines
 	 */
 	@Override
 	public String getEnvironmentsAsString2() {
@@ -430,6 +433,9 @@ public class SongImpl implements Song{
 	}
 	
 	@Override
+	/**
+	 * return class content as string
+	 */
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		

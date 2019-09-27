@@ -12,6 +12,11 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+/**
+ * This class save data like Song class with Properties as variables
+ * @author IgnatiusJuanPradipta
+ *
+ */
 public class SongProperties {
 	
 	public Song original;
@@ -39,6 +44,10 @@ public class SongProperties {
 	
 	public StringProperty contents = new SimpleStringProperty();
 	
+	/**
+	 * Constructor for SongProperty, convert Song to SongProperty
+	 * @param song
+	 */
 	public SongProperties(Song song){
 		this.original = song;
 		
@@ -67,6 +76,9 @@ public class SongProperties {
 		this.contents.set(song.getEnvironmentsAsString());
 	}
 	
+	/**
+	 * Convert an array as String for TextField
+	 */
 	public String arrayListToString(List<String> list) {
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < list.size(); i++) {
@@ -78,6 +90,9 @@ public class SongProperties {
 		return sb.toString();
 	}
 	
+	/**
+	 * Convert a TextField content as an array
+	 */
 	public List<String> stringToArrayList(String s) {
 		List<String> result = new ArrayList<String>();
 		while (s.contains(";")) {
@@ -89,6 +104,11 @@ public class SongProperties {
 		return result;
 	}
 	
+	/**
+	 * Convert currently loaded SongProperties as Song
+	 * @param wysiwygContent
+	 * @return
+	 */
 	public Song toSong(String wysiwygContent) {
 		Song song = new SongImpl();
 		song.setTitle(this.title.getValue());
@@ -124,8 +144,5 @@ public class SongProperties {
 		}
 		return song;
 	}
-	
-	//this.fingeringList = new ArrayList<Fingering>();
-	//this.environmentList = new ArrayList<Environment>();
 
 }

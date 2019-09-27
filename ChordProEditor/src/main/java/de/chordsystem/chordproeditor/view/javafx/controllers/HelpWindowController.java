@@ -12,7 +12,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.AnchorPane;
 
-
+/**
+ * Controller for HelpWindow
+ * @author IgnatiusJuanPradipta
+ * @author engin
+ */
 public class HelpWindowController implements Initializable {
 
     @FXML
@@ -24,11 +28,17 @@ public class HelpWindowController implements Initializable {
     @FXML
     private CheckBox cklShowHelpOnStart;
     
-    /*Methode für den Back Button im Fenster*/
+    /**
+     * Function to close the Help Window
+     **/
     private void closeHelpWindow(ActionEvent event) {
     	btnBack.getScene().getWindow().hide();
     }
     
+    /**
+     * Method to set HelpWindow showed or not on start
+     * @param event
+     */
     private void tickShowHelp(ActionEvent event) {
     	if (cklShowHelpOnStart.isSelected())
     		UserData.setShowHelpOnStart(true);
@@ -36,7 +46,9 @@ public class HelpWindowController implements Initializable {
     		UserData.setShowHelpOnStart(false);
     }
     
-    /*Hier werden die anklickbaren Button ihren jeweiligen Methoden zugewiesen*/
+    /**
+     * Functions to be initialised during first window load
+     **/
     @Override
  	public void initialize(URL url, ResourceBundle resourceBundle) {
  		btnBack.setOnAction(this::closeHelpWindow);

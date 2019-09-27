@@ -1,5 +1,11 @@
 package de.chordsystem.chordproeditor.constant;
 
+/**
+ * Set monospace font that will be supported.
+ * ___CURRENTLY NOT USED___
+ * @author IgnatiusJuanPradipta
+ *
+ */
 public class Font {
 	
 	private static final int FONT_ANDALE_MONO 		= 0;
