@@ -15,6 +15,10 @@ import de.chordsystem.chordproeditor.model.interfaces.Environment;
 import de.chordsystem.chordproeditor.model.interfaces.Fingering;
 import de.chordsystem.chordproeditor.model.interfaces.Song;
 
+/**
+ * This class parse a ChordPro file and return it as a Song class
+ * @author IgnatiusJuanPradipta
+ */
 public class ChordProParser {
 	
 	private static final String regexChordLyric			= "^\\s*[^\\{\\}]*\\s*$";

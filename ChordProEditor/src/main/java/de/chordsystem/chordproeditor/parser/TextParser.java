@@ -12,7 +12,7 @@ import de.chordsystem.chordproeditor.model.interfaces.Song;
 
 /**
  * @author shineglurak
- * @author ignatiusjuan
+ * @author IgnatiusJuanPradipta
  */
 public class TextParser {
 	
