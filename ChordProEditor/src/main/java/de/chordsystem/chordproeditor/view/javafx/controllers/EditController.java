@@ -1,5 +1,7 @@
 package de.chordsystem.chordproeditor.view.javafx.controllers;
 
+import java.io.File;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -8,7 +10,9 @@ import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 
+import de.chordsystem.chordproeditor.model.classes.SongProperties;
 import de.chordsystem.chordproeditor.model.interfaces.Song;
+import de.chordsystem.chordproeditor.parser.ChordProConverter;
 import de.chordsystem.chordproeditor.parser.ChordProParser;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -17,19 +21,25 @@ import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /**
  * Controller for ChordProEditController
  * @author IgnatiusJuanPradipta
- *
+ * @author engin
  */
 public class EditController implements Initializable {
 	
@@ -119,7 +129,13 @@ public class EditController implements Initializable {
 
     @FXML
     private Button btnInsertChordDiagram;
-    
+
+    @FXML
+    private JFXButton btnFontPlus;
+
+    @FXML
+    private JFXButton btnFontMinus;
+        
     @FXML
     private JFXTextArea txtAreaEditSong;
 
@@ -137,6 +153,9 @@ public class EditController implements Initializable {
     
     @FXML
     private ImageView ivUndoGrey;
+    
+    @FXML
+    private ImageView editAsWYSIWYG;
     
     StringProperty textFieldProperty = new SimpleStringProperty();
     BooleanProperty hideSidePane = new SimpleBooleanProperty(false);
@@ -192,23 +211,14 @@ public class EditController implements Initializable {
     private void onClickHamburger(MouseEvent event) {
     	if (!hideSidePane.get()) {
     		AnchorPane.setLeftAnchor(txtAreaEditSong, 60.0);
-    		AnchorPane.setLeftAnchor(ivUndo, 60.0);
-    		AnchorPane.setLeftAnchor(ivUndoGrey, 60.0);
-    		AnchorPane.setLeftAnchor(ivRedo, 130.0);
-    		AnchorPane.setLeftAnchor(ivRedoGrey, 130.0);
     	} else {
     		AnchorPane.setLeftAnchor(txtAreaEditSong, 190.0);
-    		AnchorPane.setLeftAnchor(ivUndo, 190.0);
-    		AnchorPane.setLeftAnchor(ivUndoGrey, 190.0);
-    		AnchorPane.setLeftAnchor(ivRedo, 260.0);
-    		AnchorPane.setLeftAnchor(ivRedoGrey, 260.0);
     	}
     	hideSidePane.set(!hideSidePane.get());
     }
     
     private void onClickInsertText(String insertText) {
     	txtAreaEditSong.insertText(txtAreaEditSong.getCaretPosition(), insertText);
-    	// need to add undo point to txtAreaEditSong 
     	txtAreaEditSong.requestFocus();
     }
     
@@ -218,15 +228,60 @@ public class EditController implements Initializable {
     
     @FXML
     private void onClickSaveBtn(ActionEvent event) {
+    	if (newEditorController.filename.isBlank()) {
+    		FileChooser fileChooser = new FileChooser();
+        	fileChooser.setTitle("Save ChordPro File As");
+        	fileChooser.getExtensionFilters().addAll(
+        			new FileChooser.ExtensionFilter("ChordProFiles", "*.chopro", "*.crd", "*.cho", "*.chord", "*.pro"),
+        			new FileChooser.ExtensionFilter("PDF", "*.pdf"),
+        			new FileChooser.ExtensionFilter("Text file", "*.txt"),
+        			new FileChooser.ExtensionFilter("All Files", "*.*")
+        	);
+        	
+        	File selectedFile = fileChooser.showSaveDialog(null);
+        	if (selectedFile != null) {
+        		newEditorController.filename = selectedFile.getAbsolutePath();
+        	}
+    	}
+    	if (!newEditorController.filename.isBlank())
+    		try {
+        		PrintWriter out = new PrintWriter(newEditorController.filename);
+        		out.println(txtAreaEditSong.getText());
+        		out.close();
+        		Alert alert = new Alert(Alert.AlertType.NONE);
+    	    	alert.setTitle("Project is saved!");
+    	    	alert.setHeaderText("");
+    	    	((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("/Icons/icon 512x512.png/"));
+    	    	ButtonType okButton = new ButtonType("Ok", ButtonData.OK_DONE);
+    	    	alert.getButtonTypes().setAll(okButton);
+        		alert.showAndWait();
+        	} catch (Exception e) {
+        		e.printStackTrace();
+        	}
+    }
+    
+    @FXML
+    private void onSwitchToWYSIWYG(MouseEvent event) {
     	ChordProParser cpp = new ChordProParser();
 		Song tempSong = cpp.tryParseChordProString(txtAreaEditSong.textProperty().getValue());
-		newEditorController.updateSong(tempSong);
-		btnSave.getScene().getWindow().hide();
+		if (ChordProParser.getErrorLines().isEmpty()) {
+			newEditorController.updateSong(tempSong);
+			btnSave.getScene().getWindow().hide();
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+	    	alert.setTitle("Error");
+	    	alert.setHeaderText("Cannot switch to WYSIWYG Mode. Check error message.");
+	    	((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("/Icons/icon 512x512.png/"));
+	    	ButtonType okButton = new ButtonType("Ok", ButtonData.OK_DONE);
+	    	alert.getButtonTypes().setAll(okButton);
+    		alert.showAndWait();
+		}
     }
     
     /*Hier werden die anklickbaren Button ihren jeweiligen Methoden zugewiesen*/
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
+    	editAsWYSIWYG.setOnMouseClicked(this::onSwitchToWYSIWYG);
     	btnSave.setOnAction(this::onClickSaveBtn);
     	txtAreaEditSong.setFont(Font.font("monospaced",FontWeight.NORMAL,14));
     	txtAreaEditSong.textProperty().bindBidirectional(textFieldProperty);
@@ -264,6 +319,7 @@ public class EditController implements Initializable {
     	ivUndo.disableProperty().bind(txtAreaEditSong.undoableProperty().not());
     	
     	setSidePaneBind();
+    	
     	HamburgerSlideCloseTransition transition = new HamburgerSlideCloseTransition(jfxHamHide);
 		transition.setRate(-1);
 		jfxHamHide.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->{
@@ -272,6 +328,13 @@ public class EditController implements Initializable {
 		});
 		jfxHamHide.setOnMouseClicked(this::onClickHamburger);
 		
+		btnFontPlus.setOnMouseClicked((e) -> {
+			txtAreaEditSong.setFont(Font.font("monospaced",FontWeight.NORMAL,Math.min(txtAreaEditSong.getFont().getSize() + 2.0, 100.0)));
+		});
+		
+		btnFontMinus.setOnMouseClicked((e) -> {
+			txtAreaEditSong.setFont(Font.font("monospaced",FontWeight.NORMAL,Math.max(txtAreaEditSong.getFont().getSize() - 2.0, 4.0)));
+		});
     }
     
     public void setNewEditorController(NewEditorController newEditorController) {

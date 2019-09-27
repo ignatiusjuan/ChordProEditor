@@ -24,6 +24,7 @@ import de.chordsystem.chordproeditor.parser.ChordProConverter;
 import de.chordsystem.chordproeditor.parser.ChordProParser;
 import de.chordsystem.chordproeditor.parser.ChordTransposer;
 import de.chordsystem.chordproeditor.userdata.UserData;
+import de.chordsystem.chordproeditor.view.javafx.helperclasses.GetStringFromFile;
 //import de.chordsystem.chordproeditor.view.javafx.helperclasses.WindowPresetSwitchScene;
 import de.chordsystem.chordproeditor.view.javafx.helperclasses.WindowPresetSwitchStage;
 import de.chordsystem.latex.GeneratePDF;
@@ -212,16 +213,22 @@ public class NewEditorController implements Initializable {
     private Label lblSaveAsPDF;
 
     @FXML 
-    private ImageView EditIcon;
+    private ImageView editAsChordProSyntax;
     
     @FXML
     private ImageView ivHelp;
     
     @FXML
-    private JFXButton btnPlus;
+    private JFXButton btnFontPlus;
 
     @FXML
-    private JFXButton btnMinus;
+    private JFXButton btnFontMinus;
+        
+    @FXML
+    private JFXButton btnTransposePlus;
+
+    @FXML
+    private JFXButton btnTransposeMinus;
     
     BooleanProperty clipboardEmpty = new SimpleBooleanProperty(false);
     BooleanProperty hideSidePane = new SimpleBooleanProperty(false);
@@ -304,21 +311,33 @@ public class NewEditorController implements Initializable {
 		
 		hamburger.setOnMouseClicked(this::onClickHamburger);
 		
-		EditIcon.setOnMouseClicked(this::switchSceneToEdit);
+		editAsChordProSyntax.setOnMouseClicked(this::switchSceneToEdit);
 		
 		ivHelp.setOnMouseClicked(this::switchSceneToQuestionIcon);
 		
-		btnPlus.setOnMouseClicked((e) -> {
+		btnTransposePlus.setOnMouseClicked((e) -> {
 			if (!txtKey.getText().isEmpty())
 				txtKey.setText(ChordTransposer.transposeUp(txtKey.getText())); 
+			double pos = txtSongEdit.getScrollTop();
 			txtSongEdit.replaceText(0, txtSongEdit.getLength(), ChordTransposer.changeChord(1,txtSongEdit.getText()));
+			txtSongEdit.setScrollTop(pos);
 			});
 		
-		btnMinus.setOnMouseClicked((e) -> {
+		btnTransposeMinus.setOnMouseClicked((e) -> {
 			if (!txtKey.getText().isEmpty())
 				txtKey.setText(ChordTransposer.transposeDown(txtKey.getText())); 
+			double pos = txtSongEdit.getScrollTop();
 			txtSongEdit.replaceText(0, txtSongEdit.getLength(), ChordTransposer.changeChord(-1,txtSongEdit.getText()));
+			txtSongEdit.setScrollTop(pos);
 			});
+		
+		btnFontPlus.setOnMouseClicked((e) -> {
+			txtSongEdit.setFont(Font.font("monospaced",FontWeight.NORMAL,Math.min(txtSongEdit.getFont().getSize() + 2.0, 100.0)));
+		});
+		
+		btnFontMinus.setOnMouseClicked((e) -> {
+			txtSongEdit.setFont(Font.font("monospaced",FontWeight.NORMAL,Math.max(txtSongEdit.getFont().getSize() - 2.0, 4.0)));
+		});
     }
 
     /**
@@ -336,7 +355,7 @@ public class NewEditorController implements Initializable {
     	EditController editController = new EditController();
     	try{
     		final FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("/fxml/ChordProEdit.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("/fxml/Edit.fxml"));
             fxmlLoader.setController(editController);
             editController.receiveEditText(ChordProConverter.tryConvertToChordPro(tmpSong));
             editController.setNewEditorController(this);
@@ -462,7 +481,7 @@ public class NewEditorController implements Initializable {
 	    	alert.getButtonTypes().setAll(yesButton, noButton, cancelButton);
 	    	alert.showAndWait().ifPresent(type -> {
 	    	        if (type == yesButton) {
-	    	        	//Write process
+	    	        	onClickFileSave(new ActionEvent());
 	    	        	loadedSong = new SongProperties(emptySong);
 	    	    		setDataBind();
 	    	        } else if (type == noButton) {
@@ -481,7 +500,7 @@ public class NewEditorController implements Initializable {
      **/
     @FXML
     private void onClickFileOpen(ActionEvent event) {
-    	
+    			
     	FileChooser fileChooser = new FileChooser();
     	try {
     		File f = new File(UserData.getOpenPath());
@@ -504,10 +523,33 @@ public class NewEditorController implements Initializable {
     		ChordProParser cpp = new ChordProParser();
     		ChordChecker.customChord.clear();
     		tempSong = cpp.tryParseChordPro(selectedFile.getAbsolutePath());
-    		loadedSong = new SongProperties(tempSong);
-    		setDataBind();
     		UserData.setOpenPath(selectedFile.getParent());
-    		filename = selectedFile.getAbsolutePath();
+			filename = selectedFile.getAbsolutePath();
+    		if (ChordProParser.getErrorLines().isEmpty()) {
+				loadedSong = new SongProperties(tempSong);
+				setDataBind();
+    		} else {
+    			EditController editController = new EditController();
+    	    	try{
+    	    		final FXMLLoader fxmlLoader = new FXMLLoader();
+    	            fxmlLoader.setLocation(getClass().getResource("/fxml/Edit.fxml"));
+    	            fxmlLoader.setController(editController);
+    	            editController.receiveEditText(GetStringFromFile.get(filename));
+    	            editController.setNewEditorController(this);
+    	            Stage stage = new Stage();
+    	            Scene scene = new Scene(fxmlLoader.load());
+    	            stage.setResizable(true);
+    	            stage.initOwner(lblDateTime.getScene().getWindow());
+    	            stage.initModality(Modality.APPLICATION_MODAL);
+    	            stage.setScene(scene);
+    	            stage.setTitle("Syntax Mode");
+    	            stage.getIcons().add(new Image("/Icons/icon 512x512.png/"));
+    	            stage.show();
+
+    	        }catch(IOException io){
+    	            io.printStackTrace();
+    	        }
+    		}
     	}
     }
 
@@ -516,7 +558,7 @@ public class NewEditorController implements Initializable {
      * @param event
      */
     @FXML
-    private void onClickFileSave(ActionEvent event) {
+    public void onClickFileSave(ActionEvent event) {
     	if (filename.isBlank()) {
     		onClickFileSaveAs(event);
     	} else {
@@ -610,7 +652,6 @@ public class NewEditorController implements Initializable {
     		AnchorPane.setLeftAnchor(txtSongEdit, 265.0);
     	}
     	hideSidePane.set(!hideSidePane.get());
-    	
     }
     
     /**

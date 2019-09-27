@@ -80,7 +80,7 @@ public class ChordProParser {
 	private int tabCounter = 0;
 	private int gridCounter = 0;
 	
-	private List<Integer> errorList;
+	private static List<Integer> errorList;
 	
 	/**
 	 * Convert a String which contains lyric and chord into an environment
@@ -424,7 +424,7 @@ public class ChordProParser {
 	 * return lines with error from last parse
 	 * @return
 	 */
-	public List<Integer> getErrorLines(){
+	public static List<Integer> getErrorLines(){
 		return errorList != null ? errorList : null;
 	}
 	
