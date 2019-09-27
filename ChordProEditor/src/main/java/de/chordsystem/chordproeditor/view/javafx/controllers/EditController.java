@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 
+import de.chordsystem.chordproeditor.model.classes.SongProperties;
 import de.chordsystem.chordproeditor.model.interfaces.Song;
 import de.chordsystem.chordproeditor.parser.ChordProConverter;
 import de.chordsystem.chordproeditor.parser.ChordProParser;
@@ -20,15 +21,20 @@ import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /**
  * Controller for ChordProEditController
@@ -123,7 +129,13 @@ public class EditController implements Initializable {
 
     @FXML
     private Button btnInsertChordDiagram;
-    
+
+    @FXML
+    private JFXButton btnFontPlus;
+
+    @FXML
+    private JFXButton btnFontMinus;
+        
     @FXML
     private JFXTextArea txtAreaEditSong;
 
@@ -199,16 +211,8 @@ public class EditController implements Initializable {
     private void onClickHamburger(MouseEvent event) {
     	if (!hideSidePane.get()) {
     		AnchorPane.setLeftAnchor(txtAreaEditSong, 60.0);
-    		AnchorPane.setLeftAnchor(ivUndo, 60.0);
-    		AnchorPane.setLeftAnchor(ivUndoGrey, 60.0);
-    		AnchorPane.setLeftAnchor(ivRedo, 130.0);
-    		AnchorPane.setLeftAnchor(ivRedoGrey, 130.0);
     	} else {
     		AnchorPane.setLeftAnchor(txtAreaEditSong, 190.0);
-    		AnchorPane.setLeftAnchor(ivUndo, 190.0);
-    		AnchorPane.setLeftAnchor(ivUndoGrey, 190.0);
-    		AnchorPane.setLeftAnchor(ivRedo, 260.0);
-    		AnchorPane.setLeftAnchor(ivRedoGrey, 260.0);
     	}
     	hideSidePane.set(!hideSidePane.get());
     }
@@ -244,6 +248,13 @@ public class EditController implements Initializable {
         		PrintWriter out = new PrintWriter(newEditorController.filename);
         		out.println(txtAreaEditSong.getText());
         		out.close();
+        		Alert alert = new Alert(Alert.AlertType.NONE);
+    	    	alert.setTitle("Project is saved!");
+    	    	alert.setHeaderText("");
+    	    	((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("/Icons/icon 512x512.png/"));
+    	    	ButtonType okButton = new ButtonType("Ok", ButtonData.OK_DONE);
+    	    	alert.getButtonTypes().setAll(okButton);
+        		alert.showAndWait();
         	} catch (Exception e) {
         		e.printStackTrace();
         	}
@@ -256,6 +267,14 @@ public class EditController implements Initializable {
 		if (ChordProParser.getErrorLines().isEmpty()) {
 			newEditorController.updateSong(tempSong);
 			btnSave.getScene().getWindow().hide();
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+	    	alert.setTitle("Error");
+	    	alert.setHeaderText("Cannot switch to WYSIWYG Mode. Check error message.");
+	    	((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("/Icons/icon 512x512.png/"));
+	    	ButtonType okButton = new ButtonType("Ok", ButtonData.OK_DONE);
+	    	alert.getButtonTypes().setAll(okButton);
+    		alert.showAndWait();
 		}
     }
     
@@ -309,6 +328,13 @@ public class EditController implements Initializable {
 		});
 		jfxHamHide.setOnMouseClicked(this::onClickHamburger);
 		
+		btnFontPlus.setOnMouseClicked((e) -> {
+			txtAreaEditSong.setFont(Font.font("monospaced",FontWeight.NORMAL,Math.min(txtAreaEditSong.getFont().getSize() + 2.0, 100.0)));
+		});
+		
+		btnFontMinus.setOnMouseClicked((e) -> {
+			txtAreaEditSong.setFont(Font.font("monospaced",FontWeight.NORMAL,Math.max(txtAreaEditSong.getFont().getSize() - 2.0, 4.0)));
+		});
     }
     
     public void setNewEditorController(NewEditorController newEditorController) {

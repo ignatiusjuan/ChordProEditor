@@ -500,7 +500,7 @@ public class NewEditorController implements Initializable {
      **/
     @FXML
     private void onClickFileOpen(ActionEvent event) {
-    	
+    			
     	FileChooser fileChooser = new FileChooser();
     	try {
     		File f = new File(UserData.getOpenPath());
