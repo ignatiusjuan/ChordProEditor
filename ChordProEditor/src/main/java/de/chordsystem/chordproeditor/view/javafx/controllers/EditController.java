@@ -35,6 +35,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  * Controller for ChordProEditController
@@ -159,6 +160,8 @@ public class EditController implements Initializable {
     
     StringProperty textFieldProperty = new SimpleStringProperty();
     BooleanProperty hideSidePane = new SimpleBooleanProperty(false);
+    
+    private String originalText;
     private NewEditorController newEditorController;
     
     //Template Attribute
@@ -224,10 +227,10 @@ public class EditController implements Initializable {
     
     public void receiveEditText(String message) {
     	textFieldProperty.set(message);
+    	originalText = message;
     }
     
-    @FXML
-    private void onClickSaveBtn(ActionEvent event) {
+    private boolean onClickSaveBtn() {
     	if (newEditorController.filename.isBlank()) {
     		FileChooser fileChooser = new FileChooser();
         	fileChooser.setTitle("Save ChordPro File As");
@@ -241,6 +244,8 @@ public class EditController implements Initializable {
         	File selectedFile = fileChooser.showSaveDialog(null);
         	if (selectedFile != null) {
         		newEditorController.filename = selectedFile.getAbsolutePath();
+        	} else {
+        		return false;
         	}
     	}
     	if (!newEditorController.filename.isBlank())
@@ -250,14 +255,16 @@ public class EditController implements Initializable {
         		out.close();
         		Alert alert = new Alert(Alert.AlertType.NONE);
     	    	alert.setTitle("Project is saved!");
-    	    	alert.setHeaderText("");
+    	    	alert.setHeaderText("File saved successfully");
     	    	((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("/Icons/icon 512x512.png/"));
     	    	ButtonType okButton = new ButtonType("Ok", ButtonData.OK_DONE);
     	    	alert.getButtonTypes().setAll(okButton);
         		alert.showAndWait();
+        		originalText = txtAreaEditSong.getText();
         	} catch (Exception e) {
         		e.printStackTrace();
         	}
+    	return true;
     }
     
     @FXML
@@ -282,7 +289,7 @@ public class EditController implements Initializable {
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
     	editAsWYSIWYG.setOnMouseClicked(this::onSwitchToWYSIWYG);
-    	btnSave.setOnAction(this::onClickSaveBtn);
+    	btnSave.setOnAction((e) -> onClickSaveBtn());
     	txtAreaEditSong.setFont(Font.font("monospaced",FontWeight.NORMAL,14));
     	txtAreaEditSong.textProperty().bindBidirectional(textFieldProperty);
     	
@@ -335,6 +342,57 @@ public class EditController implements Initializable {
 		btnFontMinus.setOnMouseClicked((e) -> {
 			txtAreaEditSong.setFont(Font.font("monospaced",FontWeight.NORMAL,Math.max(txtAreaEditSong.getFont().getSize() - 2.0, 4.0)));
 		});
+    }
+    
+    private void quitConfirmation() {
+    	Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    	alert.setTitle("Quit?");
+    	alert.setContentText("Quit regardless?");
+    	((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("/Icons/icon 512x512.png/"));
+    	ButtonType yesButton = new ButtonType("Yes", ButtonData.YES);
+    	ButtonType noButton = new ButtonType("No", ButtonData.NO);
+    	alert.getButtonTypes().setAll(yesButton, noButton);
+    	alert.showAndWait().ifPresent(type -> {
+    		if (type == yesButton) {
+    	        btnSave.getScene().getWindow().hide();
+    	        newEditorController.forceNewDocument();
+    	    }
+    	});
+    }
+    public void closeWindowEvent(WindowEvent event) {
+    	//Check if text same with original
+    	if (originalText.equals(txtAreaEditSong.getText())){
+    		onSwitchToWYSIWYG(new MouseEvent(null, 0, 0, 0, 0, null, 0, false, false, false, false, false, false, false, false, false, false, null));
+    		if (!ChordProParser.getErrorLines().isEmpty()) {
+    			quitConfirmation();
+    		}
+    	} else {
+    		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+	    	alert.setTitle("Current project is modified");
+	    	alert.setContentText("Save?");
+	    	((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("/Icons/icon 512x512.png/"));
+	    	ButtonType yesButton = new ButtonType("Yes", ButtonData.YES);
+	    	ButtonType noButton = new ButtonType("No", ButtonData.NO);
+	    	ButtonType cancelButton = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+	    	alert.getButtonTypes().setAll(yesButton, noButton, cancelButton);
+	    	alert.showAndWait().ifPresent(type -> {
+    	        if (type == yesButton) {
+    	        	if (onClickSaveBtn()) {
+	    	        	onSwitchToWYSIWYG(new MouseEvent(null, 0, 0, 0, 0, null, 0, false, false, false, false, false, false, false, false, false, false, null));
+	    	        	if (!ChordProParser.getErrorLines().isEmpty()) {
+	    	    			quitConfirmation();
+	    	    		}
+    	        	}
+    	        } else if (type == noButton) {
+    	        	txtAreaEditSong.setText(originalText);
+    	        	onSwitchToWYSIWYG(new MouseEvent(null, 0, 0, 0, 0, null, 0, false, false, false, false, false, false, false, false, false, false, null));
+    	        	if (!ChordProParser.getErrorLines().isEmpty()) {
+    	    			quitConfirmation();
+    	    		}
+    	        }
+	    	});
+    		
+    	}
     }
     
     public void setNewEditorController(NewEditorController newEditorController) {

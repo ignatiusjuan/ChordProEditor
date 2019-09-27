@@ -35,6 +35,7 @@ import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -54,6 +55,7 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.robot.Robot;
@@ -62,6 +64,7 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import javafx.util.converter.IntegerStringConverter;
 /**
@@ -361,6 +364,14 @@ public class NewEditorController implements Initializable {
             editController.setNewEditorController(this);
             Stage stage = new Stage();
             Scene scene = new Scene(fxmlLoader.load());
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent e) {
+                    e.consume();
+                    editController.closeWindowEvent(new WindowEvent(stage, null));
+                }
+            });
+            //stage.setOnCloseRequest(editController::closeWindowEvent);
             stage.setResizable(true);
             stage.initOwner(lblDateTime.getScene().getWindow());
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -392,6 +403,7 @@ public class NewEditorController implements Initializable {
     	return songA.toString().equals(songB.toString()) ? true : false;
     }
     
+
     /**
      * Set shortcut for menu items
      */
@@ -538,6 +550,13 @@ public class NewEditorController implements Initializable {
     	            editController.setNewEditorController(this);
     	            Stage stage = new Stage();
     	            Scene scene = new Scene(fxmlLoader.load());
+    	            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+    	                @Override
+    	                public void handle(WindowEvent e) {
+    	                    e.consume();
+    	                    editController.closeWindowEvent(new WindowEvent(stage, null));
+    	                }
+    	            });
     	            stage.setResizable(true);
     	            stage.initOwner(lblDateTime.getScene().getWindow());
     	            stage.initModality(Modality.APPLICATION_MODAL);
@@ -592,7 +611,8 @@ public class NewEditorController implements Initializable {
     			new FileChooser.ExtensionFilter("All Files", "*.*")
     	);
     	String[] defaultName = txtSongEdit.getText().split("\\n");
-    	fileChooser.setInitialFileName(defaultName[0].toString());
+    	if (defaultName.length > 0)
+    		fileChooser.setInitialFileName(defaultName[0].toString());
     	
     	File selectedFile = fileChooser.showSaveDialog(null);
     	if (selectedFile != null) {
@@ -705,6 +725,12 @@ public class NewEditorController implements Initializable {
         clock.play();
     }
     
-  
-
+    /**
+     * Force empty current workspace. USE WITH CAUTION!
+     */
+    public void forceNewDocument() {
+    	loadedSong = new SongProperties(emptySong);
+		setDataBind();
+		filename = "";
+    }
 }

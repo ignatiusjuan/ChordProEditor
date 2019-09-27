@@ -14,7 +14,7 @@
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="909.0" stylesheets="@../Css/Edit.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <JFXTextArea fx:id="txtAreaEditSong" promptText="Enter your syntax here . . ." layoutX="13.0" layoutY="14.0" prefHeight="543.0" prefWidth="706.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
+      <JFXTextArea fx:id="txtAreaEditSong" layoutX="13.0" layoutY="14.0" prefHeight="543.0" prefWidth="706.0" promptText="Enter your syntax here . . ." style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
       <JFXHamburger fx:id="jfxHamHide" layoutX="15.0" layoutY="23.0" />
       <Label fx:id="lblInsert" layoutX="55.0" layoutY="15.0" text="Insert" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="15.0">
          <font>
@@ -199,7 +199,7 @@
          </image>
       </ImageView>
       <Label layoutX="684.0" layoutY="593.0" text="Edit in WYSIWYG" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="135.0" />
-      <Separator layoutX="784.0" layoutY="560.0" orientation="VERTICAL" prefHeight="51.0" prefWidth="3.0" />
+      <Separator layoutX="784.0" layoutY="560.0" orientation="VERTICAL" prefHeight="51.0" prefWidth="3.0" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="120.0" />
       <JFXButton fx:id="btnSave" layoutX="798.0" layoutY="567.0" prefHeight="39.0" prefWidth="90.0" text="Save" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="21.0">
          <font>
             <Font name="System Bold" size="18.0" />
