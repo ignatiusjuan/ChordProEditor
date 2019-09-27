@@ -36,6 +36,12 @@ public class WriteTex {
 		String tmp = prepareString(song.getTitle());
 		bw.write("\\title{"+tmp+"}");
 		bw.newLine();
+		if(!song.getSubtitle().isEmpty()) {
+			for(int i = 0; i < song.getSubtitle().size(); i++) {
+				tmp += prepareString(song.getSubtitle().get(i));
+			}
+			bw.write("\\subtitle{"+tmp+"}");
+		}
 		bw.write("\\author{");
 		for(int i = 0; i < song.getArtist().size(); i++) {
 			tmp = prepareString(song.getArtist().get(i));
@@ -46,8 +52,13 @@ public class WriteTex {
 		}
 		bw.write("}");
 		bw.newLine();
-		bw.write("\\date{"+song.getYear()+"}");
-		bw.newLine();
+		if(song.getYear() > 1800) {
+			bw.write("\\date{"+song.getYear()+"}");
+			bw.newLine();
+		}else {
+			bw.write("\\date{\\today}");
+			bw.newLine();
+		}
 		bw.write("\\begin{document}");
 		bw.newLine();
 		bw.write("\\maketitle");
@@ -323,7 +334,8 @@ public class WriteTex {
 		}
 		if(song.getEnvironment(env).getChord() != null) {
 			String text = prepareString(song.getEnvironment(env).getChord());
-			bw.write("\\textbf{ "+text+"} \\\\");
+			bw.write("\\textbf{ "+text+"} \\\\"
+					);
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getLyric() != null) {
@@ -333,14 +345,29 @@ public class WriteTex {
 		}
 	}
 	
-	private static String prepareString(String line) {
+	private static String prepareString(String line) {//Attention order matters
 		String lineFix = line;
-		lineFix = line.replace("#", "\\# ");
+		lineFix = line.replace("\\", "\\textbackslash");
+		lineFix = lineFix.replace("#", "\\# ");
 		lineFix = lineFix.replace("<", "$<$");
 		lineFix = lineFix.replace(">", "$>$");
-		lineFix = lineFix.replace("[", "{[} ");
-		lineFix = lineFix.replace("]", "{]} ");
+		lineFix = lineFix.replace("[", "{[}");
+		lineFix = lineFix.replace("]", "{]}");
+		lineFix = lineFix.replace("~", "\\~{}");
 		lineFix = lineFix.replace(" ", "~");
+		lineFix = lineFix.replace("\"", "''");
+		lineFix = lineFix.replace("ä", "\\\"a");
+		lineFix = lineFix.replace("ö", "\\\"o");
+		lineFix = lineFix.replace("ü", "\\\"u");
+		lineFix = lineFix.replace("Ä", "\\\"A");
+		lineFix = lineFix.replace("Ö", "\\\"O");
+		lineFix = lineFix.replace("Ü", "\\\"U");
+		lineFix = lineFix.replace("ß", "\\ss{}");
+		lineFix = lineFix.replace("$", "\\$");
+		lineFix = lineFix.replace("_", "\\_");
+		lineFix = lineFix.replace("°", "\\textdegree");
+		lineFix = lineFix.replace("^", "\\^{}");
+		lineFix = lineFix.replace("%", "\\%");
 		lineFix = replaceFirstSpaces(lineFix);
 		return lineFix;
 	}
