@@ -42,5 +42,5 @@ public class Font {
 //	private static final int FONT_TERMINUS			= 31;
 //	private static final int FONT_TEX_GYRE_CURSOR	= 32;
 //	private static final int FONT_UM_TYPEWRITER		= 33;
-	
+
 }
