@@ -3,6 +3,7 @@ package de.chordsystem.chordproeditor.view.javafx.controllers;
 import java.io.File;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -141,6 +142,9 @@ public class EditController implements Initializable {
         
     @FXML
     private JFXTextArea txtAreaEditSong;
+    
+    @FXML
+    private JFXTextArea txtAreaErrorMessage;
 
     @FXML
     private JFXButton btnSave;
@@ -163,8 +167,10 @@ public class EditController implements Initializable {
     @FXML
     private Label lblLineNumber;
     
-    StringProperty textFieldProperty = new SimpleStringProperty();
+    StringProperty txtAreaEditSongProperty = new SimpleStringProperty();
+    StringProperty txtAreaErrorMessageProperty = new SimpleStringProperty();
     BooleanProperty hideSidePane = new SimpleBooleanProperty(false);
+    
     
     private String originalText;
     private NewEditorController newEditorController;
@@ -185,7 +191,7 @@ public class EditController implements Initializable {
     private final String templateCapo 			= "{capo: insert_capo_here}\n";
     private final String templateTextFont 		= "{textfont: insert_textfont_here}\n";
     private final String templateTextSize 		= "{textsize: insert_textsize_here}\n";
-    private final String templateTextColour 		= "{textcolour: insert_textcolour_here}\n";
+    private final String templateTextColour 	= "{textcolour: insert_textcolour_here}\n";
     private final String templateChordColour 	= "{chordcolour: insert_chordcolour_here}\n";
     
     //Template Contents
@@ -225,8 +231,10 @@ public class EditController implements Initializable {
     private void onClickLeftHamburger(MouseEvent event) {
     	if (!hideSidePane.get()) {
     		AnchorPane.setLeftAnchor(txtAreaEditSong, 60.0);
+    		AnchorPane.setLeftAnchor(txtAreaErrorMessage, 60.0);
     	} else {
     		AnchorPane.setLeftAnchor(txtAreaEditSong, 190.0);
+    		AnchorPane.setLeftAnchor(txtAreaErrorMessage, 190.0);
     	}
     	hideSidePane.set(!hideSidePane.get());
     }
@@ -244,7 +252,13 @@ public class EditController implements Initializable {
      * @param message
      */
     public void receiveEditText(String message) {
-    	textFieldProperty.set(message);
+    	String[] lines = message.split("\n");
+    	StringBuilder sb = new StringBuilder();
+    	if (!ChordProParser.getErrorLines().isEmpty())
+    		for (int i : ChordProParser.getErrorLines())
+    			sb.append("Error on parsing line " + (i+1) + ": " + lines[i] + "\n");
+    	txtAreaErrorMessageProperty.set(sb.toString());
+    	txtAreaEditSongProperty.set(message);
     	originalText = message;
     }
     
@@ -301,6 +315,7 @@ public class EditController implements Initializable {
 			newEditorController.updateSong(tempSong);
 			btnSave.getScene().getWindow().hide();
 		} else {
+			announceError(ChordProParser.getErrorLines());
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 	    	alert.setTitle("Error");
 	    	alert.setHeaderText("Cannot switch to WYSIWYG Mode. Check error message.");
@@ -319,7 +334,8 @@ public class EditController implements Initializable {
     	editAsWYSIWYG.setOnMouseClicked(this::onSwitchToWYSIWYG);
     	btnSave.setOnAction((e) -> onClickSaveBtn());
     	txtAreaEditSong.setFont(Font.font("monospaced",FontWeight.NORMAL,14));
-    	txtAreaEditSong.textProperty().bindBidirectional(textFieldProperty);txtAreaEditSong.caretPositionProperty().addListener(new ChangeListener<Object>() {
+    	txtAreaEditSong.textProperty().bindBidirectional(txtAreaEditSongProperty);
+    	txtAreaEditSong.caretPositionProperty().addListener(new ChangeListener<Object>() {
     		@Override
     		public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
     			String text = txtAreaEditSong.getText(0,txtAreaEditSong.getCaretPosition());
@@ -331,6 +347,7 @@ public class EditController implements Initializable {
     			lblLineNumber.setText(String.valueOf(lineCounter));
     		}
     	});
+    	txtAreaErrorMessage.textProperty().bindBidirectional(txtAreaErrorMessageProperty);
     	
     	btnInsertTitle.setOnAction((e) -> onClickInsertText(templateTitle));
     	btnInsertSubtitle.setOnAction((e) -> onClickInsertText(templateSubtitle));
@@ -376,10 +393,12 @@ public class EditController implements Initializable {
 		
 		btnFontPlus.setOnMouseClicked((e) -> {
 			txtAreaEditSong.setFont(Font.font("monospaced",FontWeight.NORMAL,Math.min(txtAreaEditSong.getFont().getSize() + 2.0, 100.0)));
+			txtAreaErrorMessage.setFont(Font.font(txtAreaErrorMessage.getFont().getName(),FontWeight.NORMAL,Math.min(txtAreaErrorMessage.getFont().getSize() + 2.0, 100.0)));
 		});
 		
 		btnFontMinus.setOnMouseClicked((e) -> {
 			txtAreaEditSong.setFont(Font.font("monospaced",FontWeight.NORMAL,Math.max(txtAreaEditSong.getFont().getSize() - 2.0, 4.0)));
+			txtAreaErrorMessage.setFont(Font.font(txtAreaErrorMessage.getFont().getName(),FontWeight.NORMAL,Math.max(txtAreaErrorMessage.getFont().getSize() - 2.0, 4.0)));
 		});
     }
     
@@ -410,6 +429,7 @@ public class EditController implements Initializable {
     	if (originalText.equals(txtAreaEditSong.getText())){
     		onSwitchToWYSIWYG(new MouseEvent(null, 0, 0, 0, 0, null, 0, false, false, false, false, false, false, false, false, false, false, null));
     		if (!ChordProParser.getErrorLines().isEmpty()) {
+    			announceError(ChordProParser.getErrorLines());
     			quitConfirmation();
     		}
     	} else {
@@ -426,6 +446,7 @@ public class EditController implements Initializable {
     	        	if (onClickSaveBtn()) {
 	    	        	onSwitchToWYSIWYG(new MouseEvent(null, 0, 0, 0, 0, null, 0, false, false, false, false, false, false, false, false, false, false, null));
 	    	        	if (!ChordProParser.getErrorLines().isEmpty()) {
+	    	        		announceError(ChordProParser.getErrorLines());
 	    	    			quitConfirmation();
 	    	    		}
     	        	}
@@ -433,11 +454,23 @@ public class EditController implements Initializable {
     	        	txtAreaEditSong.setText(originalText);
     	        	onSwitchToWYSIWYG(new MouseEvent(null, 0, 0, 0, 0, null, 0, false, false, false, false, false, false, false, false, false, false, null));
     	        	if (!ChordProParser.getErrorLines().isEmpty()) {
+    	        		announceError(ChordProParser.getErrorLines());
     	    			quitConfirmation();
     	    		}
     	        }
 	    	});
     		
+    	}
+    }
+    
+    /**
+     * Announce error message content with line number and line content
+     */
+    private void announceError(List<Integer> lineNumber) {
+    	String[] lines = txtAreaEditSong.getText().split("\n");
+    	txtAreaErrorMessage.setText("");
+    	for (int i : lineNumber) {
+    		txtAreaErrorMessage.appendText("Error on parsing line " + (i+1) + ": " + lines[i] + "\n");
     	}
     }
     

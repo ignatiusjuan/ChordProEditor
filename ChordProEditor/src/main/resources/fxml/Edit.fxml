@@ -12,9 +12,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="909.0" stylesheets="@../Css/Edit.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="725.0" prefWidth="909.0" stylesheets="@../Css/Edit.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <JFXTextArea fx:id="txtAreaEditSong" layoutX="13.0" layoutY="14.0" prefHeight="543.0" prefWidth="706.0" promptText="Enter your syntax here . . ." style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
+      <JFXTextArea fx:id="txtAreaEditSong" layoutX="13.0" layoutY="14.0" prefHeight="522.0" prefWidth="704.0" promptText="Enter your syntax here . . ." style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="188.0" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
+      <JFXTextArea fx:id="txtAreaErrorMessage" editable="false" layoutX="190.0" layoutY="552.0" prefHeight="118.0" prefWidth="704.0" promptText="Error message is empty" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="15.0">
+         <font>
+            <Font size="14.0" />
+         </font></JFXTextArea>
       <JFXHamburger fx:id="jfxHamHide" layoutX="15.0" layoutY="23.0" />
       <Label fx:id="lblInsert" layoutX="55.0" layoutY="15.0" text="Insert" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="15.0">
          <font>
@@ -211,7 +215,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="lblLineNumber" layoutX="827.0" layoutY="565.0" prefHeight="43.0" prefWidth="65.0" text="1">
+      <Label fx:id="lblLineNumber" layoutX="829.0" layoutY="674.0" prefHeight="43.0" prefWidth="65.0" text="1" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="15.0">
          <font>
             <Font size="29.0" />
          </font>

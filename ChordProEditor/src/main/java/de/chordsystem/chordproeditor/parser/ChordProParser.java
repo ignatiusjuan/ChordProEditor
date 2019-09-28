@@ -80,7 +80,7 @@ public class ChordProParser {
 	private int tabCounter = 0;
 	private int gridCounter = 0;
 	
-	private static List<Integer> errorList;
+	private static List<Integer> errorList = new ArrayList<Integer>();
 	
 	/**
 	 * Convert a String which contains lyric and chord into an environment
