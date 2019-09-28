@@ -12,9 +12,7 @@ import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 
-import de.chordsystem.chordproeditor.model.classes.SongProperties;
 import de.chordsystem.chordproeditor.model.interfaces.Song;
-import de.chordsystem.chordproeditor.parser.ChordProConverter;
 import de.chordsystem.chordproeditor.parser.ChordProParser;
 import de.chordsystem.chordproeditor.userdata.UserData;
 import javafx.beans.property.BooleanProperty;
@@ -23,7 +21,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
