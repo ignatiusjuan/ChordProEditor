@@ -104,7 +104,7 @@ public class EditController implements Initializable {
     private Button btnInsertCapo;
 
     @FXML
-    private Button btnInsertIsFinished;
+    private Button btnInsertNewSong;
     
     @FXML
     private Button btnInsertTextFont;
@@ -203,6 +203,7 @@ public class EditController implements Initializable {
     private final String templateTextSize 		= "{textsize: insert_textsize_here}\n";
     private final String templateTextColour 	= "{textcolour: insert_textcolour_here}\n";
     private final String templateChordColour 	= "{chordcolour: insert_chordcolour_here}\n";
+    private final String templateNewSong		= "{new_song}\n";
     
     //Template Contents
     private final String templateVerse 			= "{start_of_verse: verse_name}\n" 	+ 
@@ -395,6 +396,7 @@ public class EditController implements Initializable {
     	btnInsertTextSize.setOnAction((e) -> onClickInsertText(templateTextSize));
     	btnInsertTextColour.setOnAction((e) -> onClickInsertText(templateTextColour));
     	btnInsertChordColour.setOnAction((e) -> onClickInsertText(templateChordColour));
+    	btnInsertNewSong.setOnAction((e) -> onClickInsertText(templateNewSong));
     	
     	btnInsertVerse.setOnAction((e) -> onClickInsertText(templateVerse));
     	btnInsertChorus.setOnAction((e) -> onClickInsertText(templateChorus));
@@ -545,7 +547,7 @@ public class EditController implements Initializable {
     	btnInsertTextSize.setText(r.getString("SYNTAXEDITOR_BUTTON_TEXTSIZE"));
     	btnInsertTextColour.setText(r.getString("SYNTAXEDITOR_BUTTON_TEXTCOLOUR"));
     	btnInsertChordColour.setText(r.getString("SYNTAXEDITOR_BUTTON_CHORDCOLOUR"));
-    	btnInsertIsFinished.setText(r.getString("SYNTAXEDITOR_BUTTON_ISFINISHED"));
+    	btnInsertNewSong.setText(r.getString("SYNTAXEDITOR_BUTTON_NEW_SONG"));
     	
     	btnInsertVerse.setText(r.getString("SYNTAXEDITOR_BUTTON_VERSE"));
     	btnInsertChorus.setText(r.getString("SYNTAXEDITOR_BUTTON_CHORUS"));
