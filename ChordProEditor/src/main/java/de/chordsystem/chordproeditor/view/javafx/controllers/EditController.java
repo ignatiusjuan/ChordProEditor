@@ -146,14 +146,14 @@ public class EditController implements Initializable {
     private JFXButton btnFontMinus;
         
     @FXML
+    private Label lblFont;
+    
+    @FXML
     private JFXTextArea txtAreaEditSong;
     
     @FXML
     private JFXTextArea txtAreaErrorMessage;
 
-    @FXML
-    private JFXButton btnSave;
-    
     @FXML
     private ImageView ivRedo;
     
@@ -170,7 +170,17 @@ public class EditController implements Initializable {
     private ImageView editAsWYSIWYG;
     
     @FXML
+    private Label lblEditInWYSIWYG;
+
+    @FXML
+    private JFXButton btnSave;
+    
+    @FXML
+    private Label lblLine;
+    
+    @FXML
     private Label lblLineNumber;
+    
     
     StringProperty txtAreaEditSongProperty = new SimpleStringProperty();
     StringProperty txtAreaErrorMessageProperty = new SimpleStringProperty();
@@ -504,6 +514,7 @@ public class EditController implements Initializable {
      */
     private void setLanguage(Locale l) {
     	ResourceBundle r = ResourceBundle.getBundle("Locale/Language",l);
+    	
     	btnInsertTitle.setText(r.getString("SYNTAXEDITOR_BUTTON_TITLE"));
     	btnInsertSubtitle.setText(r.getString("SYNTAXEDITOR_BUTTON_SUBTITLE"));
     	btnInsertArtist.setText(r.getString("SYNTAXEDITOR_BUTTON_ARTIST"));
@@ -523,11 +534,24 @@ public class EditController implements Initializable {
     	btnInsertChordColour.setText(r.getString("SYNTAXEDITOR_BUTTON_CHORDCOLOUR"));
     	btnInsertIsFinished.setText(r.getString("SYNTAXEDITOR_BUTTON_ISFINISHED"));
     	
-    	lblFont.setText(r.getString("WYSIWYG_LABEL_FONT"));
-    	lblTranspose.setText(r.getString("WYSIWYG_LABEL_TRANSPOSE"));
-    	lblEditInChordPro.setText(r.getString("WYSIWYG_LABEL_EDIT_IN_CHORDPRO"));
-    	lblSaveAsChordPro.setText(r.getString("WYSIWYG_LABEL_SAVE_AS_CHORDPRO"));
-    	lblSaveAsPDF.setText(r.getString("WYSIWYG_LABEL_SAVE_AS_PDF"));
+    	btnInsertVerse.setText(r.getString("SYNTAXEDITOR_BUTTON_VERSE"));
+    	btnInsertChorus.setText(r.getString("SYNTAXEDITOR_BUTTON_CHORUS"));
+    	btnInsertGrid.setText(r.getString("SYNTAXEDITOR_BUTTON_GRID"));
+    	btnInsertTab.setText(r.getString("SYNTAXEDITOR_BUTTON_TAB"));
+    	btnInsertComment.setText(r.getString("SYNTAXEDITOR_BUTTON_COMMENT"));
+    	btnInsertChordDiagram.setText(r.getString("SYNTAXEDITOR_BUTTON_CHORD_DIAGRAM"));
+
+    	lblInsert.setText(r.getString("SYNTAXEDITOR_LABEL_INSERT"));
+    	lblAttributes.setText(r.getString("SYNTAXEDITOR_LABEL_ATTRIBUTES"));
+    	lblContents.setText(r.getString("SYNTAXEDITOR_LABEL_CONTENTS"));
+    	lblFont.setText(r.getString("SYNTAXEDITOR_LABEL_FONT"));
+    	lblEditInWYSIWYG.setText(r.getString("SYNTAXEDITOR_LABEL_EDIT_IN_WYSIWYG"));
+    	lblLine.setText(r.getString("SYNTAXEDITOR_LABEL_LINE"));
+    	
+    	btnSave.setText(r.getString("SYNTAXEDITOR_BUTTON_SAVE"));
+    	
+    	txtAreaEditSong.setPromptText(r.getString("SYNTAXEDITOR_TEXTAREA_SONG_EDIT"));
+    	txtAreaErrorMessage.setPromptText(r.getString("SYNTAXEDITOR_TEXTAREA_ERROR_MESSAGE"));
     }
     
 }
