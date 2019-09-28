@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="693.0" prefWidth="1084.0" stylesheets="@../Css/Main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="694.0" prefWidth="1084.0" stylesheets="@../Css/Main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <JFXHamburger fx:id="hamburger" layoutX="14.0" layoutY="48.0" prefHeight="31.0" prefWidth="37.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="45.0" />
       <Label fx:id="lblAttributes" layoutX="61.0" layoutY="48.0" prefHeight="35.0" prefWidth="143.0" text="Attributes" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="45.0">
@@ -129,25 +129,25 @@
          </font>
       </JFXButton>
       <Label fx:id="lblTranspose" layoutX="366.0" layoutY="666.0" text="Transpose" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="368.0" />
-      <ImageView fx:id="editAsChordProSyntax" fitHeight="31.0" fitWidth="28.0" layoutX="767.0" layoutY="638.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="27.0" AnchorPane.rightAnchor="289.0">
+      <ImageView fx:id="editAsChordProSyntax" fitHeight="31.0" fitWidth="28.0" layoutX="615.0" layoutY="640.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="26.0" AnchorPane.rightAnchor="441.0">
          <image>
             <Image url="@../Icons/EditIcon.png" />
          </image>
       </ImageView>
-      <Label fx:id="lblEditInChordPro" layoutX="786.0" layoutY="666.0" text="Edit in ChordPro Format" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="241.0" />
-      <Separator layoutX="847.0" layoutY="637.0" orientation="VERTICAL" prefHeight="47.0" prefWidth="8.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="229.0" />
-      <ImageView fx:id="SaveAsChordPro" fitHeight="37.0" fitWidth="37.0" layoutX="896.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="151.0">
+      <Label fx:id="lblEditInChordPro" layoutX="565.0" layoutY="667.0" text="Edit in ChordPro Format" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="391.0" />
+      <Separator layoutX="717.0" layoutY="635.0" orientation="VERTICAL" prefHeight="47.0" prefWidth="8.0" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="359.0" />
+      <ImageView fx:id="SaveAsChordPro" fitHeight="37.0" fitWidth="37.0" layoutX="791.0" layoutY="632.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="256.0">
          <image>
             <Image url="@../Icons/SaveAsChordpro.png" />
          </image>
       </ImageView>
-      <Label fx:id="lblSaveAsChordPro" layoutX="855.0" layoutY="666.0" text="Save as ChordPro File" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="115.0" />
-      <Separator layoutX="973.0" layoutY="637.0" orientation="VERTICAL" prefHeight="47.0" prefWidth="8.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="103.0" />
-      <ImageView fx:id="ivSaveAsPDF" fitHeight="37.0" fitWidth="37.0" layoutX="1017.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="40.0">
+      <Label fx:id="lblSaveAsChordPro" layoutX="752.0" layoutY="667.0" text="Save as ChordPro File" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="218.0" />
+      <Separator layoutX="893.0" layoutY="635.0" orientation="VERTICAL" prefHeight="47.0" prefWidth="8.0" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="183.0" />
+      <ImageView fx:id="ivSaveAsPDF" fitHeight="37.0" fitWidth="37.0" layoutX="946.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="26.0" AnchorPane.rightAnchor="101.0">
          <image>
             <Image url="@../Icons/SaveAsPdf.png" />
          </image>
       </ImageView>
-      <Label fx:id="lblSaveAsPDF" layoutX="995.0" layoutY="668.0" text="Save as Pdf File" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="20.0" />
+      <Label fx:id="lblSaveAsPDF" layoutX="923.0" layoutY="667.0" text="Save as Pdf File" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="79.0" />
    </children>
 </AnchorPane>
