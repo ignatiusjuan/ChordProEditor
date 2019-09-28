@@ -30,9 +30,9 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <ScrollPane fx:id="scrollpaneAttributes" layoutY="86.0" maxHeight="563.0" prefHeight="273.0" prefWidth="160.0" AnchorPane.bottomAnchor="255.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="85.0">
+      <ScrollPane fx:id="scrollpaneAttributes" layoutY="86.0" maxHeight="596.0" prefHeight="273.0" prefWidth="160.0" AnchorPane.bottomAnchor="255.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="85.0">
         <content>
-          <AnchorPane maxHeight="563.0" minHeight="0.0" minWidth="0.0" prefHeight="563.0" prefWidth="145.0">
+          <AnchorPane maxHeight="563.0" minHeight="0.0" minWidth="0.0" prefHeight="596.0" prefWidth="145.0">
                <children>
                   <Button fx:id="btnInsertTitle" layoutX="1.0" layoutY="2.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="143.0" text="Title">
                      <font>
@@ -99,22 +99,27 @@
                         <Font size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnInsertTextFont" layoutX="1.0" layoutY="431.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Text Font">
+                  <Button fx:id="btnInsertIsFinished" layoutX="11.0" layoutY="431.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Is Finished">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnInsertTextSize" layoutX="1.0" layoutY="464.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Text Size">
+                  <Button fx:id="btnInsertTextFont" layoutX="1.0" layoutY="464.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Text Font">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnInsertTextColour" layoutX="1.0" layoutY="497.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Text Colour">
+                  <Button fx:id="btnInsertTextSize" layoutX="1.0" layoutY="497.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Text Size">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnInsertChordColour" layoutX="1.0" layoutY="530.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Chord Colour">
+                  <Button fx:id="btnInsertTextColour" layoutX="1.0" layoutY="530.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Text Colour">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnInsertChordColour" layoutX="1.0" layoutY="563.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Chord Colour">
                      <font>
                         <Font size="15.0" />
                      </font>

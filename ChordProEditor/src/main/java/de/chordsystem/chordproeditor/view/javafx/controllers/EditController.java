@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -15,6 +16,7 @@ import de.chordsystem.chordproeditor.model.classes.SongProperties;
 import de.chordsystem.chordproeditor.model.interfaces.Song;
 import de.chordsystem.chordproeditor.parser.ChordProConverter;
 import de.chordsystem.chordproeditor.parser.ChordProParser;
+import de.chordsystem.chordproeditor.userdata.UserData;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -103,6 +105,9 @@ public class EditController implements Initializable {
     
     @FXML
     private Button btnInsertCapo;
+
+    @FXML
+    private Button btnInsertIsFinished;
     
     @FXML
     private Button btnInsertTextFont;
@@ -400,6 +405,8 @@ public class EditController implements Initializable {
 			txtAreaEditSong.setFont(Font.font("monospaced",FontWeight.NORMAL,Math.max(txtAreaEditSong.getFont().getSize() - 2.0, 4.0)));
 			txtAreaErrorMessage.setFont(Font.font(txtAreaErrorMessage.getFont().getName(),FontWeight.NORMAL,Math.max(txtAreaErrorMessage.getFont().getSize() - 2.0, 4.0)));
 		});
+		
+		setLanguage(UserData.getLocale());
     }
     
     /**
@@ -482,4 +489,45 @@ public class EditController implements Initializable {
     	this.newEditorController = newEditorController;
     }
 
+
+    /**
+     * Set language of the GUI, with language and country as parameteres
+     */
+    @SuppressWarnings("unused")
+	private void setLanguage(String language, String country) {
+    	Locale l = new Locale(language,country);
+    	setLanguage(l);
+    }
+    
+    /**
+     * Set language of the GUI, with Locale as parameter
+     */
+    private void setLanguage(Locale l) {
+    	ResourceBundle r = ResourceBundle.getBundle("Locale/Language",l);
+    	btnInsertTitle.setText(r.getString("SYNTAXEDITOR_BUTTON_TITLE"));
+    	btnInsertSubtitle.setText(r.getString("SYNTAXEDITOR_BUTTON_SUBTITLE"));
+    	btnInsertArtist.setText(r.getString("SYNTAXEDITOR_BUTTON_ARTIST"));
+    	btnInsertComposer.setText(r.getString("SYNTAXEDITOR_BUTTON_COMPOSER"));
+    	btnInsertLyricist.setText(r.getString("SYNTAXEDITOR_BUTTON_LYRICIST"));
+    	btnInsertCopyright.setText(r.getString("SYNTAXEDITOR_BUTTON_COPYRIGHT"));
+    	btnInsertAlbum.setText(r.getString("SYNTAXEDITOR_BUTTON_ALBUM"));
+    	btnInsertYear.setText(r.getString("SYNTAXEDITOR_BUTTON_YEAR"));
+    	btnInsertKey.setText(r.getString("SYNTAXEDITOR_BUTTON_KEY"));
+    	btnInsertTime.setText(r.getString("SYNTAXEDITOR_BUTTON_TIME"));
+    	btnInsertTempo.setText(r.getString("SYNTAXEDITOR_BUTTON_TEMPO"));
+    	btnInsertDuration.setText(r.getString("SYNTAXEDITOR_BUTTON_DURATION"));
+    	btnInsertCapo.setText(r.getString("SYNTAXEDITOR_BUTTON_CAPO"));
+    	btnInsertTextFont.setText(r.getString("SYNTAXEDITOR_BUTTON_TEXTFONT"));
+    	btnInsertTextSize.setText(r.getString("SYNTAXEDITOR_BUTTON_TEXTSIZE"));
+    	btnInsertTextColour.setText(r.getString("SYNTAXEDITOR_BUTTON_TEXTCOLOUR"));
+    	btnInsertChordColour.setText(r.getString("SYNTAXEDITOR_BUTTON_CHORDCOLOUR"));
+    	btnInsertIsFinished.setText(r.getString("SYNTAXEDITOR_BUTTON_ISFINISHED"));
+    	
+    	lblFont.setText(r.getString("WYSIWYG_LABEL_FONT"));
+    	lblTranspose.setText(r.getString("WYSIWYG_LABEL_TRANSPOSE"));
+    	lblEditInChordPro.setText(r.getString("WYSIWYG_LABEL_EDIT_IN_CHORDPRO"));
+    	lblSaveAsChordPro.setText(r.getString("WYSIWYG_LABEL_SAVE_AS_CHORDPRO"));
+    	lblSaveAsPDF.setText(r.getString("WYSIWYG_LABEL_SAVE_AS_PDF"));
+    }
+    
 }

@@ -1,6 +1,7 @@
 package de.chordsystem.chordproeditor.view.javafx.controllers;
 
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -10,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -21,7 +23,13 @@ public class HelpWindowController implements Initializable {
 
     @FXML
     private AnchorPane anchorPane;
-
+    
+    @FXML
+    private Label lblTitle;
+    
+    @FXML
+    private Label lblDescription;
+    
     @FXML
     private JFXButton btnBack;
     
@@ -45,6 +53,28 @@ public class HelpWindowController implements Initializable {
     	else
     		UserData.setShowHelpOnStart(false);
     }
+
+    /**
+     * Set language of the GUI, with language and country as parameteres
+     */
+    @SuppressWarnings("unused")
+	private void setLanguage(String language, String country) {
+    	Locale l = new Locale(language,country);
+    	setLanguage(l);
+    }
+    
+    /**
+     * Set language of the GUI, with Locale as parameter
+     */
+    private void setLanguage(Locale l) {
+    	ResourceBundle r = ResourceBundle.getBundle("Locale/Language",l);
+    	
+    	lblTitle.setText(r.getString("HELP_LABEL_TITLE"));
+    	lblDescription.setText(r.getString("HELP_LABEL_DESCRIPTION"));
+    	btnBack.setText(r.getString("HELP_BUTTON_BACK"));
+    	cklShowHelpOnStart.setText(r.getString("HELP_CHECKLIST_SHOW_ON_START"));
+    }
+    
     
     /**
      * Functions to be initialised during first window load
@@ -54,7 +84,8 @@ public class HelpWindowController implements Initializable {
  		btnBack.setOnAction(this::closeHelpWindow);
  		cklShowHelpOnStart.setSelected(UserData.getShowHelpOnStart());
     	cklShowHelpOnStart.setOnAction(this::tickShowHelp);
-    
+    	
+    	setLanguage(UserData.getLocale());
     }
 
 }
