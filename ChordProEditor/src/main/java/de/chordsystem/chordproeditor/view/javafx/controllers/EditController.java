@@ -566,7 +566,7 @@ public class EditController implements Initializable {
     	txtAreaEditSong.setPromptText(r.getString("SYNTAXEDITOR_TEXTAREA_SONG_EDIT"));
     	txtAreaErrorMessage.setPromptText(r.getString("SYNTAXEDITOR_TEXTAREA_ERROR_MESSAGE"));
     	
-    	SAVE_CHORDPRO_FILE_AS				= r.getString("DIALOG_SAVE_CHORDPRO_FILE_AS");
+    	SAVE_CHORDPRO_FILE_AS				= r.getString("SAVE_CHORDPRO_FILE_AS");
         CHORD_PRO_FILES						= r.getString("CHORD_PRO_FILES");
         TEXT_FILES							= r.getString("TEXT_FILES");
         ALL_FILES							= r.getString("ALL_FILES");
