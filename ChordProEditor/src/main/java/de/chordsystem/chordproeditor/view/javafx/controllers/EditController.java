@@ -584,5 +584,4 @@ public class EditController implements Initializable {
         WYSIWYG_SWITCH_ERROR				= r.getString("WYSIWYG_SWITCH_ERROR");
         ERROR_PARSING_LINE					= r.getString("ERROR_PARSING_LINE");
     }
-    
 }
