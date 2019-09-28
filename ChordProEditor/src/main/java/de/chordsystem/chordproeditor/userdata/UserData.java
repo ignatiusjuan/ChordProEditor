@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Locale;
 import java.util.stream.Stream;
 
 public class UserData {
@@ -51,16 +52,7 @@ public class UserData {
 		File folderpath = new File(Filepath.showHelp);
 		if (!folderpath.exists()) {
 			
-			try
-			{
-				FileWriter fw=new FileWriter(Filepath.showHelp);
-	    		fw.write("true");
-	    		fw.close();
-	    	} 
-			catch(IOException e)
-			{
-	    		e.printStackTrace();
-	    	}
+			setShowHelpOnStart(true);
 			
 			return true;
 		}
@@ -89,6 +81,42 @@ public class UserData {
     			fw.write("true");
     		else
     			fw.write("false");
+    		fw.close();
+    	} 
+		catch(IOException e)
+		{
+    		e.printStackTrace();
+    	}
+	}
+	
+	public static Locale getLocale() {
+		File folderpath = new File(Filepath.locale);
+		if (!folderpath.exists()) {
+			setLocale("en","US");
+			
+			return new Locale("en","US");
+		}
+		
+		StringBuilder contentBuilder = new StringBuilder();
+	    try (Stream<String> stream = Files.lines(Paths.get(Filepath.locale), StandardCharsets.UTF_8))
+	    {
+	        stream.forEach(s -> contentBuilder.append(s));
+	    }
+	    catch (IOException e)
+	    {
+	        e.printStackTrace();
+	    }
+	    
+	    String[] values = contentBuilder.toString().split("_");
+	    
+	    return new Locale(values[0],values[1]);
+	}
+	
+	public static void setLocale(String language, String country) {
+		try
+		{
+    		FileWriter fw=new FileWriter(Filepath.locale);
+    		fw.write(language + "_" + country);
     		fw.close();
     	} 
 		catch(IOException e)

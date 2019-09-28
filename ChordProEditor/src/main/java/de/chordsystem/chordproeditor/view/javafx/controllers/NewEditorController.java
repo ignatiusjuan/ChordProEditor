@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -41,6 +42,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -55,7 +57,6 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.robot.Robot;
@@ -67,6 +68,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import javafx.util.converter.IntegerStringConverter;
+
 /**
  * Controller for WYSIWYGEditorController
  * @author engin
@@ -102,7 +104,16 @@ public class NewEditorController implements Initializable {
     private MenuItem menuFileExportAsPDF;
 
     @FXML
-    private MenuItem menuFilePreferences;
+    private Menu menuFilePreferences;
+
+    @FXML
+    private Menu menuFilePreferencesLanguage;
+    
+    @FXML
+    private MenuItem menuFilePreferencesLanguageDeutsch;
+    
+    @FXML
+    private MenuItem menuFilePreferencesLanguageEnglish;
     
     @FXML
     private MenuItem menuFileQuit;
@@ -245,231 +256,47 @@ public class NewEditorController implements Initializable {
 	Clipboard clipboard = Clipboard.getSystemClipboard();
 	
 	/**
-	 * This function simulate a two key pressed.
-	 * @param 		a		first key
-	 * @param 		b		second key
-	 */	
-	private void simulateKeyPress(KeyCode a, KeyCode b) {
-		Robot bot;
-		bot = new Robot();
-		bot.keyPress(a);
-		bot.keyPress(b);
-		bot.keyRelease(a);
-		bot.keyRelease(b);
-	}
+     * Force empty current workspace. USE WITH CAUTION!
+     */
+    public void forceNewDocument() {
+    	loadedSong = new SongProperties(emptySong);
+		setDataBind();
+		filename = "";
+    }
 	
 	/**
-	 * Set functions to be called when an element is clicked
-	 */
-	private void setOnAction(){
-    	menuFileNew.setOnAction(this::onClickFileNew);
-		menuFileOpen.setOnAction(this::onClickFileOpen);
-		menuFileSave.setOnAction(this::onClickFileSave);
-		menuFileSaveAs.setOnAction(this::onClickFileSaveAs);
-		menuFileQuit.setOnAction(this::onClickFileQuit);
+     * Functions to be initialised during first window load
+     */
+	public void initialize(URL location, ResourceBundle resources) {
 		
-		SaveAsChordPro.setOnMousePressed(this::OnMousePressedSaveAsChordPro);
+		loadedSong = new SongProperties(emptySong);
+		setSidePaneBind();
+		setShortcut();
+		setOnAction();
+		setMenuBind();
+		setDataBind();
+		setFormatter();
+		showTime();
+		txtYear.setText("0");
+		txtTempo.setText("0");
+		txtDuration.setText("0");
+		txtCapo.setText("0");
+		txtTextSize.setText("0");
 		
-		menuEdit.setOnShowing((event) -> {
-			clipboardEmpty.set(clipboard.hasString());
-		});
-		menuEditUndo.setOnAction((event) -> {
-			simulateKeyPress(KeyCode.CONTROL, KeyCode.Z);
-		});
-		menuEditRedo.setOnAction((event) -> {
-			simulateKeyPress(KeyCode.CONTROL, KeyCode.Y);
-		});
-		menuEditCopy.setOnAction((event) -> {
-			simulateKeyPress(KeyCode.CONTROL, KeyCode.C);
-		});
-		menuEditCut.setOnAction((event) -> {
-			simulateKeyPress(KeyCode.CONTROL, KeyCode.X);
-		});
-		menuEditPaste.setOnAction((event) -> {
-			simulateKeyPress(KeyCode.CONTROL, KeyCode.V);
-		});
-		menuEditSelectAll.setOnAction((event) -> {
-			simulateKeyPress(KeyCode.CONTROL, KeyCode.A);
+		txtSongEdit.setFont(Font.font("monospaced",FontWeight.NORMAL,14));
+		
+		HamburgerSlideCloseTransition transition = new HamburgerSlideCloseTransition(hamburger);
+		transition.setRate(-1);
+		hamburger.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->{
+				transition.setRate(transition.getRate()*-1);
+		transition.play();
 		});
 		
-		ivSaveAsPDF.setOnMouseClicked((event) -> {
-			
-			tempSong.setArtist("Kuenstler Test");
-			tempSong.setAlbum("Album Test");
-			tempSong.setComposer("Composer Test");
-			tempSong.setCopyright("Copyright Test");
-			tempSong.setDuration(4);
-			tempSong.setFinished(false);
-			tempSong.setLyricist("Lyricist Test");
-			tempSong.setTitle("Test");
-			tempSong.setYear(2000);
-			tempSong.setSubtitle("Subtitle Test");
-			
-			GeneratePDF.generatePDF(tempSong);
-		});
+		setLanguage(UserData.getLocale());
 		
-		lblSaveAsPDF.setOnMouseClicked((event) -> {
-			//GeneratePDF.generatePDF(tempSong);
-		});
 		
-		hamburger.setOnMouseClicked(this::onClickHamburger);
-		
-		editAsChordProSyntax.setOnMouseClicked(this::switchSceneToEdit);
-		
-		ivHelp.setOnMouseClicked(this::switchSceneToQuestionIcon);
-		
-		btnTransposePlus.setOnMouseClicked((e) -> {
-			if (!txtKey.getText().isEmpty())
-				txtKey.setText(ChordTransposer.transposeUp(txtKey.getText())); 
-			double pos = txtSongEdit.getScrollTop();
-			txtSongEdit.replaceText(0, txtSongEdit.getLength(), ChordTransposer.changeChord(1,txtSongEdit.getText()));
-			txtSongEdit.setScrollTop(pos);
-			});
-		
-		btnTransposeMinus.setOnMouseClicked((e) -> {
-			if (!txtKey.getText().isEmpty())
-				txtKey.setText(ChordTransposer.transposeDown(txtKey.getText())); 
-			double pos = txtSongEdit.getScrollTop();
-			txtSongEdit.replaceText(0, txtSongEdit.getLength(), ChordTransposer.changeChord(-1,txtSongEdit.getText()));
-			txtSongEdit.setScrollTop(pos);
-			});
-		
-		btnFontPlus.setOnMouseClicked((e) -> {
-			txtSongEdit.setFont(Font.font("monospaced",FontWeight.NORMAL,Math.min(txtSongEdit.getFont().getSize() + 2.0, 100.0)));
-		});
-		
-		btnFontMinus.setOnMouseClicked((e) -> {
-			txtSongEdit.setFont(Font.font("monospaced",FontWeight.NORMAL,Math.max(txtSongEdit.getFont().getSize() - 2.0, 4.0)));
-		});
-    }
+	}
 
-    /**
-     * Function to switch to Syntax Edit Window
-     * @param event
-     */
-    public void switchSceneToEdit(MouseEvent event) {
-    	Song tmpSong = loadedSong.toSong(txtSongEdit.getText());
-    	tmpSong.setYear(Integer.parseInt(txtYear.getText()));
-    	tmpSong.setTempo(Integer.parseInt(txtTempo.getText()));
-    	tmpSong.setDuration(Integer.parseInt(txtDuration.getText()));
-    	tmpSong.setCapo(Integer.parseInt(txtCapo.getText()));
-    	tmpSong.setTextsize(Integer.parseInt(txtTextSize.getText()));
-    	
-    	EditController editController = new EditController();
-    	try{
-    		final FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("/fxml/Edit.fxml"));
-            fxmlLoader.setController(editController);
-            editController.receiveEditText(ChordProConverter.tryConvertToChordPro(tmpSong));
-            editController.setNewEditorController(this);
-            Stage stage = new Stage();
-            Scene scene = new Scene(fxmlLoader.load());
-            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                @Override
-                public void handle(WindowEvent e) {
-                    e.consume();
-                    editController.closeWindowEvent(new WindowEvent(stage, null));
-                }
-            });
-            //stage.setOnCloseRequest(editController::closeWindowEvent);
-            stage.setResizable(true);
-            stage.initOwner(lblDateTime.getScene().getWindow());
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(scene);
-            stage.setTitle("Syntax Mode");
-            stage.getIcons().add(new Image("/Icons/icon 512x512.png/"));
-            stage.show();
-
-        }catch(IOException io){
-            io.printStackTrace();
-        }
-    }
-    
-    /**
-     * Function to switch to Help Window
-     * @param event
-     */
-    public void switchSceneToQuestionIcon(MouseEvent event) {
-    	wp.createWindowNewStage("/fxml/HelpWindow.fxml", "Informationen zum Anwenden des Editors", new HelpWindowController(), lblDateTime.getScene().getWindow(), new Image("/Icons/icon 512x512.png/"));
-    }
-
-    /**
-     * Check if songA equal to songB. CONTAINS BUGS!
-     * @param 		songA		first song
-     * @param 		songB		second song
-     * @return					true if both song are equal
-     */
-    private boolean songsEqual(Song songA, Song songB) {
-    	return songA.toString().equals(songB.toString()) ? true : false;
-    }    
-
-    /**
-     * Set shortcut for menu items
-     */
-    private void setShortcut() {
-    	menuFileNew.setAccelerator(new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN));
-    	menuFileOpen.setAccelerator(new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN));
-    	menuFileSave.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN));
-    	menuFileSaveAs.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.ALT_DOWN));
-    	menuFileExportAsPDF.setAccelerator(new KeyCodeCombination(KeyCode.E, KeyCombination.CONTROL_DOWN));
-    	menuFilePreferences.setAccelerator(new KeyCodeCombination(KeyCode.X, KeyCombination.ALT_DOWN));
-    	menuFileQuit.setAccelerator(new KeyCodeCombination(KeyCode.F4, KeyCombination.ALT_DOWN));
-    	
-    	menuEditUndo.setAccelerator(new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN));
-    	menuEditRedo.setAccelerator(new KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_DOWN));
-    	menuEditCut.setAccelerator(new KeyCodeCombination(KeyCode.X, KeyCombination.CONTROL_DOWN));
-    	menuEditCopy.setAccelerator(new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN));
-    	menuEditPaste.setAccelerator(new KeyCodeCombination(KeyCode.V, KeyCombination.CONTROL_DOWN));
-    	menuEditSelectAll.setAccelerator(new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_DOWN));
-    }
-    
-    /**
-     * Set disable property of edit menu
-     */
-    private void setMenuBind() {
-    	menuEditUndo.disableProperty().bind(txtSongEdit.undoableProperty().not());
-    	menuEditRedo.disableProperty().bind(txtSongEdit.redoableProperty().not());
-    	menuEditCut.disableProperty().bind(txtSongEdit.selectedTextProperty().isEmpty());
-    	menuEditCopy.disableProperty().bind(txtSongEdit.selectedTextProperty().isEmpty());
-    	menuEditPaste.disableProperty().bind(clipboardEmpty.not());
-    }
-    
-    /**
-     * Set formatter for number only Textfields
-     */
-    private void setFormatter() {
-    	txtYear.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
-    	txtTempo.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
-    	txtDuration.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
-    	txtCapo.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
-    	txtTextSize.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
-    }
-    
-    /**
-     * Set properties when song is changed or new syntax is parsed
-     */
-    private void setDataBind() {
-    	txtTitle.textProperty().bindBidirectional(loadedSong.title);
-    	txtSubtitle.textProperty().bindBidirectional(loadedSong.subtitle);
-    	txtArtist.textProperty().bindBidirectional(loadedSong.artist);
-    	txtComposer.textProperty().bindBidirectional(loadedSong.composer);
-    	txtLyricist.textProperty().bindBidirectional(loadedSong.lyricist);
-    	txtCopyright.textProperty().bindBidirectional(loadedSong.copyright);
-    	txtAlbum.textProperty().bindBidirectional(loadedSong.album);
-    	txtYear.textProperty().set(loadedSong.year.getValue().toString());
-    	txtKey.textProperty().bindBidirectional(loadedSong.key);
-    	txtTime.textProperty().bindBidirectional(loadedSong.time);
-    	txtTempo.textProperty().set(loadedSong.tempo.getValue().toString());
-    	txtDuration.textProperty().set(loadedSong.duration.getValue().toString());
-    	txtCapo.textProperty().set(loadedSong.capo.getValue().toString());
-    	txtTextFont.textProperty().bindBidirectional(loadedSong.textfont);
-    	txtTextSize.textProperty().set(loadedSong.textsize.getValue().toString());
-    	txtTextColour.textProperty().bindBidirectional(loadedSong.textcolour);
-    	txtChordColour.textProperty().bindBidirectional(loadedSong.chordcolour);
-    	cbIsFinished.selectedProperty().bindBidirectional(loadedSong.isFinished);
-    	txtSongEdit.textProperty().bindBidirectional(loadedSong.contents);
-    }
-    
     /**
      * This function create a new document and clear edited fields.
      **/
@@ -572,6 +399,16 @@ public class NewEditorController implements Initializable {
     }
 
     /**
+     * This function close the whole program.
+     * @param event
+     */
+    @FXML
+    private void onClickFileQuit(ActionEvent event) {
+    	Platform.exit();
+        System.exit(0);
+    }    
+
+    /**
      * This function save the edited ChordPro document. If it was opened from a file, then the file will be overwritten, else a dialog to save it as new file will be opened.
      * @param event
      */
@@ -631,35 +468,7 @@ public class NewEditorController implements Initializable {
 	    	}
     	}
     }
-      
-    /**
-     * This function close the whole program.
-     * @param event
-     */
-    @FXML
-    private void onClickFileQuit(ActionEvent event) {
-    	Platform.exit();
-        System.exit(0);
-    }
-     
-    /**
-     * This function reacts the same as "Save As"
-     * @param event
-     */
-    @FXML
-    private void OnMousePressedSaveAsChordPro(MouseEvent event) {
-    	onClickFileSaveAs(new ActionEvent());
-    }
     
-    /**
-     * This function shows/hides right sidePane when hamburger is clicked ;
-     */
-    private void setSidePaneBind() {
-    	lblAttributes.visibleProperty().bind(hideSidePane.not());
-    	scrollpaneAttributes.visibleProperty().bind(hideSidePane.not());
-    	scrollpaneAttributes.disableProperty().bind(hideSidePane);
-    }
-       
     /**
      * Functions to be executed when Hamburger is clicked
      */
@@ -674,45 +483,204 @@ public class NewEditorController implements Initializable {
     }
     
     /**
-     * Update loaded song, whenever new file is opened or user create a new document
-     * @param 		song		song to be loaded and binded to TextArea and TextFields
+     * This function reacts the same as "Save As"
+     * @param event
      */
-    public void updateSong(Song song) {
-    	loadedSong = new SongProperties(song);
-		setDataBind();
+    @FXML
+    private void OnMousePressedSaveAsChordPro(MouseEvent event) {
+    	onClickFileSaveAs(new ActionEvent());
     }
     
     /**
-     * Functions to be initialised during first window load
+     * Set properties when song is changed or new syntax is parsed
      */
-	public void initialize(URL location, ResourceBundle resources) {
+    private void setDataBind() {
+    	txtTitle.textProperty().bindBidirectional(loadedSong.title);
+    	txtSubtitle.textProperty().bindBidirectional(loadedSong.subtitle);
+    	txtArtist.textProperty().bindBidirectional(loadedSong.artist);
+    	txtComposer.textProperty().bindBidirectional(loadedSong.composer);
+    	txtLyricist.textProperty().bindBidirectional(loadedSong.lyricist);
+    	txtCopyright.textProperty().bindBidirectional(loadedSong.copyright);
+    	txtAlbum.textProperty().bindBidirectional(loadedSong.album);
+    	txtYear.textProperty().set(loadedSong.year.getValue().toString());
+    	txtKey.textProperty().bindBidirectional(loadedSong.key);
+    	txtTime.textProperty().bindBidirectional(loadedSong.time);
+    	txtTempo.textProperty().set(loadedSong.tempo.getValue().toString());
+    	txtDuration.textProperty().set(loadedSong.duration.getValue().toString());
+    	txtCapo.textProperty().set(loadedSong.capo.getValue().toString());
+    	txtTextFont.textProperty().bindBidirectional(loadedSong.textfont);
+    	txtTextSize.textProperty().set(loadedSong.textsize.getValue().toString());
+    	txtTextColour.textProperty().bindBidirectional(loadedSong.textcolour);
+    	txtChordColour.textProperty().bindBidirectional(loadedSong.chordcolour);
+    	cbIsFinished.selectedProperty().bindBidirectional(loadedSong.isFinished);
+    	txtSongEdit.textProperty().bindBidirectional(loadedSong.contents);
+    }
+    
+    /**
+     * Set formatter for number only Textfields
+     */
+    private void setFormatter() {
+    	txtYear.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
+    	txtTempo.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
+    	txtDuration.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
+    	txtCapo.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
+    	txtTextSize.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
+    }
+
+    /**
+     * Set language of the GUI, with language and country as parameteres
+     */
+    @SuppressWarnings("unused")
+	private void setLanguage(String language, String country) {
+    	Locale l = new Locale(language,country);
+    	setLanguage(l);
+    }
+    
+    /**
+     * Set language of the GUI, with Locale as parameter
+     */
+    private void setLanguage(Locale l) {
+    	ResourceBundle r = ResourceBundle.getBundle("Locale/Language",l);
+    	menuEdit.setText(r.getString("MENUBAR_EDIT"));
+    }
+    
+    /**
+     * Set disable property of edit menu
+     */
+    private void setMenuBind() {
+    	menuEditUndo.disableProperty().bind(txtSongEdit.undoableProperty().not());
+    	menuEditRedo.disableProperty().bind(txtSongEdit.redoableProperty().not());
+    	menuEditCut.disableProperty().bind(txtSongEdit.selectedTextProperty().isEmpty());
+    	menuEditCopy.disableProperty().bind(txtSongEdit.selectedTextProperty().isEmpty());
+    	menuEditPaste.disableProperty().bind(clipboardEmpty.not());
+    }
+      
+    /**
+	 * Set functions to be called when an element is clicked
+	 */
+	private void setOnAction(){
+    	menuFileNew.setOnAction(this::onClickFileNew);
+		menuFileOpen.setOnAction(this::onClickFileOpen);
+		menuFileSave.setOnAction(this::onClickFileSave);
+		menuFileSaveAs.setOnAction(this::onClickFileSaveAs);
+		menuFileQuit.setOnAction(this::onClickFileQuit);
 		
-		loadedSong = new SongProperties(emptySong);
-		setSidePaneBind();
-		setShortcut();
-		setOnAction();
-		setMenuBind();
-		setDataBind();
-		setFormatter();
-		showTime();
-		txtYear.setText("0");
-		txtTempo.setText("0");
-		txtDuration.setText("0");
-		txtCapo.setText("0");
-		txtTextSize.setText("0");
+		SaveAsChordPro.setOnMousePressed(this::OnMousePressedSaveAsChordPro);
 		
-		txtSongEdit.setFont(Font.font("monospaced",FontWeight.NORMAL,14));
-		
-		HamburgerSlideCloseTransition transition = new HamburgerSlideCloseTransition(hamburger);
-		transition.setRate(-1);
-		hamburger.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) ->{
-				transition.setRate(transition.getRate()*-1);
-		transition.play();
+		menuEdit.setOnShowing((event) -> {
+			clipboardEmpty.set(clipboard.hasString());
+		});
+		menuEditUndo.setOnAction((event) -> {
+			simulateKeyPress(KeyCode.CONTROL, KeyCode.Z);
+		});
+		menuEditRedo.setOnAction((event) -> {
+			simulateKeyPress(KeyCode.CONTROL, KeyCode.Y);
+		});
+		menuEditCopy.setOnAction((event) -> {
+			simulateKeyPress(KeyCode.CONTROL, KeyCode.C);
+		});
+		menuEditCut.setOnAction((event) -> {
+			simulateKeyPress(KeyCode.CONTROL, KeyCode.X);
+		});
+		menuEditPaste.setOnAction((event) -> {
+			simulateKeyPress(KeyCode.CONTROL, KeyCode.V);
+		});
+		menuEditSelectAll.setOnAction((event) -> {
+			simulateKeyPress(KeyCode.CONTROL, KeyCode.A);
 		});
 		
-	}
-	
-	/**
+		ivSaveAsPDF.setOnMouseClicked((event) -> {
+			
+			tempSong.setArtist("Kuenstler Test");
+			tempSong.setAlbum("Album Test");
+			tempSong.setComposer("Composer Test");
+			tempSong.setCopyright("Copyright Test");
+			tempSong.setDuration(4);
+			tempSong.setFinished(false);
+			tempSong.setLyricist("Lyricist Test");
+			tempSong.setTitle("Test");
+			tempSong.setYear(2000);
+			tempSong.setSubtitle("Subtitle Test");
+			
+			GeneratePDF.generatePDF(tempSong);
+		});
+		
+		lblSaveAsPDF.setOnMouseClicked((event) -> {
+			//GeneratePDF.generatePDF(tempSong);
+		});
+		
+		hamburger.setOnMouseClicked(this::onClickHamburger);
+		
+		editAsChordProSyntax.setOnMouseClicked(this::switchSceneToEdit);
+		
+		ivHelp.setOnMouseClicked(this::switchSceneToQuestionIcon);
+		
+		btnTransposePlus.setOnMouseClicked((e) -> {
+			if (!txtKey.getText().isEmpty())
+				txtKey.setText(ChordTransposer.transposeUp(txtKey.getText())); 
+			double pos = txtSongEdit.getScrollTop();
+			txtSongEdit.replaceText(0, txtSongEdit.getLength(), ChordTransposer.changeChord(1,txtSongEdit.getText()));
+			txtSongEdit.setScrollTop(pos);
+			});
+		
+		btnTransposeMinus.setOnMouseClicked((e) -> {
+			if (!txtKey.getText().isEmpty())
+				txtKey.setText(ChordTransposer.transposeDown(txtKey.getText())); 
+			double pos = txtSongEdit.getScrollTop();
+			txtSongEdit.replaceText(0, txtSongEdit.getLength(), ChordTransposer.changeChord(-1,txtSongEdit.getText()));
+			txtSongEdit.setScrollTop(pos);
+			});
+		
+		btnFontPlus.setOnMouseClicked((e) -> {
+			txtSongEdit.setFont(Font.font("monospaced",FontWeight.NORMAL,Math.min(txtSongEdit.getFont().getSize() + 2.0, 100.0)));
+		});
+		
+		btnFontMinus.setOnMouseClicked((e) -> {
+			txtSongEdit.setFont(Font.font("monospaced",FontWeight.NORMAL,Math.max(txtSongEdit.getFont().getSize() - 2.0, 4.0)));
+		});
+
+		menuFilePreferencesLanguageDeutsch.setOnAction((e) -> {
+			UserData.setLocale("de","DE");
+			setLanguage(new Locale("de","DE"));
+		});
+		
+		menuFilePreferencesLanguageEnglish.setOnAction((e) -> {
+			UserData.setLocale("en","US");
+			setLanguage(new Locale("en","US"));
+		});
+		
+    }
+     
+    /**
+     * Set shortcut for menu items
+     */
+    private void setShortcut() {
+    	menuFileNew.setAccelerator(new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN));
+    	menuFileOpen.setAccelerator(new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN));
+    	menuFileSave.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN));
+    	menuFileSaveAs.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.ALT_DOWN));
+    	menuFileExportAsPDF.setAccelerator(new KeyCodeCombination(KeyCode.E, KeyCombination.CONTROL_DOWN));
+    	menuFilePreferences.setAccelerator(new KeyCodeCombination(KeyCode.X, KeyCombination.ALT_DOWN));
+    	menuFileQuit.setAccelerator(new KeyCodeCombination(KeyCode.F4, KeyCombination.ALT_DOWN));
+    	
+    	menuEditUndo.setAccelerator(new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN));
+    	menuEditRedo.setAccelerator(new KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_DOWN));
+    	menuEditCut.setAccelerator(new KeyCodeCombination(KeyCode.X, KeyCombination.CONTROL_DOWN));
+    	menuEditCopy.setAccelerator(new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN));
+    	menuEditPaste.setAccelerator(new KeyCodeCombination(KeyCode.V, KeyCombination.CONTROL_DOWN));
+    	menuEditSelectAll.setAccelerator(new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_DOWN));
+    }
+    
+    /**
+     * This function shows/hides right sidePane when hamburger is clicked ;
+     */
+    private void setSidePaneBind() {
+    	lblAttributes.visibleProperty().bind(hideSidePane.not());
+    	scrollpaneAttributes.visibleProperty().bind(hideSidePane.not());
+    	scrollpaneAttributes.disableProperty().bind(hideSidePane);
+    }
+       
+    /**
 	 * This function shows the clock.
 	 */
     private void showTime() {
@@ -725,11 +693,85 @@ public class NewEditorController implements Initializable {
     }
     
     /**
-     * Force empty current workspace. USE WITH CAUTION!
+	 * This function simulate a two key pressed.
+	 * @param 		a		first key
+	 * @param 		b		second key
+	 */	
+	private void simulateKeyPress(KeyCode a, KeyCode b) {
+		Robot bot;
+		bot = new Robot();
+		bot.keyPress(a);
+		bot.keyPress(b);
+		bot.keyRelease(a);
+		bot.keyRelease(b);
+	}
+    
+    /**
+     * Check if songA equal to songB. CONTAINS BUGS!
+     * @param 		songA		first song
+     * @param 		songB		second song
+     * @return					true if both song are equal
      */
-    public void forceNewDocument() {
-    	loadedSong = new SongProperties(emptySong);
+    private boolean songsEqual(Song songA, Song songB) {
+    	return songA.toString().equals(songB.toString()) ? true : false;
+    }
+	
+	/**
+     * Function to switch to Syntax Edit Window
+     * @param event
+     */
+    public void switchSceneToEdit(MouseEvent event) {
+    	Song tmpSong = loadedSong.toSong(txtSongEdit.getText());
+    	tmpSong.setYear(Integer.parseInt(txtYear.getText()));
+    	tmpSong.setTempo(Integer.parseInt(txtTempo.getText()));
+    	tmpSong.setDuration(Integer.parseInt(txtDuration.getText()));
+    	tmpSong.setCapo(Integer.parseInt(txtCapo.getText()));
+    	tmpSong.setTextsize(Integer.parseInt(txtTextSize.getText()));
+    	
+    	EditController editController = new EditController();
+    	try{
+    		final FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/fxml/Edit.fxml"));
+            fxmlLoader.setController(editController);
+            editController.receiveEditText(ChordProConverter.tryConvertToChordPro(tmpSong));
+            editController.setNewEditorController(this);
+            Stage stage = new Stage();
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent e) {
+                    e.consume();
+                    editController.closeWindowEvent(new WindowEvent(stage, null));
+                }
+            });
+            //stage.setOnCloseRequest(editController::closeWindowEvent);
+            stage.setResizable(true);
+            stage.initOwner(lblDateTime.getScene().getWindow());
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.setTitle("Syntax Mode");
+            stage.getIcons().add(new Image("/Icons/icon 512x512.png/"));
+            stage.show();
+
+        }catch(IOException io){
+            io.printStackTrace();
+        }
+    }
+    
+    /**
+     * Function to switch to Help Window
+     * @param event
+     */
+    public void switchSceneToQuestionIcon(MouseEvent event) {
+    	wp.createWindowNewStage("/fxml/HelpWindow.fxml", "Informationen zum Anwenden des Editors", new HelpWindowController(), lblDateTime.getScene().getWindow(), new Image("/Icons/icon 512x512.png/"));
+    }
+    
+    /**
+     * Update loaded song, whenever new file is opened or user create a new document
+     * @param 		song		song to be loaded and binded to TextArea and TextFields
+     */
+    public void updateSong(Song song) {
+    	loadedSong = new SongProperties(song);
 		setDataBind();
-		filename = "";
     }
 }
