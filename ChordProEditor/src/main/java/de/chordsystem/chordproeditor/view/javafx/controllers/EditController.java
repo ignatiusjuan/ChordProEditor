@@ -499,7 +499,6 @@ public class EditController implements Initializable {
     	this.newEditorController = newEditorController;
     }
 
-
     /**
      * Set language of the GUI, with language and country as parameteres
      */
