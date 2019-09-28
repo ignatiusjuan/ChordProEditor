@@ -42,7 +42,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -87,6 +86,9 @@ public class NewEditorController implements Initializable {
 	
     @FXML
     private MenuBar MenuBar;
+
+    @FXML
+    private Menu menuFile;
     
     @FXML
     private MenuItem menuFileNew;
@@ -223,6 +225,18 @@ public class NewEditorController implements Initializable {
     @FXML
     private ImageView ivSaveAsPDF;
 
+    @FXML
+    private Label lblFont;
+    
+    @FXML
+    private Label lblTranspose;
+    
+    @FXML
+    private Label lblEditInChordPro;
+    
+    @FXML
+    private Label lblSaveAsChordPro;
+    
     @FXML
     private Label lblSaveAsPDF;
 
@@ -541,7 +555,56 @@ public class NewEditorController implements Initializable {
      */
     private void setLanguage(Locale l) {
     	ResourceBundle r = ResourceBundle.getBundle("Locale/Language",l);
-    	menuEdit.setText(r.getString("MENUBAR_EDIT"));
+    	
+    	menuFile.setText(r.getString("WYSIWYG_MENUBAR_FILE"));
+    	menuEdit.setText(r.getString("WYSIWYG_MENUBAR_EDIT"));
+    	
+    	menuFileNew.setText(r.getString("WYSIWYG_MENUITEM_FILE_NEW"));
+    	menuFileOpen.setText(r.getString("WYSIWYG_MENUITEM_FILE_OPEN"));
+    	menuFileSave.setText(r.getString("WYSIWYG_MENUITEM_FILE_SAVE"));
+    	menuFileSaveAs.setText(r.getString("WYSIWYG_MENUITEM_FILE_SAVE_AS"));
+    	menuFileExportAsPDF.setText(r.getString("WYSIWYG_MENUITEM_FILE_EXPORT_AS_PDF"));
+    	menuFilePreferences.setText(r.getString("WYSIWYG_MENU_FILE_PREFERENCES"));
+    	menuFilePreferencesLanguage.setText(r.getString("WYSIWYG_MENU_FILE_PREFERENCES_LANGUAGE"));
+    	menuFilePreferencesLanguageDeutsch.setText(r.getString("WYSIWYG_MENUITEM_FILE_PREFERENCES_LANGUAGE_DEUTSCH"));
+    	menuFilePreferencesLanguageEnglish.setText(r.getString("WYSIWYG_MENUITEM_FILE_PREFERENCES_LANGUAGE_ENGLISH"));
+    	menuFileQuit.setText(r.getString("WYSIWYG_MENUITEM_FILE_QUIT"));
+    	
+    	menuEditUndo.setText(r.getString("WYSIWYG_MENUITEM_EDIT_UNDO"));
+    	menuEditRedo.setText(r.getString("WYSIWYG_MENUITEM_EDIT_REDO"));
+    	menuEditCut.setText(r.getString("WYSIWYG_MENUITEM_EDIT_CUT"));
+    	menuEditCopy.setText(r.getString("WYSIWYG_MENUITEM_EDIT_COPY"));
+    	menuEditPaste.setText(r.getString("WYSIWYG_MENUITEM_EDIT_PASTE"));
+    	menuEditSelectAll.setText(r.getString("WYSIWYG_MENUITEM_EDIT_SELECT_ALL"));
+    	
+    	lblAttributes.setText(r.getString("WYSIWYG_LABEL_ATTRIBUTES"));
+
+    	txtTitle.setPromptText(r.getString("WYSIWYG_TEXTFIELD_TITLE"));
+    	txtSubtitle.setPromptText(r.getString("WYSIWYG_TEXTFIELD_SUBTITLE"));
+    	txtArtist.setPromptText(r.getString("WYSIWYG_TEXTFIELD_ARTIST"));
+    	txtComposer.setPromptText(r.getString("WYSIWYG_TEXTFIELD_COMPOSER"));
+    	txtLyricist.setPromptText(r.getString("WYSIWYG_TEXTFIELD_LYRICIST"));
+    	txtCopyright.setPromptText(r.getString("WYSIWYG_TEXTFIELD_COPYRIGHT"));
+    	txtAlbum.setPromptText(r.getString("WYSIWYG_TEXTFIELD_ALBUM"));
+    	txtYear.setPromptText(r.getString("WYSIWYG_TEXTFIELD_YEAR"));
+    	txtKey.setPromptText(r.getString("WYSIWYG_TEXTFIELD_KEY"));
+    	txtTime.setPromptText(r.getString("WYSIWYG_TEXTFIELD_TIME"));
+    	txtTempo.setPromptText(r.getString("WYSIWYG_TEXTFIELD_TEMPO"));
+    	txtDuration.setPromptText(r.getString("WYSIWYG_TEXTFIELD_DURATION"));
+    	txtCapo.setPromptText(r.getString("WYSIWYG_TEXTFIELD_CAPO"));
+    	txtTextFont.setPromptText(r.getString("WYSIWYG_TEXTFIELD_TEXTFONT"));
+    	txtTextSize.setPromptText(r.getString("WYSIWYG_TEXTFIELD_TEXTSIZE"));
+    	txtTextColour.setPromptText(r.getString("WYSIWYG_TEXTFIELD_TEXTCOLOUR"));
+    	txtChordColour.setPromptText(r.getString("WYSIWYG_TEXTFIELD_CHORDCOLOUR"));
+    	cbIsFinished.setText(r.getString("WYSIWYG_TEXTFIELD_ISFINISHED"));
+    	
+    	txtSongEdit.setPromptText(r.getString("WYSIWYG_TEXTAREA_SONG_EDIT"));
+    	
+    	lblFont.setText(r.getString("WYSIWYG_LABEL_FONT"));
+    	lblTranspose.setText(r.getString("WYSIWYG_LABEL_TRANSPOSE"));
+    	lblEditInChordPro.setText(r.getString("WYSIWYG_LABEL_EDIT_IN_CHORDPRO"));
+    	lblSaveAsChordPro.setText(r.getString("WYSIWYG_LABEL_SAVE_AS_CHORDPRO"));
+    	lblSaveAsPDF.setText(r.getString("WYSIWYG_LABEL_SAVE_AS_PDF"));
     }
     
     /**
