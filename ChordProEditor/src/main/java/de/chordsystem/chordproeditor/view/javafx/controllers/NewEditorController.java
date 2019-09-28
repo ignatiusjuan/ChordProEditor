@@ -401,8 +401,7 @@ public class NewEditorController implements Initializable {
      */
     private boolean songsEqual(Song songA, Song songB) {
     	return songA.toString().equals(songB.toString()) ? true : false;
-    }
-    
+    }    
 
     /**
      * Set shortcut for menu items

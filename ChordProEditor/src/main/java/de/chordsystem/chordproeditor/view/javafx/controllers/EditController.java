@@ -18,6 +18,8 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -158,6 +160,9 @@ public class EditController implements Initializable {
     @FXML
     private ImageView editAsWYSIWYG;
     
+    @FXML
+    private Label lblLineNumber;
+    
     StringProperty textFieldProperty = new SimpleStringProperty();
     BooleanProperty hideSidePane = new SimpleBooleanProperty(false);
     
@@ -199,7 +204,10 @@ public class EditController implements Initializable {
     private final String templateComment		= "{comment: comment}";
     private final String templateChordDiagram	= "{chord: chord_name base-fret offset frets x 0 1 2 3 4 fingers x 0 1 2 3 4}";
     
-    private void setSidePaneBind() {
+    /**
+     * Bind function for left side pane
+     */
+    private void setLeftSidePaneBind() {
     	lblInsert.visibleProperty().bind(hideSidePane.not());
     	lblAttributes.visibleProperty().bind(hideSidePane.not());
     	lblContents.visibleProperty().bind(hideSidePane.not());
@@ -209,9 +217,12 @@ public class EditController implements Initializable {
     	scrollpaneContents.disableProperty().bind(hideSidePane);
     }
     
-    /*Methode zum benutzen des Hamburger Buttons im Fenster*/
+    /**
+     * Function used when Left Hamburger is clicked. The left side pane will be hidden and txtAreaEditSong will be enlarged.
+     * @param event
+     */
     @FXML
-    private void onClickHamburger(MouseEvent event) {
+    private void onClickLeftHamburger(MouseEvent event) {
     	if (!hideSidePane.get()) {
     		AnchorPane.setLeftAnchor(txtAreaEditSong, 60.0);
     	} else {
@@ -220,16 +231,27 @@ public class EditController implements Initializable {
     	hideSidePane.set(!hideSidePane.get());
     }
     
+    /**
+     * Helper function to insert a text to current caret position in TextArea
+     */
     private void onClickInsertText(String insertText) {
     	txtAreaEditSong.insertText(txtAreaEditSong.getCaretPosition(), insertText);
     	txtAreaEditSong.requestFocus();
     }
     
+    /**
+     * Receive the syntax of a song or a file and show it on TextArea
+     * @param message
+     */
     public void receiveEditText(String message) {
     	textFieldProperty.set(message);
     	originalText = message;
     }
     
+    /**
+     * Function is called when user press the save button
+     * @param event
+     */
     private boolean onClickSaveBtn() {
     	if (newEditorController.filename.isBlank()) {
     		FileChooser fileChooser = new FileChooser();
@@ -267,6 +289,10 @@ public class EditController implements Initializable {
     	return true;
     }
     
+    /**
+     * Function is called when user try to switch edit mode to WYSIWYG
+     * @param event
+     */
     @FXML
     private void onSwitchToWYSIWYG(MouseEvent event) {
     	ChordProParser cpp = new ChordProParser();
@@ -285,13 +311,26 @@ public class EditController implements Initializable {
 		}
     }
     
-    /*Hier werden die anklickbaren Button ihren jeweiligen Methoden zugewiesen*/
+    /**
+     * Functions to be initialised during first window load
+     */
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
     	editAsWYSIWYG.setOnMouseClicked(this::onSwitchToWYSIWYG);
     	btnSave.setOnAction((e) -> onClickSaveBtn());
     	txtAreaEditSong.setFont(Font.font("monospaced",FontWeight.NORMAL,14));
-    	txtAreaEditSong.textProperty().bindBidirectional(textFieldProperty);
+    	txtAreaEditSong.textProperty().bindBidirectional(textFieldProperty);txtAreaEditSong.caretPositionProperty().addListener(new ChangeListener<Object>() {
+    		@Override
+    		public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
+    			String text = txtAreaEditSong.getText(0,txtAreaEditSong.getCaretPosition());
+    			int lineCounter = 1;
+    			for (int i = 0; i < text.length(); i++) {
+    				if (text.charAt(i) == '\n')
+    					lineCounter++;
+    			}
+    			lblLineNumber.setText(String.valueOf(lineCounter));
+    		}
+    	});
     	
     	btnInsertTitle.setOnAction((e) -> onClickInsertText(templateTitle));
     	btnInsertSubtitle.setOnAction((e) -> onClickInsertText(templateSubtitle));
@@ -325,7 +364,7 @@ public class EditController implements Initializable {
     	ivUndo.visibleProperty().bind(txtAreaEditSong.undoableProperty());
     	ivUndo.disableProperty().bind(txtAreaEditSong.undoableProperty().not());
     	
-    	setSidePaneBind();
+    	setLeftSidePaneBind();
     	
     	HamburgerSlideCloseTransition transition = new HamburgerSlideCloseTransition(jfxHamHide);
 		transition.setRate(-1);
@@ -333,7 +372,7 @@ public class EditController implements Initializable {
 				transition.setRate(transition.getRate()*-1);
 		transition.play();
 		});
-		jfxHamHide.setOnMouseClicked(this::onClickHamburger);
+		jfxHamHide.setOnMouseClicked(this::onClickLeftHamburger);
 		
 		btnFontPlus.setOnMouseClicked((e) -> {
 			txtAreaEditSong.setFont(Font.font("monospaced",FontWeight.NORMAL,Math.min(txtAreaEditSong.getFont().getSize() + 2.0, 100.0)));
@@ -344,6 +383,9 @@ public class EditController implements Initializable {
 		});
     }
     
+    /**
+     * Quit confirmation will be used every time a user try to close EditWindow with edited TextArea.
+     */
     private void quitConfirmation() {
     	Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
     	alert.setTitle("Quit?");
@@ -359,6 +401,10 @@ public class EditController implements Initializable {
     	    }
     	});
     }
+    
+    /**
+     * Function used when window is requested to be closed
+     */
     public void closeWindowEvent(WindowEvent event) {
     	//Check if text same with original
     	if (originalText.equals(txtAreaEditSong.getText())){
@@ -395,6 +441,10 @@ public class EditController implements Initializable {
     	}
     }
     
+    /**
+     * Set the owner of EditWindow, since NewEditorController is the main window, it is the parent of all other window
+     * @param newEditorController
+     */
     public void setNewEditorController(NewEditorController newEditorController) {
     	this.newEditorController = newEditorController;
     }
