@@ -202,12 +202,12 @@
             <Image url="@../Icons/redo.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="editAsWYSIWYG" fitHeight="31.0" fitWidth="28.0" layoutX="554.0" layoutY="673.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="24.0" AnchorPane.rightAnchor="327.0">
+      <ImageView fx:id="editAsWYSIWYG" fitHeight="31.0" fitWidth="28.0" layoutX="540.0" layoutY="673.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="24.0" AnchorPane.rightAnchor="341.0">
          <image>
             <Image url="@../Icons/EditIcon.png" />
          </image>
       </ImageView>
-      <Label fx:id="lblEditInWYSIWYG" layoutX="523.0" layoutY="703.0" text="Edit in WYSIWYG" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="296.0" />
+      <Label fx:id="lblEditInWYSIWYG" layoutX="490.0" layoutY="703.0" prefHeight="17.0" prefWidth="128.0" text="Edit in WYSIWYG" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="291.0" />
       <Separator layoutX="630.0" layoutY="677.0" orientation="VERTICAL" prefHeight="39.0" prefWidth="6.0" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="273.0" />
       <JFXButton fx:id="btnSave" layoutX="644.0" layoutY="677.0" prefHeight="39.0" prefWidth="128.0" text="Save" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="144.0">
          <font>
