@@ -281,6 +281,7 @@ public class NewEditorController implements Initializable {
     private String QUESTION_SAVE						= "Save?";
     private String QUESTION_PROJECT_MODIFIED			= "Current project is modified";
     private String SYNTAX_MODE							= "Syntax Mode";
+    private String HELP_WINDOW_TITLE					= "Instructions to use the program";
 	
 	/**
      * Force empty current workspace. USE WITH CAUTION!
@@ -629,6 +630,7 @@ public class NewEditorController implements Initializable {
     	QUESTION_SAVE						= r.getString("QUESTION_SAVE");
     	QUESTION_PROJECT_MODIFIED			= r.getString("QUESTION_PROJECT_MODIFIED");
     	SYNTAX_MODE							= r.getString("SYNTAX_MODE");
+    	HELP_WINDOW_TITLE					= r.getString("HELP_WINDOW_TITLE");
     }
     
     /**
@@ -849,7 +851,7 @@ public class NewEditorController implements Initializable {
      * @param event
      */
     public void switchSceneToQuestionIcon(MouseEvent event) {
-    	wp.createWindowNewStage("/fxml/HelpWindow.fxml", "Informationen zum Anwenden des Editors", new HelpWindowController(), lblDateTime.getScene().getWindow(), new Image("/Icons/icon 512x512.png/"));
+    	wp.createWindowNewStage("/fxml/HelpWindow.fxml", HELP_WINDOW_TITLE, new HelpWindowController(), lblDateTime.getScene().getWindow(), new Image("/Icons/icon 512x512.png/"));
     }
     
     /**
