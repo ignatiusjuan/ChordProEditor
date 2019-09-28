@@ -178,11 +178,9 @@ public class EditController implements Initializable {
     @FXML
     private Label lblLineNumber;
     
-    
     StringProperty txtAreaEditSongProperty = new SimpleStringProperty();
     StringProperty txtAreaErrorMessageProperty = new SimpleStringProperty();
     BooleanProperty hideSidePane = new SimpleBooleanProperty(false);
-    
     
     private String originalText;
     private NewEditorController newEditorController;
@@ -221,6 +219,25 @@ public class EditController implements Initializable {
 			  									  "{end_of_grid}\n";
     private final String templateComment		= "{comment: comment}";
     private final String templateChordDiagram	= "{chord: chord_name base-fret offset frets x 0 1 2 3 4 fingers x 0 1 2 3 4}";
+    
+    //Dialog
+    private String SAVE_CHORDPRO_FILE_AS				= "Save ChordPro File As";
+    private String CHORD_PRO_FILES						= "ChordPro Files";
+    private String TEXT_FILES							= "Text Files";
+    private String ALL_FILES							= "All Files";
+    private String PROJECT_SAVED						= "Project is saved!";
+    private String FILES_SAVED_SUCCESSFULLY				= "File saved successfully";
+    private String ERROR								= "Error";
+    private String BTN_YES								= "Yes";
+    private String BTN_NO								= "No";
+    private String BTN_CANCEL							= "Cancel";
+    private String BTN_OK								= "Ok";
+    private String QUESTION_QUIT						= "Quit?";
+    private String QUESTION_SAVE						= "Save?";
+    private String QUESTION_PROJECT_MODIFIED			= "Current project is modified";
+    private String QUIT_CONFIRMATION					= "Quit regardless?";
+    private String WYSIWYG_SWITCH_ERROR					= "Cannot switch to WYSIWYG Mode. Check error message.";
+    private String ERROR_PARSING_LINE					= "Error on parsing line ";
     
     /**
      * Bind function for left side pane
@@ -268,7 +285,7 @@ public class EditController implements Initializable {
     	StringBuilder sb = new StringBuilder();
     	if (!ChordProParser.getErrorLines().isEmpty())
     		for (int i : ChordProParser.getErrorLines())
-    			sb.append("Error on parsing line " + (i+1) + ": " + lines[i] + "\n");
+    			sb.append(ERROR_PARSING_LINE + (i+1) + ": " + lines[i] + "\n");
     	txtAreaErrorMessageProperty.set(sb.toString());
     	txtAreaEditSongProperty.set(message);
     	originalText = message;
@@ -281,12 +298,12 @@ public class EditController implements Initializable {
     private boolean onClickSaveBtn() {
     	if (newEditorController.filename.isBlank()) {
     		FileChooser fileChooser = new FileChooser();
-        	fileChooser.setTitle("Save ChordPro File As");
+        	fileChooser.setTitle(SAVE_CHORDPRO_FILE_AS);
         	fileChooser.getExtensionFilters().addAll(
-        			new FileChooser.ExtensionFilter("ChordProFiles", "*.chopro", "*.crd", "*.cho", "*.chord", "*.pro"),
+        			new FileChooser.ExtensionFilter(CHORD_PRO_FILES, "*.chopro", "*.crd", "*.cho", "*.chord", "*.pro"),
         			new FileChooser.ExtensionFilter("PDF", "*.pdf"),
-        			new FileChooser.ExtensionFilter("Text file", "*.txt"),
-        			new FileChooser.ExtensionFilter("All Files", "*.*")
+        			new FileChooser.ExtensionFilter(TEXT_FILES, "*.txt"),
+        			new FileChooser.ExtensionFilter(ALL_FILES, "*.*")
         	);
         	
         	File selectedFile = fileChooser.showSaveDialog(null);
@@ -302,10 +319,10 @@ public class EditController implements Initializable {
         		out.println(txtAreaEditSong.getText());
         		out.close();
         		Alert alert = new Alert(Alert.AlertType.NONE);
-    	    	alert.setTitle("Project is saved!");
-    	    	alert.setHeaderText("File saved successfully");
+    	    	alert.setTitle(PROJECT_SAVED);
+    	    	alert.setHeaderText(FILES_SAVED_SUCCESSFULLY);
     	    	((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("/Icons/icon 512x512.png/"));
-    	    	ButtonType okButton = new ButtonType("Ok", ButtonData.OK_DONE);
+    	    	ButtonType okButton = new ButtonType(BTN_OK, ButtonData.OK_DONE);
     	    	alert.getButtonTypes().setAll(okButton);
         		alert.showAndWait();
         		originalText = txtAreaEditSong.getText();
@@ -329,10 +346,10 @@ public class EditController implements Initializable {
 		} else {
 			announceError(ChordProParser.getErrorLines());
 			Alert alert = new Alert(Alert.AlertType.ERROR);
-	    	alert.setTitle("Error");
-	    	alert.setHeaderText("Cannot switch to WYSIWYG Mode. Check error message.");
+	    	alert.setTitle(ERROR);
+	    	alert.setHeaderText(WYSIWYG_SWITCH_ERROR);
 	    	((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("/Icons/icon 512x512.png/"));
-	    	ButtonType okButton = new ButtonType("Ok", ButtonData.OK_DONE);
+	    	ButtonType okButton = new ButtonType(BTN_OK, ButtonData.OK_DONE);
 	    	alert.getButtonTypes().setAll(okButton);
     		alert.showAndWait();
 		}
@@ -421,11 +438,11 @@ public class EditController implements Initializable {
      */
     private void quitConfirmation() {
     	Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-    	alert.setTitle("Quit?");
-    	alert.setContentText("Quit regardless?");
+    	alert.setTitle(QUESTION_QUIT);
+    	alert.setContentText(QUIT_CONFIRMATION);
     	((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("/Icons/icon 512x512.png/"));
-    	ButtonType yesButton = new ButtonType("Yes", ButtonData.YES);
-    	ButtonType noButton = new ButtonType("No", ButtonData.NO);
+    	ButtonType yesButton = new ButtonType(BTN_YES, ButtonData.YES);
+    	ButtonType noButton = new ButtonType(BTN_NO, ButtonData.NO);
     	alert.getButtonTypes().setAll(yesButton, noButton);
     	alert.showAndWait().ifPresent(type -> {
     		if (type == yesButton) {
@@ -448,12 +465,12 @@ public class EditController implements Initializable {
     		}
     	} else {
     		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-	    	alert.setTitle("Current project is modified");
-	    	alert.setContentText("Save?");
+	    	alert.setTitle(QUESTION_PROJECT_MODIFIED);
+	    	alert.setContentText(QUESTION_SAVE);
 	    	((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("/Icons/icon 512x512.png/"));
-	    	ButtonType yesButton = new ButtonType("Yes", ButtonData.YES);
-	    	ButtonType noButton = new ButtonType("No", ButtonData.NO);
-	    	ButtonType cancelButton = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+	    	ButtonType yesButton = new ButtonType(BTN_YES, ButtonData.YES);
+	    	ButtonType noButton = new ButtonType(BTN_NO, ButtonData.NO);
+	    	ButtonType cancelButton = new ButtonType(BTN_CANCEL, ButtonData.CANCEL_CLOSE);
 	    	alert.getButtonTypes().setAll(yesButton, noButton, cancelButton);
 	    	alert.showAndWait().ifPresent(type -> {
     	        if (type == yesButton) {
@@ -484,7 +501,7 @@ public class EditController implements Initializable {
     	String[] lines = txtAreaEditSong.getText().split("\n");
     	txtAreaErrorMessage.setText("");
     	for (int i : lineNumber) {
-    		txtAreaErrorMessage.appendText("Error on parsing line " + (i+1) + ": " + lines[i] + "\n");
+    		txtAreaErrorMessage.appendText(ERROR_PARSING_LINE + (i+1) + ": " + lines[i] + "\n");
     	}
     }
     
@@ -548,6 +565,24 @@ public class EditController implements Initializable {
     	
     	txtAreaEditSong.setPromptText(r.getString("SYNTAXEDITOR_TEXTAREA_SONG_EDIT"));
     	txtAreaErrorMessage.setPromptText(r.getString("SYNTAXEDITOR_TEXTAREA_ERROR_MESSAGE"));
+    	
+    	SAVE_CHORDPRO_FILE_AS				= r.getString("DIALOG_SAVE_CHORDPRO_FILE_AS");
+        CHORD_PRO_FILES						= r.getString("CHORD_PRO_FILES");
+        TEXT_FILES							= r.getString("TEXT_FILES");
+        ALL_FILES							= r.getString("ALL_FILES");
+        PROJECT_SAVED						= r.getString("PROJECT_SAVED");
+        FILES_SAVED_SUCCESSFULLY			= r.getString("FILES_SAVED_SUCCESSFULLY");
+        ERROR								= r.getString("ERROR");
+        BTN_YES								= r.getString("BTN_YES");
+        BTN_NO								= r.getString("BTN_NO");
+        BTN_CANCEL							= r.getString("BTN_CANCEL");
+        BTN_OK								= r.getString("BTN_OK");
+        QUESTION_QUIT						= r.getString("QUESTION_QUIT");
+        QUESTION_SAVE						= r.getString("QUESTION_SAVE");
+        QUESTION_PROJECT_MODIFIED			= r.getString("QUESTION_PROJECT_MODIFIED");
+        QUIT_CONFIRMATION					= r.getString("QUIT_CONFIRMATION");
+        WYSIWYG_SWITCH_ERROR				= r.getString("WYSIWYG_SWITCH_ERROR");
+        ERROR_PARSING_LINE					= r.getString("ERROR_PARSING_LINE");
     }
     
 }

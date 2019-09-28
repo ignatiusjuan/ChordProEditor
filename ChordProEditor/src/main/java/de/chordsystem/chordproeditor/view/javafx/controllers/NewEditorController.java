@@ -269,6 +269,19 @@ public class NewEditorController implements Initializable {
 	
 	Clipboard clipboard = Clipboard.getSystemClipboard();
 	
+	//Dialog
+	private String OPEN_CHORDPRO_FILE					= "Open ChordPro File";
+    private String SAVE_CHORDPRO_FILE_AS				= "Save ChordPro File As";
+    private String CHORD_PRO_FILES						= "ChordPro Files";
+    private String TEXT_FILES							= "Text Files";
+    private String ALL_FILES							= "All Files";
+    private String BTN_YES								= "Yes";
+    private String BTN_NO								= "No";
+    private String BTN_CANCEL							= "Cancel";
+    private String QUESTION_SAVE						= "Save?";
+    private String QUESTION_PROJECT_MODIFIED			= "Current project is modified";
+    private String SYNTAX_MODE							= "Syntax Mode";
+	
 	/**
      * Force empty current workspace. USE WITH CAUTION!
      */
@@ -323,12 +336,12 @@ public class NewEditorController implements Initializable {
     	tmpSong.setTextsize(Integer.parseInt(txtTextSize.getText()));
     	if (!songsEqual(emptySong, tmpSong)) {
     		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-	    	alert.setTitle("Current project is modified");
-	    	alert.setContentText("Save?");
+	    	alert.setTitle(QUESTION_PROJECT_MODIFIED);
+	    	alert.setContentText(QUESTION_SAVE);
 	    	((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("/Icons/icon 512x512.png/"));
-	    	ButtonType yesButton = new ButtonType("Yes", ButtonData.YES);
-	    	ButtonType noButton = new ButtonType("No", ButtonData.NO);
-	    	ButtonType cancelButton = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+	    	ButtonType yesButton = new ButtonType(BTN_YES, ButtonData.YES);
+	    	ButtonType noButton = new ButtonType(BTN_NO, ButtonData.NO);
+	    	ButtonType cancelButton = new ButtonType(BTN_CANCEL, ButtonData.CANCEL_CLOSE);
 	    	alert.getButtonTypes().setAll(yesButton, noButton, cancelButton);
 	    	alert.showAndWait().ifPresent(type -> {
 	    	        if (type == yesButton) {
@@ -362,10 +375,10 @@ public class NewEditorController implements Initializable {
     	{
     		fileChooser.setInitialDirectory(null);
     	}
-    	fileChooser.setTitle("Open ChordPro File");
+    	fileChooser.setTitle(OPEN_CHORDPRO_FILE);
     	fileChooser.getExtensionFilters().addAll(
-    			new FileChooser.ExtensionFilter("ChordProFiles", "*.cho", "*.crd", "*.chopro", "*.chord", "*.pro"),
-    			new FileChooser.ExtensionFilter("All Files", "*.*")
+    			new FileChooser.ExtensionFilter(CHORD_PRO_FILES, "*.cho", "*.crd", "*.chopro", "*.chord", "*.pro"),
+    			new FileChooser.ExtensionFilter(ALL_FILES, "*.*")
     	);
     	
     	File selectedFile = fileChooser.showOpenDialog(null);
@@ -400,7 +413,7 @@ public class NewEditorController implements Initializable {
     	            stage.initOwner(lblDateTime.getScene().getWindow());
     	            stage.initModality(Modality.APPLICATION_MODAL);
     	            stage.setScene(scene);
-    	            stage.setTitle("Syntax Mode");
+    	            stage.setTitle(SYNTAX_MODE);
     	            stage.getIcons().add(new Image("/Icons/icon 512x512.png/"));
     	            stage.show();
 
@@ -452,12 +465,12 @@ public class NewEditorController implements Initializable {
      */
     private void onClickFileSaveAs(ActionEvent event) {
     	FileChooser fileChooser = new FileChooser();
-    	fileChooser.setTitle("Save ChordPro File As");
+    	fileChooser.setTitle(SAVE_CHORDPRO_FILE_AS);
     	fileChooser.getExtensionFilters().addAll(
-    			new FileChooser.ExtensionFilter("ChordProFiles", "*.chopro", "*.crd", "*.cho", "*.chord", "*.pro"),
+    			new FileChooser.ExtensionFilter(CHORD_PRO_FILES, "*.chopro", "*.crd", "*.cho", "*.chord", "*.pro"),
     			new FileChooser.ExtensionFilter("PDF", "*.pdf"),
-    			new FileChooser.ExtensionFilter("Text file", "*.txt"),
-    			new FileChooser.ExtensionFilter("All Files", "*.*")
+    			new FileChooser.ExtensionFilter(TEXT_FILES, "*.txt"),
+    			new FileChooser.ExtensionFilter(ALL_FILES, "*.*")
     	);
     	String[] defaultName = txtSongEdit.getText().split("\\n");
     	if (defaultName.length > 0)
@@ -604,6 +617,18 @@ public class NewEditorController implements Initializable {
     	lblEditInChordPro.setText(r.getString("WYSIWYG_LABEL_EDIT_IN_CHORDPRO"));
     	lblSaveAsChordPro.setText(r.getString("WYSIWYG_LABEL_SAVE_AS_CHORDPRO"));
     	lblSaveAsPDF.setText(r.getString("WYSIWYG_LABEL_SAVE_AS_PDF"));
+    	
+    	OPEN_CHORDPRO_FILE					= r.getString("OPEN_CHORDPRO_FILE");
+    	SAVE_CHORDPRO_FILE_AS				= r.getString("SAVE_CHORDPRO_FILE_AS");
+    	CHORD_PRO_FILES						= r.getString("CHORD_PRO_FILES");
+    	TEXT_FILES							= r.getString("TEXT_FILES");
+    	ALL_FILES							= r.getString("ALL_FILES");
+    	BTN_YES								= r.getString("BTN_YES");
+    	BTN_NO								= r.getString("BTN_NO");
+    	BTN_CANCEL							= r.getString("BTN_CANCEL");
+    	QUESTION_SAVE						= r.getString("QUESTION_SAVE");
+    	QUESTION_PROJECT_MODIFIED			= r.getString("QUESTION_PROJECT_MODIFIED");
+    	SYNTAX_MODE							= r.getString("SYNTAX_MODE");
     }
     
     /**
@@ -810,7 +835,7 @@ public class NewEditorController implements Initializable {
             stage.initOwner(lblDateTime.getScene().getWindow());
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
-            stage.setTitle("Syntax Mode");
+            stage.setTitle(SYNTAX_MODE);
             stage.getIcons().add(new Image("/Icons/icon 512x512.png/"));
             stage.show();
 
