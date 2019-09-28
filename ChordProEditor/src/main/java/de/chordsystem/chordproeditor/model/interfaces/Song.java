@@ -5,6 +5,11 @@ import java.util.List;
 import de.chordsystem.chordproeditor.model.interfaces.Environment;
 import de.chordsystem.chordproeditor.model.interfaces.Fingering;
 
+/**
+ * Interface for song class
+ * @author IgnatiusJuanPradipta
+ *
+ */
 public interface Song {
 
 	/**
@@ -227,6 +232,18 @@ public interface Song {
 	 */
 	void addEnvironment(Environment environment);
 
+	/**
+	 * toString function of the class
+	 */
 	String toString();
 
+	/**
+	 * return all environment as String
+	 */
+	String getEnvironmentsAsString();
+	
+	/**
+	 * return all environment as String with debugging lines
+	 */
+	String getEnvironmentsAsString2();
 }

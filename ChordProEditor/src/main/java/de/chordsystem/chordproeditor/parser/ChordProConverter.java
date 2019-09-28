@@ -1,13 +1,30 @@
-package de.chordsystem.Prototype;
+package de.chordsystem.chordproeditor.parser;
 
 import java.util.Arrays;
 
-import de.chordsystem.chordproeditor.model.classes.*;
-import de.chordsystem.chordproeditor.model.interfaces.*;
+import de.chordsystem.chordproeditor.model.classes.EnvironmentImpl;
+import de.chordsystem.chordproeditor.model.interfaces.Environment;
+import de.chordsystem.chordproeditor.model.interfaces.Fingering;
+import de.chordsystem.chordproeditor.model.interfaces.Song;
 
+/**
+ * This class is used to convert a Song class to ChordPro Syntaxes
+ * @author IgnatiusJuanPradipta
+ *
+ */
 public class ChordProConverter {
 	
-	private String combineChordLyric(String chord, String lyric) {
+	/**
+	 * This method combine given chord and lyric into standard ChordPro format (i.e. This [C]is [G]an [C]example)
+	 * @param 		chord		chord to be combined
+	 * @param 		lyric		lyric to be combined
+	 * @return					combined chord and lyric as ChordPro syntax
+	 */
+	private static String combineChordLyric(String chord, String lyric) {
+		chord = chord.stripTrailing();
+		lyric = lyric.stripTrailing();
+		for (int i = 0; i < chord.length() - lyric.length(); i++)
+			lyric += " ";
 		StringBuffer sb = new StringBuffer();
 		int chordCounter = 0;
 		int lyricCounter = 0;
@@ -19,7 +36,7 @@ public class ChordProConverter {
 					lyricCounter++;
 				} else {
 					sb.append("[");
-					while (chord.charAt(chordCounter) != ' ') {
+					while (chordCounter < chord.length() && chord.charAt(chordCounter) != ' ') {
 						sb.append(chord.charAt(chordCounter));
 						chordCounter++;
 					}
@@ -39,10 +56,15 @@ public class ChordProConverter {
 			lyricCounter++;
 		}
 		
-		return sb.toString();
+		return sb.toString().stripTrailing();
 	}
 	
-	public String tryConvertToChordPro(Song song) {
+	/**
+	 * This method parse a given Song class into standard ChordPro syntax
+	 * @param 		song		Song to be parsed
+	 * @return					ChordPro syntax of a Song class
+	 */
+	public static String tryConvertToChordPro(Song song) {
 		StringBuffer sb = new StringBuffer();
 		
 		if (!song.getTitle().isBlank())
@@ -120,6 +142,23 @@ public class ChordProConverter {
 		
 		for (int i = 0; i < song.getEnvironmentSize(); i++) {
 			Environment e = song.getEnvironment(i);
+			if (e.getType() == EnvironmentImpl.TYPE_OTHER) {
+				switch(lastType) {
+					case EnvironmentImpl.TYPE_CHORUS:
+						sb.append("{end_of_chorus}\n");
+						break;
+					case EnvironmentImpl.TYPE_VERSE:
+						sb.append("{end_of_verse}\n");							
+						break;
+					case EnvironmentImpl.TYPE_TAB:
+						sb.append("{end_of_tab}\n");
+						break;
+					case EnvironmentImpl.TYPE_GRID:
+						sb.append("{end_of_grid}\n");
+						break;
+				}
+				openEnvironment = -1;
+			}
 			if (e.getType() == EnvironmentImpl.TYPE_COMMENT) {
 				if (e.getCommentInBox()) {
 					sb.append("{comment_box: ");
@@ -150,9 +189,9 @@ public class ChordProConverter {
 				if (e.getType() == EnvironmentImpl.TYPE_CHORUS) {
 					if (openEnvironment == -1) {
 						if (!e.getTitle().isBlank())
-							sb.append("{start_of_chorus: " + e.getTitle() + "}\n");
+							sb.append("\n{start_of_chorus: " + e.getTitle() + "}\n");
 						else
-							sb.append("{start_of_chorus}\n");
+							sb.append("\n{start_of_chorus}\n");
 					}
 					String chord = e.getChord();
 					String lyric = e.getLyric();
@@ -163,9 +202,9 @@ public class ChordProConverter {
 				} else if (e.getType() == EnvironmentImpl.TYPE_VERSE) {
 					if (openEnvironment == -1) {
 						if (!e.getTitle().isBlank())
-							sb.append("{start_of_verse: " + e.getTitle() + "}\n");
+							sb.append("\n{start_of_verse: " + e.getTitle() + "}\n");
 						else
-							sb.append("{start_of_verse}\n");
+							sb.append("\n{start_of_verse}\n");
 					}
 					String chord = e.getChord();
 					String lyric = e.getLyric();
@@ -176,9 +215,9 @@ public class ChordProConverter {
 				} else if (e.getType() == EnvironmentImpl.TYPE_TAB) {
 					if (openEnvironment == -1) {
 						if (!e.getTitle().isBlank())
-							sb.append("{start_of_tab: " + e.getTitle() + "}\n");
+							sb.append("\n{start_of_tab: " + e.getTitle() + "}\n");
 						else
-							sb.append("{start_of_tab}\n");
+							sb.append("\n{start_of_tab}\n");
 					}
 					String lyric = e.getLyric();
 					sb.append(lyric + "\n");
@@ -188,9 +227,9 @@ public class ChordProConverter {
 				} else if (e.getType() == EnvironmentImpl.TYPE_GRID) {
 					if (openEnvironment == -1) {
 						if (!e.getTitle().isBlank())
-							sb.append("{start_of_grid: " + e.getTitle() + "}\n");
+							sb.append("\n{start_of_grid: " + e.getTitle() + "}\n");
 						else
-							sb.append("{start_of_grid}\n");
+							sb.append("\n{start_of_grid}\n");
 					}
 					String lyric = e.getLyric();
 					sb.append(lyric + "\n");
@@ -199,13 +238,13 @@ public class ChordProConverter {
 					lastTitle = e.getTitle();
 				} else if (e.getType() == EnvironmentImpl.TYPE_INSTRUCTION) {
 					sb.append("{" + e.getLyric() + "}\n");
-				} else if (e.getType() == EnvironmentImpl.TYPE_NULL) {
+				} else if (e.getType() == EnvironmentImpl.TYPE_OTHER) {
 					if (!e.getChord().isBlank()) {
 						String chord = e.getChord();
 						String lyric = e.getLyric();
 						sb.append(combineChordLyric(chord,lyric) + "\n");
 					} else {
-						sb.append(e.getLyric() + "\n");
+						sb.append(e.getLyric());
 					}
 				}
 			}

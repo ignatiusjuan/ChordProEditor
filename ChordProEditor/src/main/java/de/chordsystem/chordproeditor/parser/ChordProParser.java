@@ -1,17 +1,24 @@
-package de.chordsystem.Prototype;
+package de.chordsystem.chordproeditor.parser;
 
-import de.chordsystem.chordproeditor.model.classes.*;
-import de.chordsystem.chordproeditor.model.interfaces.*;
-
-import de.chordsystem.Prototype.*;
-
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.BufferedReader;
+import de.chordsystem.chordproeditor.model.classes.EnvironmentImpl;
+import de.chordsystem.chordproeditor.model.classes.FingeringImpl;
+import de.chordsystem.chordproeditor.model.classes.SongImpl;
+import de.chordsystem.chordproeditor.model.interfaces.Environment;
+import de.chordsystem.chordproeditor.model.interfaces.Fingering;
+import de.chordsystem.chordproeditor.model.interfaces.Song;
 
+/**
+ * This class parse a ChordPro file and return it as a Song class
+ * @author IgnatiusJuanPradipta
+ */
 public class ChordProParser {
 	
 	private static final String regexChordLyric			= "^\\s*[^\\{\\}]*\\s*$";
@@ -73,6 +80,13 @@ public class ChordProParser {
 	private int tabCounter = 0;
 	private int gridCounter = 0;
 	
+	private static List<Integer> errorList = new ArrayList<Integer>();
+	
+	/**
+	 * Convert a String which contains lyric and chord into an environment
+	 * @param toParse
+	 * @return
+	 */
 	private Environment tryParseChordLyric(String toParse) {
 		Environment env = new EnvironmentImpl();
 		
@@ -101,7 +115,13 @@ public class ChordProParser {
 		return env;
 	}
 	
-	private void tryParseLine(String toMatch, Song song) {
+	/**
+	 * Check if a line is a valid ChordPro syntax
+	 * @param 			toMatch			String to be checked
+	 * @param 			song			a Song object to be updated
+	 * @return
+	 */
+	private boolean tryParseLine(String toMatch, Song song) {
 		if (Pattern.compile(regexChordLyric).matcher(toMatch).find()) {
 			Environment env = tryParseChordLyric(toMatch);
 			env.setTitle(tempTitle);
@@ -319,17 +339,18 @@ public class ChordProParser {
 			song.setFinished(false);
 		} else {
 			System.out.println("Parse error: " + toMatch);
-			//later --> else = error
+			return false;
 		}
-		//System.out.println(toMatch);
-		/*else if (Pattern.compile(regexTitle).matcher(toMatch).find()) {
-			Matcher m = Pattern.compile(regexTitle).matcher(toMatch);
-			m.find();
-			song.setTitle(m.group(1));
-		}*/
+		return true;
 	}
 	
+	/**
+	 * This function will try to parse a ChordPro file
+	 * @param 			pathname		filepath
+	 * @return							parsed Song object
+	 */
 	public Song tryParseChordPro(String pathname) {
+		errorList = new ArrayList<Integer>();
 		File file = new File(pathname);
 		Song song = new SongImpl();
 		
@@ -337,17 +358,20 @@ public class ChordProParser {
 		{
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			String line;	
-			
+			int i = 0;
 			while ((line = reader.readLine()) != null)
 			{
-				if (line.trim().length() > 0 && !line.trim().isEmpty())
-					tryParseLine(line.trim(),song);
+				if (line.trim().length() > 0 && !line.trim().isEmpty()) {
+					if (!tryParseLine(line,song))
+						errorList.add(i);
+				}
 				else {
 					Environment env = new EnvironmentImpl();
 					env.setTitle(tempTitle);
 					env.setType(tempType);
 					song.addEnvironment(env);
 				}
+				i++;
 			}
 			reader.close();
 		}
@@ -360,21 +384,65 @@ public class ChordProParser {
 		return song;
 	}
 	
-	public void start() {
-		//Song song = tryParseChordPro(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "Heaven.chordpro");
-		Song song = tryParseChordPro(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "10000 Reasons.chordpro");
+	/**
+	 * This function will try to parse the content of a ChordPro file
+	 * @param 			lines		content of a ChordPro file
+	 * @return						parsed Song object
+	 */
+	public Song tryParseChordProString(String lines) {
+		errorList = new ArrayList<Integer>();
+		Song song = new SongImpl();
 		
-		//System.out.println(song.toString());
-		//File file = new File(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "Heaven.chordpro");
-		//File file = new File(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "10000 Reasons.chordpro");
+		try
+		{
+			String[] separatedLines = lines.split("\n");
+			int i = 0;
+			for (String line : separatedLines)
+			{
+				if (line.trim().length() > 0 && !line.trim().isEmpty()) {
+					if (!tryParseLine(line,song))
+						errorList.add(i);
+				}
+				else {
+					Environment env = new EnvironmentImpl();
+					env.setTitle(tempTitle);
+					env.setType(tempType);
+					song.addEnvironment(env);
+				}
+				i++;
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 		
-		de.chordsystem.Prototype.ChordProConverter converter = new de.chordsystem.Prototype.ChordProConverter();
-		
-		System.out.println(converter.tryConvertToChordPro(song));
+		return song;
 	}
+	
+	/**
+	 * return lines with error from last parse
+	 * @return
+	 */
+	public static List<Integer> getErrorLines(){
+		return errorList != null ? errorList : null;
+	}
+	
+//	public void start() {
+//		Song song = tryParseChordPro(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "Heaven.chordpro");
+//		//Song song = tryParseChordPro(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "10000 Reasons.chordpro");
+//		
+//		//System.out.println(song.toString());
+//		//File file = new File(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "Heaven.chordpro");
+//		//File file = new File(System.getProperty("user.dir") + "\\src\\main\\java\\de\\chordsystem\\Prototype\\" + "10000 Reasons.chordpro");
+//		
+//		de.chordsystem.chordproeditor.parser.ChordProConverter converter = new de.chordsystem.chordproeditor.parser.ChordProConverter();
+//		
+//		//System.out.println(converter.tryConvertToChordPro(song));
+//	}
 
-	public static void main(String[] args) {
-		ChordProParser regex = new ChordProParser();
-		regex.start();
-	}
+//	public static void main(String[] args) {
+//		ChordProParser regex = new ChordProParser();
+//		regex.start();
+//	}
 }

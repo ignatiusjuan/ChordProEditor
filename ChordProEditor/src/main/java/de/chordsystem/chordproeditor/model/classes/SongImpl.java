@@ -1,15 +1,19 @@
 package de.chordsystem.chordproeditor.model.classes;
 
-import de.chordsystem.chordproeditor.model.interfaces.*;
+import java.util.ArrayList;
+import java.util.List;
+
 //import de.chordsystem.chordproeditor.model.classes.*;
 //import de.chordsystem.chordproeditor.model.abstracts.*;
+import de.chordsystem.chordproeditor.model.interfaces.Environment;
+import de.chordsystem.chordproeditor.model.interfaces.Fingering;
+import de.chordsystem.chordproeditor.model.interfaces.Song;
+import de.chordsystem.chordproeditor.parser.ChordChecker;
 
-import java.util.List;
-import java.util.ArrayList;
-
+/**Song class to save a loaded song or a new song
+ * @author IgnatiusJuanPradipta
+ */
 public class SongImpl implements Song{
-	
-	private static final int DEFAULT_STRINGS = 6;
 	
 	private String title;
 	private List<String> subtitle;
@@ -344,6 +348,7 @@ public class SongImpl implements Song{
 	@Override
 	public void addFingering(Fingering fingering) {
 		fingeringList.add(fingering);
+		ChordChecker.customChord.add(fingering.getChordName());
 	}
 	/**
 	 * @return the xth environment
@@ -352,6 +357,64 @@ public class SongImpl implements Song{
 	public Environment getEnvironment(int x) {
 		return environmentList.get(x);
 	}
+	/**
+	 * return all environment as String
+	 */
+	@Override
+	public String getEnvironmentsAsString() {
+		String lastTitle = "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@";
+		int lastType = EnvironmentImpl.TYPE_NULL;
+		
+		StringBuilder sb = new StringBuilder();
+		for (Environment env : environmentList) {
+			if (!(lastType == env.getType() && lastTitle.equals(env.getTitle()))){
+				if (env.getType() == EnvironmentImpl.TYPE_CHORUS)
+					sb.append("Chorus: " + env.getTitle() + "\n");
+				else if (env.getType() == EnvironmentImpl.TYPE_VERSE)
+					sb.append("Verse: " + env.getTitle() + "\n");
+				else if (env.getType() == EnvironmentImpl.TYPE_TAB)
+					sb.append("Tab: " + env.getTitle() + "\n");
+				else if (env.getType() == EnvironmentImpl.TYPE_GRID)
+					sb.append("Grid: " + env.getTitle() + "\n");
+				lastTitle = env.getTitle();
+				lastType = env.getType();
+			}
+			sb.append(env.toString());
+		}
+		return sb.toString();
+	}
+	
+	/**
+	 * return all environment as String with debugging lines
+	 */
+	@Override
+	public String getEnvironmentsAsString2() {
+		String lastTitle = "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@";
+		int lastType = EnvironmentImpl.TYPE_NULL;
+		
+		StringBuilder sb = new StringBuilder();
+		int i = 0;
+		for (Environment env : environmentList) {
+			i++;
+			sb.append("-------" + i + "-------\n");
+			if (!(lastType == env.getType() && lastTitle.equals(env.getTitle()))){
+				if (env.getType() == EnvironmentImpl.TYPE_CHORUS)
+					sb.append("Chorus: " + env.getTitle() + "\n");
+				else if (env.getType() == EnvironmentImpl.TYPE_VERSE)
+					sb.append("Verse: " + env.getTitle() + "\n");
+				else if (env.getType() == EnvironmentImpl.TYPE_TAB)
+					sb.append("Tab: " + env.getTitle() + "\n");
+				else if (env.getType() == EnvironmentImpl.TYPE_GRID)
+					sb.append("Grid: " + env.getTitle() + "\n");
+				sb.append("\n");
+				lastTitle = env.getTitle();
+				lastType = env.getType();
+			}
+			sb.append(env.toString());
+		}
+		return sb.toString();
+	}
+	
 	/**
 	 * @return the environment size
 	 */
@@ -368,6 +431,9 @@ public class SongImpl implements Song{
 	}
 	
 	@Override
+	/**
+	 * return class content as string
+	 */
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		
@@ -411,18 +477,19 @@ public class SongImpl implements Song{
 		
 		for (Environment env : environmentList) {
 			if (!(lastType == env.getType() && lastTitle.equals(env.getTitle()))){
-				sb.append("\n");
+				//sb.append("\n");
 				if (env.getType() == EnvironmentImpl.TYPE_CHORUS)
-					sb.append("Chorus: " + env.getTitle());
+					sb.append("Chorus: " + env.getTitle() + "\n");
 				else if (env.getType() == EnvironmentImpl.TYPE_VERSE)
-					sb.append("Verse: " + env.getTitle());
+					sb.append("Verse: " + env.getTitle() + "\n");
 				else if (env.getType() == EnvironmentImpl.TYPE_TAB)
-					sb.append("Tab: " + env.getTitle());
+					sb.append("Tab: " + env.getTitle() + "\n");
 				else if (env.getType() == EnvironmentImpl.TYPE_GRID)
-					sb.append("Grid: " + env.getTitle());
-				sb.append("\n");
-				lastTitle = env.getTitle();
-				lastType = env.getType();
+					sb.append("Grid: " + env.getTitle() + "\n");
+				if (env.getType() != EnvironmentImpl.TYPE_COMMENT) {
+					lastTitle = env.getTitle();
+					lastType = env.getType();
+				}
 			}
 			sb.append(env.toString());
 		}

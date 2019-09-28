@@ -26,7 +26,7 @@ public class GeneratePDF {
 			return false;
 		}
 		callLatex(song);
-		makeClean(song);
+		//makeClean(song);
 		return true;
 	}
 	
@@ -38,9 +38,23 @@ public class GeneratePDF {
 		String title = song.getTitle();
 		try{
 			Runtime rt = Runtime.getRuntime();
-			rt.exec("pdflatex "+title+".tex");
+			rt.exec("pdflatex \""+title+".tex\"");
 		}catch(Exception e){
-			System.out.println("Exception");
+			System.out.println("Konsolen Exception callLatex");
+		}
+	}
+	
+	/***
+	 * Moves PDF from song to given path
+	 * @param path
+	 * @param song
+	 */
+	public static void movePDF(String path, Song song) {
+		try{
+			Runtime rt = Runtime.getRuntime();
+			rt.exec("move "+song.getTitle()+" "+path);
+		}catch(Exception e){
+			System.out.println("Konsolen Exception movePDF");
 		}
 	}
 	
@@ -49,7 +63,15 @@ public class GeneratePDF {
 	 * @param song
 	 */
 	private static void makeClean(Song song) {
-		//TODO move pdf elsewhere, delete the rest
+		try{
+			Runtime rt = Runtime.getRuntime();
+			rt.exec("del "+song.getTitle()+".aux");
+			rt.exec("del "+song.getTitle()+".tex");
+			rt.exec("del "+song.getTitle()+".log");
+			rt.exec("del "+song.getTitle()+".out");
+		}catch(Exception e){
+			System.out.println("Konsolen Exception makeClean");
+		}
 	}
 
 }

@@ -1,5 +1,10 @@
 package de.chordsystem.chordproeditor.model.interfaces;
 
+/**
+ * Interface for Fingering class
+ * @author IgnatiusJuanPradipta
+ *
+ */
 public interface Fingering {
 
 	/**

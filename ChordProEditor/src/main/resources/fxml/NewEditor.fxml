@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.image.Image?>
@@ -19,127 +19,135 @@
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="693.0" prefWidth="1084.0" stylesheets="@../Css/Main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <MenuBar fx:id="MenuBar" layoutY="-1.0" prefHeight="31.0" prefWidth="1084.0">
+      <JFXHamburger fx:id="hamburger" layoutX="14.0" layoutY="48.0" prefHeight="31.0" prefWidth="37.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="45.0" />
+      <Label fx:id="lblAttributes" layoutX="61.0" layoutY="48.0" prefHeight="35.0" prefWidth="143.0" text="Attributes" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="45.0">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <MenuBar fx:id="MenuBar" layoutY="-1.0" prefHeight="31.0" prefWidth="1084.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
-          <Menu mnemonicParsing="false" text="Datei">
+          <Menu fx:id="menuFile" mnemonicParsing="false" text="File">
             <items>
-                  <MenuItem mnemonicParsing="false" text="New File" />
-              <MenuItem mnemonicParsing="false" text="Öffnen" />
-                  <MenuItem mnemonicParsing="false" text="Aktuellen Ordner öffnen" />
+                  <MenuItem fx:id="menuFileNew" mnemonicParsing="false" text="New" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Speichern" />
-                  <MenuItem mnemonicParsing="false" text="Speichern unter ..." />
-                  <MenuItem mnemonicParsing="false" text="Speichern als Pdf-Datei" />
+              <MenuItem fx:id="menuFileOpen" mnemonicParsing="false" text="Open" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Speichern" />
-                  <MenuItem mnemonicParsing="false" text="Speichern" />
+                  <MenuItem fx:id="menuFileSave" mnemonicParsing="false" text="Save" />
+                  <MenuItem fx:id="menuFileSaveAs" mnemonicParsing="false" text="Save As" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="menuFileExportAsPDF" mnemonicParsing="false" text="Export as PDF" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <Menu fx:id="menuFilePreferences" mnemonicParsing="false" text="Preferences">
+                    <items>
+                        <Menu fx:id="menuFilePreferencesLanguage" mnemonicParsing="false" text="Language">
+                          <items>
+                            <MenuItem fx:id="menuFilePreferencesLanguageDeutsch" mnemonicParsing="false" text="Deutsch" />
+                              <MenuItem fx:id="menuFilePreferencesLanguageEnglish" mnemonicParsing="false" text="English" />
+                          </items>
+                        </Menu>
+                    </items>
+                  </Menu>
+                  <MenuItem fx:id="menuFileQuit" mnemonicParsing="false" text="Quit" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Bearbeiten">
+          <Menu fx:id="menuEdit" mnemonicParsing="false" text="Edit">
             <items>
-                  <MenuItem mnemonicParsing="false" text="Löschen" />
+              <MenuItem fx:id="menuEditUndo" mnemonicParsing="false" text="Undo" />
+                  <MenuItem fx:id="menuEditRedo" mnemonicParsing="false" text="Redo" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-              <MenuItem mnemonicParsing="false" text="Ruckgängig" />
-                  <MenuItem mnemonicParsing="false" text="Ausschneiden" />
+                  <MenuItem fx:id="menuEditCut" mnemonicParsing="false" text="Cut" />
+                  <MenuItem fx:id="menuEditCopy" mnemonicParsing="false" text="Copy" />
+                  <MenuItem fx:id="menuEditPaste" mnemonicParsing="false" text="Paste" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Alles auswählen     Ctlr+A" />
-                  <MenuItem mnemonicParsing="false" text="Kopieren   Ctlr+C" />
-                  <MenuItem mnemonicParsing="false" text="Einfügen    Ctlr+V" />
+                  <MenuItem fx:id="menuEditSelectAll" mnemonicParsing="false" text="Select All" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-            <Menu mnemonicParsing="false" text="Sonstiges">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="About" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Sonstiges">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="About" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Sonstiges">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="About" />
-               </items>
-            </Menu>
         </menus>
       </MenuBar>
-      <JFXTextArea fx:id="txtSongInsert" layoutX="266.0" layoutY="34.0" prefHeight="591.0" prefWidth="797.0" style="-fx-background-color: #000;" text="Enter your song here, e.g.&#10;&#10;Verse &#10; Am&#9;&#9;C&#10;Alas my love,&#10;&#9;G&#9; Em&#10;you do me wrong&#10;&#10;Chorus:&#10;&#10;C&#9;&#9;&#9;    G       Em&#10;greensleeves was all my joy,&#10;Am&#9;&#9;&#9;     E&#10;greensleeves was my delight,&#10;&#10;...">
+      
+      <ScrollPane fx:id="scrollpaneAttributes" hbarPolicy="NEVER" layoutX="19.0" layoutY="88.0" prefHeight="538.0" prefWidth="224.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="85.0">
+         <content>
+            <AnchorPane prefHeight="850.0" prefWidth="228.0" style="-fx-background-color: #fff;">
+               <children>
+                  <JFXTextField fx:id="txtTitle" labelFloat="true" layoutX="5.0" layoutY="20.0" prefHeight="25.0" prefWidth="200.0" promptText="Title" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtSubtitle" labelFloat="true" layoutX="5.0" layoutY="70.0" prefHeight="25.0" prefWidth="200.0" promptText="Subtitle" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtArtist" labelFloat="true" layoutX="5.0" layoutY="120.0" prefHeight="25.0" prefWidth="200.0" promptText="Artist" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtComposer" labelFloat="true" layoutX="5.0" layoutY="170.0" prefHeight="25.0" prefWidth="200.0" promptText="Composer" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtLyricist" labelFloat="true" layoutX="5.0" layoutY="220.0" prefHeight="25.0" prefWidth="200.0" promptText="Lyricist" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtCopyright" labelFloat="true" layoutX="5.0" layoutY="270.0" prefHeight="25.0" prefWidth="200.0" promptText="Copyright" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtAlbum" labelFloat="true" layoutX="5.0" layoutY="320.0" prefHeight="25.0" prefWidth="200.0" promptText="Album" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtYear" labelFloat="true" layoutX="5.0" layoutY="370.0" prefHeight="25.0" prefWidth="200.0" promptText="Year" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtKey" labelFloat="true" layoutX="5.0" layoutY="420.0" prefHeight="25.0" prefWidth="200.0" promptText="Key" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtTime" labelFloat="true" layoutX="5.0" layoutY="470.0" prefHeight="25.0" prefWidth="200.0" promptText="Time" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtTempo" labelFloat="true" layoutX="5.0" layoutY="520.0" prefHeight="25.0" prefWidth="200.0" promptText="Tempo" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtDuration" labelFloat="true" layoutX="5.0" layoutY="570.0" prefHeight="25.0" prefWidth="200.0" promptText="Duration" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtCapo" labelFloat="true" layoutX="5.0" layoutY="620.0" prefHeight="25.0" prefWidth="200.0" promptText="Capo" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtTextFont" labelFloat="true" layoutX="5.0" layoutY="670.0" prefHeight="25.0" prefWidth="200.0" promptText="Text Font" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtTextSize" labelFloat="true" layoutX="5.0" layoutY="720.0" prefHeight="25.0" prefWidth="200.0" promptText="Text Size" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtTextColour" labelFloat="true" layoutX="5.0" layoutY="770.0" prefHeight="25.0" prefWidth="200.0" promptText="Text Colour" style="-fx-background-color: #fff;" />
+                  <JFXTextField fx:id="txtChordColour" labelFloat="true" layoutX="5.0" layoutY="820.0" prefHeight="25.0" prefWidth="200.0" promptText="Chord Colour" style="-fx-background-color: #fff;" />
+                  <JFXCheckBox fx:id="cbIsFinished" layoutX="5.0" layoutY="870.0" prefHeight="25.0" prefWidth="200.0" text="is Finished" />
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+      <JFXTextArea fx:id="txtSongEdit" layoutX="266.0" layoutY="55.0" prefHeight="570.0" prefWidth="797.0" promptText="Enter your song here . . ." style="-fx-background-color: #fff;" unFocusColor="#838181" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="265.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="55.0">
          <font>
             <Font size="24.0" />
          </font></JFXTextArea>
-      <MenuButton fx:id="btnUncapoed" layoutX="357.0" layoutY="631.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="104.0" text="MenuButton">
-        <items>
-          <MenuItem mnemonicParsing="false" text="B" />
-          <MenuItem mnemonicParsing="false" text="C" />
-            <MenuItem mnemonicParsing="false" text="C#" />
-            <MenuItem mnemonicParsing="false" text="D" />
-            <MenuItem mnemonicParsing="false" text="E♭" />
-            <MenuItem mnemonicParsing="false" text="E" />
-            <MenuItem mnemonicParsing="false" text="F" />
-            <MenuItem mnemonicParsing="false" text="F#" />
-            <MenuItem mnemonicParsing="false" text="G" />
-        </items>
-      </MenuButton>
-      <Label fx:id="label" layoutX="268.0" layoutY="630.0" prefHeight="31.0" prefWidth="84.0" text="Uncapoed" textFill="WHITE">
+      <Label fx:id="lblDateTime" layoutX="9.0" layoutY="640.0" prefHeight="31.0" prefWidth="224.0" text="Time" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
          <font>
-            <Font name="Segoe UI Bold" size="14.0" />
-         </font></Label>
-      <JFXButton fx:id="btnMinus" layoutX="577.0" layoutY="622.0" prefHeight="25.0" prefWidth="29.0" text="-">
-         <font>
-            <Font name="System Bold" size="25.0" />
+            <Font name="Gabriola" size="24.0" />
          </font>
-      </JFXButton>
-      <JFXButton fx:id="btnPlus" layoutX="622.0" layoutY="622.0" text="+">
-         <font>
-            <Font name="System Bold" size="25.0" />
-         </font>
-      </JFXButton>
-      <ImageView fx:id="SaveAsPdf" fitHeight="37.0" fitWidth="37.0" layoutX="1017.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true">
+      </Label>
+      <ImageView fx:id="ivHelp" fitHeight="37.0" fitWidth="47.0" layoutX="207.0" layoutY="634.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="207.0" AnchorPane.rightAnchor="840.0">
          <image>
-            <Image url="@../Icons/SaveAsPdf.png" />
+            <Image url="@../Icons/information.png" />
          </image>
       </ImageView>
-      <JFXTextField fx:id="TextFieldCapo" focusColor="BLACK" layoutX="471.0" layoutY="631.0" prefHeight="31.0" prefWidth="84.0" promptText="Capo" style="-fx-background-color: #fff;" unFocusColor="BLACK" />
-      <Label fx:id="lblDateTime" layoutX="9.0" layoutY="640.0" prefHeight="31.0" prefWidth="104.0" text="Time">
+      <JFXButton fx:id="btnFontPlus" layoutX="303.0" layoutY="634.0" text="➕" textFill="WHITE" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="305.0">
          <font>
-            <Font name="Gabriola" size="18.0" />
-         </font>
-      </Label>
-      <JFXButton fx:id="btnWriteTex" layoutX="729.0" layoutY="644.0" prefHeight="37.0" prefWidth="104.0" text="WriteTex">
-         <font>
-            <Font name="System Bold" size="16.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
       </JFXButton>
-      <AnchorPane layoutX="21.0" layoutY="105.0" prefHeight="488.0" prefWidth="227.0">
-         <children>
-            <JFXTextField fx:id="txtSongTitle" layoutY="23.0" prefHeight="73.0" prefWidth="227.0" promptText="Song Title" style="-fx-background-color: #fff;" />
-            <JFXTextField fx:id="txtAlternativeTitle" layoutX="-1.0" layoutY="150.0" prefHeight="73.0" prefWidth="227.0" promptText="Alternative Song Title" style="-fx-background-color: #fff;" />
-            <JFXTextField fx:id="txtArtist" layoutX="-1.0" layoutY="277.0" prefHeight="73.0" prefWidth="227.0" promptText="Artist" style="-fx-background-color: #fff;" />
-            <JFXTextField fx:id="txtSongId" layoutY="401.0" prefHeight="73.0" prefWidth="227.0" promptText="Optional Song ID" style="-fx-background-color: #fff;" />
-            <Separator layoutX="-1.0" layoutY="119.0" prefHeight="15.0" prefWidth="227.0" />
-            <Separator layoutY="244.0" prefHeight="15.0" prefWidth="227.0" />
-            <Separator layoutX="-1.0" layoutY="371.0" prefHeight="15.0" prefWidth="227.0" />
-            <JFXDrawer fx:id="drawer" layoutX="-17.0" layoutY="-66.0" prefHeight="647.0" prefWidth="243.0" />
-         </children></AnchorPane>
-      <Label layoutX="61.0" layoutY="53.0" prefHeight="31.0" prefWidth="67.0" text="Menu">
+      <JFXButton fx:id="btnFontMinus" layoutX="265.0" layoutY="634.0" prefHeight="30.0" prefWidth="37.0" text="➖" textFill="WHITE" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="265.0">
          <font>
-            <Font name="EmojiOne Color SVGinOT" size="24.0" />
+            <Font size="14.0" />
          </font>
-      </Label>
-      <Label layoutX="995.0" layoutY="668.0" text="Save as Pdf File" />
-      <ImageView fx:id="SaveAsChordPro" fitHeight="37.0" fitWidth="37.0" layoutX="900.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true">
+      </JFXButton>
+      <Label fx:id="lblFont" layoutX="290.0" layoutY="666.0" text="Font" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="290.0" />
+      <Separator layoutX="344.0" layoutY="637.0" orientation="VERTICAL" prefHeight="47.0" prefWidth="8.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="345.0" />
+      <JFXButton fx:id="btnTransposePlus" layoutX="397.0" layoutY="634.0" text="➕" textFill="WHITE" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="400.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnTransposeMinus" layoutX="353.0" layoutY="634.0" prefHeight="30.0" prefWidth="37.0" text="➖" textFill="WHITE" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="355.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
+      <Label fx:id="lblTranspose" layoutX="366.0" layoutY="666.0" text="Transpose" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="368.0" />
+      <ImageView fx:id="editAsChordProSyntax" fitHeight="31.0" fitWidth="28.0" layoutX="767.0" layoutY="638.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="27.0" AnchorPane.rightAnchor="289.0">
+         <image>
+            <Image url="@../Icons/EditIcon.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="lblEditInChordPro" layoutX="786.0" layoutY="666.0" text="Edit in ChordPro Format" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="241.0" />
+      <Separator layoutX="847.0" layoutY="637.0" orientation="VERTICAL" prefHeight="47.0" prefWidth="8.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="229.0" />
+      <ImageView fx:id="SaveAsChordPro" fitHeight="37.0" fitWidth="37.0" layoutX="896.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="151.0">
          <image>
             <Image url="@../Icons/SaveAsChordpro.png" />
          </image>
       </ImageView>
-      <Label layoutX="861.0" layoutY="668.0" text="Save as ChordPro File" />
-      <Separator layoutX="981.0" layoutY="637.0" orientation="VERTICAL" prefHeight="47.0" prefWidth="8.0" />
-      <JFXHamburger fx:id="hamburger" layoutX="14.0" layoutY="53.0" prefHeight="31.0" prefWidth="37.0" />
+      <Label fx:id="lblSaveAsChordPro" layoutX="855.0" layoutY="666.0" text="Save as ChordPro File" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="115.0" />
+      <Separator layoutX="973.0" layoutY="637.0" orientation="VERTICAL" prefHeight="47.0" prefWidth="8.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="103.0" />
+      <ImageView fx:id="ivSaveAsPDF" fitHeight="37.0" fitWidth="37.0" layoutX="1017.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="40.0">
+         <image>
+            <Image url="@../Icons/SaveAsPdf.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="lblSaveAsPDF" layoutX="995.0" layoutY="668.0" text="Save as Pdf File" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="20.0" />
    </children>
 </AnchorPane>
