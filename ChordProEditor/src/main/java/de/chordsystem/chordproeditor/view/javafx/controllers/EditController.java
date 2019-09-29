@@ -143,7 +143,7 @@ public class EditController implements Initializable {
     private JFXButton btnFontMinus;
         
     @FXML
-    private Label lblFont;
+    private JFXButton lblFont;
     
     @FXML
     private JFXTextArea txtAreaEditSong;
@@ -167,7 +167,7 @@ public class EditController implements Initializable {
     private ImageView editAsWYSIWYG;
     
     @FXML
-    private Label lblEditInWYSIWYG;
+    private JFXButton lblEditInWYSIWYG;
 
     @FXML
     private JFXButton btnSave;

@@ -75,7 +75,6 @@ public class HelpWindowController implements Initializable {
     	cklShowHelpOnStart.setText(r.getString("HELP_CHECKLIST_SHOW_ON_START"));
     }
     
-    
     /**
      * Functions to be initialised during first window load
      **/

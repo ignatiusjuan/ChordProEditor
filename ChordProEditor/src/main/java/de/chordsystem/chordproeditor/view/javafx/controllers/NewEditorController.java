@@ -226,16 +226,19 @@ public class NewEditorController implements Initializable {
     private ImageView ivSaveAsPDF;
 
     @FXML
-    private Label lblFont;
+    private JFXButton lblFont;
     
     @FXML
-    private Label lblTranspose;
+    private JFXButton lblTranspose;
     
     @FXML
-    private Label lblEditInChordPro;
+    private JFXButton lblEditInChordPro;
     
     @FXML
-    private Label lblSaveAsChordPro;
+    private JFXButton lblSaveAsChordPro;
+    
+    @FXML
+    private JFXButton lblChordDiagram;
     
     @FXML
     private Label lblSaveAsPDF;
