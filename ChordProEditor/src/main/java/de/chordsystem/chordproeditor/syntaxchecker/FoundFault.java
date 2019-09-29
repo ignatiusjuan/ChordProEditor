@@ -6,10 +6,10 @@ package de.chordsystem.chordproeditor.syntaxchecker;
 
 public class FoundFault {
 	
-	int zeile;
-	int startBuchstabe;
-	int endBuchstabe;
-	String verbesserungsVorschlag;
+	private int zeile;
+	private int startBuchstabe;
+	private int endBuchstabe;
+	private String verbesserungsVorschlag;
 	
 	/***
 	 * Construktor for found faults

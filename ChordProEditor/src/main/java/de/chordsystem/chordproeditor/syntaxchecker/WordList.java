@@ -108,8 +108,114 @@ public class WordList {
 	
 	public static ArrayList<String> forTitle(){
 		ArrayList<String> liste = new ArrayList<String>();
-		liste.add("titel");
+		liste.add("titel");//Lieblingsverschreiber
+		liste.add("Title");//Erster Buchstabe
+		liste.add("Ritle");
 		liste.add("ritle");
+		liste.add("Fitle");
+		liste.add("fitle");
+		liste.add("Gitle");
+		liste.add("gitle");
+		liste.add("Zitle");
+		liste.add("zitle");
+		liste.add("tutle");//Zweiter Buchstabe
+		liste.add("tjtle");
+		liste.add("tktle");
+		liste.add("totle");
+		liste.add("tirle");//Dritter Buchstabe
+		liste.add("tifle");
+		liste.add("tigle");
+		liste.add("tizle");
+		liste.add("titoe");//Vierter Buchstabe
+		liste.add("titke");
+		liste.add("tit,e");
+		liste.add("tit.e");
+		liste.add("titöe");
+		liste.add("titpe");
+		liste.add("titlw");//Fünfter Buchstabe
+		liste.add("titls");
+		liste.add("titld");
+		liste.add("titlr");
+		return liste;
+	}
+	
+	public static ArrayList<String> forSubtitle(){
+		ArrayList<String> liste = new ArrayList<String>();
+		return liste;
+	}
+
+	public static ArrayList<String> forArtist(){
+		ArrayList<String> liste = new ArrayList<String>();
+		return liste;
+	}
+
+	public static ArrayList<String> forComposer(){
+		ArrayList<String> liste = new ArrayList<String>();
+		return liste;
+	}
+
+	public static ArrayList<String> forLyricist(){
+		ArrayList<String> liste = new ArrayList<String>();
+		return liste;
+	}
+
+	public static ArrayList<String> forCopyright(){
+		ArrayList<String> liste = new ArrayList<String>();
+		return liste;
+	}
+
+	public static ArrayList<String> forAlbum(){
+		ArrayList<String> liste = new ArrayList<String>();
+		return liste;
+	}
+
+	public static ArrayList<String> forYear(){
+		ArrayList<String> liste = new ArrayList<String>();
+		return liste;
+	}
+
+	public static ArrayList<String> forKey(){
+		ArrayList<String> liste = new ArrayList<String>();
+		return liste;
+	}
+
+	public static ArrayList<String> forTime(){
+		ArrayList<String> liste = new ArrayList<String>();
+		return liste;
+	}
+
+	public static ArrayList<String> forTempo(){
+		ArrayList<String> liste = new ArrayList<String>();
+		return liste;
+	}
+
+	public static ArrayList<String> forDuration(){
+		ArrayList<String> liste = new ArrayList<String>();
+		return liste;
+	}
+
+	public static ArrayList<String> forCapo(){
+		ArrayList<String> liste = new ArrayList<String>();
+		return liste;
+	}
+
+	public static ArrayList<String> forMeta(){
+		ArrayList<String> liste = new ArrayList<String>();
+		return liste;
+	}
+
+	public static ArrayList<String> forComment(){
+		ArrayList<String> liste = new ArrayList<String>();
+		return liste;
+	}
+
+	public static ArrayList<String> forStart_of_Verse(){
+		ArrayList<String> liste = new ArrayList<String>();
+		return liste;
+	}
+
+	public static ArrayList<String> forEnd_of_Verse(){
+		ArrayList<String> liste = new ArrayList<String>();
 		return liste;
 	}
 
