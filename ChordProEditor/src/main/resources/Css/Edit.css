@@ -1,3 +1,9 @@
 #anchorPane {
 	-fx-background-color : linear-gradient(to right bottom,#FFFFFF,#0101DF,#FFFFFF);
 }
+#lblEditInWYSIWYG:disabled { 
+	-fx-opacity: 1.0; 
+}
+#lblFont:disabled { 
+	-fx-opacity: 1.0; 
+}

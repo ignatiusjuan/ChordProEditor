@@ -12,9 +12,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="909.0" stylesheets="@../Css/Edit.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="725.0" prefWidth="909.0" stylesheets="@../Css/Edit.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <JFXTextArea fx:id="txtAreaEditSong" promptText="Enter your syntax here . . ." layoutX="13.0" layoutY="14.0" prefHeight="543.0" prefWidth="706.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
+      <JFXTextArea fx:id="txtAreaEditSong" layoutX="13.0" layoutY="14.0" prefHeight="522.0" prefWidth="704.0" promptText="Enter your syntax here . . ." style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="188.0" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
+      <JFXTextArea fx:id="txtAreaErrorMessage" editable="false" layoutX="190.0" layoutY="552.0" prefHeight="118.0" prefWidth="704.0" promptText="Error message is empty" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="190.0" AnchorPane.rightAnchor="15.0">
+         <font>
+            <Font size="14.0" />
+         </font></JFXTextArea>
       <JFXHamburger fx:id="jfxHamHide" layoutX="15.0" layoutY="23.0" />
       <Label fx:id="lblInsert" layoutX="55.0" layoutY="15.0" text="Insert" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="15.0">
          <font>
@@ -26,9 +30,9 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <ScrollPane fx:id="scrollpaneAttributes" layoutY="86.0" maxHeight="563.0" prefHeight="273.0" prefWidth="160.0" AnchorPane.bottomAnchor="255.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="85.0">
+      <ScrollPane fx:id="scrollpaneAttributes" layoutY="86.0" maxHeight="596.0" prefHeight="273.0" prefWidth="160.0" AnchorPane.bottomAnchor="255.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="85.0">
         <content>
-          <AnchorPane maxHeight="563.0" minHeight="0.0" minWidth="0.0" prefHeight="563.0" prefWidth="145.0">
+          <AnchorPane maxHeight="563.0" minHeight="0.0" minWidth="0.0" prefHeight="596.0" prefWidth="145.0">
                <children>
                   <Button fx:id="btnInsertTitle" layoutX="1.0" layoutY="2.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="143.0" text="Title">
                      <font>
@@ -95,22 +99,27 @@
                         <Font size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnInsertTextFont" layoutX="1.0" layoutY="431.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Text Font">
+                  <Button fx:id="btnInsertNewSong" layoutX="1.0" layoutY="431.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Is Finished">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnInsertTextSize" layoutX="1.0" layoutY="464.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Text Size">
+                  <Button fx:id="btnInsertTextFont" layoutX="1.0" layoutY="464.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Text Font">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnInsertTextColour" layoutX="1.0" layoutY="497.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Text Colour">
+                  <Button fx:id="btnInsertTextSize" layoutX="1.0" layoutY="497.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Text Size">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnInsertChordColour" layoutX="1.0" layoutY="530.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Chord Colour">
+                  <Button fx:id="btnInsertTextColour" layoutX="1.0" layoutY="530.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Text Colour">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnInsertChordColour" layoutX="1.0" layoutY="563.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="Chord Colour">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -162,17 +171,17 @@
             </AnchorPane>
         </content>
       </ScrollPane>
-      <JFXButton fx:id="btnFontPlus" layoutX="94.0" layoutY="560.0" text="➕" textFill="WHITE" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="94.0">
+      <JFXButton fx:id="btnFontPlus" layoutX="94.0" layoutY="560.0" text="➕" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="100.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnFontMinus" layoutX="-4.0" layoutY="564.0" prefHeight="30.0" prefWidth="37.0" text="➖" textFill="WHITE" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="55.0">
+      <JFXButton fx:id="btnFontMinus" layoutX="-4.0" layoutY="564.0" prefHeight="30.0" prefWidth="37.0" text="➖" textFill="WHITE" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="55.0">
          <font>
             <Font size="14.0" />
          </font>
       </JFXButton>
-      <Label layoutX="143.0" layoutY="593.0" text="Font" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="80.0" />
+      <JFXButton fx:id="lblFont" disable="true" focusTraversable="false" layoutX="17.0" layoutY="701.0" prefHeight="25.0" prefWidth="151.0" text="Font" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" />
       <ImageView fx:id="ivUndoGrey" fitHeight="39.0" fitWidth="47.0" layoutX="190.0" layoutY="564.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="200.0">
          <image>
             <Image url="@../Icons/undo_grey.png" />
@@ -193,17 +202,28 @@
             <Image url="@../Icons/redo.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="editAsWYSIWYG" fitHeight="31.0" fitWidth="28.0" layoutX="716.0" layoutY="565.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="165.0">
+      <ImageView fx:id="editAsWYSIWYG" fitHeight="31.0" fitWidth="28.0" layoutX="540.0" layoutY="676.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="21.0" AnchorPane.rightAnchor="340.0">
          <image>
             <Image url="@../Icons/EditIcon.png" />
          </image>
       </ImageView>
-      <Label layoutX="684.0" layoutY="593.0" text="Edit in WYSIWYG" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="135.0" />
-      <Separator layoutX="784.0" layoutY="560.0" orientation="VERTICAL" prefHeight="51.0" prefWidth="3.0" />
-      <JFXButton fx:id="btnSave" layoutX="798.0" layoutY="567.0" prefHeight="39.0" prefWidth="90.0" text="Save" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="21.0">
+      <JFXButton fx:id="lblEditInWYSIWYG" disable="true" focusTraversable="false" layoutX="477.0" layoutY="701.0" prefHeight="25.0" prefWidth="151.0" text="Edit in WYSIWYG" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="280.0" />
+      <Separator layoutX="630.0" layoutY="677.0" orientation="VERTICAL" prefHeight="39.0" prefWidth="6.0" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="273.0" />
+      <JFXButton fx:id="btnSave" layoutX="644.0" layoutY="677.0" prefHeight="39.0" prefWidth="128.0" text="Save" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="144.0">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </JFXButton>
+      <Separator layoutX="769.0" layoutY="676.0" orientation="VERTICAL" prefHeight="39.0" prefWidth="6.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="134.0" />
+      <Label fx:id="lblLine" layoutX="790.0" layoutY="563.0" prefHeight="25.0" prefWidth="47.0" text="Line:" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="72.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblLineNumber" layoutX="829.0" layoutY="674.0" prefHeight="43.0" prefWidth="65.0" text="1" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="15.0">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

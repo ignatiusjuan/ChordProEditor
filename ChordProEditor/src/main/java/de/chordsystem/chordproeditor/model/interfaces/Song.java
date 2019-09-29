@@ -246,4 +246,6 @@ public interface Song {
 	 * return all environment as String with debugging lines
 	 */
 	String getEnvironmentsAsString2();
+
+	String getFingerings();
 }

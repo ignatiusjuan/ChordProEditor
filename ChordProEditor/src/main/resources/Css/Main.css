@@ -12,17 +12,30 @@
 #btnTags:hover {
 	-fx-background-color: #2E64FE;
 }
-
 #Speichern:hover {
 	-fx-background-color: #2E64FE;
 }
 #MenuBar{
 	-fx-background-color: #FFFFFF;
 } 
-
 #TextFieldCapo{
 	-fx-background-color: #000;
 }
 #Label{
 	-fx-background-color: #000;
+}
+#lblEditInChordPro:disabled { 
+	-fx-opacity: 1.0; 
+}
+#lblSaveAsChordPro:disabled { 
+	-fx-opacity: 1.0; 
+}
+#lblChordDiagram:disabled { 
+	-fx-opacity: 1.0; 
+}
+#lblFont:disabled { 
+	-fx-opacity: 1.0; 
+}
+#lblTranspose:disabled { 
+	-fx-opacity: 1.0; 
 }

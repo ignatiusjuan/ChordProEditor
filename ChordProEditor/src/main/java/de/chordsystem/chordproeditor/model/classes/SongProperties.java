@@ -44,6 +44,8 @@ public class SongProperties {
 	
 	public StringProperty contents = new SimpleStringProperty();
 	
+	public StringProperty fingering = new SimpleStringProperty();
+	
 	/**
 	 * Constructor for SongProperty, convert Song to SongProperty
 	 * @param song
@@ -74,6 +76,8 @@ public class SongProperties {
 		this.chordcolour.set(song.getChordcolour());
 		this.isFinished.set(song.isFinished());
 		this.contents.set(song.getEnvironmentsAsString());
+		
+		this.fingering.set(song.getFingerings());
 	}
 	
 	/**

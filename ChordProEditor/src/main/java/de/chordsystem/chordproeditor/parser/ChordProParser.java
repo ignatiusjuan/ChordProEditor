@@ -80,7 +80,7 @@ public class ChordProParser {
 	private int tabCounter = 0;
 	private int gridCounter = 0;
 	
-	private static List<Integer> errorList;
+	private static List<Integer> errorList = new ArrayList<Integer>();
 	private static List<String> errorStrings;
 	
 	/**
@@ -404,6 +404,7 @@ public class ChordProParser {
 				if (line.trim().length() > 0 && !line.trim().isEmpty()) {
 					if (!tryParseLine(line,song))
 						errorList.add(i);
+						errorStrings.add(lines);
 				}
 				else {
 					Environment env = new EnvironmentImpl();
