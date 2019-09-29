@@ -81,6 +81,7 @@ public class ChordProParser {
 	private int gridCounter = 0;
 	
 	private static List<Integer> errorList;
+	private static List<String> errorStrings;
 	
 	/**
 	 * Convert a String which contains lyric and chord into an environment
@@ -364,6 +365,7 @@ public class ChordProParser {
 				if (line.trim().length() > 0 && !line.trim().isEmpty()) {
 					if (!tryParseLine(line,song))
 						errorList.add(i);
+						errorStrings.add(line);
 				}
 				else {
 					Environment env = new EnvironmentImpl();
@@ -426,6 +428,14 @@ public class ChordProParser {
 	 */
 	public static List<Integer> getErrorLines(){
 		return errorList != null ? errorList : null;
+	}
+	
+	/**
+	 * return lines with errorstrings from last parse
+	 * @return
+	 */
+	public static List<String> getErrorStrings(){
+		return errorStrings != null ? errorStrings : null;
 	}
 	
 //	public void start() {
