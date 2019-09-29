@@ -149,7 +149,7 @@
          </image>
       </ImageView>
       <Label fx:id="lblSaveAsPDF" disable="true" layoutX="923.0" layoutY="667.0" text="Save as Pdf File" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="79.0" />
-      <ImageView fx:id="ivChordDiagram" fitHeight="73.0" fitWidth="54.0" layoutX="975.0" layoutY="630.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="18.0" AnchorPane.rightAnchor="55.0">
+      <ImageView fx:id="ivChordDiagram" fitHeight="73.0" fitWidth="54.0" layoutX="980.0" layoutY="625.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="50.0">
          <image>
             <Image url="@../Icons/Fingering.png" />
          </image>
