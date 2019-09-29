@@ -778,10 +778,8 @@ public class NewEditorController implements Initializable {
     	lblAttributes.visibleProperty().bind(hideSidePane.not());
     	scrollpaneAttributes.visibleProperty().bind(hideSidePane.not());
     	scrollpaneAttributes.disableProperty().bind(hideSidePane);
-    	//txtChordDiagram.visibleProperty().bind(showChordDiagram);
-    	//txtChordDiagram.disableProperty().bind(showChordDiagram.not());
     }
-       
+    
     /**
      * Show Chord Diagram Pane
      */
@@ -887,6 +885,7 @@ public class NewEditorController implements Initializable {
      */
     public void updateSong(Song song) {
     	loadedSong = new SongProperties(song);
+    	txtChordDiagram.setText(loadedSong.fingering.get());
 		setDataBind();
     }
 }
