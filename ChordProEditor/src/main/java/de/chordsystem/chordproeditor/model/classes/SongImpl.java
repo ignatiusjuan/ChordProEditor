@@ -336,6 +336,17 @@ public class SongImpl implements Song{
 		return fingeringList.get(x);
 	}
 	/**
+	 * @return all fingering
+	 */
+	@Override
+	public String getFingerings() {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < getFingeringSize(); i++) {
+			sb.append(getFingering(i).toString() + "\n");
+		}
+		return sb.toString();
+	}
+	/**
 	 * @return the fingeringList size
 	 */
 	@Override
@@ -422,6 +433,7 @@ public class SongImpl implements Song{
 	public int getEnvironmentSize() {
 		return environmentList.size();
 	}
+
 	/**
 	 * @param environment the environment to add
 	 */

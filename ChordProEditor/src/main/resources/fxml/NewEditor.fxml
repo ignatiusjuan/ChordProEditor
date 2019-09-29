@@ -92,7 +92,8 @@
             </AnchorPane>
          </content>
       </ScrollPane>
-      <JFXTextArea fx:id="txtSongEdit" layoutX="266.0" layoutY="55.0" prefHeight="570.0" prefWidth="797.0" promptText="Enter your song here . . ." style="-fx-background-color: #fff;" unFocusColor="#838181" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="265.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="55.0">
+      <JFXTextArea fx:id="txtChordDiagram" editable="false" focusTraversable="false" layoutX="889.0" layoutY="55.0" prefHeight="569.0" prefWidth="175.0" promptText="No Chord Diagram" style="-fx-background-color: #fff;" unFocusColor="#838181" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="55.0" />
+      <JFXTextArea fx:id="txtSongEdit" layoutX="265.0" layoutY="55.0" prefHeight="569.0" prefWidth="588.0" promptText="Enter your song here . . ." style="-fx-background-color: #fff;" unFocusColor="#838181" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="265.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="55.0">
          <font>
             <Font size="24.0" />
          </font></JFXTextArea>

@@ -12,14 +12,12 @@
 #btnTags:hover {
 	-fx-background-color: #2E64FE;
 }
-
 #Speichern:hover {
 	-fx-background-color: #2E64FE;
 }
 #MenuBar{
 	-fx-background-color: #FFFFFF;
 } 
-
 #TextFieldCapo{
 	-fx-background-color: #000;
 }

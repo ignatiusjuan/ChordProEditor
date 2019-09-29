@@ -208,6 +208,9 @@ public class NewEditorController implements Initializable {
     private ImageView SaveAsChordPro;
     
     @FXML
+    private ImageView ivChordDiagram;
+    
+    @FXML
     private JFXHamburger hamburger;
 
     @FXML
@@ -261,8 +264,12 @@ public class NewEditorController implements Initializable {
     @FXML
     private JFXButton btnTransposeMinus;
     
+    @FXML
+    private JFXTextArea txtChordDiagram;
+    
     BooleanProperty clipboardEmpty = new SimpleBooleanProperty(false);
     BooleanProperty hideSidePane = new SimpleBooleanProperty(false);
+    BooleanProperty showChordDiagram = new SimpleBooleanProperty(false);
     
     Song tempSong = new SongImpl();
     Song emptySong = new SongImpl();
@@ -315,6 +322,7 @@ public class NewEditorController implements Initializable {
 		txtTextSize.setText("0");
 		
 		txtSongEdit.setFont(Font.font("monospaced",FontWeight.NORMAL,14));
+		txtChordDiagram.setFont(Font.font("monospaced",FontWeight.NORMAL,18));
 		
 		HamburgerSlideCloseTransition transition = new HamburgerSlideCloseTransition(hamburger);
 		transition.setRate(-1);
@@ -324,7 +332,6 @@ public class NewEditorController implements Initializable {
 		});
 		
 		setLanguage(UserData.getLocale());
-		
 	}
 
     /**
@@ -742,6 +749,7 @@ public class NewEditorController implements Initializable {
 			setLanguage(new Locale("en","US"));
 		});
 		
+		ivChordDiagram.setOnMouseClicked(this::showChordDiagrams);
     }
      
     /**
@@ -770,8 +778,23 @@ public class NewEditorController implements Initializable {
     	lblAttributes.visibleProperty().bind(hideSidePane.not());
     	scrollpaneAttributes.visibleProperty().bind(hideSidePane.not());
     	scrollpaneAttributes.disableProperty().bind(hideSidePane);
+    	//txtChordDiagram.visibleProperty().bind(showChordDiagram);
+    	//txtChordDiagram.disableProperty().bind(showChordDiagram.not());
     }
        
+    /**
+     * Show Chord Diagram Pane
+     */
+    private void showChordDiagrams(MouseEvent e) {
+    	if (showChordDiagram.get()) {
+    		AnchorPane.setRightAnchor(txtSongEdit, 20.0);
+    	} else {
+    		AnchorPane.setRightAnchor(txtSongEdit, 215.0);
+    	}
+    	showChordDiagram.set(!showChordDiagram.get());
+    	txtChordDiagram.setText(loadedSong.fingering.get());
+    }
+    
     /**
 	 * This function shows the clock.
 	 */
