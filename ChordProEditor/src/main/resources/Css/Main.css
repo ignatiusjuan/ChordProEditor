@@ -26,3 +26,18 @@
 #Label{
 	-fx-background-color: #000;
 }
+#lblEditInChordPro:disabled { 
+	-fx-opacity: 1.0; 
+}
+#lblSaveAsChordPro:disabled { 
+	-fx-opacity: 1.0; 
+}
+#lblChordDiagram:disabled { 
+	-fx-opacity: 1.0; 
+}
+#lblFont:disabled { 
+	-fx-opacity: 1.0; 
+}
+#lblTranspose:disabled { 
+	-fx-opacity: 1.0; 
+}
