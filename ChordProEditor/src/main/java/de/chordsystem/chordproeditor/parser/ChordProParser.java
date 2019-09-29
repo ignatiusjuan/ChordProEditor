@@ -81,7 +81,7 @@ public class ChordProParser {
 	private int gridCounter = 0;
 	
 	private static List<Integer> errorList = new ArrayList<Integer>();
-	private static List<String> errorStrings;
+	private static List<String> errorStrings = new ArrayList<String>();
 	
 	/**
 	 * Convert a String which contains lyric and chord into an environment
@@ -352,6 +352,8 @@ public class ChordProParser {
 	 */
 	public Song tryParseChordPro(String pathname) {
 		errorList = new ArrayList<Integer>();
+		errorStrings = new ArrayList<String>();
+		
 		File file = new File(pathname);
 		Song song = new SongImpl();
 		
@@ -393,6 +395,7 @@ public class ChordProParser {
 	 */
 	public Song tryParseChordProString(String lines) {
 		errorList = new ArrayList<Integer>();
+		errorStrings = new ArrayList<String>();
 		Song song = new SongImpl();
 		
 		try
