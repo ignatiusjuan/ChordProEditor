@@ -621,6 +621,7 @@ public class NewEditorController implements Initializable {
     	lblEditInChordPro.setText(r.getString("WYSIWYG_LABEL_EDIT_IN_CHORDPRO"));
     	lblSaveAsChordPro.setText(r.getString("WYSIWYG_LABEL_SAVE_AS_CHORDPRO"));
     	lblSaveAsPDF.setText(r.getString("WYSIWYG_LABEL_SAVE_AS_PDF"));
+    	lblChordDiagram.setText(r.getString("WYSIWYG_LABEL_CHORD_DIAGRAM"));
     	
     	OPEN_CHORDPRO_FILE					= r.getString("OPEN_CHORDPRO_FILE");
     	SAVE_CHORDPRO_FILE_AS				= r.getString("SAVE_CHORDPRO_FILE_AS");
