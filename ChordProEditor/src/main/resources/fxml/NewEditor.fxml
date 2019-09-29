@@ -116,7 +116,7 @@
             <Font size="14.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="lblFont" disable="true" focusTraversable="false" layoutX="283.0" layoutY="664.0" prefHeight="25.0" prefWidth="68.0" text="Font" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="746.0" />
+      <JFXButton fx:id="lblFont" disable="true" focusTraversable="false" layoutX="283.0" layoutY="664.0" prefHeight="25.0" prefWidth="68.0" text="Font" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="270.0" />
       <Separator layoutX="344.0" layoutY="637.0" orientation="VERTICAL" prefHeight="47.0" prefWidth="8.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="345.0" />
       <JFXButton fx:id="btnTransposePlus" layoutX="397.0" layoutY="634.0" text="➕" textFill="WHITE" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="400.0">
          <font>
