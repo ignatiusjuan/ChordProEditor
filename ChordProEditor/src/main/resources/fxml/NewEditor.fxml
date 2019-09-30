@@ -36,8 +36,6 @@
                   <MenuItem fx:id="menuFileSave" mnemonicParsing="false" text="Save" />
                   <MenuItem fx:id="menuFileSaveAs" mnemonicParsing="false" text="Save As" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="menuFileExportAsPDF" mnemonicParsing="false" text="Export as PDF" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
                   <Menu fx:id="menuFilePreferences" mnemonicParsing="false" text="Preferences">
                     <items>
                         <Menu fx:id="menuFilePreferencesLanguage" mnemonicParsing="false" text="Language">

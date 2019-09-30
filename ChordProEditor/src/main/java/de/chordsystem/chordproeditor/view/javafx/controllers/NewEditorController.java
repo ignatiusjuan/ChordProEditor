@@ -28,7 +28,6 @@ import de.chordsystem.chordproeditor.userdata.UserData;
 import de.chordsystem.chordproeditor.view.javafx.helperclasses.GetStringFromFile;
 //import de.chordsystem.chordproeditor.view.javafx.helperclasses.WindowPresetSwitchScene;
 import de.chordsystem.chordproeditor.view.javafx.helperclasses.WindowPresetSwitchStage;
-import de.chordsystem.latex.GeneratePDF;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -101,9 +100,6 @@ public class NewEditorController implements Initializable {
     
     @FXML
     private MenuItem menuFileSaveAs;
-
-    @FXML
-    private MenuItem menuFileExportAsPDF;
 
     @FXML
     private Menu menuFilePreferences;
@@ -479,13 +475,17 @@ public class NewEditorController implements Initializable {
     	fileChooser.setTitle(SAVE_CHORDPRO_FILE_AS);
     	fileChooser.getExtensionFilters().addAll(
     			new FileChooser.ExtensionFilter(CHORD_PRO_FILES, "*.chopro", "*.crd", "*.cho", "*.chord", "*.pro"),
-    			new FileChooser.ExtensionFilter("PDF", "*.pdf"),
     			new FileChooser.ExtensionFilter(TEXT_FILES, "*.txt"),
     			new FileChooser.ExtensionFilter(ALL_FILES, "*.*")
     	);
-    	String[] defaultName = txtSongEdit.getText().split("\\n");
-    	if (defaultName.length > 0)
-    		fileChooser.setInitialFileName(defaultName[0].toString());
+    	if (!txtTitle.getText().isEmpty()) {
+    		String defaultName = txtTitle.getText();
+    		fileChooser.setInitialFileName(defaultName);
+    	} else {
+    		String[] defaultName = txtSongEdit.getText().split("\\n");
+        	if (defaultName.length > 0)
+        		fileChooser.setInitialFileName(defaultName[0].toString());
+    	}
     	
     	File selectedFile = fileChooser.showSaveDialog(null);
     	if (selectedFile != null) {
@@ -586,7 +586,6 @@ public class NewEditorController implements Initializable {
     	menuFileOpen.setText(r.getString("WYSIWYG_MENUITEM_FILE_OPEN"));
     	menuFileSave.setText(r.getString("WYSIWYG_MENUITEM_FILE_SAVE"));
     	menuFileSaveAs.setText(r.getString("WYSIWYG_MENUITEM_FILE_SAVE_AS"));
-    	menuFileExportAsPDF.setText(r.getString("WYSIWYG_MENUITEM_FILE_EXPORT_AS_PDF"));
     	menuFilePreferences.setText(r.getString("WYSIWYG_MENU_FILE_PREFERENCES"));
     	menuFilePreferencesLanguage.setText(r.getString("WYSIWYG_MENU_FILE_PREFERENCES_LANGUAGE"));
     	menuFilePreferencesLanguageDeutsch.setText(r.getString("WYSIWYG_MENUITEM_FILE_PREFERENCES_LANGUAGE_DEUTSCH"));
@@ -688,27 +687,7 @@ public class NewEditorController implements Initializable {
 		menuEditSelectAll.setOnAction((event) -> {
 			simulateKeyPress(KeyCode.CONTROL, KeyCode.A);
 		});
-		
-		ivSaveAsPDF.setOnMouseClicked((event) -> {
-			
-			tempSong.setArtist("Kuenstler Test");
-			tempSong.setAlbum("Album Test");
-			tempSong.setComposer("Composer Test");
-			tempSong.setCopyright("Copyright Test");
-			tempSong.setDuration(4);
-			tempSong.setFinished(false);
-			tempSong.setLyricist("Lyricist Test");
-			tempSong.setTitle("Test");
-			tempSong.setYear(2000);
-			tempSong.setSubtitle("Subtitle Test");
-			
-			GeneratePDF.generatePDF(tempSong);
-		});
-		
-		lblSaveAsPDF.setOnMouseClicked((event) -> {
-			//GeneratePDF.generatePDF(tempSong);
-		});
-		
+
 		hamburger.setOnMouseClicked(this::onClickHamburger);
 		
 		editAsChordProSyntax.setOnMouseClicked(this::switchSceneToEdit);
@@ -760,7 +739,6 @@ public class NewEditorController implements Initializable {
     	menuFileOpen.setAccelerator(new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN));
     	menuFileSave.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN));
     	menuFileSaveAs.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.ALT_DOWN));
-    	menuFileExportAsPDF.setAccelerator(new KeyCodeCombination(KeyCode.E, KeyCombination.CONTROL_DOWN));
     	menuFileQuit.setAccelerator(new KeyCodeCombination(KeyCode.F4, KeyCombination.ALT_DOWN));
     	
     	menuEditUndo.setAccelerator(new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN));

@@ -302,7 +302,6 @@ public class EditController implements Initializable {
         	fileChooser.setTitle(SAVE_CHORDPRO_FILE_AS);
         	fileChooser.getExtensionFilters().addAll(
         			new FileChooser.ExtensionFilter(CHORD_PRO_FILES, "*.chopro", "*.crd", "*.cho", "*.chord", "*.pro"),
-        			new FileChooser.ExtensionFilter("PDF", "*.pdf"),
         			new FileChooser.ExtensionFilter(TEXT_FILES, "*.txt"),
         			new FileChooser.ExtensionFilter(ALL_FILES, "*.*")
         	);
