@@ -51,7 +51,8 @@ public class GeneratePDF {
 	public static void movePDF(String path, String filename) {
 		try{
 			Runtime rt = Runtime.getRuntime();
-			rt.exec("move \""+filename+".pdf\" "+path);
+			System.out.println("move \""+filename+".pdf\" \""+path+"\"");
+			rt.exec("move \""+filename+".pdf\" \""+path+"\"");
 		}catch(Exception e){
 			System.out.println("Konsolen Exception movePDF");
 		}
