@@ -374,6 +374,9 @@ public class EditController implements Initializable {
     					lineCounter++;
     			}
     			lblLineNumber.setText(String.valueOf(lineCounter));
+    			ChordProParser cpp = new ChordProParser();
+    			Song tempSong = cpp.tryParseChordProString(txtAreaEditSong.textProperty().getValue());
+    			announceError(ChordProParser.getErrorLines());
     		}
     	});
     	txtAreaErrorMessage.textProperty().bindBidirectional(txtAreaErrorMessageProperty);

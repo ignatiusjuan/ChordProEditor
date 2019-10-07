@@ -28,6 +28,7 @@ import de.chordsystem.chordproeditor.userdata.UserData;
 import de.chordsystem.chordproeditor.view.javafx.helperclasses.GetStringFromFile;
 //import de.chordsystem.chordproeditor.view.javafx.helperclasses.WindowPresetSwitchScene;
 import de.chordsystem.chordproeditor.view.javafx.helperclasses.WindowPresetSwitchStage;
+import de.chordsystem.latex.GeneratePDF;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -100,6 +101,9 @@ public class NewEditorController implements Initializable {
     
     @FXML
     private MenuItem menuFileSaveAs;
+    
+    @FXML
+    private MenuItem menuExportAsPDF;
 
     @FXML
     private Menu menuFilePreferences;
@@ -271,13 +275,14 @@ public class NewEditorController implements Initializable {
     Song emptySong = new SongImpl();
     String filepath = "";
     String filename = "";
-    SongProperties loadedSong;
+    SongProperties loadedSong = new SongProperties(emptySong);
 	
 	Clipboard clipboard = Clipboard.getSystemClipboard();
 	
 	//Dialog
 	private String OPEN_CHORDPRO_FILE					= "Open ChordPro File";
     private String SAVE_CHORDPRO_FILE_AS				= "Save ChordPro File As";
+    private String EXPORT_AS_PDF						= "Export As PDF";
     private String CHORD_PRO_FILES						= "ChordPro Files";
     private String TEXT_FILES							= "Text Files";
     private String ALL_FILES							= "All Files";
@@ -506,6 +511,37 @@ public class NewEditorController implements Initializable {
     	}
     }
     
+    private void onClickExportAsPDF(ActionEvent event) {
+    	FileChooser fileChooser = new FileChooser();
+    	fileChooser.setTitle(SAVE_CHORDPRO_FILE_AS);
+    	fileChooser.getExtensionFilters().addAll(
+    			new FileChooser.ExtensionFilter("PDF", "*.pdf")
+    	);
+    	if (!txtTitle.getText().isEmpty()) {
+    		String defaultName = txtTitle.getText();
+    		fileChooser.setInitialFileName(defaultName);
+    	} else {
+    		String[] defaultName = txtSongEdit.getText().split("\\n");
+        	if (defaultName.length > 0)
+        		fileChooser.setInitialFileName(defaultName[0].toString());
+    	}
+    	
+    	File selectedFile = fileChooser.showSaveDialog(null);
+    	if (selectedFile != null) {
+	    	filename = selectedFile.getAbsolutePath();
+	    	try {
+	    		Song song = loadedSong.toSong(txtSongEdit.getText());
+	        	GeneratePDF.generatePDF(song);
+	        	//GeneratePDF.generatePDF(filename,song);
+	    		
+	    	} catch (Exception e) {
+	    		e.printStackTrace();
+	    	}
+    	}
+    	
+    	
+    }
+    
     /**
      * Functions to be executed when Hamburger is clicked
      */
@@ -586,6 +622,7 @@ public class NewEditorController implements Initializable {
     	menuFileOpen.setText(r.getString("WYSIWYG_MENUITEM_FILE_OPEN"));
     	menuFileSave.setText(r.getString("WYSIWYG_MENUITEM_FILE_SAVE"));
     	menuFileSaveAs.setText(r.getString("WYSIWYG_MENUITEM_FILE_SAVE_AS"));
+    	menuExportAsPDF.setText(r.getString("WYSIWYG_MENUITEM_FILE_EXPORT_AS_PDF"));
     	menuFilePreferences.setText(r.getString("WYSIWYG_MENU_FILE_PREFERENCES"));
     	menuFilePreferencesLanguage.setText(r.getString("WYSIWYG_MENU_FILE_PREFERENCES_LANGUAGE"));
     	menuFilePreferencesLanguageDeutsch.setText(r.getString("WYSIWYG_MENUITEM_FILE_PREFERENCES_LANGUAGE_DEUTSCH"));
@@ -631,6 +668,7 @@ public class NewEditorController implements Initializable {
     	
     	OPEN_CHORDPRO_FILE					= r.getString("OPEN_CHORDPRO_FILE");
     	SAVE_CHORDPRO_FILE_AS				= r.getString("SAVE_CHORDPRO_FILE_AS");
+    	EXPORT_AS_PDF						= r.getString("WYSIWYG_MENUITEM_FILE_EXPORT_AS_PDF");
     	CHORD_PRO_FILES						= r.getString("CHORD_PRO_FILES");
     	TEXT_FILES							= r.getString("TEXT_FILES");
     	ALL_FILES							= r.getString("ALL_FILES");
@@ -662,6 +700,7 @@ public class NewEditorController implements Initializable {
 		menuFileOpen.setOnAction(this::onClickFileOpen);
 		menuFileSave.setOnAction(this::onClickFileSave);
 		menuFileSaveAs.setOnAction(this::onClickFileSaveAs);
+		menuExportAsPDF.setOnAction(this::onClickExportAsPDF);
 		menuFileQuit.setOnAction(this::onClickFileQuit);
 		
 		SaveAsChordPro.setOnMousePressed(this::OnMousePressedSaveAsChordPro);
