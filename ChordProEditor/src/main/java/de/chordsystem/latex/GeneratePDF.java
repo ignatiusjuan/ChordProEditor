@@ -19,13 +19,13 @@ public class GeneratePDF {
 	 * @param song
 	 * @return true if was succesfull else false
 	 */
-	public static boolean generatePDF(Song song) {
+	public static boolean generatePDF(String filename, Song song) {
 		try {
 			WriteTex.writeTex(song);
 		}catch(IOException e) {
 			return false;
 		}
-		callLatex(song);
+		callLatex(filename);
 		//makeClean(song);
 		return true;
 	}
@@ -34,11 +34,10 @@ public class GeneratePDF {
 	 * Calls the LaTeX compiler to generate the pdf
 	 * @param song
 	 */
-	private static void callLatex(Song song) {
-		String title = song.getTitle();
+	private static void callLatex(String filename) {
 		try{
 			Runtime rt = Runtime.getRuntime();
-			rt.exec("pdflatex \""+title+".tex\"");
+			rt.exec("pdflatex \""+filename+".tex\"");
 		}catch(Exception e){
 			System.out.println("Konsolen Exception callLatex");
 		}
@@ -49,10 +48,10 @@ public class GeneratePDF {
 	 * @param path
 	 * @param song
 	 */
-	public static void movePDF(String path, Song song) {
+	public static void movePDF(String path, String filename) {
 		try{
 			Runtime rt = Runtime.getRuntime();
-			rt.exec("move "+song.getTitle()+" "+path);
+			rt.exec("move \""+filename+".pdf\" "+path);
 		}catch(Exception e){
 			System.out.println("Konsolen Exception movePDF");
 		}
@@ -62,13 +61,13 @@ public class GeneratePDF {
 	 * Delete the files, that are not needed at the end.
 	 * @param song
 	 */
-	private static void makeClean(Song song) {
+	private static void makeClean(String filename) {
 		try{
 			Runtime rt = Runtime.getRuntime();
-			rt.exec("del "+song.getTitle()+".aux");
-			rt.exec("del "+song.getTitle()+".tex");
-			rt.exec("del "+song.getTitle()+".log");
-			rt.exec("del "+song.getTitle()+".out");
+			rt.exec("del \""+filename+".aux\"");
+			rt.exec("del \""+filename+".tex\"");
+			rt.exec("del \""+filename+".log\"");
+			rt.exec("del \""+filename+".out\"");
 		}catch(Exception e){
 			System.out.println("Konsolen Exception makeClean");
 		}

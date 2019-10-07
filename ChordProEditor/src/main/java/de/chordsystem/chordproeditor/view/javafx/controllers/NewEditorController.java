@@ -531,8 +531,8 @@ public class NewEditorController implements Initializable {
 	    	filename = selectedFile.getAbsolutePath();
 	    	try {
 	    		Song song = loadedSong.toSong(txtSongEdit.getText());
-	        	GeneratePDF.generatePDF(song);
-	        	//GeneratePDF.generatePDF(filename,song);
+	        	//GeneratePDF.generatePDF(song);
+	        	GeneratePDF.generatePDF(filename,song);
 	    		
 	    	} catch (Exception e) {
 	    		e.printStackTrace();
