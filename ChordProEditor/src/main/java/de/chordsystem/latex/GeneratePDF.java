@@ -3,6 +3,7 @@
  */
 package de.chordsystem.latex;
 
+import java.io.File;
 import java.io.IOException;
 
 import de.chordsystem.chordproeditor.model.interfaces.*;
@@ -19,14 +20,15 @@ public class GeneratePDF {
 	 * @param song
 	 * @return true if was succesfull else false
 	 */
-	public static boolean generatePDF(String filename, Song song) {
+	public static boolean generatePDF(String filepath,String filename, Song song) {
 		try {
-			WriteTex.writeTex(song);
+			WriteTex.writeTex(filename,song);
 		}catch(IOException e) {
 			return false;
 		}
-		callLatex(filename);
-		//makeClean(song);
+		callLatex(filepath,filename);
+		
+		makeClean(filepath,filename);
 		return true;
 	}
 	
@@ -34,10 +36,10 @@ public class GeneratePDF {
 	 * Calls the LaTeX compiler to generate the pdf
 	 * @param song
 	 */
-	private static void callLatex(String filename) {
+	private static void callLatex(String filepath,String filename) {
 		try{
 			Runtime rt = Runtime.getRuntime();
-			rt.exec("pdflatex \""+filename+".tex\"");
+			rt.exec("pdflatex -output-directory=\"" + filepath + "\" C:\\temp\\"+filename+".tex\"");
 		}catch(Exception e){
 			System.out.println("Konsolen Exception callLatex");
 		}
@@ -52,7 +54,7 @@ public class GeneratePDF {
 		try{
 			Runtime rt = Runtime.getRuntime();
 			System.out.println("move \""+filename+".pdf\" \""+path+"\"");
-			rt.exec("move \""+filename+".pdf\" \""+path+"\"");
+			rt.exec("cmd.exe /c" + "move \""+filename+".pdf\" \""+path+"\"");
 		}catch(Exception e){
 			e.printStackTrace();
 			//System.out.println("Konsolen Exception movePDF");
@@ -63,15 +65,25 @@ public class GeneratePDF {
 	 * Delete the files, that are not needed at the end.
 	 * @param song
 	 */
-	private static void makeClean(String filename) {
+	private static void makeClean(String filepath, String filename) {
 		try{
 			Runtime rt = Runtime.getRuntime();
-			rt.exec("del \""+filename+".aux\"");
-			rt.exec("del \""+filename+".tex\"");
-			rt.exec("del \""+filename+".log\"");
-			rt.exec("del \""+filename+".out\"");
+			Thread.sleep(5000);
+			String full = filepath + "\\" + filename + ".aux";
+			new File(full.replace("\\", "\\\\")).delete();
+			full = filepath + "\\" + filename + ".log";
+			new File(full.replace("\\", "\\\\")).delete();
+			full = filepath + "\\" + filename + ".aux";
+			new File(full.replace("\\", "\\\\")).delete();
+			full = "C:\\temp\\"+filename+".tex";
+			new File(full.replace("\\", "\\\\")).delete();
+			
+			//rt.exec("cmd.exe /c " + "del /f \""+ filepath + "\\" + filename+".aux\"");
+			//rt.exec("cmd.exe /c " + "del \""+ filepath + "\\" + filename+".log\"");
+			//rt.exec("cmd.exe /c " + "del \"C:\\temp\\"+filename+".tex\"");
+			//rt.exec("del \""+filename+".out\"");
 		}catch(Exception e){
-			System.out.println("Konsolen Exception makeClean");
+			e.printStackTrace();
 		}
 	}
 
