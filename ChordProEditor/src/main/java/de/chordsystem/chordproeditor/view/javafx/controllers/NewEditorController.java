@@ -533,12 +533,12 @@ public class NewEditorController implements Initializable {
     		if (pos != -1) {
     			filename = selectedFile.getName().substring(0,pos);
     		}
-    		try {
+    		
+	    	try {
 	    		Song song = loadedSong.toSong(txtSongEdit.getText());
 	        	//GeneratePDF.generatePDF(song);
-	        	GeneratePDF.generatePDF(filename,song);
-	        	selectedFile.getParent();
-	    		//GeneratePDF.movePDF();
+		        GeneratePDF.generatePDF(filename,song);
+		        GeneratePDF.movePDF(selectedFile.getParent(), filename);
 	    	} catch (Exception e) {
 	    		e.printStackTrace();
 	    	}
