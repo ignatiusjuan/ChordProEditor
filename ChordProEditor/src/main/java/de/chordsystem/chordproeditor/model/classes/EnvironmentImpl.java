@@ -20,8 +20,8 @@ public class EnvironmentImpl implements Environment {
 	private String		title;
 	private String 		chord;
 	private String 		lyric;
-	private boolean		CommentIsItalic;
-	private boolean		CommentInBox;
+	private boolean		commentIsItalic;
+	private boolean		commentInBox;
 	
 	/**
 	 * Default constructor for EnvironmentImpl
@@ -31,8 +31,8 @@ public class EnvironmentImpl implements Environment {
 		this.title = "";
 		this.chord = "";
 		this.lyric = "";
-		CommentIsItalic = false;
-		CommentInBox = false;
+		commentIsItalic = false;
+		commentInBox = false;
 	}
 	
 	/**
@@ -113,7 +113,7 @@ public class EnvironmentImpl implements Environment {
 	 */
 	@Override
 	public boolean getCommentIsItalic() {
-		return CommentIsItalic;
+		return commentIsItalic;
 	}
 	
 	/**
@@ -122,7 +122,7 @@ public class EnvironmentImpl implements Environment {
 	 */
 	@Override
 	public void setCommentIsItalic(boolean value) {
-		CommentIsItalic = value;
+		commentIsItalic = value;
 	}
 	
 	/**
@@ -131,7 +131,7 @@ public class EnvironmentImpl implements Environment {
 	 */
 	@Override
 	public boolean getCommentInBox() {
-		return CommentInBox;
+		return commentInBox;
 	}
 	
 	/**
@@ -140,7 +140,7 @@ public class EnvironmentImpl implements Environment {
 	 */
 	@Override
 	public void setCommentInBox(boolean value) {
-		CommentInBox = value;
+		commentInBox = value;
 	}
 	
 	/**

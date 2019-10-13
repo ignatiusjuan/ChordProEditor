@@ -27,7 +27,7 @@ public class ChordProParser {
 	
 	private static final String regexTitle				= "^\\s*\\{\\s*\\b(title|t)\\b\\s*:\\s*(?<title>.*?)\\s*\\}\\s*$";
 	private static final String regexSubtitle			= "^\\s*\\{\\s*\\b(subtitle|st)\\b\\s*:\\s*(?<subtitle>.*?)\\s*\\}\\s*$";
-	private static final String regexArtist 			= "^\\s*\\{\\s*artist\\s*:\\s*(?<artist>.*?)\\s*\\}\\s*$";
+	private static final String regexArtist 			= "^\\s*\\{\\s*\\b(artist|a)\\b\\s*:\\s*(?<artist>.*?)\\s*\\}\\s*$";
 	private static final String regexComposer 			= "^\\s*\\{\\s*composer\\s*:\\s*(?<composer>.*?)\\s*\\}\\s*$";
 	private static final String regexLyricist 			= "^\\s*\\{\\s*lyricist\\s*:\\s*(?<lyricist>.*?)\\s*\\}\\s*$";
 	private static final String regexCopyright 			= "^\\s*\\{\\s*copyright\\s*:\\s*(?<copyright>.*?)\\s*\\}\\s*$";
@@ -65,6 +65,7 @@ public class ChordProParser {
 	private static final String regexCommentBox			= "^\\s*\\{\\s*\\b(comment_box|cb)\\b\\s*:\\s*(.*?)\\s*\\}\\s*$";
 	private static final String regexCommentItalic		= "^\\s*\\{\\s*\\b(comment_italic|ci)\\b\\s*:\\s*(.*?)\\s*\\}\\s*$";
 	
+	private static final String regexDefineChordSimple	= "^\\s*\\{\\s*\\b(define|chord)\\b\\s*:?\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s*\\}\\s*$";
 	private static final String regexDefineChordFingers	= "^\\s*\\{\\s*\\b(define|chord)\\b\\s*:?\\s+(.*?)\\s+base-fret\\s+(.*?)frets\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+fingers\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s*\\}\\s*$";
 	private static final String regexDefineChord		= "^\\s*\\{\\s*\\b(define|chord)\\b\\s*:?\\s+(.*?)\\s+base-fret\\s+(.*?)frets\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s+(.*?)\\s*\\}\\s*$";
 	
@@ -253,6 +254,19 @@ public class ChordProParser {
 			//System.out.println(f);
 		} else if (Pattern.compile(regexDefineChord).matcher(toMatch).find()){
 			Matcher m = Pattern.compile(regexDefineChord).matcher(toMatch);
+			m.find();
+			String name = m.group(2);
+			int basefret = m.group(3).charAt(0) - '0';
+			int[] frets = {-1,-1,-1,-1,-1,-1};
+			for (int i = 0; i < 6; i++) {
+				if ((m.group(4+i).charAt(0) - '0' >= 0) && (m.group(4+i).charAt(0) - '0' <= 9)) {
+					frets[i] = m.group(4+i).charAt(0) - '0';
+				}
+			}
+			Fingering f = new FingeringImpl(name, 6, basefret, frets);
+			song.addFingering(f);
+		} else if (Pattern.compile(regexDefineChordSimple).matcher(toMatch).find()){
+			Matcher m = Pattern.compile(regexDefineChordSimple).matcher(toMatch);
 			m.find();
 			String name = m.group(2);
 			int basefret = m.group(3).charAt(0) - '0';
