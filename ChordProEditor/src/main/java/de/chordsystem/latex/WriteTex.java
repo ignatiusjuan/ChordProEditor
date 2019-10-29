@@ -27,7 +27,7 @@ public class WriteTex {
 
 		FileWriter tex = new FileWriter("C:\\temp\\" + filename+".tex");
 		BufferedWriter bw = new BufferedWriter(tex);
-		bw.write("\\documentclass{scrartcl}");
+		bw.write("\\documentclass{article}");
 		bw.newLine();
 		bw.write("\\usepackage{courier}");
 		bw.newLine();
@@ -36,12 +36,6 @@ public class WriteTex {
 		String tmp = prepareString(song.getTitle());
 		bw.write("\\title{"+tmp+"}");
 		bw.newLine();
-		if(!song.getSubtitle().isEmpty()) {
-			for(int i = 0; i < song.getSubtitle().size(); i++) {
-				tmp += prepareString(song.getSubtitle().get(i));
-			}
-			bw.write("\\subtitle{"+tmp+"}");
-		}
 		bw.write("\\author{");
 		for(int i = 0; i < song.getArtist().size(); i++) {
 			tmp = prepareString(song.getArtist().get(i));
