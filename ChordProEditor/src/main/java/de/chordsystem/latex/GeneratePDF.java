@@ -18,13 +18,14 @@ public class GeneratePDF {
 	 * Start the routine for the .tex file an handels the IOExceptions which could appear.
 	 * Calls at the makeClean().
 	 * @param song
-	 * @return true if was succesfull else false
+	 * @return true if was successful else false
 	 */
 	public static boolean generatePDF(String filepath,String filename, Song song) {
 		try {
-			WriteTex.writeTex(filename,song);
+			WriteTex.writeTex(filepath,filename,song);
 
 		}catch(IOException e) {
+			e.printStackTrace();
 			return false;
 		}
 		callLatex(filepath,filename);
@@ -40,7 +41,7 @@ public class GeneratePDF {
 	private static void callLatex(String filepath,String filename) {
 		try{
 			Runtime rt = Runtime.getRuntime();
-			rt.exec("cmd.exe /c pdflatex -output-directory=\"" + filepath + "\" C:\\temp\\"+filename+".tex\"");
+			rt.exec("cmd.exe /c pdflatex -output-directory=\"" + filepath + "\" \"" + filepath + "\\"+filename+".tex\"");
 			
 		}catch(Exception e){
 			e.printStackTrace();
@@ -53,7 +54,6 @@ public class GeneratePDF {
 	 */
 	private static void makeClean(String filepath, String filename) {
 		try{
-			Runtime rt = Runtime.getRuntime();
 			Thread.sleep(5000);
 			String full = filepath + "\\" + filename + ".aux";
 			new File(full.replace("\\", "\\\\")).delete();
@@ -61,7 +61,7 @@ public class GeneratePDF {
 			new File(full.replace("\\", "\\\\")).delete();
 			full = filepath + "\\" + filename + ".aux";
 			new File(full.replace("\\", "\\\\")).delete();
-			full = "C:\\temp\\"+filename+".tex";
+			full = filepath + "\\" + filename + ".tex";
 			new File(full.replace("\\", "\\\\")).delete();
 			
 		}catch(Exception e){

@@ -22,10 +22,10 @@ public class WriteTex {
 	 * @param song
 	 * @throws IOException
 	 */
-	public static void writeTex(String filename,Song song) throws IOException
+	public static void writeTex(String filepath,String filename,Song song) throws IOException
 	{
 
-		FileWriter tex = new FileWriter("C:\\temp\\" + filename+".tex");
+		FileWriter tex = new FileWriter(filepath + "\\" + filename+".tex");
 		BufferedWriter bw = new BufferedWriter(tex);
 		bw.write("\\documentclass{article}");
 		bw.newLine();
