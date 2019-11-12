@@ -477,6 +477,15 @@ public class NewEditorController implements Initializable {
      */
     private void onClickFileSaveAs(ActionEvent event) {
     	FileChooser fileChooser = new FileChooser();
+    	try {
+    		File f = new File(UserData.getOpenPath());
+        	if (f.exists() && f.isDirectory())
+            	fileChooser.setInitialDirectory(new File(UserData.getOpenPath()));
+    	} 
+    	catch (Exception e) 
+    	{
+    		fileChooser.setInitialDirectory(null);
+    	}
     	fileChooser.setTitle(SAVE_CHORDPRO_FILE_AS);
     	fileChooser.getExtensionFilters().addAll(
     			new FileChooser.ExtensionFilter(CHORD_PRO_FILES, "*.chopro", "*.crd", "*.cho", "*.chord", "*.pro"),
@@ -494,6 +503,7 @@ public class NewEditorController implements Initializable {
     	
     	File selectedFile = fileChooser.showSaveDialog(null);
     	if (selectedFile != null) {
+    		UserData.setOpenPath(selectedFile.getParent());
 	    	filename = selectedFile.getAbsolutePath();
 	    	try {
 	    		PrintWriter out = new PrintWriter(filename);
@@ -513,6 +523,15 @@ public class NewEditorController implements Initializable {
     
     private void onClickExportAsPDF(ActionEvent event) {
     	FileChooser fileChooser = new FileChooser();
+    	try {
+    		File f = new File(UserData.getOpenPath());
+        	if (f.exists() && f.isDirectory())
+            	fileChooser.setInitialDirectory(new File(UserData.getOpenPath()));
+    	} 
+    	catch (Exception e) 
+    	{
+    		fileChooser.setInitialDirectory(null);
+    	}
     	fileChooser.setTitle(SAVE_CHORDPRO_FILE_AS);
     	fileChooser.getExtensionFilters().addAll(
     			new FileChooser.ExtensionFilter("PDF", "*.pdf")
@@ -528,6 +547,7 @@ public class NewEditorController implements Initializable {
     	
     	File selectedFile = fileChooser.showSaveDialog(null);
     	if (selectedFile != null) {
+    		UserData.setOpenPath(selectedFile.getParent());
     		filename = selectedFile.getName();
     		int pos = selectedFile.getName().lastIndexOf(".");
     		if (pos != -1) {
