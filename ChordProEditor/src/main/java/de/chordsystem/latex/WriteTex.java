@@ -1,22 +1,18 @@
 package de.chordsystem.latex;
+import de.chordsystem.chordproeditor.model.classes.EnvironmentImpl;
+import de.chordsystem.chordproeditor.model.interfaces.*;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import de.chordsystem.chordproeditor.model.classes.EnvironmentImpl;
-import de.chordsystem.chordproeditor.model.interfaces.*;
-
-//https://www.tutorials.de/threads/java-tex-pdf.375887/
 
 /***
- * 
  * @author Anne-Kathrin Haag
  * Creates the .tex document, with the information in the song given
- *
+ * 
  */
 public class WriteTex {
-	
 	/***
 	 * Writes the head of the .tex document and calls the writers for the environmentes
 	 * @param song
@@ -24,14 +20,27 @@ public class WriteTex {
 	 */
 	public static void writeTex(String filepath,String filename,Song song) throws IOException
 	{
-
 		FileWriter tex = new FileWriter(filepath + "\\" + filename+".tex");
 		BufferedWriter bw = new BufferedWriter(tex);
 		bw.write("\\documentclass{article}");
 		bw.newLine();
 		bw.write("\\usepackage{courier}");
 		bw.newLine();
+		bw.write("\\voffset 0cm");
+		bw.newLine();
+		bw.write("\\hoffset 0cm");
+		bw.newLine();
+		bw.write("\\topmargin -30mm");
+		bw.newLine();
+		bw.write("\\textwidth 18cm");
+		bw.newLine();
+		bw.write("\\textheight 27cm");
+		bw.newLine();
+		bw.write("\\oddsidemargin -6mm \\evensidemargin -6mm");
+		bw.newLine();
 		bw.write("\\setlength{\\parindent}{0em}");
+		bw.newLine();
+		bw.write("\\hbadness=99999");
 		bw.newLine();
 		String tmp = prepareString(song.getTitle());
 		bw.write("\\title{"+tmp+"}");
@@ -74,8 +83,6 @@ public class WriteTex {
 	 * Decides which method has to be called to write the current environment 
 	 * @return
 	 * @throws IOException
-	 */
-	/**
 	 * @param song
 	 * @param bw
 	 * @throws IOException
@@ -131,19 +138,68 @@ public class WriteTex {
 	 */
 	private static void writeChorus(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException
 	{
+		String tooLong = "no";
+		int breakPointChord = 0;
+		String tmpChord = "";
+		int breakPointLyric = 0;
+		String tmpLyric = "";
 		if(newEnv == true) {
-			bw.write("\\textbf{Chorus:"+song.getEnvironment(env).getTitle()+"} \\\\");
+			bw.write("\\textbf{Chorus:"+song.getEnvironment(env).getTitle()+"} \\hspace*{\\fill} \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getChord() != null) {
-			String text = prepareString(song.getEnvironment(env).getChord());
-			bw.write("\\textbf{ "+text+"} \\\\");
+			String text = song.getEnvironment(env).getChord();
+			
+			breakPointChord = isTooLong(text);
+			if(breakPointChord > 0) {
+				tooLong = "chord";
+				tmpChord = text.substring(breakPointChord);
+				text = text.substring(0,breakPointChord);
+			}
+			
+			text = prepareString(text);
+			bw.write("\\textbf{ "+text+"} \\hspace*{\\fill} \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getLyric() != null) {
-			String text = prepareString(song.getEnvironment(env).getLyric());
-			bw.write(text+" \\\\");
+			String text = song.getEnvironment(env).getLyric();
+			
+			breakPointLyric = isTooLong(text);
+			if(breakPointLyric > 0) {
+				if(tooLong == "chord") {
+					tooLong = "both";
+				}else {
+					tooLong = "lyric";
+				}
+				tmpLyric = text.substring(breakPointLyric);
+				text = text.substring(0,breakPointLyric);
+			}
+			
+			text = prepareString(text);
+			bw.write(text+"\\hspace*{\\fill} \\\\");
 			bw.newLine();
+		}
+		switch(tooLong) {
+		case "both":
+			tmpChord = prepareString(tmpChord);
+			tmpLyric = prepareString(tmpLyric);
+			bw.write("\\textbf{ "+tmpChord+"} \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			bw.write(tmpLyric+" \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			break;
+		case "chord":
+			tmpChord = prepareString(tmpChord);
+			bw.write("\\textbf{ "+tmpChord+"} \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			break;
+		case "lyric":
+			tmpLyric = prepareString(tmpLyric);
+			bw.write(tmpLyric+" \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			break;
+		case "no":
+			break;
 		}
 	}
 	
@@ -156,19 +212,68 @@ public class WriteTex {
 	 * @throws IOException
 	 */
 	private static void writeVerse(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException{
+		String tooLong = "no";
+		int breakPointChord = 0;
+		String tmpChord = "";
+		int breakPointLyric = 0;
+		String tmpLyric = "";
 		if(newEnv == true) {
-			bw.write("\\textbf{Verse:"+song.getEnvironment(env).getTitle()+"} \\\\");
+			bw.write("\\textbf{Verse:"+song.getEnvironment(env).getTitle()+"} \\hspace*{\\fill} \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getChord() != null) {
-			String text = prepareString(song.getEnvironment(env).getChord());
-			bw.write("\\textbf{ "+text+"} \\\\");
+			String text = song.getEnvironment(env).getChord();
+			
+			breakPointChord = isTooLong(text);
+			if(breakPointChord > 0) {
+				tooLong = "chord";
+				tmpChord = text.substring(breakPointChord);
+				text = text.substring(0,breakPointChord);
+			}
+			
+			text = prepareString(text);
+			bw.write("\\textbf{ "+text+"} \\hspace*{\\fill} \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getLyric() != null) {
-			String text = prepareString(song.getEnvironment(env).getLyric());
-			bw.write(text+" \\\\");
+			String text = song.getEnvironment(env).getLyric();
+			
+			breakPointLyric = isTooLong(text);
+			if(breakPointLyric > 0) {
+				if(tooLong == "chord") {
+					tooLong = "both";
+				}else {
+					tooLong = "lyric";
+				}
+				tmpLyric = text.substring(breakPointLyric);
+				text = text.substring(0,breakPointLyric);
+			}
+			
+			text = prepareString(text);
+			bw.write(text+"\\hspace*{\\fill} \\\\");
 			bw.newLine();
+		}
+		switch(tooLong) {
+		case "both":
+			tmpChord = prepareString(tmpChord);
+			tmpLyric = prepareString(tmpLyric);
+			bw.write("\\textbf{ "+tmpChord+"} \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			bw.write(tmpLyric+" \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			break;
+		case "chord":
+			tmpChord = prepareString(tmpChord);
+			bw.write("\\textbf{ "+tmpChord+"} \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			break;
+		case "lyric":
+			tmpLyric = prepareString(tmpLyric);
+			bw.write(tmpLyric+" \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			break;
+		case "no":
+			break;
 		}
 	}
 	
@@ -181,19 +286,68 @@ public class WriteTex {
 	 * @throws IOException
 	 */
 	private static void writeTab(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException{
+		String tooLong = "no";
+		int breakPointChord = 0;
+		String tmpChord = "";
+		int breakPointLyric = 0;
+		String tmpLyric = "";
 		if(newEnv == true) {
-			bw.write("\\textbf{Tab:"+song.getEnvironment(env).getTitle()+"} \\\\");
+			bw.write("\\textbf{Tab:"+song.getEnvironment(env).getTitle()+"} \\hspace*{\\fill} \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getChord() != null) {
-			String text = prepareString(song.getEnvironment(env).getChord());
-			bw.write("\\textbf{ "+text+"} \\\\");
+			String text = song.getEnvironment(env).getChord();
+			
+			breakPointChord = isTooLong(text);
+			if(breakPointChord > 0) {
+				tooLong = "chord";
+				tmpChord = text.substring(breakPointChord);
+				text = text.substring(0,breakPointChord);
+			}
+			
+			text = prepareString(text);
+			bw.write("\\textbf{ "+text+"} \\hspace*{\\fill} \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getLyric() != null) {
-			String text = prepareString(song.getEnvironment(env).getLyric());
-			bw.write(text+" \\\\");
+			String text = song.getEnvironment(env).getLyric();
+			
+			breakPointLyric = isTooLong(text);
+			if(breakPointLyric > 0) {
+				if(tooLong == "chord") {
+					tooLong = "both";
+				}else {
+					tooLong = "lyric";
+				}
+				tmpLyric = text.substring(breakPointLyric);
+				text = text.substring(0,breakPointLyric);
+			}
+			
+			text = prepareString(text);
+			bw.write(text+"\\hspace*{\\fill} \\\\");
 			bw.newLine();
+		}
+		switch(tooLong) {
+		case "both":
+			tmpChord = prepareString(tmpChord);
+			tmpLyric = prepareString(tmpLyric);
+			bw.write("\\textbf{ "+tmpChord+"} \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			bw.write(tmpLyric+" \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			break;
+		case "chord":
+			tmpChord = prepareString(tmpChord);
+			bw.write("\\textbf{ "+tmpChord+"} \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			break;
+		case "lyric":
+			tmpLyric = prepareString(tmpLyric);
+			bw.write(tmpLyric+" \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			break;
+		case "no":
+			break;
 		}
 	}
 	
@@ -206,19 +360,68 @@ public class WriteTex {
 	 * @throws IOException
 	 */
 	private static void writeGrid(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException{
+		String tooLong = "no";
+		int breakPointChord = 0;
+		String tmpChord = "";
+		int breakPointLyric = 0;
+		String tmpLyric = "";
 		if(newEnv == true) {
-			bw.write("\\textbf{Grid:"+song.getEnvironment(env).getTitle()+"} \\\\");
+			bw.write("\\textbf{Grid:"+song.getEnvironment(env).getTitle()+"} \\hspace*{\\fill} \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getChord() != null) {
-			String text = prepareString(song.getEnvironment(env).getChord());
-			bw.write("\\textbf{ "+text+"} \\\\");
+			String text = song.getEnvironment(env).getChord();
+			
+			breakPointChord = isTooLong(text);
+			if(breakPointChord > 0) {
+				tooLong = "chord";
+				tmpChord = text.substring(breakPointChord);
+				text = text.substring(0,breakPointChord);
+			}
+			
+			text = prepareString(text);
+			bw.write("\\textbf{ "+text+"} \\hspace*{\\fill} \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getLyric() != null) {
-			String text = prepareString(song.getEnvironment(env).getLyric());
-			bw.write(text+" \\\\");
+			String text = song.getEnvironment(env).getLyric();
+			
+			breakPointLyric = isTooLong(text);
+			if(breakPointLyric > 0) {
+				if(tooLong == "chord") {
+					tooLong = "both";
+				}else {
+					tooLong = "lyric";
+				}
+				tmpLyric = text.substring(breakPointLyric);
+				text = text.substring(0,breakPointLyric);
+			}
+			
+			text = prepareString(text);
+			bw.write(text+"\\hspace*{\\fill} \\\\");
 			bw.newLine();
+		}
+		switch(tooLong) {
+		case "both":
+			tmpChord = prepareString(tmpChord);
+			tmpLyric = prepareString(tmpLyric);
+			bw.write("\\textbf{ "+tmpChord+"} \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			bw.write(tmpLyric+" \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			break;
+		case "chord":
+			tmpChord = prepareString(tmpChord);
+			bw.write("\\textbf{ "+tmpChord+"} \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			break;
+		case "lyric":
+			tmpLyric = prepareString(tmpLyric);
+			bw.write(tmpLyric+" \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			break;
+		case "no":
+			break;
 		}
 	}
 	
@@ -232,20 +435,68 @@ public class WriteTex {
 	 */
 	private static void writeNull(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException
 	{
-		// TODO Auto-generated method stub
+		String tooLong = "no";
+		int breakPointChord = 0;
+		String tmpChord = "";
+		int breakPointLyric = 0;
+		String tmpLyric = "";
 		if(newEnv == true) {
-			bw.write(" \\\\");
+			bw.write("\\hspace*{\\fill} \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getChord() != null) {
-			String text = prepareString(song.getEnvironment(env).getChord());
-			bw.write("\\textbf{ "+text+"} \\\\");
+			String text = song.getEnvironment(env).getChord();
+			
+			breakPointChord = isTooLong(text);
+			if(breakPointChord > 0) {
+				tooLong = "chord";
+				tmpChord = text.substring(breakPointChord);
+				text = text.substring(0,breakPointChord);
+			}
+			
+			text = prepareString(text);
+			bw.write("\\textbf{ "+text+"} \\hspace*{\\fill} \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getLyric() != null) {
-			String text = prepareString(song.getEnvironment(env).getLyric());
-			bw.write(text+" \\\\");
+			String text = song.getEnvironment(env).getLyric();
+			
+			breakPointLyric = isTooLong(text);
+			if(breakPointLyric > 0) {
+				if(tooLong == "chord") {
+					tooLong = "both";
+				}else {
+					tooLong = "lyric";
+				}
+				tmpLyric = text.substring(breakPointLyric);
+				text = text.substring(0,breakPointLyric);
+			}
+			
+			text = prepareString(text);
+			bw.write(text+"\\hspace*{\\fill} \\\\");
 			bw.newLine();
+		}
+		switch(tooLong) {
+		case "both":
+			tmpChord = prepareString(tmpChord);
+			tmpLyric = prepareString(tmpLyric);
+			bw.write("\\textbf{ "+tmpChord+"} \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			bw.write(tmpLyric+" \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			break;
+		case "chord":
+			tmpChord = prepareString(tmpChord);
+			bw.write("\\textbf{ "+tmpChord+"} \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			break;
+		case "lyric":
+			tmpLyric = prepareString(tmpLyric);
+			bw.write(tmpLyric+" \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			break;
+		case "no":
+			break;
 		}
 	}
 
@@ -259,20 +510,68 @@ public class WriteTex {
 	 */
 	private static void writeOther(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException
 	{
-		// TODO Auto-generated method stub
-		if(newEnv == true) {
-			bw.write("\\textbf{Other:"+song.getEnvironment(env).getTitle()+"} \\\\");
+		String tooLong = "no";
+		int breakPointChord = 0;
+		String tmpChord = "";
+		int breakPointLyric = 0;
+		String tmpLyric = "";
+		if(newEnv == true && !(song.getEnvironment(env).getTitle().isBlank() || song.getEnvironment(env).getTitle().isEmpty())) {
+			bw.write("\\textbf{"+song.getEnvironment(env).getTitle()+"} \\hspace*{\\fill} \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getChord() != null) {
-			String text = prepareString(song.getEnvironment(env).getChord());
-			bw.write("\\textbf{ "+text+"} \\\\");
+			String text = song.getEnvironment(env).getChord();
+			
+			breakPointChord = isTooLong(text);
+			if(breakPointChord > 0) {
+				tooLong = "chord";
+				tmpChord = text.substring(breakPointChord);
+				text = text.substring(0,breakPointChord);
+			}
+			
+			text = prepareString(text);
+			bw.write("\\textbf{ "+text+"} \\hspace*{\\fill} \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getLyric() != null) {
-			String text = prepareString(song.getEnvironment(env).getLyric());
-			bw.write(text+" \\\\");
+			String text = song.getEnvironment(env).getLyric();
+			
+			breakPointLyric = isTooLong(text);
+			if(breakPointLyric > 0) {
+				if(tooLong == "chord") {
+					tooLong = "both";
+				}else {
+					tooLong = "lyric";
+				}
+				tmpLyric = text.substring(breakPointLyric);
+				text = text.substring(0,breakPointLyric);
+			}
+			
+			text = prepareString(text);
+			bw.write(text+"\\hspace*{\\fill} \\\\");
 			bw.newLine();
+		}
+		switch(tooLong) {
+		case "both":
+			tmpChord = prepareString(tmpChord);
+			tmpLyric = prepareString(tmpLyric);
+			bw.write("\\textbf{ "+tmpChord+"} \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			bw.write(tmpLyric+" \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			break;
+		case "chord":
+			tmpChord = prepareString(tmpChord);
+			bw.write("\\textbf{ "+tmpChord+"} \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			break;
+		case "lyric":
+			tmpLyric = prepareString(tmpLyric);
+			bw.write(tmpLyric+" \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			break;
+		case "no":
+			break;
 		}
 	}
 
@@ -286,28 +585,62 @@ public class WriteTex {
 	 */
 	private static void writeComment(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException
 	{
-		//TODO Box
+		String tooLong = "no";
+		int breakPointChord = 0;
+		String tmpChord = "";
+		int breakPointLyric = 0;
+		String tmpLyric = "";
 		if(newEnv == true) {
 			if(song.getEnvironment(env).getCommentIsItalic()==true) {
 				bw.write("\\textit{");
 				bw.newLine();
 			}
-			bw.write("\\textbf{Comment:"+song.getEnvironment(env).getTitle()+"} \\\\");
+			bw.write("\\textbf{Comment:"+song.getEnvironment(env).getTitle()+"} \\hspace*{\\fill} \\\\");
 			bw.newLine();
 		}
-//		if(song.getEnvironment(env).getChord() != null) {
-//			String text = prepareString(song.getEnvironment(env).getChord());
-//			bw.write("\\textbf{ "+text+"} \\\\");
-//			bw.newLine();
-//		}
 		if(song.getEnvironment(env).getLyric() != null) {
-			String text = prepareString(song.getEnvironment(env).getLyric());
-			bw.write(text+" \\\\");
+			String text = song.getEnvironment(env).getLyric();
+			
+			breakPointLyric = isTooLong(text);
+			if(breakPointLyric > 0) {
+				if(tooLong == "chord") {
+					tooLong = "both";
+				}else {
+					tooLong = "lyric";
+				}
+				tmpLyric = text.substring(breakPointLyric);
+				text = text.substring(0,breakPointLyric);
+			}
+			
+			text = prepareString(text);
+			bw.write(text+"\\hspace*{\\fill} \\\\");
 			bw.newLine();
 		}
 		if(newEnv == true && song.getEnvironment(env).getCommentIsItalic()==true) {
 			bw.write("}");
 			bw.newLine();
+		}
+		switch(tooLong) {
+		case "both":
+			tmpChord = prepareString(tmpChord);
+			tmpLyric = prepareString(tmpLyric);
+			bw.write("\\textbf{ "+tmpChord+"} \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			bw.write(tmpLyric+" \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			break;
+		case "chord":
+			tmpChord = prepareString(tmpChord);
+			bw.write("\\textbf{ "+tmpChord+"} \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			break;
+		case "lyric":
+			tmpLyric = prepareString(tmpLyric);
+			bw.write(tmpLyric+" \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			break;
+		case "no":
+			break;
 		}
 	}
 
@@ -321,21 +654,68 @@ public class WriteTex {
 	 */
 	private static void writeInstruction(Song song, int env, BufferedWriter bw, boolean newEnv) throws IOException 
 	{
-		// TODO Auto-generated method stub
+		String tooLong = "no";
+		int breakPointChord = 0;
+		String tmpChord = "";
+		int breakPointLyric = 0;
+		String tmpLyric = "";
 		if(newEnv == true) {
-			bw.write("\\textbf{Instruction:"+song.getEnvironment(env).getTitle()+"} \\\\");
+			bw.write("\\textbf{Instruction:"+song.getEnvironment(env).getTitle()+"} \\hspace*{\\fill} \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getChord() != null) {
-			String text = prepareString(song.getEnvironment(env).getChord());
-			bw.write("\\textbf{ "+text+"} \\\\"
-					);
+			String text = song.getEnvironment(env).getChord();
+			
+			breakPointChord = isTooLong(text);
+			if(breakPointChord > 0) {
+				tooLong = "chord";
+				tmpChord = text.substring(breakPointChord);
+				text = text.substring(0,breakPointChord);
+			}
+			
+			text = prepareString(text);
+			bw.write("\\textbf{ "+text+"} \\hspace*{\\fill} \\\\");
 			bw.newLine();
 		}
 		if(song.getEnvironment(env).getLyric() != null) {
-			String text = prepareString(song.getEnvironment(env).getLyric());
-			bw.write(text+" \\\\");
+			String text = song.getEnvironment(env).getLyric();
+			
+			breakPointLyric = isTooLong(text);
+			if(breakPointLyric > 0) {
+				if(tooLong == "chord") {
+					tooLong = "both";
+				}else {
+					tooLong = "lyric";
+				}
+				tmpLyric = text.substring(breakPointLyric);
+				text = text.substring(0,breakPointLyric);
+			}
+			
+			text = prepareString(text);
+			bw.write(text+"\\hspace*{\\fill} \\\\");
 			bw.newLine();
+		}
+		switch(tooLong) {
+		case "both":
+			tmpChord = prepareString(tmpChord);
+			tmpLyric = prepareString(tmpLyric);
+			bw.write("\\textbf{ "+tmpChord+"} \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			bw.write(tmpLyric+" \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			break;
+		case "chord":
+			tmpChord = prepareString(tmpChord);
+			bw.write("\\textbf{ "+tmpChord+"} \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			break;
+		case "lyric":
+			tmpLyric = prepareString(tmpLyric);
+			bw.write(tmpLyric+" \\hspace*{\\fill} \\\\");
+			bw.newLine();
+			break;
+		case "no":
+			break;
 		}
 	}
 	
@@ -369,9 +749,7 @@ public class WriteTex {
 	private static String replaceFirstSpaces(String line) {
 		String tmp = line;
 		int count = 0;
-//		System.out.println(line);
 		while(!tmp.isEmpty() && tmp.charAt(0)=='~') {
-//			System.out.println(tmp);
 			count ++;
 			tmp = tmp.substring(1);
 		}
@@ -379,5 +757,13 @@ public class WriteTex {
 			tmp = "\\hspace*{"+count+"em}"+tmp;
 		}
 		return tmp;
+	}
+	
+	private static int isTooLong(String text) {
+		int trennZahl = 0;
+		if(text.length() > 80) {
+			trennZahl = 80;
+		}
+		return trennZahl;
 	}
 }
